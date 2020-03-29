@@ -18,8 +18,7 @@ class SecondWelcomeVC: CustomBaseViewVC {
         return v
     }()
     
-    //check to go specific way
-    var index:Int = 0
+  
     
     //MARK: -user methods
     
@@ -32,11 +31,6 @@ class SecondWelcomeVC: CustomBaseViewVC {
         navigationController?.navigationBar.isHide(true)
     }
     
-    func goToLoginNextVC(index:Int) {
-//        let medical = MainLoginsVC()
-//        medical.index = index
-//        navigationController?.pushViewController(medical, animated: true)
-    }
     
     func goToRegisterNextVC(index:Int) {
 //        let doctor = DoctorRegisterVC()
@@ -51,10 +45,12 @@ class SecondWelcomeVC: CustomBaseViewVC {
     //TODO: -handle methods
     
     @objc func handleLogin()  {
-        goToLoginNextVC(index: index )
+
+        let medical = LoginVC()
+        navigationController?.pushViewController(medical, animated: true)
     }
     
     @objc func handleRegister()  {
-        goToRegisterNextVC(index: index )
+//        goToRegisterNextVC(index: index )
     }
 }

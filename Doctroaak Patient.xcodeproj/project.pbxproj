@@ -13,6 +13,23 @@
 		4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB72430886100421737 /* CustomBaseViewVC.swift */; };
 		4E13DDBA2430889500421737 /* SecondWelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB92430889500421737 /* SecondWelcomeVC.swift */; };
 		4E13DDBC243088E100421737 /* CustomSecondWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDBB243088E100421737 /* CustomSecondWelcomeView.swift */; };
+		4E13DDBE24308A0800421737 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDBD24308A0800421737 /* LoginVC.swift */; };
+		4E13DDC024308A1F00421737 /* CustomLoginsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDBF24308A1F00421737 /* CustomLoginsView.swift */; };
+		4E13DDC224308A7600421737 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDC124308A7600421737 /* Extensions.swift */; };
+		4E13DDC524308AA400421737 /* CustomSkyTextFieldRightPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDC424308AA400421737 /* CustomSkyTextFieldRightPadding.swift */; };
+		4E13DDC824308AD300421737 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDC724308AD300421737 /* LoginViewModel.swift */; };
+		4E13DDCA24308AF700421737 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDC924308AF700421737 /* Bindable.swift */; };
+		4E13DDCC24308B2B00421737 /* ExtensionsVCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDCB24308B2B00421737 /* ExtensionsVCS.swift */; };
+		4E13DDCF24308B7800421737 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDCE24308B7800421737 /* ColorConstants.swift */; };
+		4E13DDD324308C8E00421737 /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDD224308C8E00421737 /* ForgetPasswordVC.swift */; };
+		4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDD624308CC700421737 /* CustomMainForgetPassView.swift */; };
+		4E13DDDE24308F1200421737 /* ForgetPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDDD24308F1200421737 /* ForgetPassViewModel.swift */; };
+		4E13DDE124308F6300421737 /* VerificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDE024308F6300421737 /* VerificationVC.swift */; };
+		4E13DDE424308FA700421737 /* CustomVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDE324308FA700421737 /* CustomVerificationView.swift */; };
+		4E13DDE724308FF400421737 /* SMSCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDE624308FF400421737 /* SMSCodeViewModel.swift */; };
+		4E13DDE92430903500421737 /* NewPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDE82430903500421737 /* NewPassVC.swift */; };
+		4E13DDEB2430905C00421737 /* CustomNewPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDEA2430905C00421737 /* CustomNewPassView.swift */; };
+		4E13DDED2430909B00421737 /* NewPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDEC2430909B00421737 /* NewPassViewModel.swift */; };
 		4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB224307183000FC72D /* AppDelegate.swift */; };
 		4E6D5BB524307183000FC72D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB424307183000FC72D /* ViewController.swift */; };
 		4E6D5BB824307183000FC72D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB624307183000FC72D /* Main.storyboard */; };
@@ -31,6 +48,23 @@
 		4E13DDB72430886100421737 /* CustomBaseViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBaseViewVC.swift; sourceTree = "<group>"; };
 		4E13DDB92430889500421737 /* SecondWelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondWelcomeVC.swift; sourceTree = "<group>"; };
 		4E13DDBB243088E100421737 /* CustomSecondWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecondWelcomeView.swift; sourceTree = "<group>"; };
+		4E13DDBD24308A0800421737 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		4E13DDBF24308A1F00421737 /* CustomLoginsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoginsView.swift; sourceTree = "<group>"; };
+		4E13DDC124308A7600421737 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4E13DDC424308AA400421737 /* CustomSkyTextFieldRightPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSkyTextFieldRightPadding.swift; sourceTree = "<group>"; };
+		4E13DDC724308AD300421737 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		4E13DDC924308AF700421737 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		4E13DDCB24308B2B00421737 /* ExtensionsVCS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsVCS.swift; sourceTree = "<group>"; };
+		4E13DDCE24308B7800421737 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
+		4E13DDD224308C8E00421737 /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
+		4E13DDD624308CC700421737 /* CustomMainForgetPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainForgetPassView.swift; sourceTree = "<group>"; };
+		4E13DDDD24308F1200421737 /* ForgetPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPassViewModel.swift; sourceTree = "<group>"; };
+		4E13DDE024308F6300421737 /* VerificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationVC.swift; sourceTree = "<group>"; };
+		4E13DDE324308FA700421737 /* CustomVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVerificationView.swift; sourceTree = "<group>"; };
+		4E13DDE624308FF400421737 /* SMSCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSCodeViewModel.swift; sourceTree = "<group>"; };
+		4E13DDE82430903500421737 /* NewPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassVC.swift; sourceTree = "<group>"; };
+		4E13DDEA2430905C00421737 /* CustomNewPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNewPassView.swift; sourceTree = "<group>"; };
+		4E13DDEC2430909B00421737 /* NewPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassViewModel.swift; sourceTree = "<group>"; };
 		4E6D5BAF24307183000FC72D /* Doctroaak Patient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doctroaak Patient.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6D5BB224307183000FC72D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E6D5BB424307183000FC72D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,8 +99,8 @@
 		4E13DDAB2430879200421737 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
-				4E13DDAF243087E500421737 /* WelcomeVC.swift */,
-				4E13DDB92430889500421737 /* SecondWelcomeVC.swift */,
+				4E13DDD024308C7B00421737 /* Welcome */,
+				4E13DDD124308C8500421737 /* Login */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -97,8 +131,8 @@
 		4E13DDB12430880400421737 /* Regsitraion */ = {
 			isa = PBXGroup;
 			children = (
-				4E13DDB22430880F00421737 /* CustomWelcomeView.swift */,
-				4E13DDBB243088E100421737 /* CustomSecondWelcomeView.swift */,
+				4E13DDD424308CB000421737 /* Welcome */,
+				4E13DDD524308CB800421737 /* Login */,
 			);
 			path = Regsitraion;
 			sourceTree = "<group>";
@@ -107,8 +141,100 @@
 			isa = PBXGroup;
 			children = (
 				4E13DDB52430884300421737 /* CustomBaseView.swift */,
+				4E13DDC424308AA400421737 /* CustomSkyTextFieldRightPadding.swift */,
 			);
 			path = CustomBaseViews;
+			sourceTree = "<group>";
+		};
+		4E13DDC624308AC800421737 /* rEGISTRATION */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDDC24308F0B00421737 /* Login */,
+			);
+			path = rEGISTRATION;
+			sourceTree = "<group>";
+		};
+		4E13DDCD24308B6800421737 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDCE24308B7800421737 /* ColorConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		4E13DDD024308C7B00421737 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDAF243087E500421737 /* WelcomeVC.swift */,
+				4E13DDB92430889500421737 /* SecondWelcomeVC.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		4E13DDD124308C8500421737 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDBD24308A0800421737 /* LoginVC.swift */,
+				4E13DDDF24308F5A00421737 /* Forget pass */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		4E13DDD424308CB000421737 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDB22430880F00421737 /* CustomWelcomeView.swift */,
+				4E13DDBB243088E100421737 /* CustomSecondWelcomeView.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		4E13DDD524308CB800421737 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDBF24308A1F00421737 /* CustomLoginsView.swift */,
+				4E13DDE224308F9A00421737 /* Forget pass */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		4E13DDDC24308F0B00421737 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDC724308AD300421737 /* LoginViewModel.swift */,
+				4E13DDE524308FEC00421737 /* Forget pass */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		4E13DDDF24308F5A00421737 /* Forget pass */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDD224308C8E00421737 /* ForgetPasswordVC.swift */,
+				4E13DDE024308F6300421737 /* VerificationVC.swift */,
+				4E13DDE82430903500421737 /* NewPassVC.swift */,
+			);
+			path = "Forget pass";
+			sourceTree = "<group>";
+		};
+		4E13DDE224308F9A00421737 /* Forget pass */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDD624308CC700421737 /* CustomMainForgetPassView.swift */,
+				4E13DDE324308FA700421737 /* CustomVerificationView.swift */,
+				4E13DDEA2430905C00421737 /* CustomNewPassView.swift */,
+			);
+			path = "Forget pass";
+			sourceTree = "<group>";
+		};
+		4E13DDE524308FEC00421737 /* Forget pass */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDDD24308F1200421737 /* ForgetPassViewModel.swift */,
+				4E13DDE624308FF400421737 /* SMSCodeViewModel.swift */,
+				4E13DDEC2430909B00421737 /* NewPassViewModel.swift */,
+			);
+			path = "Forget pass";
 			sourceTree = "<group>";
 		};
 		4E6D5BA624307183000FC72D = {
@@ -133,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				4E6D5BB224307183000FC72D /* AppDelegate.swift */,
+				4E13DDCD24308B6800421737 /* Constants */,
 				4E6D5BC9243071B9000FC72D /* Services */,
 				4E6D5BC7243071A8000FC72D /* View Model */,
 				4E6D5BC8243071B1000FC72D /* Model */,
@@ -170,6 +297,8 @@
 		4E6D5BC7243071A8000FC72D /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				4E13DDC624308AC800421737 /* rEGISTRATION */,
+				4E13DDC924308AF700421737 /* Bindable.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -192,6 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				4E6D5BCC243071FA000FC72D /* ExtensionUivew.swift */,
+				4E13DDC124308A7600421737 /* Extensions.swift */,
+				4E13DDCB24308B2B00421737 /* ExtensionsVCS.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -330,12 +461,29 @@
 			files = (
 				4E13DDB62430884300421737 /* CustomBaseView.swift in Sources */,
 				4E13DDBA2430889500421737 /* SecondWelcomeVC.swift in Sources */,
+				4E13DDED2430909B00421737 /* NewPassViewModel.swift in Sources */,
+				4E13DDCF24308B7800421737 /* ColorConstants.swift in Sources */,
 				4E6D5BB524307183000FC72D /* ViewController.swift in Sources */,
 				4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */,
+				4E13DDBE24308A0800421737 /* LoginVC.swift in Sources */,
+				4E13DDDE24308F1200421737 /* ForgetPassViewModel.swift in Sources */,
+				4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */,
+				4E13DDCA24308AF700421737 /* Bindable.swift in Sources */,
+				4E13DDC024308A1F00421737 /* CustomLoginsView.swift in Sources */,
+				4E13DDC824308AD300421737 /* LoginViewModel.swift in Sources */,
 				4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */,
+				4E13DDE92430903500421737 /* NewPassVC.swift in Sources */,
+				4E13DDD324308C8E00421737 /* ForgetPasswordVC.swift in Sources */,
+				4E13DDC224308A7600421737 /* Extensions.swift in Sources */,
+				4E13DDCC24308B2B00421737 /* ExtensionsVCS.swift in Sources */,
+				4E13DDE724308FF400421737 /* SMSCodeViewModel.swift in Sources */,
+				4E13DDC524308AA400421737 /* CustomSkyTextFieldRightPadding.swift in Sources */,
 				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
 				4E13DDBC243088E100421737 /* CustomSecondWelcomeView.swift in Sources */,
+				4E13DDE124308F6300421737 /* VerificationVC.swift in Sources */,
+				4E13DDEB2430905C00421737 /* CustomNewPassView.swift in Sources */,
 				4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */,
+				4E13DDE424308FA700421737 /* CustomVerificationView.swift in Sources */,
 				4E13DDB32430880F00421737 /* CustomWelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
