@@ -37,6 +37,8 @@
 		4E347CE12430B96B00333C07 /* CustomMainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CE02430B96B00333C07 /* CustomMainHomeView.swift */; };
 		4E347CE32430BAB200333C07 /* BaseAdsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CE22430BAB200333C07 /* BaseAdsCell.swift */; };
 		4E347CE52430BAE100333C07 /* BaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CE42430BAE100333C07 /* BaseCollectionCell.swift */; };
+		4E4F84AA2430CBB9005EFC4C /* ServicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */; };
+		4E4F84AC2430CBEF005EFC4C /* CustomMainServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F84AB2430CBEF005EFC4C /* CustomMainServicesView.swift */; };
 		4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB224307183000FC72D /* AppDelegate.swift */; };
 		4E6D5BB524307183000FC72D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB424307183000FC72D /* ViewController.swift */; };
 		4E6D5BB824307183000FC72D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB624307183000FC72D /* Main.storyboard */; };
@@ -79,6 +81,8 @@
 		4E347CE02430B96B00333C07 /* CustomMainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainHomeView.swift; sourceTree = "<group>"; };
 		4E347CE22430BAB200333C07 /* BaseAdsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAdsCell.swift; sourceTree = "<group>"; };
 		4E347CE42430BAE100333C07 /* BaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionCell.swift; sourceTree = "<group>"; };
+		4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesVC.swift; sourceTree = "<group>"; };
+		4E4F84AB2430CBEF005EFC4C /* CustomMainServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainServicesView.swift; sourceTree = "<group>"; };
 		4E6D5BAF24307183000FC72D /* Doctroaak Patient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doctroaak Patient.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6D5BB224307183000FC72D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E6D5BB424307183000FC72D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 			children = (
 				4E347CDF2430B96400333C07 /* Menu */,
 				4E13DDB12430880400421737 /* Regsitraion */,
+				4E4F84AB2430CBEF005EFC4C /* CustomMainServicesView.swift */,
 			);
 			path = CustomVC;
 			sourceTree = "<group>";
@@ -317,6 +322,7 @@
 				4E13DDAE243087B300421737 /* BaseVCS */,
 				4E13DDAB2430879200421737 /* Registration */,
 				4E6D5BB424307183000FC72D /* ViewController.swift */,
+				4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -503,6 +509,7 @@
 				4E13DDCF24308B7800421737 /* ColorConstants.swift in Sources */,
 				4E6D5BB524307183000FC72D /* ViewController.swift in Sources */,
 				4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */,
+				4E4F84AC2430CBEF005EFC4C /* CustomMainServicesView.swift in Sources */,
 				4E13DDBE24308A0800421737 /* LoginVC.swift in Sources */,
 				4E13DDDE24308F1200421737 /* ForgetPassViewModel.swift in Sources */,
 				4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */,
@@ -512,6 +519,7 @@
 				4E13DDC024308A1F00421737 /* CustomLoginsView.swift in Sources */,
 				4E13DDC824308AD300421737 /* LoginViewModel.swift in Sources */,
 				4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */,
+				4E4F84AA2430CBB9005EFC4C /* ServicesVC.swift in Sources */,
 				4E13DDE92430903500421737 /* NewPassVC.swift in Sources */,
 				4E13DDD324308C8E00421737 /* ForgetPasswordVC.swift in Sources */,
 				4E203AFE2430919A002144FF /* RegisterVC.swift in Sources */,
