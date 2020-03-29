@@ -3,18 +3,34 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDAF243087E500421737 /* WelcomeVC.swift */; };
+		4E13DDB32430880F00421737 /* CustomWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB22430880F00421737 /* CustomWelcomeView.swift */; };
+		4E13DDB62430884300421737 /* CustomBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB52430884300421737 /* CustomBaseView.swift */; };
+		4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB72430886100421737 /* CustomBaseViewVC.swift */; };
+		4E13DDBA2430889500421737 /* SecondWelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB92430889500421737 /* SecondWelcomeVC.swift */; };
+		4E13DDBC243088E100421737 /* CustomSecondWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDBB243088E100421737 /* CustomSecondWelcomeView.swift */; };
 		4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB224307183000FC72D /* AppDelegate.swift */; };
 		4E6D5BB524307183000FC72D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB424307183000FC72D /* ViewController.swift */; };
 		4E6D5BB824307183000FC72D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB624307183000FC72D /* Main.storyboard */; };
 		4E6D5BBA24307185000FC72D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB924307185000FC72D /* Assets.xcassets */; };
 		4E6D5BBD24307185000FC72D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BBB24307185000FC72D /* LaunchScreen.storyboard */; };
+		4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BCC243071FA000FC72D /* ExtensionUivew.swift */; };
+		B4CA7CF06AA29ACDF3139C85 /* Pods_Doctroaak_Patient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092DC45AA74FAA03F635BA9B /* Pods_Doctroaak_Patient.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0205F769D8BBEB849C19DF2D /* Pods-Doctroaak Patient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctroaak Patient.debug.xcconfig"; path = "Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient.debug.xcconfig"; sourceTree = "<group>"; };
+		092DC45AA74FAA03F635BA9B /* Pods_Doctroaak_Patient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doctroaak_Patient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E13DDAF243087E500421737 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
+		4E13DDB22430880F00421737 /* CustomWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWelcomeView.swift; sourceTree = "<group>"; };
+		4E13DDB52430884300421737 /* CustomBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBaseView.swift; sourceTree = "<group>"; };
+		4E13DDB72430886100421737 /* CustomBaseViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBaseViewVC.swift; sourceTree = "<group>"; };
+		4E13DDB92430889500421737 /* SecondWelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondWelcomeVC.swift; sourceTree = "<group>"; };
+		4E13DDBB243088E100421737 /* CustomSecondWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecondWelcomeView.swift; sourceTree = "<group>"; };
 		4E6D5BAF24307183000FC72D /* Doctroaak Patient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doctroaak Patient.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6D5BB224307183000FC72D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E6D5BB424307183000FC72D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +38,8 @@
 		4E6D5BB924307185000FC72D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E6D5BBC24307185000FC72D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E6D5BBE24307185000FC72D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E6D5BCC243071FA000FC72D /* ExtensionUivew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUivew.swift; sourceTree = "<group>"; };
+		60BA14D456864443CE1D68A0 /* Pods-Doctroaak Patient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctroaak Patient.release.xcconfig"; path = "Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +47,77 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4CA7CF06AA29ACDF3139C85 /* Pods_Doctroaak_Patient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B1B844BDD4D89AFC0202782 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				092DC45AA74FAA03F635BA9B /* Pods_Doctroaak_Patient.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4E13DDAB2430879200421737 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDAF243087E500421737 /* WelcomeVC.swift */,
+				4E13DDB92430889500421737 /* SecondWelcomeVC.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		4E13DDAC243087A200421737 /* CustomVC */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDB12430880400421737 /* Regsitraion */,
+			);
+			path = CustomVC;
+			sourceTree = "<group>";
+		};
+		4E13DDAD243087AC00421737 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4E13DDAE243087B300421737 /* BaseVCS */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDB72430886100421737 /* CustomBaseViewVC.swift */,
+			);
+			path = BaseVCS;
+			sourceTree = "<group>";
+		};
+		4E13DDB12430880400421737 /* Regsitraion */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDB22430880F00421737 /* CustomWelcomeView.swift */,
+				4E13DDBB243088E100421737 /* CustomSecondWelcomeView.swift */,
+			);
+			path = Regsitraion;
+			sourceTree = "<group>";
+		};
+		4E13DDB42430883200421737 /* CustomBaseViews */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDB52430884300421737 /* CustomBaseView.swift */,
+			);
+			path = CustomBaseViews;
+			sourceTree = "<group>";
+		};
 		4E6D5BA624307183000FC72D = {
 			isa = PBXGroup;
 			children = (
 				4E6D5BB124307183000FC72D /* Doctroaak Patient */,
 				4E6D5BB024307183000FC72D /* Products */,
+				AAB652FCC04191CB86D10EC3 /* Pods */,
+				4B1B844BDD4D89AFC0202782 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +133,84 @@
 			isa = PBXGroup;
 			children = (
 				4E6D5BB224307183000FC72D /* AppDelegate.swift */,
-				4E6D5BB424307183000FC72D /* ViewController.swift */,
+				4E6D5BC9243071B9000FC72D /* Services */,
+				4E6D5BC7243071A8000FC72D /* View Model */,
+				4E6D5BC8243071B1000FC72D /* Model */,
+				4E6D5BC6243071A3000FC72D /* View */,
+				4E6D5BC42430718F000FC72D /* Controller */,
+				4E6D5BCB243071C9000FC72D /* Support Files */,
+				4E6D5BCA243071C0000FC72D /* Helpers */,
 				4E6D5BB624307183000FC72D /* Main.storyboard */,
 				4E6D5BB924307185000FC72D /* Assets.xcassets */,
 				4E6D5BBB24307185000FC72D /* LaunchScreen.storyboard */,
-				4E6D5BBE24307185000FC72D /* Info.plist */,
 			);
 			path = "Doctroaak Patient";
+			sourceTree = "<group>";
+		};
+		4E6D5BC42430718F000FC72D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDAE243087B300421737 /* BaseVCS */,
+				4E13DDAB2430879200421737 /* Registration */,
+				4E6D5BB424307183000FC72D /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4E6D5BC6243071A3000FC72D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E13DDB42430883200421737 /* CustomBaseViews */,
+				4E13DDAD243087AC00421737 /* Cells */,
+				4E13DDAC243087A200421737 /* CustomVC */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4E6D5BC7243071A8000FC72D /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		4E6D5BC8243071B1000FC72D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E6D5BC9243071B9000FC72D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4E6D5BCA243071C0000FC72D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4E6D5BCC243071FA000FC72D /* ExtensionUivew.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4E6D5BCB243071C9000FC72D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4E6D5BBE24307185000FC72D /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		AAB652FCC04191CB86D10EC3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0205F769D8BBEB849C19DF2D /* Pods-Doctroaak Patient.debug.xcconfig */,
+				60BA14D456864443CE1D68A0 /* Pods-Doctroaak Patient.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +220,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E6D5BC124307185000FC72D /* Build configuration list for PBXNativeTarget "Doctroaak Patient" */;
 			buildPhases = (
+				DE8C4448BA8CAB68284E7C7D /* [CP] Check Pods Manifest.lock */,
 				4E6D5BAB24307183000FC72D /* Sources */,
 				4E6D5BAC24307183000FC72D /* Frameworks */,
 				4E6D5BAD24307183000FC72D /* Resources */,
+				0CE01F22287FFF9619DE71E5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,13 +281,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0CE01F22287FFF9619DE71E5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE8C4448BA8CAB68284E7C7D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Doctroaak Patient-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4E6D5BAB24307183000FC72D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E13DDB62430884300421737 /* CustomBaseView.swift in Sources */,
+				4E13DDBA2430889500421737 /* SecondWelcomeVC.swift in Sources */,
 				4E6D5BB524307183000FC72D /* ViewController.swift in Sources */,
 				4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */,
+				4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */,
+				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
+				4E13DDBC243088E100421737 /* CustomSecondWelcomeView.swift in Sources */,
+				4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */,
+				4E13DDB32430880F00421737 /* CustomWelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,11 +480,12 @@
 		};
 		4E6D5BC224307185000FC72D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0205F769D8BBEB849C19DF2D /* Pods-Doctroaak Patient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RTZJMVRS2;
-				INFOPLIST_FILE = "Doctroaak Patient/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Doctroaak Patient/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,11 +499,12 @@
 		};
 		4E6D5BC324307185000FC72D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60BA14D456864443CE1D68A0 /* Pods-Doctroaak Patient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RTZJMVRS2;
-				INFOPLIST_FILE = "Doctroaak Patient/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Doctroaak Patient/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
