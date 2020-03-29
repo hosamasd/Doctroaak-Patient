@@ -109,10 +109,6 @@ class CustomMainServicesView: CustomBaseView {
         
         addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,soonLabel,ss)
         
-        NSLayoutConstraint.activate([
-//            ss.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            ss.centerYAnchor.constraint(equalTo: centerYAnchor,constant: 60)
-            ])
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
@@ -121,7 +117,6 @@ class CustomMainServicesView: CustomBaseView {
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         
         ss.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 46, bottom: 0, right: 32))
-//        ss.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
         
         
     }
