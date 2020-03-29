@@ -31,16 +31,7 @@ class SecondWelcomeVC: CustomBaseViewVC {
         navigationController?.navigationBar.isHide(true)
     }
     
-    
-    func goToRegisterNextVC(index:Int) {
-//        let doctor = DoctorRegisterVC()
-//        doctor.index = index
-//        let medical = MainRegisterVC()
-//        medical.index = index
-//        let vc = index == 0 || index == 1 ? doctor : medical
-//
-//        navigationController?.pushViewController( vc, animated: true)
-    }
+
     
     //TODO: -handle methods
     
@@ -51,6 +42,7 @@ class SecondWelcomeVC: CustomBaseViewVC {
     }
     
     @objc func handleRegister()  {
-//        goToRegisterNextVC(index: index )
+        let register = RegisterVC()
+        navigationController?.pushViewController(register, animated: true)
     }
 }

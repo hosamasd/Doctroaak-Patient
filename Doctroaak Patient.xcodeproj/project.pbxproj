@@ -30,6 +30,9 @@
 		4E13DDE92430903500421737 /* NewPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDE82430903500421737 /* NewPassVC.swift */; };
 		4E13DDEB2430905C00421737 /* CustomNewPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDEA2430905C00421737 /* CustomNewPassView.swift */; };
 		4E13DDED2430909B00421737 /* NewPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDEC2430909B00421737 /* NewPassViewModel.swift */; };
+		4E203AFE2430919A002144FF /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203AFD2430919A002144FF /* RegisterVC.swift */; };
+		4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203AFF243091BA002144FF /* CustomRegisterView.swift */; };
+		4E203B022430921B002144FF /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203B012430921B002144FF /* RegisterViewModel.swift */; };
 		4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB224307183000FC72D /* AppDelegate.swift */; };
 		4E6D5BB524307183000FC72D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB424307183000FC72D /* ViewController.swift */; };
 		4E6D5BB824307183000FC72D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB624307183000FC72D /* Main.storyboard */; };
@@ -65,6 +68,9 @@
 		4E13DDE82430903500421737 /* NewPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassVC.swift; sourceTree = "<group>"; };
 		4E13DDEA2430905C00421737 /* CustomNewPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNewPassView.swift; sourceTree = "<group>"; };
 		4E13DDEC2430909B00421737 /* NewPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassViewModel.swift; sourceTree = "<group>"; };
+		4E203AFD2430919A002144FF /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		4E203AFF243091BA002144FF /* CustomRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterView.swift; sourceTree = "<group>"; };
+		4E203B012430921B002144FF /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		4E6D5BAF24307183000FC72D /* Doctroaak Patient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doctroaak Patient.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6D5BB224307183000FC72D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E6D5BB424307183000FC72D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 			children = (
 				4E13DDD024308C7B00421737 /* Welcome */,
 				4E13DDD124308C8500421737 /* Login */,
+				4E203AFD2430919A002144FF /* RegisterVC.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -149,7 +156,9 @@
 		4E13DDC624308AC800421737 /* rEGISTRATION */ = {
 			isa = PBXGroup;
 			children = (
+				4E13DDC924308AF700421737 /* Bindable.swift */,
 				4E13DDDC24308F0B00421737 /* Login */,
+				4E203B012430921B002144FF /* RegisterViewModel.swift */,
 			);
 			path = rEGISTRATION;
 			sourceTree = "<group>";
@@ -221,8 +230,8 @@
 			isa = PBXGroup;
 			children = (
 				4E13DDD624308CC700421737 /* CustomMainForgetPassView.swift */,
-				4E13DDE324308FA700421737 /* CustomVerificationView.swift */,
 				4E13DDEA2430905C00421737 /* CustomNewPassView.swift */,
+				4E13DDE324308FA700421737 /* CustomVerificationView.swift */,
 			);
 			path = "Forget pass";
 			sourceTree = "<group>";
@@ -290,6 +299,7 @@
 				4E13DDB42430883200421737 /* CustomBaseViews */,
 				4E13DDAD243087AC00421737 /* Cells */,
 				4E13DDAC243087A200421737 /* CustomVC */,
+				4E203AFF243091BA002144FF /* CustomRegisterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -298,7 +308,6 @@
 			isa = PBXGroup;
 			children = (
 				4E13DDC624308AC800421737 /* rEGISTRATION */,
-				4E13DDC924308AF700421737 /* Bindable.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -469,11 +478,13 @@
 				4E13DDDE24308F1200421737 /* ForgetPassViewModel.swift in Sources */,
 				4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */,
 				4E13DDCA24308AF700421737 /* Bindable.swift in Sources */,
+				4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */,
 				4E13DDC024308A1F00421737 /* CustomLoginsView.swift in Sources */,
 				4E13DDC824308AD300421737 /* LoginViewModel.swift in Sources */,
 				4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */,
 				4E13DDE92430903500421737 /* NewPassVC.swift in Sources */,
 				4E13DDD324308C8E00421737 /* ForgetPasswordVC.swift in Sources */,
+				4E203AFE2430919A002144FF /* RegisterVC.swift in Sources */,
 				4E13DDC224308A7600421737 /* Extensions.swift in Sources */,
 				4E13DDCC24308B2B00421737 /* ExtensionsVCS.swift in Sources */,
 				4E13DDE724308FF400421737 /* SMSCodeViewModel.swift in Sources */,
@@ -483,6 +494,7 @@
 				4E13DDE124308F6300421737 /* VerificationVC.swift in Sources */,
 				4E13DDEB2430905C00421737 /* CustomNewPassView.swift in Sources */,
 				4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */,
+				4E203B022430921B002144FF /* RegisterViewModel.swift in Sources */,
 				4E13DDE424308FA700421737 /* CustomVerificationView.swift in Sources */,
 				4E13DDB32430880F00421737 /* CustomWelcomeView.swift in Sources */,
 			);

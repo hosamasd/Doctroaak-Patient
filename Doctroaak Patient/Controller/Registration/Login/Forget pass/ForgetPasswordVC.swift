@@ -79,7 +79,8 @@ class ForgetPasswordVC:   CustomBaseViewVC {
     
     @objc func handleDonePayment()  {
         let verifiy = VerificationVC()
-        verifiy.isFromForgetPassw = true
+        verifiy.index = 1
+//        verifiy.isFromForgetPassw = true
         navigationController?.pushViewController(verifiy, animated: true)
         
         print(999)

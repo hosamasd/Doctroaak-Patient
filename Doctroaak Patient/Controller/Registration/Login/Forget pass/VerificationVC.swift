@@ -25,11 +25,11 @@ class VerificationVC: CustomBaseViewVC {
         
         return v
     }()
+    var index:Int = 0
     
     fileprivate var timer = Timer()
     fileprivate var seconds = 30
     let sMSCodeViewModel = SMSCodeViewModel()
-    var isFromForgetPassw:Bool = false
     
     
     override func viewDidLoad() {
@@ -143,16 +143,8 @@ class VerificationVC: CustomBaseViewVC {
     }
     
     @objc  func handleConfirm()  {
-        let  vc =  NewPassVC()
+        let  vc = index == 0 ? ViewController() :   NewPassVC()
         navigationController?.pushViewController(vc, animated: true)
-//        if isFromForgetPassw {
-//            let  vc =  NewPassVC()
-//            navigationController?.pushViewController(vc, animated: true)
-//        }else {
-//            let vc =  MainClinicDataVC()
-//            vc.index = index
-//            navigationController?.pushViewController(vc, animated: true)
-//        }
         
     }
     

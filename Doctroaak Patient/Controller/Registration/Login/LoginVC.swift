@@ -95,9 +95,8 @@ class LoginVC: CustomBaseViewVC {
     }
     
     @objc  func handleRegister()  {
-//        let register = MainRegisterVC()
-//        register.index = index
-//        navigationController?.pushViewController(register, animated: true)
+        let register = RegisterVC()
+        navigationController?.pushViewController(register, animated: true)
         
     }
     

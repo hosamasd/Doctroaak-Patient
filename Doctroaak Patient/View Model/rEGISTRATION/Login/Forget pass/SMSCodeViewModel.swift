@@ -19,7 +19,8 @@ class SMSCodeViewModel {
     var sms2Code:String? {didSet {checkFormValidity()}}
     var sms3Code:String? {didSet {checkFormValidity()}}
     var sms4Code:String? {didSet {checkFormValidity()}}
-    
+    var index:Int? = -1 {didSet {checkFormValidity()}}
+
     
     func performLogging(completion:@escaping (Error?)->Void)  {
         guard let smsCode = smsCode, let sms2Code = sms2Code, let sms3Code = sms3Code,let sms4Code = sms4Code
@@ -30,7 +31,7 @@ class SMSCodeViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = smsCode?.isEmpty == false && sms2Code?.isEmpty == false && sms3Code?.isEmpty == false && sms4Code?.isEmpty == false 
+        let isFormValid = smsCode?.isEmpty == false && sms2Code?.isEmpty == false && sms3Code?.isEmpty == false && sms4Code?.isEmpty == false  && index != -1
         
         bindableIsFormValidate.value = isFormValid
         
