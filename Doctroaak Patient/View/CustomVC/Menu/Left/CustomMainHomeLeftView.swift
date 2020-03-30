@@ -53,15 +53,11 @@ class CustomMainHomeLeftView: CustomBaseView {
     
     override func setupViews() {
          addSubViews(views: LogoImage,userImage,userNameLabel,homeLeftMenuCollectionVC.view,first8Stack)
-//        addSubViews(views: LogoImage,userImage,userNameLabel,userSpecificationLabel,homeLeftMenuCollectionVC.view,first8Stack)
-        //        addSubViews(views: LogoImage,userImage,userNameLabel,userSpecificationLabel,mainStack,first8Stack)//,ss,docotrCollectionView.view)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         userImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 40, left: 24, bottom: 0, right: 0))
         userNameLabel.anchor(top: userImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
         
-//        userSpecificationLabel.anchor(top: userNameLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
-//          homeLeftMenuCollectionVC.view.anchor(top: userSpecificationLabel.bottomAnchor, leading: leadingAnchor, bottom: first8Stack.topAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 16, right: 0))
         homeLeftMenuCollectionVC.view.anchor(top: userNameLabel.bottomAnchor, leading: leadingAnchor, bottom: first8Stack.topAnchor, trailing: trailingAnchor,padding: .init(top: 60, left: 46, bottom: 16, right: 0))
         first8Stack.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: 8, right: 0))
         

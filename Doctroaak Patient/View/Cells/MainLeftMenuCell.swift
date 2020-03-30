@@ -9,7 +9,7 @@
 
 import UIKit
 
-class MainLeftMenuCell: UICollectionViewCell {
+class MainLeftMenuCell: BaseCollectionCell {
     
     
     
@@ -22,17 +22,8 @@ class MainLeftMenuCell: UICollectionViewCell {
     lazy var Label6 = UILabel(text: "Contact Us", font: .systemFont(ofSize: 24), textColor: .black)
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-        
-    }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
+  override  func setupViews() {
         hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
     }
 }
