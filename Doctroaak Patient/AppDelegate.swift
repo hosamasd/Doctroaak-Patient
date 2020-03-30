@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: ICUSearchResultsVC())
+        window?.rootViewController = UINavigationController(rootViewController: IncubationSearchResultsVC())
         return true
     }
 
