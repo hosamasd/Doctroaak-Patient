@@ -200,6 +200,7 @@ class RegisterVC: CustomBaseViewVC {
     
     @objc  func handleNext()  {
         let verify = VerificationVC()
+        verify.index = 0
         navigationController?.pushViewController(verify, animated: true)
     }
     

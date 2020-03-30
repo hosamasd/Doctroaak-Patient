@@ -40,7 +40,8 @@ class VerificationVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        setupTimer()
+
+        customVerificationView.firstNumberTextField.becomeFirstResponder()
     }
     
     override func setupNavigation()  {
@@ -113,7 +114,7 @@ class VerificationVC: CustomBaseViewVC {
     }
     
     @objc func textFieldDidChange(text: UITextField)  {
-        
+        sMSCodeViewModel.index = index
         guard let texts = text.text, !texts.isEmpty  else {self.changeButtonState(enable: false, vv: self.customVerificationView.confirmButton);  return  }
         
         if texts.utf16.count==1{

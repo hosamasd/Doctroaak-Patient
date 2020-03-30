@@ -175,9 +175,12 @@ class CustomRegisterView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
-        let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1)
-        boyButton.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)
+        if boyButton.backgroundColor == nil  {
+            let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
+            let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1)
+            boyButton.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)
+        }
+      
     }
     
     override func setupViews() {
@@ -223,37 +226,6 @@ class CustomRegisterView: CustomBaseView {
     @objc func handleASDs()  {
         confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
     }
-    
-    
-//    var iiii = ""
-//    var de = ""
-//    
-//    @objc func handleHidePicker(sender:UIMultiPicker)  {
-//        sender.selectedIndexes.forEach { (i) in
-//            
-//            de += insuracneArray[i] + ","
-//        }
-//        iiii = de
-//        insuracneText.text = iiii
-//        de = ""
-//    }
-//    
-//    @objc func handleOpenCloseInsurance()  {
-//        insuranceDrop.isHidden = !insuranceDrop.isHidden
-//    }
-//    
-//    @objc func handleAgree(sender:UIButton)  {
-//        sender.isSelected = !sender.isSelected
-//    }
-    
-//    @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
-//        if let datePicker = self.birthdayTextField.inputView as? UIDatePicker { // 2.1
-//            let dateformatter = DateFormatter() // 2.2
-//            dateformatter.dateStyle = .medium // 2.3
-//            self.birthdayTextField.text = dateformatter.string(from: datePicker.date) //2.4
-//        }
-//        self.birthdayTextField.resignFirstResponder() // 2.5
-//    }
 }
 
 
