@@ -58,6 +58,8 @@
 		4EFDA72A2431D5050010AA7D /* CustomDoctorListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFDA7292431D5050010AA7D /* CustomDoctorListsView.swift */; };
 		4EFDA72C2431D5840010AA7D /* DoctorListCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFDA72B2431D5840010AA7D /* DoctorListCollectionVC.swift */; };
 		4EFDA72F2431D68D0010AA7D /* DoctorHomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */; };
+		4EFE85B42431E1CB00E44DD1 /* DoctorSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */; };
+		4EFE85B62431E21200E44DD1 /* CustomDoctorSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */; };
 		B4CA7CF06AA29ACDF3139C85 /* Pods_Doctroaak_Patient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092DC45AA74FAA03F635BA9B /* Pods_Doctroaak_Patient.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +119,8 @@
 		4EFDA7292431D5050010AA7D /* CustomDoctorListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDoctorListsView.swift; sourceTree = "<group>"; };
 		4EFDA72B2431D5840010AA7D /* DoctorListCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorListCollectionVC.swift; sourceTree = "<group>"; };
 		4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeListCell.swift; sourceTree = "<group>"; };
+		4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorSearchVC.swift; sourceTree = "<group>"; };
+		4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDoctorSearchView.swift; sourceTree = "<group>"; };
 		60BA14D456864443CE1D68A0 /* Pods-Doctroaak Patient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctroaak Patient.release.xcconfig"; path = "Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -443,8 +447,8 @@
 		4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */ = {
 			isa = PBXGroup;
 			children = (
-				4EFDA7242431D47B0010AA7D /* DoctorListsVC.swift */,
-				4EFDA72B2431D5840010AA7D /* DoctorListCollectionVC.swift */,
+				4EFE85B22431E1AF00E44DD1 /* List */,
+				4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */,
 			);
 			path = "Doctor + Medical Center";
 			sourceTree = "<group>";
@@ -453,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFDA7292431D5050010AA7D /* CustomDoctorListsView.swift */,
+				4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */,
 			);
 			path = "Doctor + Medical Center";
 			sourceTree = "<group>";
@@ -463,6 +468,15 @@
 				4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */,
 			);
 			path = "Doctor + Medical Center";
+			sourceTree = "<group>";
+		};
+		4EFE85B22431E1AF00E44DD1 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				4EFDA7242431D47B0010AA7D /* DoctorListsVC.swift */,
+				4EFDA72B2431D5840010AA7D /* DoctorListCollectionVC.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		AAB652FCC04191CB86D10EC3 /* Pods */ = {
@@ -611,6 +625,7 @@
 				4EA8B1192430E373008473D3 /* BaseSlidingVC.swift in Sources */,
 				4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */,
 				4E13DDC024308A1F00421737 /* CustomLoginsView.swift in Sources */,
+				4EFE85B42431E1CB00E44DD1 /* DoctorSearchVC.swift in Sources */,
 				4E13DDC824308AD300421737 /* LoginViewModel.swift in Sources */,
 				4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */,
 				4E4F84AA2430CBB9005EFC4C /* ServicesVC.swift in Sources */,
@@ -624,6 +639,7 @@
 				4E13DDC524308AA400421737 /* CustomSkyTextFieldRightPadding.swift in Sources */,
 				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
 				4EA8B11C2430E4F8008473D3 /* ProfileVC.swift in Sources */,
+				4EFE85B62431E21200E44DD1 /* CustomDoctorSearchView.swift in Sources */,
 				4EFDA72F2431D68D0010AA7D /* DoctorHomeListCell.swift in Sources */,
 				4E13DDBC243088E100421737 /* CustomSecondWelcomeView.swift in Sources */,
 				4E13DDE124308F6300421737 /* VerificationVC.swift in Sources */,

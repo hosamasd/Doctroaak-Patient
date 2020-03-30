@@ -117,8 +117,6 @@ class CustomRegisterView: CustomBaseView {
         l.layer.borderWidth = 1
         l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
         l.constrainHeight(constant: 50)
-//        l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
-        //        l.addSubview(insuranceDrop)
         return l
     }()
     lazy var doenImage:UIImageView = {
