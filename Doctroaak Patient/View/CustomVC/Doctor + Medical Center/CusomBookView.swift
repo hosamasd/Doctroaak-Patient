@@ -165,36 +165,31 @@ class CusomBookView: CustomBaseView {
         super.layoutSubviews()
         if isActive {
             
-        
-        if boyButton.backgroundColor == nil {//|| bookButton.backgroundColor == nil || shift1Button.backgroundColor == nil {
-            addGradientInSenderAndRemoveOther(sender: boyButton)
-            boyButton.setTitleColor(.white, for: .normal)
-        }
-        if bookButton.backgroundColor == nil {
-            addGradientInSenderAndRemoveOther(sender: bookButton)
-            bookButton.setTitleColor(.white, for: .normal)
-
-        }
-        if shift1Button.backgroundColor == nil  {
-            addGradientInSenderAndRemoveOther(sender: shift1Button)
-
-            shift1Button.setTitleColor(.white, for: .normal)
-
             
-        }
+            if boyButton.backgroundColor == nil {//|| bookButton.backgroundColor == nil || shift1Button.backgroundColor == nil {
+                addGradientInSenderAndRemoveOther(sender: boyButton)
+                boyButton.setTitleColor(.white, for: .normal)
+            }
+            if bookButton.backgroundColor == nil {
+                addGradientInSenderAndRemoveOther(sender: bookButton)
+                bookButton.setTitleColor(.white, for: .normal)
+                
+            }
+            if shift1Button.backgroundColor == nil  {
+                addGradientInSenderAndRemoveOther(sender: shift1Button)
+                
+                shift1Button.setTitleColor(.white, for: .normal)
+                
+                
+            }
         }
         
     }
     
     override func setupViews() {
         [fullNameTextField,mobileNumberTextField,dayTextField,boyButton].forEach({$0.constrainHeight(constant: 60)})
-        //        let ss = getStack(views: bookForMeButon,bookforAnotherPersonButton, spacing: 0, distribution: .fill, axis: .horizontal)
         let sV = getStack(views: mainDateView,mainDropView, spacing: 16, distribution: .fillEqually, axis: .vertical)
         let sssd = getStack(views: shift1Button,shift2Button, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        //        let ww = getStack(views: fullNameTextField,mobileNumberTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
-        //        let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        
-        //        let tx = getStack(views: dayTextField,monthTextField,yearTextField, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         
         
         let mainStack = getStack(views: sV,sssd,subStack, spacing: 16, distribution: .fillProportionally, axis: .vertical)
@@ -203,19 +198,15 @@ class CusomBookView: CustomBaseView {
         dateTextField.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 16))
         typeDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
         
-        //        addSubViews(views:LogoImage,backImage,titleLabel,soonLabel,mainStack,bookButton)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,bookSegmentedView,bookButton,mainStack)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        bookSegmentedView.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 16, right: 32))
+        bookSegmentedView.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 86, left: 32, bottom: 16, right: 32))
         
         mainStack.anchor(top: bookSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-        //        sssd.anchor(top: sV.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-        //        ww.anchor(top: sssd.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-        //        tx.anchor(top: ww.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 16, bottom: 16, right: 16))
         
     }
