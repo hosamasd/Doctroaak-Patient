@@ -174,10 +174,12 @@ class CustomRegisterView: CustomBaseView {
     override func layoutSubviews() {
         super.layoutSubviews()
         if boyButton.backgroundColor == nil  {
-            let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
-            let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1)
-            boyButton.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)
+            addGradientInSenderAndRemoveOther(sender: boyButton)
         }
+//            let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
+//            let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1)
+//            boyButton.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)
+        
       
     }
     

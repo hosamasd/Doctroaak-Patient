@@ -39,9 +39,7 @@ class CustomDoctorSearchView: CustomBaseView {
         view.clipsToBounds = true
         view.layer.borderWidth = 1
         view.layer.backgroundColor = UIColor.lightGray.cgColor
-//        v.backgroundColor = .gray
         view.constrainHeight(constant: 50)
-        
         view.selectedSegmentIndex = 0
         view.tintColor = .black
         view.backgroundColor = .white
