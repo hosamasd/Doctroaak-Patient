@@ -60,6 +60,10 @@
 		4EFDA72F2431D68D0010AA7D /* DoctorHomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */; };
 		4EFE85B42431E1CB00E44DD1 /* DoctorSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */; };
 		4EFE85B62431E21200E44DD1 /* CustomDoctorSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */; };
+		4EFE85BB2431ED3300E44DD1 /* CardiologyCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B92431ED3200E44DD1 /* CardiologyCollectionVC.swift */; };
+		4EFE85BC2431ED3300E44DD1 /* CardiologyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85BA2431ED3200E44DD1 /* CardiologyVC.swift */; };
+		4EFE85BF2431ED5D00E44DD1 /* CustomCardiologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85BE2431ED5D00E44DD1 /* CustomCardiologyView.swift */; };
+		4EFE85C12431ED8A00E44DD1 /* CardinolgyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85C02431ED8A00E44DD1 /* CardinolgyCell.swift */; };
 		B4CA7CF06AA29ACDF3139C85 /* Pods_Doctroaak_Patient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092DC45AA74FAA03F635BA9B /* Pods_Doctroaak_Patient.framework */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +125,10 @@
 		4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeListCell.swift; sourceTree = "<group>"; };
 		4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorSearchVC.swift; sourceTree = "<group>"; };
 		4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDoctorSearchView.swift; sourceTree = "<group>"; };
+		4EFE85B92431ED3200E44DD1 /* CardiologyCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardiologyCollectionVC.swift; sourceTree = "<group>"; };
+		4EFE85BA2431ED3200E44DD1 /* CardiologyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardiologyVC.swift; sourceTree = "<group>"; };
+		4EFE85BE2431ED5D00E44DD1 /* CustomCardiologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCardiologyView.swift; sourceTree = "<group>"; };
+		4EFE85C02431ED8A00E44DD1 /* CardinolgyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardinolgyCell.swift; sourceTree = "<group>"; };
 		60BA14D456864443CE1D68A0 /* Pods-Doctroaak Patient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctroaak Patient.release.xcconfig"; path = "Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -447,6 +455,7 @@
 		4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */ = {
 			isa = PBXGroup;
 			children = (
+				4EFE85BD2431ED3C00E44DD1 /* Cardiology */,
 				4EFE85B22431E1AF00E44DD1 /* List */,
 				4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */,
 			);
@@ -458,6 +467,7 @@
 			children = (
 				4EFDA7292431D5050010AA7D /* CustomDoctorListsView.swift */,
 				4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */,
+				4EFE85BE2431ED5D00E44DD1 /* CustomCardiologyView.swift */,
 			);
 			path = "Doctor + Medical Center";
 			sourceTree = "<group>";
@@ -466,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */,
+				4EFE85C02431ED8A00E44DD1 /* CardinolgyCell.swift */,
 			);
 			path = "Doctor + Medical Center";
 			sourceTree = "<group>";
@@ -477,6 +488,15 @@
 				4EFDA72B2431D5840010AA7D /* DoctorListCollectionVC.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		4EFE85BD2431ED3C00E44DD1 /* Cardiology */ = {
+			isa = PBXGroup;
+			children = (
+				4EFE85BA2431ED3200E44DD1 /* CardiologyVC.swift */,
+				4EFE85B92431ED3200E44DD1 /* CardiologyCollectionVC.swift */,
+			);
+			path = Cardiology;
 			sourceTree = "<group>";
 		};
 		AAB652FCC04191CB86D10EC3 /* Pods */ = {
@@ -632,6 +652,7 @@
 				4E13DDE92430903500421737 /* NewPassVC.swift in Sources */,
 				4E13DDD324308C8E00421737 /* ForgetPasswordVC.swift in Sources */,
 				4E203AFE2430919A002144FF /* RegisterVC.swift in Sources */,
+				4EFE85C12431ED8A00E44DD1 /* CardinolgyCell.swift in Sources */,
 				4E13DDC224308A7600421737 /* Extensions.swift in Sources */,
 				4E13DDCC24308B2B00421737 /* ExtensionsVCS.swift in Sources */,
 				4E13DDE724308FF400421737 /* SMSCodeViewModel.swift in Sources */,
@@ -641,6 +662,8 @@
 				4EA8B11C2430E4F8008473D3 /* ProfileVC.swift in Sources */,
 				4EFE85B62431E21200E44DD1 /* CustomDoctorSearchView.swift in Sources */,
 				4EFDA72F2431D68D0010AA7D /* DoctorHomeListCell.swift in Sources */,
+				4EFE85BB2431ED3300E44DD1 /* CardiologyCollectionVC.swift in Sources */,
+				4EFE85BC2431ED3300E44DD1 /* CardiologyVC.swift in Sources */,
 				4E13DDBC243088E100421737 /* CustomSecondWelcomeView.swift in Sources */,
 				4E13DDE124308F6300421737 /* VerificationVC.swift in Sources */,
 				4E13DDEB2430905C00421737 /* CustomNewPassView.swift in Sources */,
@@ -648,6 +671,7 @@
 				4E347CE52430BAE100333C07 /* BaseCollectionCell.swift in Sources */,
 				4E203B022430921B002144FF /* RegisterViewModel.swift in Sources */,
 				4EA8B1152430E1CA008473D3 /* BaseCollectionVC.swift in Sources */,
+				4EFE85BF2431ED5D00E44DD1 /* CustomCardiologyView.swift in Sources */,
 				4E13DDE424308FA700421737 /* CustomVerificationView.swift in Sources */,
 				4E13DDB32430880F00421737 /* CustomWelcomeView.swift in Sources */,
 				4EFDA72C2431D5840010AA7D /* DoctorListCollectionVC.swift in Sources */,
