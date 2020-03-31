@@ -170,8 +170,12 @@ class CustomIncubationSearchView: CustomBaseView {
         ss.isHide(hide)
     }
     
+    
+    
     @objc func handleOpenOther(sender: UISegmentedControl)  {
         
         sender.selectedSegmentIndex == 0 ?    openTheseViewsOrHide(hide: true, vv: mainDrop2View,mainDropView,ss:addressTextField) : openTheseViewsOrHide(hide: false, vv: mainDrop2View,mainDropView,ss:addressTextField)
     }
+    
+    
 }

@@ -38,6 +38,9 @@
 		4E13DDE92430903500421737 /* NewPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDE82430903500421737 /* NewPassVC.swift */; };
 		4E13DDEB2430905C00421737 /* CustomNewPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDEA2430905C00421737 /* CustomNewPassView.swift */; };
 		4E13DDED2430909B00421737 /* NewPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDEC2430909B00421737 /* NewPassViewModel.swift */; };
+		4E1E529D24335619005E5695 /* CustomSeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E529C24335619005E5695 /* CustomSeg.swift */; };
+		4E1E52A224335867005E5695 /* LapSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E52A124335867005E5695 /* LapSearchVC.swift */; };
+		4E1E52A4243358A1005E5695 /* CustomLapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E52A3243358A1005E5695 /* CustomLapSearchView.swift */; };
 		4E203AFE2430919A002144FF /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203AFD2430919A002144FF /* RegisterVC.swift */; };
 		4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203AFF243091BA002144FF /* CustomRegisterView.swift */; };
 		4E203B022430921B002144FF /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203B012430921B002144FF /* RegisterViewModel.swift */; };
@@ -132,6 +135,9 @@
 		4E13DDE82430903500421737 /* NewPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassVC.swift; sourceTree = "<group>"; };
 		4E13DDEA2430905C00421737 /* CustomNewPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNewPassView.swift; sourceTree = "<group>"; };
 		4E13DDEC2430909B00421737 /* NewPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassViewModel.swift; sourceTree = "<group>"; };
+		4E1E529C24335619005E5695 /* CustomSeg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSeg.swift; sourceTree = "<group>"; };
+		4E1E52A124335867005E5695 /* LapSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapSearchVC.swift; sourceTree = "<group>"; };
+		4E1E52A3243358A1005E5695 /* CustomLapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLapSearchView.swift; sourceTree = "<group>"; };
 		4E203AFD2430919A002144FF /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		4E203AFF243091BA002144FF /* CustomRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterView.swift; sourceTree = "<group>"; };
 		4E203B012430921B002144FF /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -255,6 +261,7 @@
 		4E13DDAC243087A200421737 /* CustomVC */ = {
 			isa = PBXGroup;
 			children = (
+				4E1E529E2433582B005E5695 /* LAP */,
 				4E04C87D2432311700D1AD1C /* Pharmacy  */,
 				4ED7126B2432195100074363 /* Incubation */,
 				4ED7125D243213BE00074363 /* ICU */,
@@ -269,6 +276,7 @@
 		4E13DDAD243087AC00421737 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4E1E529F2433583A005E5695 /* LAP */,
 				4E04C87E2432311D00D1AD1C /* Pharmacy  */,
 				4ED7126C2432195600074363 /* Incubation */,
 				4ED712652432150D00074363 /* ICU */,
@@ -307,6 +315,7 @@
 				4E13DDC424308AA400421737 /* CustomSkyTextFieldRightPadding.swift */,
 				4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */,
 				4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */,
+				4E1E529C24335619005E5695 /* CustomSeg.swift */,
 			);
 			path = CustomBaseViews;
 			sourceTree = "<group>";
@@ -405,6 +414,29 @@
 			path = "Forget pass";
 			sourceTree = "<group>";
 		};
+		4E1E529E2433582B005E5695 /* LAP */ = {
+			isa = PBXGroup;
+			children = (
+				4E1E52A3243358A1005E5695 /* CustomLapSearchView.swift */,
+			);
+			path = LAP;
+			sourceTree = "<group>";
+		};
+		4E1E529F2433583A005E5695 /* LAP */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LAP;
+			sourceTree = "<group>";
+		};
+		4E1E52A024335847005E5695 /* LAP */ = {
+			isa = PBXGroup;
+			children = (
+				4E1E52A124335867005E5695 /* LapSearchVC.swift */,
+			);
+			path = LAP;
+			sourceTree = "<group>";
+		};
 		4E347CDC2430B8D200333C07 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +495,7 @@
 		4E6D5BC42430718F000FC72D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4E1E52A024335847005E5695 /* LAP */,
 				4E04C87A243230CF00D1AD1C /* Pharmacy  */,
 				4ED7126A2432194A00074363 /* Incubation */,
 				4ED7125A2432137100074363 /* I.C.U */,
@@ -850,12 +883,14 @@
 				4E4F84AC2430CBEF005EFC4C /* CustomMainServicesView.swift in Sources */,
 				4E13DDBE24308A0800421737 /* LoginVC.swift in Sources */,
 				4EA8B1212430E6BA008473D3 /* EdirProfileViewModel.swift in Sources */,
+				4E1E52A224335867005E5695 /* LapSearchVC.swift in Sources */,
 				4E04C882243235BE00D1AD1C /* CustomPaddingTextField.swift in Sources */,
 				4EA8B10F2430E0EC008473D3 /* HomeLeftMenuVC.swift in Sources */,
 				4E13DDDE24308F1200421737 /* ForgetPassViewModel.swift in Sources */,
 				4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */,
 				4EEE747B243324AC00FD94BA /* CustomAddMinusView.swift in Sources */,
 				4EFDA7252431D47B0010AA7D /* DoctorListsVC.swift in Sources */,
+				4E1E52A4243358A1005E5695 /* CustomLapSearchView.swift in Sources */,
 				4E13DDCA24308AF700421737 /* Bindable.swift in Sources */,
 				4E347CDE2430B8F200333C07 /* HomeMenuVC.swift in Sources */,
 				4ED71264243214D100074363 /* ICUResultsCollectionVC.swift in Sources */,
@@ -868,6 +903,7 @@
 				4EBBCD8524320132005C8DF7 /* CustomDetailsView.swift in Sources */,
 				4EFE85B42431E1CB00E44DD1 /* DoctorSearchVC.swift in Sources */,
 				4E13DDC824308AD300421737 /* LoginViewModel.swift in Sources */,
+				4E1E529D24335619005E5695 /* CustomSeg.swift in Sources */,
 				4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */,
 				4E4F84AA2430CBB9005EFC4C /* ServicesVC.swift in Sources */,
 				4EBBCD8324320115005C8DF7 /* DeatilsVC.swift in Sources */,
