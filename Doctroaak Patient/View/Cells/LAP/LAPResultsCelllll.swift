@@ -1,14 +1,15 @@
 //
-//  LAPResultsCell.swift
+//  LAPResultsCelllll.swift
 //  Doctroaak Patient
 //
 //  Created by hosam on 3/31/20.
 //  Copyright © 2020 hosam. All rights reserved.
 //
 
+
 import UIKit
 
-class LAPResultsCell: BaseCollectionCell {
+class  LAPResultsCelllll: BaseCollectionCell {
     
     
     lazy var profileImage:UIImageView = {
@@ -17,6 +18,13 @@ class LAPResultsCell: BaseCollectionCell {
         i.constrainHeight(constant: 60)
         i.layer.cornerRadius = 8
         i.clipsToBounds = true
+        return i
+    }()
+    lazy var locationImage:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
+       i.contentMode = .scaleAspectFill
+        i.constrainWidth(constant: 60)
+        i.isUserInteractionEnabled = true
         return i
     }()
     lazy var profileInfoLabel:UILabel = {
@@ -50,12 +58,12 @@ class LAPResultsCell: BaseCollectionCell {
         layer.opacity = 1
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 1
-         clipsToBounds = true
+        clipsToBounds = true
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-                setupShadowss()
+        setupShadowss()
         setupViewss()
     }
     
@@ -64,10 +72,11 @@ class LAPResultsCell: BaseCollectionCell {
     }
     
     func setupViewss() {
-       
-       
+        backgroundColor = .white
+        let ddx = hstack(UIView(),locationImage, spacing: 16)
+        
         let ss = stack(profileImage,UIView())
-        let dd = stack(profileInfoLabel,firstStack).withMargins(.init(top: -16, left: 0, bottom: 0, right: 0))
+        let dd = stack(profileInfoLabel,firstStack,ddx).withMargins(.init(top: -16, left: 0, bottom: 0, right: 0))
         
         hstack(ss,dd,spacing:16).withMargins(.init(top: 16, left: 16, bottom: 16, right: 16))
         //        stack(total,seperatorView,bottom,spacing:8).withMargins(.init(top: 16, left: 16, bottom: 16, right: 16))

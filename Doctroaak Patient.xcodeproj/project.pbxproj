@@ -46,6 +46,9 @@
 		4E203B022430921B002144FF /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203B012430921B002144FF /* RegisterViewModel.swift */; };
 		4E31D51F24336A02001E02B6 /* LAPResultsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31D51E24336A02001E02B6 /* LAPResultsCollectionVC.swift */; };
 		4E31D52224336A30001E02B6 /* LAPResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31D52124336A30001E02B6 /* LAPResultsCell.swift */; };
+		4E31D52424336C81001E02B6 /* LAPOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31D52324336C81001E02B6 /* LAPOrderVC.swift */; };
+		4E31D52624336CCE001E02B6 /* CustomLAPOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31D52524336CCE001E02B6 /* CustomLAPOrderView.swift */; };
+		4E31D52B243370F3001E02B6 /* LAPResultsCelllll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31D52A243370F3001E02B6 /* LAPResultsCelllll.swift */; };
 		4E347CDE2430B8F200333C07 /* HomeMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CDD2430B8F200333C07 /* HomeMenuVC.swift */; };
 		4E347CE12430B96B00333C07 /* CustomMainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CE02430B96B00333C07 /* CustomMainHomeView.swift */; };
 		4E347CE32430BAB200333C07 /* BaseAdsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CE22430BAB200333C07 /* BaseAdsCell.swift */; };
@@ -147,6 +150,9 @@
 		4E203B012430921B002144FF /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		4E31D51E24336A02001E02B6 /* LAPResultsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPResultsCollectionVC.swift; sourceTree = "<group>"; };
 		4E31D52124336A30001E02B6 /* LAPResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPResultsCell.swift; sourceTree = "<group>"; };
+		4E31D52324336C81001E02B6 /* LAPOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOrderVC.swift; sourceTree = "<group>"; };
+		4E31D52524336CCE001E02B6 /* CustomLAPOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLAPOrderView.swift; sourceTree = "<group>"; };
+		4E31D52A243370F3001E02B6 /* LAPResultsCelllll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPResultsCelllll.swift; sourceTree = "<group>"; };
 		4E347CDD2430B8F200333C07 /* HomeMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuVC.swift; sourceTree = "<group>"; };
 		4E347CE02430B96B00333C07 /* CustomMainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainHomeView.swift; sourceTree = "<group>"; };
 		4E347CE22430BAB200333C07 /* BaseAdsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAdsCell.swift; sourceTree = "<group>"; };
@@ -427,6 +433,7 @@
 			children = (
 				4E1E52A3243358A1005E5695 /* CustomLapSearchView.swift */,
 				4EA0651F243366B700D754AD /* CustomLapResultsView.swift */,
+				4E31D52524336CCE001E02B6 /* CustomLAPOrderView.swift */,
 			);
 			path = LAP;
 			sourceTree = "<group>";
@@ -435,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				4E31D52124336A30001E02B6 /* LAPResultsCell.swift */,
+				4E31D52A243370F3001E02B6 /* LAPResultsCelllll.swift */,
 			);
 			path = LAP;
 			sourceTree = "<group>";
@@ -444,6 +452,7 @@
 			children = (
 				4E1E52A124335867005E5695 /* LapSearchVC.swift */,
 				4E31D52024336A11001E02B6 /* Search */,
+				4E31D52724336E10001E02B6 /* Book */,
 			);
 			path = LAP;
 			sourceTree = "<group>";
@@ -455,6 +464,14 @@
 				4E31D51E24336A02001E02B6 /* LAPResultsCollectionVC.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		4E31D52724336E10001E02B6 /* Book */ = {
+			isa = PBXGroup;
+			children = (
+				4E31D52324336C81001E02B6 /* LAPOrderVC.swift */,
+			);
+			path = Book;
 			sourceTree = "<group>";
 		};
 		4E347CDC2430B8D200333C07 /* Menu */ = {
@@ -891,8 +908,10 @@
 				4EBBCD9524320330005C8DF7 /* CusomBookView.swift in Sources */,
 				4E00679B243313F8004B1C3F /* AddMedicineCell.swift in Sources */,
 				4E13DDED2430909B00421737 /* NewPassViewModel.swift in Sources */,
+				4E31D52624336CCE001E02B6 /* CustomLAPOrderView.swift in Sources */,
 				4E006795243307F1004B1C3F /* CustomPharmacyOrderView.swift in Sources */,
 				4E13DDCF24308B7800421737 /* ColorConstants.swift in Sources */,
+				4E31D52B243370F3001E02B6 /* LAPResultsCelllll.swift in Sources */,
 				4ED7127524321BD600074363 /* CustomIncubationResultsView.swift in Sources */,
 				4EA8B1112430E0FE008473D3 /* HomeLeftMenuCollcetionVC.swift in Sources */,
 				4EA06520243366B700D754AD /* CustomLapResultsView.swift in Sources */,
@@ -945,6 +964,7 @@
 				4ED7127324321BA900074363 /* IncubationSearchResultsVC.swift in Sources */,
 				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
 				4EA8B11C2430E4F8008473D3 /* ProfileVC.swift in Sources */,
+				4E31D52424336C81001E02B6 /* LAPOrderVC.swift in Sources */,
 				4ED712692432165A00074363 /* CustomICUResultsView.swift in Sources */,
 				4EFE85B62431E21200E44DD1 /* CustomDoctorSearchView.swift in Sources */,
 				4E00679924331315004B1C3F /* AddMedicineCollectionVC.swift in Sources */,

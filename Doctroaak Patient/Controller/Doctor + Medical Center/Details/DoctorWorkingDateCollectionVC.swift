@@ -29,6 +29,7 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
     }
     
     override func setupCollection() {
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
         collectionView.register(DoctorWorkingDateCell.self, forCellWithReuseIdentifier: cellId)
     }
