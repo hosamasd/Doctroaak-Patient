@@ -44,20 +44,7 @@ class CustomRequestMedicineView: CustomBaseView {
         return i
     }()
     lazy var quantityLabel = UILabel(text: "Quantity", font: .systemFont(ofSize: 20), textColor: .black)
-    lazy var plusImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4177"))
-        i.contentMode = .scaleAspectFill
-        i.isUserInteractionEnabled = true
-        return i
-    }()
-    lazy var minusImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4176"))
-        i.contentMode = .scaleAspectFill
-        i.isUserInteractionEnabled = true
-        i.constrainWidth(constant: 40)
-        return i
-    }()
-    lazy var counterLabel = UILabel(text: "0", font: .systemFont(ofSize: 20), textColor: .black,textAlignment: .center)
+    lazy var customAddMinusView = CustomAddMinusView()
     lazy var addMoreImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4178"))
 //        i.contentMode = .scaleAspectFill
@@ -68,8 +55,8 @@ class CustomRequestMedicineView: CustomBaseView {
   
 
     override func setupViews() {
-        let ss = getStack(views: minusImage,counterLabel,plusImage, spacing: 8, distribution: .fillEqually, axis: .horizontal)
-        let s = getStack(views: quantityLabel,ss, spacing: 16, distribution: .fillProportionally, axis: .horizontal)
+//        let ss = getStack(views: minusImage,counterLabel,plusImage, spacing: 8, distribution: .fillEqually, axis: .horizontal)
+        let s = getStack(views: quantityLabel,UIView(),customAddMinusView, spacing: 16, distribution: .fillProportionally, axis: .horizontal)
         let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
 //
 //        let mainStack = getStack(views: mainDropView,mainDrop2View,s,dd, spacing: 16, distribution: .fillProportionally, axis: .vertical)

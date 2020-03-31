@@ -11,6 +11,7 @@ import UIKit
 extension UIView {
     
     
+    
     func createMainButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 8
@@ -133,4 +134,24 @@ extension NSAttributedString {
         let attrs = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: ofSize, weight: weight), NSAttributedString.Key.foregroundColor: color]
         return NSMutableAttributedString(string: text, attributes:attrs)
     }
+}
+
+
+
+extension UIScrollView {
+    
+    func resizeScrollViewContentSize() {
+        
+        var contentRect = CGRect.zero
+        
+        for view in self.subviews {
+            
+            contentRect = contentRect.union(view.frame)
+            
+        }
+        
+        self.contentSize = contentRect.size
+        
+    }
+    
 }

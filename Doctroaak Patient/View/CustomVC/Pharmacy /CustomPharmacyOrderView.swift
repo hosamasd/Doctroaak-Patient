@@ -68,12 +68,14 @@ class CustomPharmacyOrderView: CustomBaseView {
     }()
         lazy var centerImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
-        i.contentMode = .scaleAspectFill
+//        i.contentMode = .scaleAspectFill
+            i.constrainHeight(constant: 100)
         return i
     }()
     lazy var rosetaImageView:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "G4-G5 Sample Rx"))
          i.contentMode = .scaleAspectFill
+        i.isHide(true)
         return i
     }()
     lazy var uploadView:UIView = {
@@ -93,14 +95,16 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.constrainWidth(constant: 80)
         return i
     }()
-    
+    lazy var orLabel = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     lazy var customRequestMedicineView:CustomRequestMedicineView = {
        let v = CustomRequestMedicineView()
-        
+        v.isHide(true)
         return v
     }()
     lazy var addMedicineCollectionVC:AddMedicineCollectionVC = {
         let vc = AddMedicineCollectionVC()
+        vc.view.constrainHeight(constant: isDataFound  ? 0 : 250)
+        vc.view.isHide(true)
         return vc
     }()
     
@@ -116,23 +120,23 @@ class CustomPharmacyOrderView: CustomBaseView {
         return button
     }()
     
+    var isDataFound = false
+     var isSecondIndex = false
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-//        if nextButton.backgroundColor == nil {
-//            addGradientInSenderAndRemoveOther(sender: nextButton)
-//            nextButton.setTitleColor(.white, for: .normal)
-//        }
     }
     
     
     override func setupViews() {
-
-//        let textStack = getStack(views: addressTextField,uploadView,deliveryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let ss = getStack(views: addMedicineCollectionVC.view, spacing: 16, distribution: .fillProportionally, axis: .vertical)
+        orLabel.isHide(true)
+      let mainStack =  getStack(views: centerImage,uploadView,orLabel,customRequestMedicineView,ss, spacing: 16, distribution: .fillProportionally, axis: .vertical)
         
-//        uploadView.hstack(uploadImage,uploadLabel).withMargins(.init(top: 0, left: 0, bottom: 0, right: 0))
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,customRequestMedicineView,addMedicineCollectionVC.view,nextButton)//,rosetaImageView,centerImage,uploadView,nextButton)
-        
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStack,nextButton)
+//        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,customRequestMedicineView,addMedicineCollectionVC.view,nextButton,rosetaImageView,centerImage,uploadView,nextButton)
+       
         NSLayoutConstraint.activate([
 //            centerImage.centerXAnchor.constraint(equalTo: centerXAnchor),
 //            centerImage.centerYAnchor.constraint(equalTo: centerYAnchor)
@@ -143,15 +147,51 @@ class CustomPharmacyOrderView: CustomBaseView {
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 86, left: 46, bottom: 0, right: 32))
+        
+       
 
-        customRequestMedicineView.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
-        addMedicineCollectionVC.view.anchor(top: customRequestMedicineView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
+        
+        orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
+         mainStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
+         uploadView.hstack(uploadImage,uploadLabel)
+//
+//        customRequestMedicineView.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
+//        addMedicineCollectionVC.view.anchor(top: customRequestMedicineView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
 //        centerImage.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
 //        uploadView.anchor(top: centerImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 64, left: 46, bottom: 0, right: 32))
 //
 //        rosetaImageView.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
-        nextButton.anchor(top: addMedicineCollectionVC.view.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+       
+        nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+
+//        nextButton.anchor(top: mainStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
     }
+    
+    func openTheseViewsOrHide(hide:Bool,vv:UIView...,ss:UIView)  {
+        vv.forEach({$0.isHide(!hide)})
+        ss.isHide(hide)
+    }
+    
+    func showOrHideViewsAccording(_ index:Int)  {
+//        openTheseViewsOrHide(hide: false, vv: customRequestMedicineView,addMedicineCollectionVC.view, ss: <#T##UIView#>)
+    }
+    
+//   @objc func handleOpenOther(sender:UISegmentedControl)  {
+//        switch sender.selectedSegmentIndex {
+//        case 0:
+//            [customRequestMedicineView,addMedicineCollectionVC.view].forEach({$0?.isHide(true)})
+//             orLabel.isHide(true)
+//             [centerImage,uploadView].forEach({$0?.isHide(false)})
+//            centerImage.constrainHeight(constant: 500)
+//        case 1:
+//            [customRequestMedicineView,addMedicineCollectionVC.view].forEach({$0?.isHide(false)})
+//            [centerImage,uploadView].forEach({$0?.isHide(true)})
+//        default:
+//            [customRequestMedicineView,addMedicineCollectionVC.view].forEach({$0?.isHide(false)})
+//            orLabel.isHide(false)
+//            [centerImage,uploadView].forEach({$0?.isHide(false)})
+//             centerImage.constrainHeight(constant: 100)
+//        }
+//    }
 }
 

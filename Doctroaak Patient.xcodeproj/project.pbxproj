@@ -82,6 +82,9 @@
 		4ED7127524321BD600074363 /* CustomIncubationResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7127424321BD600074363 /* CustomIncubationResultsView.swift */; };
 		4ED7127724321C0B00074363 /* IncubationResultsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7127624321C0B00074363 /* IncubationResultsCollectionVC.swift */; };
 		4ED7127924321C3100074363 /* IncubationResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7127824321C3100074363 /* IncubationResultsCell.swift */; };
+		4EEE74792433237A00FD94BA /* MedicineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE74782433237A00FD94BA /* MedicineModel.swift */; };
+		4EEE747B243324AC00FD94BA /* CustomAddMinusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */; };
+		4EEE747D243331E600FD94BA /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE747C243331E600FD94BA /* UserDefaultsConstants.swift */; };
 		4EFDA7252431D47B0010AA7D /* DoctorListsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFDA7242431D47B0010AA7D /* DoctorListsVC.swift */; };
 		4EFDA72A2431D5050010AA7D /* CustomDoctorListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFDA7292431D5050010AA7D /* CustomDoctorListsView.swift */; };
 		4EFDA72C2431D5840010AA7D /* DoctorListCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFDA72B2431D5840010AA7D /* DoctorListCollectionVC.swift */; };
@@ -175,6 +178,9 @@
 		4ED7127424321BD600074363 /* CustomIncubationResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIncubationResultsView.swift; sourceTree = "<group>"; };
 		4ED7127624321C0B00074363 /* IncubationResultsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncubationResultsCollectionVC.swift; sourceTree = "<group>"; };
 		4ED7127824321C3100074363 /* IncubationResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncubationResultsCell.swift; sourceTree = "<group>"; };
+		4EEE74782433237A00FD94BA /* MedicineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineModel.swift; sourceTree = "<group>"; };
+		4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddMinusView.swift; sourceTree = "<group>"; };
+		4EEE747C243331E600FD94BA /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		4EFDA7242431D47B0010AA7D /* DoctorListsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorListsVC.swift; sourceTree = "<group>"; };
 		4EFDA7292431D5050010AA7D /* CustomDoctorListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDoctorListsView.swift; sourceTree = "<group>"; };
 		4EFDA72B2431D5840010AA7D /* DoctorListCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorListCollectionVC.swift; sourceTree = "<group>"; };
@@ -300,6 +306,7 @@
 				4E13DDB52430884300421737 /* CustomBaseView.swift */,
 				4E13DDC424308AA400421737 /* CustomSkyTextFieldRightPadding.swift */,
 				4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */,
+				4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */,
 			);
 			path = CustomBaseViews;
 			sourceTree = "<group>";
@@ -318,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				4E13DDCE24308B7800421737 /* ColorConstants.swift */,
+				4EEE747C243331E600FD94BA /* UserDefaultsConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -490,6 +498,7 @@
 		4E6D5BC8243071B1000FC72D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4EEE74782433237A00FD94BA /* MedicineModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -822,6 +831,7 @@
 				4ED7126E2432197900074363 /* IncubationSearchVC.swift in Sources */,
 				4E13DDB62430884300421737 /* CustomBaseView.swift in Sources */,
 				4ED7125F243213C500074363 /* CustomICUSearchView.swift in Sources */,
+				4EEE74792433237A00FD94BA /* MedicineModel.swift in Sources */,
 				4E13DDBA2430889500421737 /* SecondWelcomeVC.swift in Sources */,
 				4ED7127924321C3100074363 /* IncubationResultsCell.swift in Sources */,
 				4E347CE12430B96B00333C07 /* CustomMainHomeView.swift in Sources */,
@@ -844,6 +854,7 @@
 				4EA8B10F2430E0EC008473D3 /* HomeLeftMenuVC.swift in Sources */,
 				4E13DDDE24308F1200421737 /* ForgetPassViewModel.swift in Sources */,
 				4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */,
+				4EEE747B243324AC00FD94BA /* CustomAddMinusView.swift in Sources */,
 				4EFDA7252431D47B0010AA7D /* DoctorListsVC.swift in Sources */,
 				4E13DDCA24308AF700421737 /* Bindable.swift in Sources */,
 				4E347CDE2430B8F200333C07 /* HomeMenuVC.swift in Sources */,
@@ -894,6 +905,7 @@
 				4ED7127724321C0B00074363 /* IncubationResultsCollectionVC.swift in Sources */,
 				4E0067972433110B004B1C3F /* CustomRequestMedicineView.swift in Sources */,
 				4E13DDB32430880F00421737 /* CustomWelcomeView.swift in Sources */,
+				4EEE747D243331E600FD94BA /* UserDefaultsConstants.swift in Sources */,
 				4EBBCD9324320310005C8DF7 /* DoctorBookVC.swift in Sources */,
 				4EFDA72C2431D5840010AA7D /* DoctorListCollectionVC.swift in Sources */,
 				4ED7125C2432139100074363 /* ICUSearchVC.swift in Sources */,

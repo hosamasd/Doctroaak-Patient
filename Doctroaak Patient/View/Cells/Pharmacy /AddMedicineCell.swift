@@ -10,6 +10,15 @@ import UIKit
 
 class AddMedicineCell: BaseCollectionCell {
     
+    var med:MedicineModel!{
+        didSet{
+            nameLabel.text = med.name
+            typeLabel.text = med.type
+            countLabel.text = "\(med.count)"
+        }
+    }
+    
+    
     lazy var nameLabel = UILabel(text: "Name", font: .systemFont(ofSize: 20), textColor: .black,textAlignment: .left)
     lazy var typeLabel = UILabel(text: "Type", font: .systemFont(ofSize: 20), textColor: #colorLiteral(red: 0.3168245852, green: 0.709082067, blue: 0.8302568793, alpha: 1),textAlignment: .left)
     lazy var countLabel = UILabel(text: "3", font: .systemFont(ofSize: 20), textColor: #colorLiteral(red: 0.3168245852, green: 0.709082067, blue: 0.8302568793, alpha: 1),textAlignment: .center)
