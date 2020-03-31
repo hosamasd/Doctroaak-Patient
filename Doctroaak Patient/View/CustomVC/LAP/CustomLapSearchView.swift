@@ -64,7 +64,7 @@ class CustomLapSearchView: CustomBaseView {
         /// Set segmentedControl image
         view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
         view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
-                view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
+        view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
         return view
     }()
     lazy var addressTextField:UITextField = {
@@ -156,8 +156,8 @@ class CustomLapSearchView: CustomBaseView {
         v.constrainHeight(constant: 60)
         return v
     }()
- lazy var delvieryLabel = UILabel(text: "Delivery ?", font: .systemFont(ofSize: 20), textColor: .lightGray)
- lazy var delvierySwitch:UISwitch = {
+    lazy var delvieryLabel = UILabel(text: "Delivery ?", font: .systemFont(ofSize: 20), textColor: .lightGray)
+    lazy var delvierySwitch:UISwitch = {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
         s.isOn = true
@@ -187,23 +187,13 @@ class CustomLapSearchView: CustomBaseView {
         return button
     }()
     
-    var isDataFound = false
-    var isSecondIndex = false
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        //        let maskedCorners: CACornerMask = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        //        orderSegmentedView.layer.maskedCorners = maskedCorners
-    }
     
     
     override func setupViews() {
         backgroundColor = #colorLiteral(red: 0.9829737544, green: 0.9831344485, blue: 0.9829396605, alpha: 1)
         let textStack = getStack(views: addressTextField,mainDropView,orLabel,mainDrop2View,mainDrop3View,insuranceView,delvieryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
-//        let mainStack =  getStack(views: centerImage,uploadView,orLabel,customRequestMedicineView,ss, spacing: 16, distribution: .fillProportionally, axis: .vertical)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,searchSegmentedView,textStack,searchButton)
-        //        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,customRequestMedicineView,addMedicineCollectionVC.view,nextButton,rosetaImageView,centerImage,uploadView,nextButton)
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         mainDrop2View.hstack(cityDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         mainDrop3View.hstack(areaDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
@@ -222,7 +212,6 @@ class CustomLapSearchView: CustomBaseView {
         textStack.anchor(top: searchSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
         searchButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         
-        //        nextButton.anchor(top: mainStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
     }
     
     
@@ -235,7 +224,7 @@ class CustomLapSearchView: CustomBaseView {
         
         sender.selectedSegmentIndex == 0 ?    openTheseViewsOrHide(isVale: false) : openTheseViewsOrHide(isVale: true)
     }
-
-
-
+    
+    
+    
 }

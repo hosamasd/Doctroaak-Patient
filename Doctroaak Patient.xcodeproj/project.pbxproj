@@ -44,6 +44,8 @@
 		4E203AFE2430919A002144FF /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203AFD2430919A002144FF /* RegisterVC.swift */; };
 		4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203AFF243091BA002144FF /* CustomRegisterView.swift */; };
 		4E203B022430921B002144FF /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E203B012430921B002144FF /* RegisterViewModel.swift */; };
+		4E31D51F24336A02001E02B6 /* LAPResultsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31D51E24336A02001E02B6 /* LAPResultsCollectionVC.swift */; };
+		4E31D52224336A30001E02B6 /* LAPResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31D52124336A30001E02B6 /* LAPResultsCell.swift */; };
 		4E347CDE2430B8F200333C07 /* HomeMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CDD2430B8F200333C07 /* HomeMenuVC.swift */; };
 		4E347CE12430B96B00333C07 /* CustomMainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CE02430B96B00333C07 /* CustomMainHomeView.swift */; };
 		4E347CE32430BAB200333C07 /* BaseAdsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E347CE22430BAB200333C07 /* BaseAdsCell.swift */; };
@@ -56,6 +58,8 @@
 		4E6D5BBA24307185000FC72D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB924307185000FC72D /* Assets.xcassets */; };
 		4E6D5BBD24307185000FC72D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BBB24307185000FC72D /* LaunchScreen.storyboard */; };
 		4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BCC243071FA000FC72D /* ExtensionUivew.swift */; };
+		4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */; };
+		4EA06520243366B700D754AD /* CustomLapResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0651F243366B700D754AD /* CustomLapResultsView.swift */; };
 		4EA8B10F2430E0EC008473D3 /* HomeLeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8B10E2430E0EC008473D3 /* HomeLeftMenuVC.swift */; };
 		4EA8B1112430E0FE008473D3 /* HomeLeftMenuCollcetionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8B1102430E0FE008473D3 /* HomeLeftMenuCollcetionVC.swift */; };
 		4EA8B1132430E111008473D3 /* CustomMainHomeLeftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8B1122430E111008473D3 /* CustomMainHomeLeftView.swift */; };
@@ -141,6 +145,8 @@
 		4E203AFD2430919A002144FF /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		4E203AFF243091BA002144FF /* CustomRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterView.swift; sourceTree = "<group>"; };
 		4E203B012430921B002144FF /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		4E31D51E24336A02001E02B6 /* LAPResultsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPResultsCollectionVC.swift; sourceTree = "<group>"; };
+		4E31D52124336A30001E02B6 /* LAPResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPResultsCell.swift; sourceTree = "<group>"; };
 		4E347CDD2430B8F200333C07 /* HomeMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuVC.swift; sourceTree = "<group>"; };
 		4E347CE02430B96B00333C07 /* CustomMainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainHomeView.swift; sourceTree = "<group>"; };
 		4E347CE22430BAB200333C07 /* BaseAdsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAdsCell.swift; sourceTree = "<group>"; };
@@ -155,6 +161,8 @@
 		4E6D5BBC24307185000FC72D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E6D5BBE24307185000FC72D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E6D5BCC243071FA000FC72D /* ExtensionUivew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUivew.swift; sourceTree = "<group>"; };
+		4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapSearchResultsVC.swift; sourceTree = "<group>"; };
+		4EA0651F243366B700D754AD /* CustomLapResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLapResultsView.swift; sourceTree = "<group>"; };
 		4EA8B10E2430E0EC008473D3 /* HomeLeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLeftMenuVC.swift; sourceTree = "<group>"; };
 		4EA8B1102430E0FE008473D3 /* HomeLeftMenuCollcetionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLeftMenuCollcetionVC.swift; sourceTree = "<group>"; };
 		4EA8B1122430E111008473D3 /* CustomMainHomeLeftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainHomeLeftView.swift; sourceTree = "<group>"; };
@@ -418,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				4E1E52A3243358A1005E5695 /* CustomLapSearchView.swift */,
+				4EA0651F243366B700D754AD /* CustomLapResultsView.swift */,
 			);
 			path = LAP;
 			sourceTree = "<group>";
@@ -425,6 +434,7 @@
 		4E1E529F2433583A005E5695 /* LAP */ = {
 			isa = PBXGroup;
 			children = (
+				4E31D52124336A30001E02B6 /* LAPResultsCell.swift */,
 			);
 			path = LAP;
 			sourceTree = "<group>";
@@ -433,8 +443,18 @@
 			isa = PBXGroup;
 			children = (
 				4E1E52A124335867005E5695 /* LapSearchVC.swift */,
+				4E31D52024336A11001E02B6 /* Search */,
 			);
 			path = LAP;
+			sourceTree = "<group>";
+		};
+		4E31D52024336A11001E02B6 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */,
+				4E31D51E24336A02001E02B6 /* LAPResultsCollectionVC.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		4E347CDC2430B8D200333C07 /* Menu */ = {
@@ -875,6 +895,7 @@
 				4E13DDCF24308B7800421737 /* ColorConstants.swift in Sources */,
 				4ED7127524321BD600074363 /* CustomIncubationResultsView.swift in Sources */,
 				4EA8B1112430E0FE008473D3 /* HomeLeftMenuCollcetionVC.swift in Sources */,
+				4EA06520243366B700D754AD /* CustomLapResultsView.swift in Sources */,
 				4E6D5BB524307183000FC72D /* ViewController.swift in Sources */,
 				4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */,
 				4EFDA72A2431D5050010AA7D /* CustomDoctorListsView.swift in Sources */,
@@ -886,6 +907,7 @@
 				4E1E52A224335867005E5695 /* LapSearchVC.swift in Sources */,
 				4E04C882243235BE00D1AD1C /* CustomPaddingTextField.swift in Sources */,
 				4EA8B10F2430E0EC008473D3 /* HomeLeftMenuVC.swift in Sources */,
+				4E31D51F24336A02001E02B6 /* LAPResultsCollectionVC.swift in Sources */,
 				4E13DDDE24308F1200421737 /* ForgetPassViewModel.swift in Sources */,
 				4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */,
 				4EEE747B243324AC00FD94BA /* CustomAddMinusView.swift in Sources */,
@@ -894,6 +916,7 @@
 				4E13DDCA24308AF700421737 /* Bindable.swift in Sources */,
 				4E347CDE2430B8F200333C07 /* HomeMenuVC.swift in Sources */,
 				4ED71264243214D100074363 /* ICUResultsCollectionVC.swift in Sources */,
+				4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */,
 				4EA8B11F2430E543008473D3 /* CustomProfileView.swift in Sources */,
 				4EA8B1192430E373008473D3 /* BaseSlidingVC.swift in Sources */,
 				4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */,
@@ -916,6 +939,7 @@
 				4E13DDC224308A7600421737 /* Extensions.swift in Sources */,
 				4E13DDCC24308B2B00421737 /* ExtensionsVCS.swift in Sources */,
 				4E13DDE724308FF400421737 /* SMSCodeViewModel.swift in Sources */,
+				4E31D52224336A30001E02B6 /* LAPResultsCell.swift in Sources */,
 				4EA8B1132430E111008473D3 /* CustomMainHomeLeftView.swift in Sources */,
 				4E13DDC524308AA400421737 /* CustomSkyTextFieldRightPadding.swift in Sources */,
 				4ED7127324321BA900074363 /* IncubationSearchResultsVC.swift in Sources */,

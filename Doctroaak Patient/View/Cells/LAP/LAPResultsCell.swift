@@ -1,14 +1,15 @@
 //
-//  IncubationResultsCell.swift
+//  LAPResultsCell.swift
 //  Doctroaak Patient
 //
-//  Created by hosam on 3/30/20.
+//  Created by hosam on 3/31/20.
 //  Copyright © 2020 hosam. All rights reserved.
 //
 
 import UIKit
 
-class IncubationResultsCell: BaseCollectionCell {
+class LAPResultsCell: BaseCollectionCell {
+    
     
     lazy var profileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)
@@ -26,35 +27,36 @@ class IncubationResultsCell: BaseCollectionCell {
         l.numberOfLines = 2
         return l
     }()
-    lazy var profileInfoAvalibalityLabel = UILabel(text: "Avilabilty seats :  12", font: .systemFont(ofSize: 16), textColor: .black)
-  
+    lazy var profileInfoDeliveryyLabel = UILabel(text: "Delivery available", font: .systemFont(ofSize: 16), textColor: .black)
+    
     
     lazy var profileInfoAvailbilityButton = createImagess(image: #imageLiteral(resourceName: "available"))
-   
+    
     
     lazy var firstStack:UIStackView = {
-        let b =  hstack(profileInfoAvailbilityButton,profileInfoAvalibalityLabel,spacing:8)
+        let b =  hstack(profileInfoAvailbilityButton,profileInfoDeliveryyLabel,spacing:8)
         return b
     }()
-   
+    
     
     
     
     fileprivate func etupShadowss() {
         layer.masksToBounds = false
-        layer.cornerRadius = 5
+        layer.cornerRadius = 8
         layer.shadowColor = UIColor.red.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 20)
         layer.shadowRadius = 20
         layer.opacity = 1
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 1
+         clipsToBounds = true
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        etupShadowss()
-        setupShadow(opacity: 1, radius: 20, offset: .init(width: 0, height: 20), color: .red)
+                etupShadowss()
+//        setupShadow(opacity: 1, radius: 20, offset: .init(width: 0, height: 60), color: .red)
         setupViewss()
     }
     
@@ -63,13 +65,8 @@ class IncubationResultsCell: BaseCollectionCell {
     }
     
     func setupViewss() {
-        backgroundColor = .white
-        layer.cornerRadius = 8
-        clipsToBounds = true
-        
-        //        setupShadow(opacity: 0.8, radius: 10, offset: .init(width: 0, height: 10), color: .red)
-        //        addSubview(totalStackFinished)
-        //        totalStackFinished.fillSuperview()
+       
+       
         let ss = stack(profileImage,UIView())
         let dd = stack(profileInfoLabel,firstStack).withMargins(.init(top: -16, left: 0, bottom: 0, right: 0))
         
@@ -88,3 +85,4 @@ class IncubationResultsCell: BaseCollectionCell {
     }
     
 }
+
