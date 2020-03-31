@@ -69,6 +69,20 @@ extension UIView {
         return t
     }
     
+    func createMainTextFieldssss(padding:CGFloat? = 16,place:String,type:UIKeyboardType? = .emailAddress,secre:Bool? = false) -> UITextField {
+        let t = CustomPaddingTextField()//CustomSkyTextFieldRightPadding(padding: padding ?? 16, height: 50)
+        t.layer.cornerRadius = 8
+        t.clipsToBounds = true
+        t.placeholder = place
+        t.keyboardType = type ?? .emailAddress
+        t.layer.borderWidth = 1
+        t.layer.borderColor = UIColor.lightGray.cgColor
+        t.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: t.frame.height))
+        t.leftViewMode = .always
+        t.isSecureTextEntry = secre ?? false
+        return t
+    }
+    
     func createMainTextFieldsWithoutPods(place:String) -> UITextField {
         let t = UITextField()
         t.textAlignment = .center

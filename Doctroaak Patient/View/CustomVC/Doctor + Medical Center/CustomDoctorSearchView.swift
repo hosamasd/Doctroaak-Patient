@@ -105,19 +105,23 @@ class CustomDoctorSearchView: CustomBaseView {
         i.placeholder = "Area".localized
         return i
     }()
-    lazy var delvierySwitch:UISwitch = {
+    lazy var insuracneView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.layer.cornerRadius = 8
+        v.clipsToBounds = true
+        v.layer.borderColor = UIColor.gray.cgColor
+        v.layer.borderWidth = 1
+        v.addSubViews(views: insuranceSwitch,insuranceLabel)
+        return v
+    }()
+    lazy var insuranceLabel = UILabel(text: "Insurance company", font: .systemFont(ofSize: 20), textColor: .lightGray)
+    lazy var insuranceSwitch:UISwitch = {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
         s.isOn = true
         return s
     }()
-    lazy var insuranceTextField:UITextField = {
-        let s = createMainTextFields(place: "Insurance company ?", type: .default,secre: true)
-        delvierySwitch.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        s.rightView = delvierySwitch
-        s.rightViewMode = .always
-        return s
-    }()
+   
     lazy var addressTextField:UITextField = {
         let s = createMainTextFields(place: "Address", type: .default,secre: true)
         let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
@@ -151,11 +155,13 @@ class CustomDoctorSearchView: CustomBaseView {
     override func setupViews() {
         
 //        [mainDropView,mainDrop2View].forEach({$0.isHide(true)})
-        let textStack = getStack(views: mainDropView,mainDrop2View,addressTextField,insuranceTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: mainDropView,mainDrop2View,addressTextField,insuracneView, spacing: 16, distribution: .fillEqually, axis: .vertical)
 //        let text2Stack = getStack(views: addressTextField,insuranceTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
 
         
         [cityDrop,areaDrop].forEach({$0.fillSuperview(padding: .init(top: 8, left: 16, bottom: 8, right: 16))})
+        insuracneView.hstack(insuranceLabel,insuranceSwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
+
         addSubViews(views: LogoImage,backImage,titleLabel,userSpecificationLabel,textStack,searchButton,searchSegmentedView)
         
         NSLayoutConstraint.activate([

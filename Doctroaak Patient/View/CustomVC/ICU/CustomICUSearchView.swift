@@ -84,8 +84,11 @@ class CustomICUSearchView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        addGradientInSenderAndRemoveOther(sender: searchButton)
-        searchButton.setTitleColor(.white, for: .normal)
+        if searchButton.backgroundColor == nil {
+            addGradientInSenderAndRemoveOther(sender: searchButton)
+            searchButton.setTitleColor(.white, for: .normal)
+        }
+    
     }
     
     
