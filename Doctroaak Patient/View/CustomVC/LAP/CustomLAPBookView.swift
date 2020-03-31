@@ -1,18 +1,15 @@
 //
-//  CusomBookView.swift
+//  CustomLAPBookView.swift
 //  Doctroaak Patient
 //
-//  Created by hosam on 3/30/20.
+//  Created by hosam on 3/31/20.
 //  Copyright © 2020 hosam. All rights reserved.
 //
 
-
 import UIKit
-import iOSDropDown
-import SkyFloatingLabelTextField
 
-
-class CusomBookView: CustomBaseView {
+class CustomLAPBookView: CustomBaseView {
+    
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -26,14 +23,15 @@ class CusomBookView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    
-    lazy var titleLabel = UILabel(text: "Book", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Book ", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Select Your Location", font: .systemFont(ofSize: 18), textColor: .white)
     
-    lazy var bookSegmentedView:UISegmentedControl = {
+    lazy var orderSegmentedView:UISegmentedControl = {
         let view = UISegmentedControl(items: ["Book for me","Book for another person"])
         view.layer.cornerRadius = 16
+        layer.masksToBounds = true
         view.clipsToBounds = true
+        view.apportionsSegmentWidthsByContent = true
         view.layer.borderWidth = 1
         view.layer.backgroundColor = UIColor.lightGray.cgColor
         view.constrainHeight(constant: 50)
@@ -69,48 +67,31 @@ class CusomBookView: CustomBaseView {
         view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
         return view
     }()
-    
-    
-    
-    
-    
-    lazy var mainDateView:UIView = {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.addSubview(dateTextField)
-        l.constrainHeight(constant: 60)
-        return l
-    }()
     lazy var dateTextField:UITextField = {
         let t = UITextField()
         t.placeholder = "enter date".localized
         t.textAlignment = .left
         t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
-        
+        t.layer.cornerRadius = 8
+        t.clipsToBounds = true
+        t.layer.borderWidth = 1
+        t.layer.borderColor = UIColor.lightGray.cgColor
+         t.textAlignment = .center
         return t
     }()
-    
-    lazy var mainDropView:UIView = {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.addSubview(typeDrop)
-        return l
+    lazy var dateCenterTextField:UITextField = {
+        let t = UITextField()
+        t.placeholder = "enter date".localized
+        t.textAlignment = .left
+        t.setInputViewDatePicker(target: self, selector: #selector(tap2Done)) //1
+        t.layer.cornerRadius = 8
+        t.clipsToBounds = true
+        t.layer.borderWidth = 1
+        t.layer.borderColor = UIColor.lightGray.cgColor
+        t.textAlignment = .center
+        t.constrainHeight(constant: 60)
+        return t
     }()
-    lazy var typeDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
-        i.arrowSize = 20
-        i.placeholder = "Type".localized
-        
-        return i
-    }()
-    lazy var shift1Button = secondButtons(title: "Shift 1")
-    lazy var shift2Button = secondButtons(title: "Shift 2")
-    
     lazy var fullNameTextField = createMainTextFields(place: "Full name")
     lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
     
@@ -145,112 +126,93 @@ class CusomBookView: CustomBaseView {
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         
         let tx = getStack(views: dayTextField,monthTextField,yearTextField, spacing: 8, distribution: .fillEqually, axis: .horizontal)
-        let s = getStack(views:fullNameTextField,mobileNumberTextField,tx,genderStack, spacing: 16, distribution: .fillProportionally, axis: .vertical)
+        let s = getStack(views:dateTextField,fullNameTextField,mobileNumberTextField,tx,genderStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
         s.isHide(true)
         return s
     }()
+    
+    
     lazy var bookButton:UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton()
         button.setTitle("Book", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
+        button.backgroundColor = ColorConstants.disabledButtonsGray
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     
-    var isActive = true
+     var isActive = true
     
     override func layoutSubviews() {
         super.layoutSubviews()
         if isActive {
-            
-            
-            if boyButton.backgroundColor == nil {//|| bookButton.backgroundColor == nil || shift1Button.backgroundColor == nil {
-                addGradientInSenderAndRemoveOther(sender: boyButton)
-                boyButton.setTitleColor(.white, for: .normal)
-            }
-            if bookButton.backgroundColor == nil {
-                addGradientInSenderAndRemoveOther(sender: bookButton)
-                bookButton.setTitleColor(.white, for: .normal)
-                
-            }
-            if shift1Button.backgroundColor == nil  {
-                addGradientInSenderAndRemoveOther(sender: shift1Button)
-                
-                shift1Button.setTitleColor(.white, for: .normal)
-                
-                
-            }
+        if boyButton.backgroundColor == nil {
+            addGradientInSenderAndRemoveOther(sender: boyButton)
+            boyButton.setTitleColor(.white, for: .normal)
         }
-        
+        }
     }
     
     override func setupViews() {
-        [fullNameTextField,mobileNumberTextField,dayTextField,boyButton].forEach({$0.constrainHeight(constant: 60)})
-        let sV = getStack(views: mainDateView,mainDropView, spacing: 16, distribution: .fillEqually, axis: .vertical)
-        let sssd = getStack(views: shift1Button,shift2Button, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,dateCenterTextField,subStack,bookButton)
         
-        let mainStack = getStack(views: sV,sssd,subStack, spacing: 16, distribution: .fillProportionally, axis: .vertical)
-        
-        
-        dateTextField.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 16))
-        typeDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
-        
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,bookSegmentedView,bookButton,mainStack)
+        NSLayoutConstraint.activate([
+            dateCenterTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            dateCenterTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ])
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        bookSegmentedView.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 86, left: 32, bottom: 16, right: 32))
         
-        mainStack.anchor(top: bookSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-        bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 16, bottom: 16, right: 16))
         
-    }
-    
-    func secondButtons(title:String) ->UIButton {
-        let b  = UIButton()
-        b.setTitle(title, for: .normal)
-        b.setTitleColor(.black, for: .normal)
-        b.constrainHeight(constant: 50)
-        b.layer.cornerRadius = 8
-        b.clipsToBounds = true
-        b.layer.borderWidth = 1
-        b.layer.borderColor = UIColor.lightGray.cgColor
-        return b
-    }
-    
-    
-    func colorBackgroundSelectedButton(sender:UIButton,views:[UIButton])  {
-        views.forEach { (bt) in
-            bt.setTitleColor(.black, for: .normal)
-            bt.backgroundColor = .gray
-            //            bt.
-        }
-        //        sender.backgroundColor = ColorConstant.mainBackgroundColor
+        
+        
+        orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 46, bottom: 0, right: 32))
+        dateCenterTextField.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
+        subStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
+        bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
         if let datePicker = self.dateTextField.inputView as? UIDatePicker { // 2.1
             datePicker.datePickerMode = UIDatePicker.Mode.date
             let dateformatter = DateFormatter() // 2.2
-            dateformatter.setLocalizedDateFormatFromTemplate("yyyy")// 2.3
+            dateformatter.setLocalizedDateFormatFromTemplate("dd:MM:yyyy")// 2.3
             self.dateTextField.text = dateformatter.string(from: datePicker.date) //2.4
             //            self.handleTextContents?(dateTextField.text ?? "",true)
         }
         self.dateTextField.resignFirstResponder() // 2.5
     }
     
-    @objc func textFieldDidChange(text: UITextField)  {
+    @objc func tap2Done(sender: Any, datePicker1: UIDatePicker) {
+        if let datePicker = self.dateCenterTextField.inputView as? UIDatePicker { // 2.1
+            datePicker.datePickerMode = UIDatePicker.Mode.date
+            let dateformatter = DateFormatter() // 2.2
+            dateformatter.setLocalizedDateFormatFromTemplate("dd:MM:yyyy")// 2.3
+            self.dateCenterTextField.text = dateformatter.string(from: datePicker.date) //2.4
+            //            self.handleTextContents?(dateTextField.text ?? "",true)
+        }
+        self.dateCenterTextField.resignFirstResponder() // 2.5
     }
     
-    @objc func handleOpenOther(sender:UISegmentedControl)  {
-        isActive = false
-        subStack.isHide(sender.selectedSegmentIndex == 0 ? true : false)
+    
+    @objc  func handleOpenOther(sender:UISegmentedControl)  {
+       isActive = false
+        if sender.selectedSegmentIndex == 0 {
+            subStack.isHide(true)
+            dateCenterTextField.isHide(false)
+        }else {
+            subStack.isHide(false)
+            dateCenterTextField.isHide(true)
+        }
     }
-    
-    
 }
+
+

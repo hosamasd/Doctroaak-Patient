@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomLAPOrderView: CustomBaseView {
+class CustomLAPSelectedSearchView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
