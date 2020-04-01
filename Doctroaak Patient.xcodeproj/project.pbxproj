@@ -505,6 +505,7 @@
 			children = (
 				4EA8B10D2430E0DF008473D3 /* left menu */,
 				4E347CDD2430B8F200333C07 /* HomeMenuVC.swift */,
+				4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -567,7 +568,6 @@
 				4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */,
 				4E13DDAB2430879200421737 /* Registration */,
 				4E1ED394243455A8004F134D /* Tests */,
-				4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

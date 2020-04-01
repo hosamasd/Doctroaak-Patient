@@ -12,6 +12,7 @@ class ServicesVC: CustomBaseViewVC {
     
     lazy var customMainServicesView:CustomMainServicesView = {
         let v = CustomMainServicesView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
     lazy var scrollView: UIScrollView = {
@@ -46,6 +47,11 @@ class ServicesVC: CustomBaseViewVC {
         mainView.addSubview(customMainServicesView)
         customMainServicesView.fillSuperview()
         
+    }
+    
+    
+   @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
     }
 
 }

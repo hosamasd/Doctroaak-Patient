@@ -18,13 +18,15 @@ class HomeMenuVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 800)
+        v.constrainHeight(constant: 900)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
     
     lazy var customMainHomeView:CustomMainHomeView = {
         let v = CustomMainHomeView()
+        v.mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoServices)))
+        v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         return v
     }()
     var index:Int? = 0
@@ -47,5 +49,17 @@ class HomeMenuVC: CustomBaseViewVC {
         mainView.addSubview(customMainHomeView)
         customMainHomeView.fillSuperview()
         
+    }
+    
+    
+    @objc func handleGoServices()  {
+        let services = ServicesVC()
+        navigationController?.pushViewController(services, animated: true)
+        
+    }
+    
+   @objc func handleOpenMenu()  {
+    (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
+
     }
 }

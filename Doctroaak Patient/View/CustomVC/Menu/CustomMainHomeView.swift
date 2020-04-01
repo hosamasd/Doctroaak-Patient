@@ -20,6 +20,7 @@ class CustomMainHomeView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "ic_subject_24px"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
+        i.isUserInteractionEnabled = true
         return i
     }()
     lazy var notifyImage:UIImageView = {
@@ -109,7 +110,7 @@ class CustomMainHomeView: CustomBaseView {
         
         NSLayoutConstraint.activate([
             ss.centerXAnchor.constraint(equalTo: centerXAnchor),
-            ss.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ss.centerYAnchor.constraint(equalTo: centerYAnchor,constant: 60)
             ])
         //        ss.centerInSuperview()
         

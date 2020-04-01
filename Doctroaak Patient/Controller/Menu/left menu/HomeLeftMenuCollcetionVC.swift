@@ -34,7 +34,9 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        handleCheckedIndex?(indexPath)
+        let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC
+        baseSlid?.didSelectItemAtIndex(index: indexPath)
+//        handleCheckedIndex?(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

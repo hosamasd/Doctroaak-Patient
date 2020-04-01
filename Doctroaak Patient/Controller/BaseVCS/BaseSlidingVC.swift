@@ -32,7 +32,7 @@ class BaseSlidingVC: UIViewController {
     }()
     
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
-    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
+     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate let menuWidth:CGFloat = 300
     fileprivate var isMenuOpen:Bool = false
@@ -49,14 +49,14 @@ class BaseSlidingVC: UIViewController {
         darkCoverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapped)))
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return isMenuOpen ? .lightContent : .default
-    }
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return isMenuOpen ? .lightContent : .default
+//    }
     
     //MARK: -user methods
     
     fileprivate func setupViews()  {
-        view.backgroundColor = .red
+//        view.backgroundColor = .red
         view.addSubViews(views: redView,blueView)
         
         NSLayoutConstraint.activate([
@@ -141,18 +141,21 @@ class BaseSlidingVC: UIViewController {
     func didSelectItemAtIndex(index:IndexPath)  {
         
         
-        
         performRightViewCleanUp()
         closeMenu()
         
-        //        switch index.row {
-        //        case 0:
-        //            rightViewController = UINavigationController(rootViewController: HomeVC())
+                switch index.row {
+                case 0:
+                    rightViewController = UINavigationController(rootViewController: ProfileVC())
         //        case 1:
         //            rightViewController = UINavigationController(rootViewController: ListVC())
         //        case 2:
         //            rightViewController = BookmarkVC()
-        //        default:
+                default:
+                    let vc = UIViewController()
+                    vc.view.backgroundColor = .red
+                    rightViewController = UINavigationController(rootViewController: vc)
+                    print(index.item)
         //
         //            let tabBarController = UITabBarController()
         //            let momentsController = UIViewController()
@@ -162,10 +165,10 @@ class BaseSlidingVC: UIViewController {
         //            navController.tabBarItem.title = "Moments"
         //            tabBarController.viewControllers = [navController]
         //            rightViewController = tabBarController
-        //        }
-        //        redView.addSubview(rightViewController.view)
-        //        addChild(rightViewController)
-        //        redView.bringSubviewToFront(darkCoverView)
+                }
+                redView.addSubview(rightViewController.view)
+                addChild(rightViewController)
+                redView.bringSubviewToFront(darkCoverView)
         
         
     }
