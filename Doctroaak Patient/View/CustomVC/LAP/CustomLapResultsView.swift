@@ -10,6 +10,13 @@ import UIKit
 
 class CustomLapResultsView: CustomBaseView {
     
+    var index:Int!{
+        didSet{
+            titleLabel.text = index == 1 ? "Rediology" : "Lap"
+        }
+    }
+    
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -31,7 +38,16 @@ class CustomLapResultsView: CustomBaseView {
         return v
     }()
     
-    lazy var lapResultsCollectionVC = LAPResultsCollectionVC()
+    lazy var lapResultsCollectionVC:LAPResultsCollectionVC = {
+        let vc = LAPResultsCollectionVC()
+        vc.handleCheckedIndex = {[unowned self] index in
+            self.handleCheckedIndex?(index)
+        }
+        return vc
+    }()
+    
+    var handleCheckedIndex:((IndexPath)->Void)?
+
     
     override func setupViews() {
         

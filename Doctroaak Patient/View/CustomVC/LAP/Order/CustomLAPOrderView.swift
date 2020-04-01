@@ -71,8 +71,9 @@ class CustomLAPOrderView: CustomBaseView {
     }()
     lazy var centerImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
-        //        i.contentMode = .scaleAspectFill
-        i.constrainHeight(constant: 100)
+        i.translatesAutoresizingMaskIntoConstraints = false
+//                i.contentMode = .scaleAspectFill
+//        i.constrainHeight(constant: 250)
         return i
     }()
     lazy var rosetaImageView:UIImageView = {
@@ -141,6 +142,7 @@ class CustomLAPOrderView: CustomBaseView {
     }()
      var constainedLogoAnchor:AnchoredConstraints!
      var bubleViewBottomTitleConstraint:NSLayoutConstraint!
+     var bubleViewCenterImgHeightConstraint:NSLayoutConstraint!
     var bubleViewTopSegConstraint:NSLayoutConstraint!
 
     var isDataFound = false
@@ -154,10 +156,14 @@ class CustomLAPOrderView: CustomBaseView {
     
     
     override func setupViews() {
+        bubleViewCenterImgHeightConstraint = centerImage.heightAnchor.constraint(equalToConstant: 250)
+        bubleViewCenterImgHeightConstraint.isActive = true
         [titleLabel,orderSegmentedView,LogoImage].forEach({$0.translatesAutoresizingMaskIntoConstraints = false})
+        [orLabel,addMoreImage,mainDropView].forEach({$0.isHide(true)})
+        
         let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
 
-        [orLabel,addMoreImage].forEach({$0.isHide(true)})
+        
         let mainStack =  getStack(views: centerImage,uploadView,orLabel,mainDropView,dd,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fill, axis: .vertical)
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
 
@@ -213,13 +219,15 @@ class CustomLAPOrderView: CustomBaseView {
 //        }
     }
     
-    fileprivate func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat) {
+    fileprivate func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat,centerImg:CGFloat) {
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.LogoImage.image = img
             self.constainedLogoAnchor.trailing?.constant = tr
             self.constainedLogoAnchor.leading?.constant = log
             self.bubleViewBottomTitleConstraint.constant = bottomt
             self.bubleViewTopSegConstraint.constant = tops
+            self.bubleViewCenterImgHeightConstraint.constant = centerImg
+            
         })
 //        LogoImage.image = img
 //        constainedLogoAnchor.trailing?.constant = tr
@@ -232,11 +240,11 @@ class CustomLAPOrderView: CustomBaseView {
         switch sender.selectedSegmentIndex {
         case 0:
             makeTheseChanges(  hide: true, height: 800)
-            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 )
+            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 ,centerImg: 250)
             addLapCollectionVC.view.isHide(true)
         case 1:
             self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200) : makeTheseChanges( hide: false, height: 800)
-              updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 )
+            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48, centerImg: 100 )
 //             LogoImage.image = #imageLiteral(resourceName: "Group 4116")
 //            constainedLogoAnchor.trailing?.constant = 0
 //            constainedLogoAnchor.leading?.constant = -48
@@ -244,7 +252,7 @@ class CustomLAPOrderView: CustomBaseView {
 //            bubleViewTopSegConstraint.constant = 186
         default:
             self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200,all: false) : makeTheseChanges( hide: false, height: 1000,all: false)
-              updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0 )
+            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
 //            LogoImage.image = #imageLiteral(resourceName: "Group 4116-1")
 //            constainedLogoAnchor.trailing?.constant = 60
 //            constainedLogoAnchor.leading?.constant = 0

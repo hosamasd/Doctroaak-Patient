@@ -21,8 +21,8 @@ class CustomMainHomeLeftView: CustomBaseView {
     lazy var userImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "humberto-chavez-FVh_yqLR9eA-unsplash"))
         //         i.contentMode = .scaleAspectFill
-        i.constrainWidth(constant: 100)
-        i.constrainHeight(constant: 100)
+        i.constrainWidth(constant: 60)
+        i.constrainHeight(constant: 60)
         return i
     }()
     lazy var userNameLabel = UILabel(text: "Bian Mohamed", font: .systemFont(ofSize: 30), textColor: .white)

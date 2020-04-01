@@ -19,7 +19,9 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorWorkingDateCell
+        let index = indexPath.item
         
+        [ cell.doctorSecondTimeLabel,cell.doctorDaySecondLastTimeLabel].forEach({$0.isHide(index%2 == 0 ? true : false)})
         return cell
     }
     

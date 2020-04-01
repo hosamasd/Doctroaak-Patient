@@ -12,9 +12,17 @@ class LapSearchResultsVC: CustomBaseViewVC {
     
     lazy var customLapResultsView:CustomLapResultsView = {
         let v = CustomLapResultsView()
+        v.index = index
+        v.handleCheckedIndex = {[unowned self] indexx in
+            let selected = LAPSelectedSearchResultsVC(index: self.index)
+//            selected.index = self.index
+            self.navigationController?.pushViewController(selected, animated: true)
+            }
         return v
     }()
     
+    var index:Int = 0 //0 for lab 1 for residology
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

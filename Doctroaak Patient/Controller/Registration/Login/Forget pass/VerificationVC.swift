@@ -144,7 +144,7 @@ class VerificationVC: CustomBaseViewVC {
     }
     
     @objc  func handleConfirm()  {
-        let  vc = index == 0 ? ViewController() :   NewPassVC()
+        let  vc = index == 0 ? BaseSlidingVC() :   NewPassVC()
         navigationController?.pushViewController(vc, animated: true)
         
     }

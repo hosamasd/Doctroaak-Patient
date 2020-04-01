@@ -32,7 +32,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     //MARK: -user methods
     
     override func setupNavigation()  {
-        navigationController?.navigationBar.isHide(true)
+//        navigationController?.navigationBar.isHide(true)
     }
     
     override func setupViews()  {

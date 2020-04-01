@@ -29,6 +29,9 @@ class LapSearchVC: CustomBaseViewVC {
         return v
     }()
     
+    var index:Int = 0 //0 for lab 1 for residology
+    
+    
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
     }

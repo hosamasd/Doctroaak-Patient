@@ -32,7 +32,7 @@ class BaseSlidingVC: UIViewController {
     }()
     
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
-    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: HomeLeftMenuVC())
+    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate let menuWidth:CGFloat = 300
     fileprivate var isMenuOpen:Bool = false
@@ -41,7 +41,7 @@ class BaseSlidingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isHide(true)
+        navigationController?.isNavigationBarHidden = true
         setupViews()
         setupGesture()
         setupViewControllers()

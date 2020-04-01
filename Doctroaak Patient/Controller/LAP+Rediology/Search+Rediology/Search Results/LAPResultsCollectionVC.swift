@@ -12,6 +12,10 @@ class LAPResultsCollectionVC: BaseCollectionVC {
     
     fileprivate let cellId = "cellId"
     
+    var index:Int = 0 //0 for lab 1 for residology
+    var handleCheckedIndex:((IndexPath)->Void)?
+
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
@@ -20,6 +24,10 @@ class LAPResultsCollectionVC: BaseCollectionVC {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! LAPResultsCell
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        handleCheckedIndex?(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

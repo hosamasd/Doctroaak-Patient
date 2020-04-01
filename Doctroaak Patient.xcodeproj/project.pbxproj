@@ -63,6 +63,7 @@
 		4E6D5BBA24307185000FC72D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB924307185000FC72D /* Assets.xcassets */; };
 		4E6D5BBD24307185000FC72D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E6D5BBB24307185000FC72D /* LaunchScreen.storyboard */; };
 		4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BCC243071FA000FC72D /* ExtensionUivew.swift */; };
+		4E93E9A92434A717004C44F2 /* LAPSelectedSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93E9A82434A717004C44F2 /* LAPSelectedSearchResultsVC.swift */; };
 		4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */; };
 		4EA06520243366B700D754AD /* CustomLapResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0651F243366B700D754AD /* CustomLapResultsView.swift */; };
 		4EA8B10F2430E0EC008473D3 /* HomeLeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8B10E2430E0EC008473D3 /* HomeLeftMenuVC.swift */; };
@@ -175,6 +176,7 @@
 		4E6D5BBC24307185000FC72D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E6D5BBE24307185000FC72D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E6D5BCC243071FA000FC72D /* ExtensionUivew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUivew.swift; sourceTree = "<group>"; };
+		4E93E9A82434A717004C44F2 /* LAPSelectedSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPSelectedSearchResultsVC.swift; sourceTree = "<group>"; };
 		4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapSearchResultsVC.swift; sourceTree = "<group>"; };
 		4EA0651F243366B700D754AD /* CustomLapResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLapResultsView.swift; sourceTree = "<group>"; };
 		4EA8B10E2430E0EC008473D3 /* HomeLeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLeftMenuVC.swift; sourceTree = "<group>"; };
@@ -462,15 +464,14 @@
 			path = LAP;
 			sourceTree = "<group>";
 		};
-		4E1E52A024335847005E5695 /* LAP */ = {
+		4E1E52A024335847005E5695 /* LAP+Rediology */ = {
 			isa = PBXGroup;
 			children = (
-				4E1E52A124335867005E5695 /* LapSearchVC.swift */,
-				4E31D52024336A11001E02B6 /* Search */,
+				4E31D52024336A11001E02B6 /* Search+Rediology */,
 				4E31D52724336E10001E02B6 /* Book */,
-				4EC3CD4F2433880C00732D96 /* Order */,
+				4EC3CD4F2433880C00732D96 /* Order+Rediology */,
 			);
-			path = LAP;
+			path = "LAP+Rediology";
 			sourceTree = "<group>";
 		};
 		4E1ED394243455A8004F134D /* Tests */ = {
@@ -482,13 +483,13 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		4E31D52024336A11001E02B6 /* Search */ = {
+		4E31D52024336A11001E02B6 /* Search+Rediology */ = {
 			isa = PBXGroup;
 			children = (
-				4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */,
-				4E31D51E24336A02001E02B6 /* LAPResultsCollectionVC.swift */,
+				4E1E52A124335867005E5695 /* LapSearchVC.swift */,
+				4E93E9A72434A6E7004C44F2 /* Search Results */,
 			);
-			path = Search;
+			path = "Search+Rediology";
 			sourceTree = "<group>";
 		};
 		4E31D52724336E10001E02B6 /* Book */ = {
@@ -557,13 +558,13 @@
 		4E6D5BC42430718F000FC72D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4E1E52A024335847005E5695 /* LAP */,
+				4E13DDAE243087B300421737 /* BaseVCS */,
+				4E347CDC2430B8D200333C07 /* Menu */,
+				4E1E52A024335847005E5695 /* LAP+Rediology */,
 				4E04C87A243230CF00D1AD1C /* Pharmacy  */,
 				4ED7126A2432194A00074363 /* Incubation */,
 				4ED7125A2432137100074363 /* I.C.U */,
 				4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */,
-				4E13DDAE243087B300421737 /* BaseVCS */,
-				4E347CDC2430B8D200333C07 /* Menu */,
 				4E13DDAB2430879200421737 /* Registration */,
 				4E1ED394243455A8004F134D /* Tests */,
 				4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */,
@@ -623,6 +624,16 @@
 			path = "Support Files";
 			sourceTree = "<group>";
 		};
+		4E93E9A72434A6E7004C44F2 /* Search Results */ = {
+			isa = PBXGroup;
+			children = (
+				4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */,
+				4E31D51E24336A02001E02B6 /* LAPResultsCollectionVC.swift */,
+				4E93E9A82434A717004C44F2 /* LAPSelectedSearchResultsVC.swift */,
+			);
+			path = "Search Results";
+			sourceTree = "<group>";
+		};
 		4EA8B10D2430E0DF008473D3 /* left menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -677,13 +688,13 @@
 			path = Book;
 			sourceTree = "<group>";
 		};
-		4EC3CD4F2433880C00732D96 /* Order */ = {
+		4EC3CD4F2433880C00732D96 /* Order+Rediology */ = {
 			isa = PBXGroup;
 			children = (
 				4EC3CD4D243387E200732D96 /* LAPOrderVC.swift */,
 				4EC3CD532433894F00732D96 /* AddLapCollectionVC.swift */,
 			);
-			path = Order;
+			path = "Order+Rediology";
 			sourceTree = "<group>";
 		};
 		4EC3CD522433893E00732D96 /* Order */ = {
@@ -948,6 +959,7 @@
 				4ED7127924321C3100074363 /* IncubationResultsCell.swift in Sources */,
 				4E347CE12430B96B00333C07 /* CustomMainHomeView.swift in Sources */,
 				4EBBCD9524320330005C8DF7 /* CusomBookView.swift in Sources */,
+				4E93E9A92434A717004C44F2 /* LAPSelectedSearchResultsVC.swift in Sources */,
 				4E00679B243313F8004B1C3F /* AddMedicineCell.swift in Sources */,
 				4E13DDED2430909B00421737 /* NewPassViewModel.swift in Sources */,
 				4E31D52624336CCE001E02B6 /* CustomLAPSelectedSearchView.swift in Sources */,
