@@ -10,6 +10,7 @@ import UIKit
 
 class LAPBookVC: CustomBaseViewVC {
     
+    
     lazy var customLAPBookView:CustomLAPBookView = {
         let v = CustomLAPBookView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))

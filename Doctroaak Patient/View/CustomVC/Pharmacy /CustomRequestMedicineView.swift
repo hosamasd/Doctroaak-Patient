@@ -47,7 +47,6 @@ class CustomRequestMedicineView: CustomBaseView {
     lazy var customAddMinusView = CustomAddMinusView()
     lazy var addMoreImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4178"))
-//        i.contentMode = .scaleAspectFill
         i.isUserInteractionEnabled = true
         i.constrainWidth(constant: 60)
         return i
