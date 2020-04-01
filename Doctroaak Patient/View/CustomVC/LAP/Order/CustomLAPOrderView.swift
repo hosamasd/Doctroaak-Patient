@@ -29,6 +29,7 @@ class CustomLAPOrderView: CustomBaseView {
     
     lazy var orderSegmentedView:UISegmentedControl = {
         let view = UISegmentedControl(items: ["prescription"," Analysis name","All"])
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
         layer.masksToBounds = true
         view.clipsToBounds = true
@@ -65,7 +66,7 @@ class CustomLAPOrderView: CustomBaseView {
         /// Set segmentedControl image
         view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
         view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
-        //        view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
+                view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
         return view
     }()
     lazy var centerImage:UIImageView = {
@@ -116,7 +117,7 @@ class CustomLAPOrderView: CustomBaseView {
     }()
     lazy var addLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
-        vc.view.constrainHeight(constant: 250)
+//        vc.view.constrainHeight(constant: 300)
         vc.view.isHide(true)
         return vc
     }()
@@ -124,6 +125,7 @@ class CustomLAPOrderView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4178"))
         i.isUserInteractionEnabled = true
         i.constrainWidth(constant: 60)
+        i.constrainHeight(constant: 60)
         return i
     }()
     lazy var nextButton:UIButton = {
@@ -137,7 +139,10 @@ class CustomLAPOrderView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
-    
+     var constainedLogoAnchor:AnchoredConstraints!
+     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
+    var bubleViewTopSegConstraint:NSLayoutConstraint!
+
     var isDataFound = false
     var isSecondIndex = false
     
@@ -149,33 +154,104 @@ class CustomLAPOrderView: CustomBaseView {
     
     
     override func setupViews() {
+        [titleLabel,orderSegmentedView,LogoImage].forEach({$0.translatesAutoresizingMaskIntoConstraints = false})
         let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
 
-        let ss = getStack(views: addLapCollectionVC.view, spacing: 16, distribution: .fillProportionally, axis: .vertical)
-        orLabel.isHide(true)
-        let mainStack =  getStack(views: centerImage,uploadView,orLabel,mainDropView,dd,ss, spacing: 16, distribution: .fillProportionally, axis: .vertical)
+        [orLabel,addMoreImage].forEach({$0.isHide(true)})
+        let mainStack =  getStack(views: centerImage,uploadView,orLabel,mainDropView,dd,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fill, axis: .vertical)
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
 
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStack,nextButton)
         //        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,customRequestMedicineView,addMedicineCollectionVC.view,nextButton,rosetaImageView,centerImage,uploadView,nextButton)
         
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+       constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        
+//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: -30, left: 0, bottom: 0, right: -60))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -80, right: 0))
+        bubleViewBottomTitleConstraint = titleLabel.bottomAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 80)
+        bubleViewBottomTitleConstraint.isActive = true
+        
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        
-        
-        
-        
-        orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
-        mainStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
+        orderSegmentedView.anchor(top: backImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 186, left: 32, bottom: 16, right: 32))
+        bubleViewTopSegConstraint = orderSegmentedView.topAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 186)
+        bubleViewTopSegConstraint.isActive = true
+//        backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
+//        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+//        soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+//
+//
+//
+//
+//        orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
+        mainStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 32, right: 32))
         uploadView.hstack(uploadImage,uploadLabel)
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
         //        nextButton.anchor(top: mainStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
     }
     
+    
+    func makeTheseChanges(hide:Bool,height:CGFloat,all:Bool? = true)  {
+//        DispatchQueue.main.async {
+        
+            if all ?? true {
+                
+               
+//                mainDropView.isHide(hide)
+                [self.mainDropView,addMoreImage].forEach({$0.isHide(hide)})
+                [self.centerImage,self.uploadView].forEach({$0.isHide(!hide)})
+                self.orLabel.isHide(true)
+            }else {
+                 [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,addMoreImage].forEach({$0.isHide(false)})
+//                [self.mainDropView,self.addLapCollectionVC.view,self.orLabel,self.centerImage,self.uploadView].forEach({$0.isHide(false)})
+            }
+         addLapCollectionVC.view.isHide(  addLapCollectionVC.medicineArray.count > 0 ? false : true )
+//            self.bubleViewHeightConstraint.constant = height
+//            self.view.layoutIfNeeded()
+//        }
+    }
+    
+    fileprivate func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat) {
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.LogoImage.image = img
+            self.constainedLogoAnchor.trailing?.constant = tr
+            self.constainedLogoAnchor.leading?.constant = log
+            self.bubleViewBottomTitleConstraint.constant = bottomt
+            self.bubleViewTopSegConstraint.constant = tops
+        })
+//        LogoImage.image = img
+//        constainedLogoAnchor.trailing?.constant = tr
+//        constainedLogoAnchor.leading?.constant = log
+//        bubleViewBottomTitleConstraint.constant = bottomt
+//        bubleViewTopSegConstraint.constant = tops
+    }
+    
+    @objc func handleOpenOther(sender:UISegmentedControl)  {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            makeTheseChanges(  hide: true, height: 800)
+            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 )
+            addLapCollectionVC.view.isHide(true)
+        case 1:
+            self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200) : makeTheseChanges( hide: false, height: 800)
+              updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 )
+//             LogoImage.image = #imageLiteral(resourceName: "Group 4116")
+//            constainedLogoAnchor.trailing?.constant = 0
+//            constainedLogoAnchor.leading?.constant = -48
+//            bubleViewBottomTitleConstraint.constant = 80
+//            bubleViewTopSegConstraint.constant = 186
+        default:
+            self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200,all: false) : makeTheseChanges( hide: false, height: 1000,all: false)
+              updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0 )
+//            LogoImage.image = #imageLiteral(resourceName: "Group 4116-1")
+//            constainedLogoAnchor.trailing?.constant = 60
+//            constainedLogoAnchor.leading?.constant = 0
+//            bubleViewBottomTitleConstraint.constant = 0
+//            bubleViewTopSegConstraint.constant = 80
+        }
+    }
     
     
 }

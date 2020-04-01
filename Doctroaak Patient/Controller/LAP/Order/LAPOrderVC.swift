@@ -18,7 +18,7 @@ class LAPOrderVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        //        v.constrainHeight(constant:  1200 )
+                v.constrainHeight(constant:  1000 )
         v.translatesAutoresizingMaskIntoConstraints = false
         v.constrainWidth(constant: view.frame.width)
         return v
@@ -26,7 +26,7 @@ class LAPOrderVC: CustomBaseViewVC {
     lazy var customLAPOrderView:CustomLAPOrderView = {
         let v = CustomLAPOrderView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        v.orderSegmentedView.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
+//        v.orderSegmentedView.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
         return v
     }()
     var bubleViewHeightConstraint:NSLayoutConstraint!
@@ -47,8 +47,8 @@ class LAPOrderVC: CustomBaseViewVC {
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        bubleViewHeightConstraint = mainView.heightAnchor.constraint(equalToConstant: 800)
-        bubleViewHeightConstraint.isActive = true
+//        bubleViewHeightConstraint = mainView.heightAnchor.constraint(equalToConstant: 800)
+//        bubleViewHeightConstraint.isActive = true
         mainView.addSubViews(views: customLAPOrderView)
         customLAPOrderView.fillSuperview()
     }
