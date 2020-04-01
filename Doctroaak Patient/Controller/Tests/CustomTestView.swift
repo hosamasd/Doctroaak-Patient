@@ -12,7 +12,7 @@ import iOSDropDown
 class CustomTestView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4174-3"))
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116-1"))
         i.contentMode = .scaleAspectFill
         return i
     }()
@@ -195,13 +195,13 @@ class CustomTestView: CustomBaseView {
 //        dateTextField.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 16))
 //        typeDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
 //        
-        addSubViews(views: LogoImage,backImage)//,bookSegmentedView,bookButton,mainStack)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,bookSegmentedView)//,bookButton,mainStack)
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: -30, left: 0, bottom: 0, right: -60))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-//        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-//        soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-//        bookSegmentedView.anchor(top: backImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 86, left: 32, bottom: 16, right: 32))
+        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
+        soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+        bookSegmentedView.anchor(top: backImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 32, bottom: 16, right: 32))
 //
 //        mainStack.anchor(top: bookSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
 //        bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 16, bottom: 16, right: 16))

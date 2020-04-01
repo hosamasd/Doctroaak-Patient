@@ -39,8 +39,6 @@ class LAPOrderVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isDataFound)
-        userDefaults.synchronize()
     }
     
     override func setupViews() {
