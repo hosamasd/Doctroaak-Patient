@@ -10,7 +10,9 @@
 import UIKit
 
 class CustomBaseViewVC: UIViewController {
-    
+
+//    var index:Int? = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

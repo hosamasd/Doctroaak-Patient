@@ -25,16 +25,32 @@ class CustomPharmacyLocationView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Pharmacy ", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Select Your Location", font: .systemFont(ofSize: 18), textColor: .white)
     
-    lazy var addressTextField:UITextField = {
-        let s = createMainTextFields(place: "Address", type: .default,secre: true)
-        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-        img.isUserInteractionEnabled = true
-//        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
-        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(60))
-        s.rightView = img
-        s.rightViewMode = .always
-        return s
+    lazy var addressMainView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.addSubViews(views: addressImage,addressLabel)
+        v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+        return v
     }()
+    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var addressImage:UIImageView = {
+        let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
+        v.isUserInteractionEnabled = true
+        v.contentMode = .scaleAspectFill
+        v.constrainWidth(constant: 60)
+        
+        return v
+    }()
+    
+    //    lazy var addressTextField:UITextField = {
+    //        let s = createMainTextFields(place: "Address", type: .default,secre: true)
+    //        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
+    //        img.isUserInteractionEnabled = true
+    ////        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
+    //        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(60))
+    //        s.rightView = img
+    //        s.rightViewMode = .always
+    //        return s
+    //    }()
     lazy var delvierySwitch:UISwitch = {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
@@ -43,21 +59,15 @@ class CustomPharmacyLocationView: CustomBaseView {
     }()
     lazy var deliveryView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.layer.cornerRadius = 8
-        v.clipsToBounds = true
-        v.layer.borderColor = UIColor.gray.cgColor
-        v.layer.borderWidth = 1
+        
         v.addSubViews(views: delvierySwitch,deliveryLabel)
-        v.constrainHeight(constant: 60)
+        
         return v
     }()
     lazy var deliveryLabel = UILabel(text: "Delivery", font: .systemFont(ofSize: 20), textColor: .lightGray)
     lazy var insuracneView:UIView = {
-       let v = UIView(backgroundColor: .white)
-        v.layer.cornerRadius = 8
-        v.clipsToBounds = true
-        v.layer.borderColor = UIColor.gray.cgColor
-        v.layer.borderWidth = 1
+        let v = UIView(backgroundColor: .white)
+        
         v.addSubViews(views: insuranceSwitch,insuranceLabel)
         return v
     }()
@@ -90,8 +100,15 @@ class CustomPharmacyLocationView: CustomBaseView {
     }
     
     override func setupViews() {
-        let textStack = getStack(views: addressTextField,insuracneView,deliveryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
-
+        [addressMainView,insuracneView,deliveryView].forEach { (v) in
+            v.layer.cornerRadius = 8
+            v.clipsToBounds = true
+            v.layer.borderColor = UIColor.gray.cgColor
+            v.layer.borderWidth = 1
+            v.constrainHeight(constant: 60)
+        }
+        let textStack = getStack(views: addressMainView,insuracneView,deliveryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        
         insuracneView.hstack(insuranceLabel,insuranceSwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
         deliveryView.hstack(deliveryLabel,delvierySwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,textStack,nextButton)
@@ -99,7 +116,7 @@ class CustomPharmacyLocationView: CustomBaseView {
         NSLayoutConstraint.activate([
             textStack.centerXAnchor.constraint(equalTo: centerXAnchor),
             textStack.centerYAnchor.constraint(equalTo: centerYAnchor)
-            ])
+        ])
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))

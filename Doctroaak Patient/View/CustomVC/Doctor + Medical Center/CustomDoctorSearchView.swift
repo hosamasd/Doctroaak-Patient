@@ -75,11 +75,8 @@ class CustomDoctorSearchView: CustomBaseView {
     
     lazy var mainDropView:UIView = {
         let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+       
         l.addSubview(cityDrop)
-        l.constrainHeight(constant: 60)
         return l
     }()
     lazy var cityDrop:DropDown = {
@@ -91,9 +88,7 @@ class CustomDoctorSearchView: CustomBaseView {
     }()
     lazy var mainDrop2View:UIView = {
         let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+      
         l.addSubview(areaDrop)
         return l
     }()
@@ -107,10 +102,7 @@ class CustomDoctorSearchView: CustomBaseView {
     }()
     lazy var insuracneView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.layer.cornerRadius = 8
-        v.clipsToBounds = true
-        v.layer.borderColor = UIColor.gray.cgColor
-        v.layer.borderWidth = 1
+      
         v.addSubViews(views: insuranceSwitch,insuranceLabel)
         return v
     }()
@@ -121,18 +113,35 @@ class CustomDoctorSearchView: CustomBaseView {
         s.isOn = true
         return s
     }()
+    
+    lazy var addressMainView:UIView = {
+           let v = UIView(backgroundColor: .white)
+        v.isHide(true)
+           v.addSubViews(views: addressImage,addressLabel)
+           v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+           return v
+       }()
+       lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
+       lazy var addressImage:UIImageView = {
+           let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
+           v.isUserInteractionEnabled = true
+           v.contentMode = .scaleAspectFill
+           v.constrainWidth(constant: 60)
+           
+           return v
+       }()
    
-    lazy var addressTextField:UITextField = {
-        let s = createMainTextFields(place: "Address", type: .default,secre: true)
-        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-        img.isUserInteractionEnabled = true
-        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
-        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(60))
-        s.rightView = img
-        s.rightViewMode = .always
-        s.isHide(true)
-        return s
-    }()
+//    lazy var addressTextField:UITextField = {
+//        let s = createMainTextFields(place: "Address", type: .default,secre: true)
+//        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
+//        img.isUserInteractionEnabled = true
+//        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
+//        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(60))
+//        s.rightView = img
+//        s.rightViewMode = .always
+//        s.isHide(true)
+//        return s
+//    }()
     lazy var searchButton:UIButton = {
         let button = UIButton()
         button.setTitle("Search", for: .normal)
@@ -153,9 +162,13 @@ class CustomDoctorSearchView: CustomBaseView {
     
     
     override func setupViews() {
-        
-//        [mainDropView,mainDrop2View].forEach({$0.isHide(true)})
-        let textStack = getStack(views: mainDropView,mainDrop2View,addressTextField,insuracneView, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        [mainDrop2View,mainDropView,addressMainView,insuracneView].forEach { (v) in
+              v.layer.cornerRadius = 8
+                  v.clipsToBounds = true
+                  v.layer.borderColor = UIColor.gray.cgColor
+                  v.layer.borderWidth = 1
+        }
+        let textStack = getStack(views: mainDropView,mainDrop2View,addressMainView,insuracneView, spacing: 16, distribution: .fillEqually, axis: .vertical)
 //        let text2Stack = getStack(views: addressTextField,insuranceTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
 
         
@@ -197,6 +210,6 @@ class CustomDoctorSearchView: CustomBaseView {
     
     @objc func handleOpenOther(sender: UISegmentedControl)  {
         
-        sender.selectedSegmentIndex == 0 ?    openTheseViewsOrHide(hide: true, vv: mainDrop2View,mainDropView,ss:addressTextField) : openTheseViewsOrHide(hide: false, vv: mainDrop2View,mainDropView,ss:addressTextField)
+        sender.selectedSegmentIndex == 0 ?    openTheseViewsOrHide(hide: true, vv: mainDrop2View,mainDropView,ss:addressMainView) : openTheseViewsOrHide(hide: false, vv: mainDrop2View,mainDropView,ss:addressMainView)
     }
 }

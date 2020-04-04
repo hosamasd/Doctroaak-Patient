@@ -29,8 +29,17 @@ class LapSearchVC: CustomBaseViewVC {
         return v
     }()
     
-    var index:Int = 0 //0 for lab 1 for residology
     
+    fileprivate let index:Int!
+    
+    init(index:Int) {
+        self.index = index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
