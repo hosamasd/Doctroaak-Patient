@@ -15,6 +15,7 @@
 		4E04C87C243230F800D1AD1C /* PharmacyLocationVC .swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04C87B243230F800D1AD1C /* PharmacyLocationVC .swift */; };
 		4E04C8802432315300D1AD1C /* CustomPharmacyLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04C87F2432315300D1AD1C /* CustomPharmacyLocationView.swift */; };
 		4E04C882243235BE00D1AD1C /* CustomPaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */; };
+		4E0536B82438A08A00ECFF0D /* LAPBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0536B72438A08A00ECFF0D /* LAPBookViewModel.swift */; };
 		4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDAF243087E500421737 /* WelcomeVC.swift */; };
 		4E13DDB32430880F00421737 /* CustomWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB22430880F00421737 /* CustomWelcomeView.swift */; };
 		4E13DDB62430884300421737 /* CustomBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB52430884300421737 /* CustomBaseView.swift */; };
@@ -126,6 +127,7 @@
 		4E04C87B243230F800D1AD1C /* PharmacyLocationVC .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PharmacyLocationVC .swift"; sourceTree = "<group>"; };
 		4E04C87F2432315300D1AD1C /* CustomPharmacyLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPharmacyLocationView.swift; sourceTree = "<group>"; };
 		4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPaddingTextField.swift; sourceTree = "<group>"; };
+		4E0536B72438A08A00ECFF0D /* LAPBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPBookViewModel.swift; sourceTree = "<group>"; };
 		4E13DDAF243087E500421737 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		4E13DDB22430880F00421737 /* CustomWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWelcomeView.swift; sourceTree = "<group>"; };
 		4E13DDB52430884300421737 /* CustomBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBaseView.swift; sourceTree = "<group>"; };
@@ -274,6 +276,14 @@
 				4E00679A243313F8004B1C3F /* AddMedicineCell.swift */,
 			);
 			path = "Pharmacy ";
+			sourceTree = "<group>";
+		};
+		4E0536B62438A06300ECFF0D /* LAP */ = {
+			isa = PBXGroup;
+			children = (
+				4E0536B72438A08A00ECFF0D /* LAPBookViewModel.swift */,
+			);
+			path = LAP;
 			sourceTree = "<group>";
 		};
 		4E13DDAB2430879200421737 /* Registration */ = {
@@ -585,6 +595,7 @@
 		4E6D5BC7243071A8000FC72D /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				4E0536B62438A06300ECFF0D /* LAP */,
 				4E13DDC624308AC800421737 /* rEGISTRATION */,
 				4EA8B1202430E6BA008473D3 /* EdirProfileViewModel.swift */,
 			);
@@ -870,6 +881,14 @@
 				TargetAttributes = {
 					4E6D5BAE24307183000FC72D = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -977,6 +996,7 @@
 				4E4F84AC2430CBEF005EFC4C /* CustomMainServicesView.swift in Sources */,
 				4E13DDBE24308A0800421737 /* LoginVC.swift in Sources */,
 				4EA8B1212430E6BA008473D3 /* EdirProfileViewModel.swift in Sources */,
+				4E0536B82438A08A00ECFF0D /* LAPBookViewModel.swift in Sources */,
 				4E1E52A224335867005E5695 /* LapSearchVC.swift in Sources */,
 				4E04C882243235BE00D1AD1C /* CustomPaddingTextField.swift in Sources */,
 				4EA8B10F2430E0EC008473D3 /* HomeLeftMenuVC.swift in Sources */,
@@ -1129,7 +1149,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1184,7 +1204,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1199,6 +1219,7 @@
 			baseConfigurationReference = 0205F769D8BBEB849C19DF2D /* Pods-Doctroaak Patient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Doctroaak Patient/Doctroaak Patient.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RTZJMVRS2;
 				INFOPLIST_FILE = "$(SRCROOT)/Doctroaak Patient/Support Files/Info.plist";
@@ -1218,6 +1239,7 @@
 			baseConfigurationReference = 60BA14D456864443CE1D68A0 /* Pods-Doctroaak Patient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Doctroaak Patient/Doctroaak Patient.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RTZJMVRS2;
 				INFOPLIST_FILE = "$(SRCROOT)/Doctroaak Patient/Support Files/Info.plist";

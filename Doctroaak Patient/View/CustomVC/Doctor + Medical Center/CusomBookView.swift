@@ -114,9 +114,44 @@ class CusomBookView: CustomBaseView {
     lazy var fullNameTextField = createMainTextFields(place: "Full name")
     lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
     
-    lazy var dayTextField = createMainTextFields(place: "   DD")
-    lazy var monthTextField = createMainTextFields(place: " MM")
-    lazy var yearTextField = createMainTextFields(place: "  YYYY")
+    lazy var dayTextField:UITextField = {
+        let t = UITextField()
+        t.placeholder = "DD"
+        t.inputView = dayPickerView
+        return t
+    }()
+    
+    lazy var monthTextField:UITextField = {
+        let t = UITextField()
+        t.placeholder = "MM"
+        t.inputView = monthPickerView
+        return t
+    }()
+    lazy var yearTextField:UITextField = {
+        let t = UITextField()
+        t.placeholder = "YYYY"
+        t.inputView = yearPickerView
+        return t
+    }()
+    
+    lazy var dayPickerView:UIPickerView  = {
+        let v = UIPickerView()
+        v.delegate = self
+        v.dataSource = self
+        return v
+    }()
+    lazy var yearPickerView:UIPickerView  = {
+        let v = UIPickerView()
+        v.delegate = self
+        v.dataSource = self
+        return v
+    }()
+    lazy var monthPickerView:UIPickerView  = {
+        let v = UIPickerView()
+        v.delegate = self
+        v.dataSource = self
+        return v
+    }()
     lazy var boyButton:UIButton = {
         
         let button = UIButton(type: .system)
@@ -159,6 +194,15 @@ class CusomBookView: CustomBaseView {
         return button
     }()
     
+    var days = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    lazy var years:[String] = {
+        var vv = [String]()
+        for s in stride(from: 2020, to: 1900, by: -1) {
+            vv.append("\(s)")
+        }
+        return vv
+    }()
     var isActive = true
     
     override func layoutSubviews() {
@@ -187,6 +231,13 @@ class CusomBookView: CustomBaseView {
     }
     
     override func setupViews() {
+        [monthTextField,dayTextField,yearTextField].forEach { (t) in
+            t.textAlignment = .center
+            t.layer.cornerRadius = 8
+            t.layer.borderWidth = 1
+            t.layer.borderColor = UIColor.lightGray.cgColor
+            t.clipsToBounds = true
+        }
         [fullNameTextField,mobileNumberTextField,dayTextField,boyButton].forEach({$0.constrainHeight(constant: 60)})
         let sV = getStack(views: mainDateView,mainDropView, spacing: 16, distribution: .fillEqually, axis: .vertical)
         let sssd = getStack(views: shift1Button,shift2Button, spacing: 16, distribution: .fillEqually, axis: .horizontal)
@@ -253,4 +304,29 @@ class CusomBookView: CustomBaseView {
     }
     
     
+}
+
+extension CusomBookView:UIPickerViewDelegate,UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerView == dayPickerView ? days.count  : pickerView==monthPickerView ?  months.count : years.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerView == dayPickerView ? days[row] : pickerView==monthPickerView ?   months[row] : years[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView==dayPickerView {
+            dayTextField.text = days[row]
+        }else if pickerView==monthPickerView{
+            monthTextField.text = months[row]
+        }else {
+            yearTextField.text = years[row]
+        }
+        
+    }
 }
