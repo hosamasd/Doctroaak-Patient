@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: DoctorSearchVC())
+        window?.rootViewController = UINavigationController(rootViewController: LapSearchVC(index: 0))
         return true
     }
 

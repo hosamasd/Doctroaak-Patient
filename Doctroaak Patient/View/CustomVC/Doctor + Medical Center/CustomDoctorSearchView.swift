@@ -8,7 +8,7 @@
 
 import UIKit
 import iOSDropDown
-
+import TTSegmentedControl
 
 class CustomDoctorSearchView: CustomBaseView {
     
@@ -34,54 +34,20 @@ class CustomDoctorSearchView: CustomBaseView {
     lazy var userSpecificationLabel = UILabel(text: "Select Your Location", font: .systemFont(ofSize: 16), textColor: .white)
     
     
-    lazy var searchSegmentedView:UISegmentedControl = {
-        let view = UISegmentedControl(items: ["Search by city and area","Search by address"])
-        view.setTitleTextAttributes([.foregroundColor:UIColor.white], for: .selected)
-        view.layer.cornerRadius = 32
-        view.clipsToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.backgroundColor = UIColor.lightGray.cgColor
+    lazy var searchSegmentedView:TTSegmentedControl = {
+        let view = TTSegmentedControl()
+        view.itemTitles = ["Search by city and area","Search by address"]
+        view.allowChangeThumbWidth = false
         view.constrainHeight(constant: 50)
-        view.selectedSegmentIndex = 0
-        view.tintColor = .black
-        view.backgroundColor = .white
-//        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
-        /// Gradient
-        let gradient = CAGradientLayer()
-        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 0, height: 50)
-        let leftColor = #colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1)
-        let rightColor = #colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)
-        gradient.colors = [leftColor.cgColor, rightColor.cgColor]
-        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-        /// Create gradient image
-        UIGraphicsBeginImageContext(gradient.frame.size)
-        gradient.render(in: UIGraphicsGetCurrentContext()!)
-        let segmentedControlImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        // Normal Image
-        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size);
-        let context:CGContext = UIGraphicsGetCurrentContext()!;
-        context.setFillColor(#colorLiteral(red: 0.9352307916, green: 0.9353840947, blue: 0.9351981282, alpha: 1).cgColor)
-        context.fill(rect)
-        let normalImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        /// Set segmentedControl image
-        view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
-        view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
-        view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
+        view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
+        view.useShadow = true
+        view.defaultTextFont = .systemFont(ofSize: 14)
+        view.selectedTextFont = .systemFont(ofSize: 12)
+        view.didSelectItemWith = {[unowned self] (index, title) in
+            index == 0 ?    self.openTheseViewsOrHide(hide: true, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView) : self.openTheseViewsOrHide(hide: false, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView)
+        }
         return view
     }()
-
-//    lazy var searchSegmentedView:UISegmentedControl = {
-//       let v = UISegmentedControl(items: ["TintedSegmentedControl","TintedSegmentedControl"])
-//        v.constrainHeight(constant: 50)
-//        return v
-//    }()
-    
-   
 
     
     lazy var searchCityButton:UIButton = {
