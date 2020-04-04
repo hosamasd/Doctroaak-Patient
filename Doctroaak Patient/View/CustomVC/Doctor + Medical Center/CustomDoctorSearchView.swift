@@ -35,7 +35,8 @@ class CustomDoctorSearchView: CustomBaseView {
     
     lazy var searchSegmentedView:UISegmentedControl = {
         let view = UISegmentedControl(items: ["Search by city and area","Search by address"])
-        view.layer.cornerRadius = 16
+        view.setTitleTextAttributes([.foregroundColor:UIColor.white], for: .selected)
+        view.layer.cornerRadius = 32
         view.clipsToBounds = true
         view.layer.borderWidth = 1
         view.layer.backgroundColor = UIColor.lightGray.cgColor
@@ -43,12 +44,12 @@ class CustomDoctorSearchView: CustomBaseView {
         view.selectedSegmentIndex = 0
         view.tintColor = .black
         view.backgroundColor = .white
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
+//        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
         /// Gradient
         let gradient = CAGradientLayer()
-        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 40, height: 20)
-        let leftColor = #colorLiteral(red: 0.6002450585, green: 0.3833707869, blue: 0.9996971488, alpha: 1)
-        let rightColor = #colorLiteral(red: 0.4903785586, green: 0.2679489255, blue: 0.9277817607, alpha: 1)
+        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 0, height: 50)
+        let leftColor = #colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1)
+        let rightColor = #colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)
         gradient.colors = [leftColor.cgColor, rightColor.cgColor]
         gradient.startPoint = CGPoint(x: 0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
@@ -57,7 +58,7 @@ class CustomDoctorSearchView: CustomBaseView {
         gradient.render(in: UIGraphicsGetCurrentContext()!)
         let segmentedControlImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         // Normal Image
         let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size);
@@ -72,6 +73,39 @@ class CustomDoctorSearchView: CustomBaseView {
         view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
         return view
     }()
+
+//    lazy var searchSegmentedView:UISegmentedControl = {
+//       let v = UISegmentedControl(items: ["TintedSegmentedControl","TintedSegmentedControl"])
+//        v.constrainHeight(constant: 50)
+//        return v
+//    }()
+    
+   
+
+    
+    lazy var searchCityButton:UIButton = {
+            let button = UIButton()
+          button.setTitle(" Search by city and area ", for: .normal)
+          button.backgroundColor = ColorConstants.disabledButtonsGray
+          button.setTitleColor(.black, for: .normal)
+          button.layer.cornerRadius = 16
+          button.constrainHeight(constant: 50)
+          button.clipsToBounds = true
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+
+          return button
+    }()
+    lazy var searchAddressButton:UIButton = {
+               let button = UIButton()
+             button.setTitle("Search by address   ", for: .normal)
+             button.backgroundColor = ColorConstants.disabledButtonsGray
+             button.setTitleColor(.black, for: .normal)
+             button.layer.cornerRadius = 16
+             button.constrainHeight(constant: 50)
+             button.clipsToBounds = true
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+             return button
+       }()
     
     lazy var mainDropView:UIView = {
         let l = UIView(backgroundColor: .white)
@@ -131,17 +165,6 @@ class CustomDoctorSearchView: CustomBaseView {
            return v
        }()
    
-//    lazy var addressTextField:UITextField = {
-//        let s = createMainTextFields(place: "Address", type: .default,secre: true)
-//        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-//        img.isUserInteractionEnabled = true
-//        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
-//        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(60))
-//        s.rightView = img
-//        s.rightViewMode = .always
-//        s.isHide(true)
-//        return s
-//    }()
     lazy var searchButton:UIButton = {
         let button = UIButton()
         button.setTitle("Search", for: .normal)
@@ -156,8 +179,16 @@ class CustomDoctorSearchView: CustomBaseView {
    
     override func layoutSubviews() {
         super.layoutSubviews()
-        addGradientInSenderAndRemoveOther(sender: searchButton)
-        searchButton.setTitleColor(.white, for: .normal)
+        if searchCityButton.backgroundColor != nil {
+            addGradientInSenderAndRemoveOther(sender: searchCityButton)
+            searchCityButton.setTitleColor(.white, for: .normal)
+        }
+////        if searchCityButton.backgroundColor != nil {
+////                   addGradientInSenderAndRemoveOther(sender: searchCityButton)
+////                   searchCityButton.setTitleColor(.white, for: .normal)
+////               }
+////        addGradientInSenderAndRemoveOther(sender: searchButton)
+////        searchButton.setTitleColor(.white, for: .normal)
     }
     
     
@@ -168,6 +199,8 @@ class CustomDoctorSearchView: CustomBaseView {
                   v.layer.borderColor = UIColor.gray.cgColor
                   v.layer.borderWidth = 1
         }
+        let ss = getStack(views: searchCityButton,searchAddressButton, spacing: -8, distribution: .fill, axis: .horizontal)
+        
         let textStack = getStack(views: mainDropView,mainDrop2View,addressMainView,insuracneView, spacing: 16, distribution: .fillEqually, axis: .vertical)
 //        let text2Stack = getStack(views: addressTextField,insuranceTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
 

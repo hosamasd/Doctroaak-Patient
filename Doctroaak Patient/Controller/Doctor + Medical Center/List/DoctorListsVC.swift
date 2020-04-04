@@ -13,6 +13,10 @@ class DoctorListsVC: CustomBaseViewVC {
     lazy var customDoctorListsView:CustomDoctorListsView = {
         let v = CustomDoctorListsView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.handleCheckedIndex = {[unowned self] indexPath in
+            let vc = DoctorSearchVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         return v
     }()
     
