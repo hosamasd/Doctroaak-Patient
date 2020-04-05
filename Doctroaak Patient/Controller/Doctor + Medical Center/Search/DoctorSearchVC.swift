@@ -23,7 +23,32 @@ class DoctorSearchVC: CustomBaseViewVC {
         return v
     }()
     
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViewModelObserver()
+    }
+    
+    //MARK:-User methods
+       
+       func setupViewModelObserver()  {
+        customDoctorSearchView.doctorSearchViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+               guard let isValid = isValidForm else {return}
+               //            self.customLoginView.loginButton.isEnabled = isValid
+               
+               self.changeButtonState(enable: isValid, vv: self.customDoctorSearchView.searchButton)
+           }
+           
+        customDoctorSearchView.doctorSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+               if isReg == true {
+                   //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                   //                SVProgressHUD.show(withStatus: "Login...".localized)
+                   
+               }else {
+                   //                SVProgressHUD.dismiss()
+                   //                self.activeViewsIfNoData()
+               }
+           })
+       }
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
@@ -43,6 +68,8 @@ class DoctorSearchVC: CustomBaseViewVC {
 
 extension DoctorSearchVC: ChooseLocationVCProtocol {
     func getLatAndLong(lat: Double, long: Double) {
+        customDoctorSearchView.doctorSearchViewModel.lat = "\(lat)"
+         customDoctorSearchView.doctorSearchViewModel.lng = "\(long)"
         print(lat, "            ",long)
     }
     

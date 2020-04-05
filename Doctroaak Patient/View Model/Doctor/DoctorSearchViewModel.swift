@@ -17,7 +17,9 @@ class DoctorSearchViewModel {
     var city:String? {didSet {checkFormValidity()}}
     var area:String? {didSet {checkFormValidity()}}
     var insuranceCompany:Bool? = true {didSet {checkFormValidity()}}
-    var address:String? {didSet {checkFormValidity()}}
+    var lat:String? {didSet {checkFormValidity()}}
+    var lng:String? {didSet {checkFormValidity()}}
+
     var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
 
     
@@ -28,7 +30,7 @@ class DoctorSearchViewModel {
         if isFirstOpetion ?? true {
             guard let city = city,let area = area else { return  }
         }else {
-            guard let address = address else { return  }
+            guard let lat = lat,let lng = lng else { return  }
         }
         bindableIsLogging.value = true
         
@@ -36,7 +38,7 @@ class DoctorSearchViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = city?.isEmpty == false &&  area?.isEmpty == false  ||   address?.isEmpty == false 
+        let isFormValid = city?.isEmpty == false &&  area?.isEmpty == false  ||   lat?.isEmpty == false && lng?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

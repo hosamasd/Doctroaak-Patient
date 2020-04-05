@@ -40,7 +40,7 @@ class CustomDoctorSearchView: CustomBaseView {
         view.defaultTextFont = .systemFont(ofSize: 14)
         view.selectedTextFont = .systemFont(ofSize: 12)
         view.didSelectItemWith = {[unowned self] (index, title) in
-            index == 0 ?    self.openTheseViewsOrHide(hide: true, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView) : self.openTheseViewsOrHide(hide: false, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView)
+            index == 0 ?    self.openTheseViewsOrHide(hide: true, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView,index:index) : self.openTheseViewsOrHide(hide: false, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView,index:index)
         }
         return view
     }()
@@ -83,6 +83,7 @@ class CustomDoctorSearchView: CustomBaseView {
         i.placeholder = "City".localized
         i.didSelect {[unowned self] (txt, index, _) in
             self.doctorSearchViewModel.city = txt
+            self.doctorSearchViewModel.insuranceCompany = true
         }
         return i
     }()
@@ -193,20 +194,18 @@ class CustomDoctorSearchView: CustomBaseView {
     
   
     
-    func openTheseViewsOrHide(hide:Bool,vv:UIView...,ss:UIView)  {
+    func openTheseViewsOrHide(hide:Bool,vv:UIView...,ss:UIView,index:Int)  {
         vv.forEach({$0.isHide(!hide)})
           ss.isHide(hide)
+        if index == 0 {
+            doctorSearchViewModel.lat=nil
+            doctorSearchViewModel.lng=nil
+        }else {
+            doctorSearchViewModel.city=nil
+            doctorSearchViewModel.area=nil
+        }
     }
     
-    
-   @objc func handleLocation()  {
-        print(9999)
-    }
-    
-    @objc func handleOpenOther(sender: UISegmentedControl)  {
-        
-        sender.selectedSegmentIndex == 0 ?    openTheseViewsOrHide(hide: true, vv: mainDrop2View,mainDropView,ss:addressMainView) : openTheseViewsOrHide(hide: false, vv: mainDrop2View,mainDropView,ss:addressMainView)
-    }
     
     @objc func handleOpenSwitch(sender:UISwitch)  {
         doctorSearchViewModel.insuranceCompany =  sender.isOn

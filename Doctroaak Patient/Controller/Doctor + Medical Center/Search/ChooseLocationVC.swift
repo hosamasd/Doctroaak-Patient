@@ -41,9 +41,14 @@ class ChooseLocationVC: CustomBaseViewVC {
         setupViews()
     }
 
+    
+    
     //MARK:-User methods
 
 
+    override func setupNavigation() {
+        navigationController?.navigationBar.isHide(true)
+    }
 
     fileprivate func getUserLocation()  {
         locationManager.delegate = self
@@ -53,6 +58,13 @@ class ChooseLocationVC: CustomBaseViewVC {
 
     }
 
+    func addAnnotation(coordinate:CLLocationCoordinate2D){
+        customChooseUserLocationView.mapView.removeAnnotations(customChooseUserLocationView.mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+            customChooseUserLocationView.mapView.addAnnotation(annotation)
+    }
+    
     //TODO:-Handle methods
 
       override func setupViews()  {
@@ -72,9 +84,20 @@ class ChooseLocationVC: CustomBaseViewVC {
     }
 
     @objc func handleDone()  {
+        self.delgate?.getLatAndLong(lat: self.currentLat ?? 0.0, long: self.currentLong ?? 0.0)
 
-            self.delgate?.getLatAndLong(lat: self.currentLat ?? 0.0, long: self.currentLong ?? 0.0)
+        navigationController?.popViewController(animated: true)
 
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    
+    if gestureRecognizer.state == .ended{
+        let locationInView = gestureRecognizer.location(in: customChooseUserLocationView.mapView)
+        let tappedCoordinate = customChooseUserLocationView.mapView.convert(locationInView, toCoordinateFrom: customChooseUserLocationView.mapView)
+        addAnnotation(coordinate: tappedCoordinate)
+    }
+    
     }
 
 }
@@ -83,7 +106,7 @@ class ChooseLocationVC: CustomBaseViewVC {
 
 extension ChooseLocationVC:MKMapViewDelegate  {
 
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    
 //
 //        let camera = GMSCameraPosition.camera(withLatitude: coordinate.latitude, longitude: coordinate.longitude, zoom: 13.0)
 //               currentLat = coordinate.latitude
@@ -94,7 +117,7 @@ extension ChooseLocationVC:MKMapViewDelegate  {
 //               marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
 //               marker.map = customChooseUserLocationView.mapView
         
-    }
+    
     
 }
 
@@ -103,17 +126,12 @@ extension ChooseLocationVC: CLLocationManagerDelegate{
 
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation = locations.last
-        currentLat = userLocation?.coordinate.latitude
-        currentLong = userLocation?.coordinate.longitude
+        guard  let userLocation = locations.last else {return}
+        currentLat = userLocation.coordinate.latitude
+        currentLong = userLocation.coordinate.longitude
 
-//        let camera = GMSCameraPosition.camera(withLatitude: userLocation!.coordinate.latitude,
-//                                              longitude: userLocation!.coordinate.longitude, zoom: 13.0)
-//        customChooseUserLocationView.mapView.camera = camera
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: userLocation!.coordinate.latitude, longitude: userLocation!.coordinate.longitude)
-//        marker.map = customChooseUserLocationView.mapView
-
+        let region = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        customChooseUserLocationView.mapView.setRegion(region, animated: true)
         locationManager.stopUpdatingLocation()
     }
 }
