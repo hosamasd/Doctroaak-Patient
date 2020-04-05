@@ -8,6 +8,7 @@
 
 import UIKit
 import iOSDropDown
+import TTSegmentedControl
 
 class CustomLAPOrderView: CustomBaseView {
     
@@ -27,53 +28,77 @@ class CustomLAPOrderView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Order ", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Order your request", font: .systemFont(ofSize: 18), textColor: .white)
     
-    lazy var orderSegmentedView:UISegmentedControl = {
-        let view = UISegmentedControl(items: ["prescription"," Analysis name","All"])
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 16
-        layer.masksToBounds = true
-        view.clipsToBounds = true
-        view.apportionsSegmentWidthsByContent = true
-        view.layer.borderWidth = 1
-        view.layer.backgroundColor = UIColor.lightGray.cgColor
-        view.constrainHeight(constant: 50)
-        view.selectedSegmentIndex = 0
-        view.tintColor = .black
-        view.backgroundColor = .white
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
-        /// Gradient
-        let gradient = CAGradientLayer()
-        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 40, height: 20)
-        let leftColor = #colorLiteral(red: 0.6002450585, green: 0.3833707869, blue: 0.9996971488, alpha: 1)
-        let rightColor = #colorLiteral(red: 0.4903785586, green: 0.2679489255, blue: 0.9277817607, alpha: 1)
-        gradient.colors = [leftColor.cgColor, rightColor.cgColor]
-        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-        /// Create gradient image
-        UIGraphicsBeginImageContext(gradient.frame.size)
-        gradient.render(in: UIGraphicsGetCurrentContext()!)
-        let segmentedControlImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        // Normal Image
-        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size);
-        let context:CGContext = UIGraphicsGetCurrentContext()!;
-        context.setFillColor(#colorLiteral(red: 0.9352307916, green: 0.9353840947, blue: 0.9351981282, alpha: 1).cgColor)
-        context.fill(rect)
-        let normalImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        /// Set segmentedControl image
-        view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
-        view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
-                view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
-        return view
-    }()
+     lazy var orderSegmentedView:TTSegmentedControl = {
+               let view = TTSegmentedControl()
+               view.itemTitles = ["prescription","Request a medicine","All"]
+               view.allowChangeThumbWidth = false
+               view.constrainHeight(constant: 50)
+               view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
+               view.useShadow = true
+               view.didSelectItemWith = {[unowned self] (index, title) in
+    //               self.isActive = false
+    //               if index == 0 {
+    //                   self.subStack.isHide(true)
+    //                   self.dateCenterTextField.isHide(false)
+    //                   self.lapBookViewModel.secondDates = nil
+    //                   [self.fullNameTextField,self.monthTextField,self.mobileNumberTextField,self.dayTextField,self.yearTextField,self.dateTextField].forEach({$0.text = ""})
+    //
+    //               }else {
+    //                   self.subStack.isHide(false)
+    //                   self.dateCenterTextField.isHide(true)
+    //                   self.dateCenterTextField.text = ""
+    //                   self.lapBookViewModel.dates = nil
+    //
+    //               }
+               }
+               return view
+           }()
+    
+//    lazy var orderSegmentedView:UISegmentedControl = {
+//        let view = UISegmentedControl(items: ["prescription"," Analysis name","All"])
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.layer.cornerRadius = 16
+//        layer.masksToBounds = true
+//        view.clipsToBounds = true
+//        view.apportionsSegmentWidthsByContent = true
+//        view.layer.borderWidth = 1
+//        view.layer.backgroundColor = UIColor.lightGray.cgColor
+//        view.constrainHeight(constant: 50)
+//        view.selectedSegmentIndex = 0
+//        view.tintColor = .black
+//        view.backgroundColor = .white
+//        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
+//        /// Gradient
+//        let gradient = CAGradientLayer()
+//        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 40, height: 20)
+//        let leftColor = #colorLiteral(red: 0.6002450585, green: 0.3833707869, blue: 0.9996971488, alpha: 1)
+//        let rightColor = #colorLiteral(red: 0.4903785586, green: 0.2679489255, blue: 0.9277817607, alpha: 1)
+//        gradient.colors = [leftColor.cgColor, rightColor.cgColor]
+//        gradient.startPoint = CGPoint(x: 0, y: 0.5)
+//        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+//        /// Create gradient image
+//        UIGraphicsBeginImageContext(gradient.frame.size)
+//        gradient.render(in: UIGraphicsGetCurrentContext()!)
+//        let segmentedControlImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        
+//        // Normal Image
+//        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+//        UIGraphicsBeginImageContext(rect.size);
+//        let context:CGContext = UIGraphicsGetCurrentContext()!;
+//        context.setFillColor(#colorLiteral(red: 0.9352307916, green: 0.9353840947, blue: 0.9351981282, alpha: 1).cgColor)
+//        context.fill(rect)
+//        let normalImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+//        UIGraphicsEndImageContext()
+//        /// Set segmentedControl image
+//        view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
+//        view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
+//                view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
+//        return view
+//    }()
     lazy var centerImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
         i.translatesAutoresizingMaskIntoConstraints = false
-//                i.contentMode = .scaleAspectFill
-//        i.constrainHeight(constant: 250)
         return i
     }()
     lazy var rosetaImageView:UIImageView = {

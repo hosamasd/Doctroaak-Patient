@@ -60,6 +60,7 @@ class DoctorBookVC: CustomBaseViewVC {
                }
            })
        }
+    
     override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }

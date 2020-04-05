@@ -57,8 +57,6 @@ class LAPOrderVC: CustomBaseViewVC {
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-//        bubleViewHeightConstraint = mainView.heightAnchor.constraint(equalToConstant: 800)
-//        bubleViewHeightConstraint.isActive = true
         mainView.addSubViews(views: customLAPOrderView)
         customLAPOrderView.fillSuperview()
     }

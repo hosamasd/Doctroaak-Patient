@@ -29,6 +29,8 @@ class CustomPharmacyLocationView: CustomBaseView {
         let v = UIView(backgroundColor: .white)
         v.addSubViews(views: addressImage,addressLabel)
         v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+
         return v
     }()
     lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
@@ -55,6 +57,9 @@ class CustomPharmacyLocationView: CustomBaseView {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
         s.isOn = true
+        s.tag = 1
+        s.addTarget(self, action: #selector(handleOpenSwitch), for: .valueChanged)
+
         return s
     }()
     lazy var deliveryView:UIView = {
@@ -76,6 +81,9 @@ class CustomPharmacyLocationView: CustomBaseView {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
         s.isOn = true
+        s.tag = 0
+        s.addTarget(self, action: #selector(handleOpenSwitch), for: .valueChanged)
+
         return s
     }()
     lazy var nextButton:UIButton = {
@@ -98,6 +106,11 @@ class CustomPharmacyLocationView: CustomBaseView {
         }
         
     }
+    
+    var handlerChooseLocation:(()->Void)?
+
+    let pharamacyLocationViewModel = PharamacyLocationViewModel()
+    
     
     override func setupViews() {
         [addressMainView,insuracneView,deliveryView].forEach { (v) in
@@ -125,5 +138,19 @@ class CustomPharmacyLocationView: CustomBaseView {
         
         textStack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
+    }
+    
+    
+    @objc  func handleOpenLocation()  {
+           handlerChooseLocation?()
+       }
+    
+   @objc func handleOpenSwitch(sender:UISwitch)  {
+    switch sender.tag {
+    case 0:
+        pharamacyLocationViewModel.insuranceCompany = sender.isOn
+    default:
+        pharamacyLocationViewModel.delivery = sender.isOn
+    }
     }
 }
