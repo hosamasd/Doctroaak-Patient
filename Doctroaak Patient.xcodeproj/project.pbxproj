@@ -88,6 +88,9 @@
 		4EC3CD512433883600732D96 /* CustomLAPOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3CD502433883600732D96 /* CustomLAPOrderView.swift */; };
 		4EC3CD542433894F00732D96 /* AddLapCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3CD532433894F00732D96 /* AddLapCollectionVC.swift */; };
 		4EC3CD58243389D700732D96 /* AddLAPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3CD57243389D700732D96 /* AddLAPCell.swift */; };
+		4ED135BB2439A1D0008BE002 /* DoctorSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED135BA2439A1D0008BE002 /* DoctorSearchViewModel.swift */; };
+		4ED135BD2439A77F008BE002 /* ChooseLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED135BC2439A77F008BE002 /* ChooseLocationVC.swift */; };
+		4ED135C02439A7B7008BE002 /* CustomChooseUserLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED135BF2439A7B7008BE002 /* CustomChooseUserLocationView.swift */; };
 		4ED7125C2432139100074363 /* ICUSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7125B2432139100074363 /* ICUSearchVC.swift */; };
 		4ED7125F243213C500074363 /* CustomICUSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7125E243213C500074363 /* CustomICUSearchView.swift */; };
 		4ED712612432148200074363 /* ICUSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED712602432148200074363 /* ICUSearchResultsVC.swift */; };
@@ -202,6 +205,9 @@
 		4EC3CD502433883600732D96 /* CustomLAPOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLAPOrderView.swift; sourceTree = "<group>"; };
 		4EC3CD532433894F00732D96 /* AddLapCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLapCollectionVC.swift; sourceTree = "<group>"; };
 		4EC3CD57243389D700732D96 /* AddLAPCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLAPCell.swift; sourceTree = "<group>"; };
+		4ED135BA2439A1D0008BE002 /* DoctorSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorSearchViewModel.swift; sourceTree = "<group>"; };
+		4ED135BC2439A77F008BE002 /* ChooseLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationVC.swift; sourceTree = "<group>"; };
+		4ED135BF2439A7B7008BE002 /* CustomChooseUserLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChooseUserLocationView.swift; sourceTree = "<group>"; };
 		4ED7125B2432139100074363 /* ICUSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICUSearchVC.swift; sourceTree = "<group>"; };
 		4ED7125E243213C500074363 /* CustomICUSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomICUSearchView.swift; sourceTree = "<group>"; };
 		4ED712602432148200074363 /* ICUSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICUSearchResultsVC.swift; sourceTree = "<group>"; };
@@ -571,11 +577,11 @@
 			children = (
 				4E13DDAE243087B300421737 /* BaseVCS */,
 				4E347CDC2430B8D200333C07 /* Menu */,
+				4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */,
 				4E1E52A024335847005E5695 /* LAP+Rediology */,
 				4E04C87A243230CF00D1AD1C /* Pharmacy  */,
 				4ED7126A2432194A00074363 /* Incubation */,
 				4ED7125A2432137100074363 /* I.C.U */,
-				4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */,
 				4E13DDAB2430879200421737 /* Registration */,
 				4E1ED394243455A8004F134D /* Tests */,
 			);
@@ -595,6 +601,7 @@
 		4E6D5BC7243071A8000FC72D /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				4ED135B92439A1B3008BE002 /* Doctor */,
 				4E0536B62438A06300ECFF0D /* LAP */,
 				4E13DDC624308AC800421737 /* rEGISTRATION */,
 				4EA8B1202430E6BA008473D3 /* EdirProfileViewModel.swift */,
@@ -716,6 +723,32 @@
 			path = Order;
 			sourceTree = "<group>";
 		};
+		4ED135B82439A18E008BE002 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */,
+				4ED135BC2439A77F008BE002 /* ChooseLocationVC.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		4ED135B92439A1B3008BE002 /* Doctor */ = {
+			isa = PBXGroup;
+			children = (
+				4ED135BA2439A1D0008BE002 /* DoctorSearchViewModel.swift */,
+			);
+			path = Doctor;
+			sourceTree = "<group>";
+		};
+		4ED135BE2439A7AD008BE002 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */,
+				4ED135BF2439A7B7008BE002 /* CustomChooseUserLocationView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		4ED7125A2432137100074363 /* I.C.U */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,11 +822,11 @@
 		4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */ = {
 			isa = PBXGroup;
 			children = (
+				4EFE85B22431E1AF00E44DD1 /* List */,
+				4ED135B82439A18E008BE002 /* Search */,
 				4EBBCD9124320305005C8DF7 /* Book */,
 				4EBBCD8124320104005C8DF7 /* Details */,
 				4EFE85BD2431ED3C00E44DD1 /* Cardiology */,
-				4EFE85B22431E1AF00E44DD1 /* List */,
-				4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */,
 			);
 			path = "Doctor + Medical Center";
 			sourceTree = "<group>";
@@ -802,7 +835,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFDA7292431D5050010AA7D /* CustomDoctorListsView.swift */,
-				4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */,
+				4ED135BE2439A7AD008BE002 /* Search */,
 				4EFE85BE2431ED5D00E44DD1 /* CustomCardiologyView.swift */,
 				4EBBCD8424320132005C8DF7 /* CustomDetailsView.swift */,
 				4EBBCD9424320330005C8DF7 /* CusomBookView.swift */,
@@ -1013,6 +1046,7 @@
 				4E347CDE2430B8F200333C07 /* HomeMenuVC.swift in Sources */,
 				4ED71264243214D100074363 /* ICUResultsCollectionVC.swift in Sources */,
 				4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */,
+				4ED135BB2439A1D0008BE002 /* DoctorSearchViewModel.swift in Sources */,
 				4EA8B11F2430E543008473D3 /* CustomProfileView.swift in Sources */,
 				4EA8B1192430E373008473D3 /* BaseSlidingVC.swift in Sources */,
 				4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */,
@@ -1041,6 +1075,7 @@
 				4E13DDC524308AA400421737 /* CustomSkyTextFieldRightPadding.swift in Sources */,
 				4ED7127324321BA900074363 /* IncubationSearchResultsVC.swift in Sources */,
 				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
+				4ED135BD2439A77F008BE002 /* ChooseLocationVC.swift in Sources */,
 				4EA8B11C2430E4F8008473D3 /* ProfileVC.swift in Sources */,
 				4ED712692432165A00074363 /* CustomICUResultsView.swift in Sources */,
 				4EFE85B62431E21200E44DD1 /* CustomDoctorSearchView.swift in Sources */,
@@ -1058,6 +1093,7 @@
 				4E203B022430921B002144FF /* RegisterViewModel.swift in Sources */,
 				4EA8B1152430E1CA008473D3 /* BaseCollectionVC.swift in Sources */,
 				4EFE85BF2431ED5D00E44DD1 /* CustomCardiologyView.swift in Sources */,
+				4ED135C02439A7B7008BE002 /* CustomChooseUserLocationView.swift in Sources */,
 				4E1ED39624345667004F134D /* CustomTestView.swift in Sources */,
 				4E31D53124337657001E02B6 /* CustomLAPBookView.swift in Sources */,
 				4E13DDE424308FA700421737 /* CustomVerificationView.swift in Sources */,

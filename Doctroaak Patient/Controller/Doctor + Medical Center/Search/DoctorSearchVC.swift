@@ -8,14 +8,22 @@
 
 import UIKit
 
+
 class DoctorSearchVC: CustomBaseViewVC {
     
     
     lazy var customDoctorSearchView:CustomDoctorSearchView = {
         let v = CustomDoctorSearchView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.handlerChooseLocation = {[unowned self] in
+                      let loct = ChooseLocationVC()
+            loct.delgate = self
+            self.navigationController?.pushViewController(loct, animated: true)
+                   }
         return v
     }()
+    
+
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
@@ -31,4 +39,12 @@ class DoctorSearchVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
 
+}
+
+extension DoctorSearchVC: ChooseLocationVCProtocol {
+    func getLatAndLong(lat: Double, long: Double) {
+        print(lat, "            ",long)
+    }
+    
+    
 }

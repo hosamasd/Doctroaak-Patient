@@ -28,61 +28,61 @@ class CustomLapSearchView: CustomBaseView {
     lazy var soonLabel = UILabel(text: "Select Your Location", font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var searchSegmentedView:TTSegmentedControl = {
-           let view = TTSegmentedControl()
-           view.itemTitles = ["Search by city and area","Search by address"]
-           view.allowChangeThumbWidth = false
-           view.constrainHeight(constant: 50)
-           view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
-           view.useShadow = true
-           view.defaultTextFont = .systemFont(ofSize: 14)
-           view.selectedTextFont = .systemFont(ofSize: 12)
-           view.didSelectItemWith = {[unowned self] (index, title) in
+        let view = TTSegmentedControl()
+        view.itemTitles = ["Search by city and area","Search by address"]
+        view.allowChangeThumbWidth = false
+        view.constrainHeight(constant: 50)
+        view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
+        view.useShadow = true
+        view.defaultTextFont = .systemFont(ofSize: 14)
+        view.selectedTextFont = .systemFont(ofSize: 12)
+        view.didSelectItemWith = {[unowned self] (index, title) in
             index == 0 ?    self.openTheseViewsOrHide(isVale: false) : self.openTheseViewsOrHide(isVale: true)
-           }
-           return view
-       }()
+        }
+        return view
+    }()
     
-//    lazy var searchSegmentedView:UISegmentedControl = {
-//        let view = UISegmentedControl(items: ["Search by city and area","Search by address"])
-//        view.layer.cornerRadius = 16
-//        layer.masksToBounds = true
-//        view.clipsToBounds = true
-//        view.apportionsSegmentWidthsByContent = true
-//        view.layer.borderWidth = 1
-//        view.layer.backgroundColor = UIColor.lightGray.cgColor
-//        view.constrainHeight(constant: 50)
-//        view.selectedSegmentIndex = 0
-//        view.tintColor = .black
-//        view.backgroundColor = .white
-//        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
-//        /// Gradient
-//        let gradient = CAGradientLayer()
-//        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 40, height: 20)
-//        let leftColor = #colorLiteral(red: 0.6002450585, green: 0.3833707869, blue: 0.9996971488, alpha: 1)
-//        let rightColor = #colorLiteral(red: 0.4903785586, green: 0.2679489255, blue: 0.9277817607, alpha: 1)
-//        gradient.colors = [leftColor.cgColor, rightColor.cgColor]
-//        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-//        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-//        /// Create gradient image
-//        UIGraphicsBeginImageContext(gradient.frame.size)
-//        gradient.render(in: UIGraphicsGetCurrentContext()!)
-//        let segmentedControlImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//        
-//        // Normal Image
-//        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
-//        UIGraphicsBeginImageContext(rect.size);
-//        let context:CGContext = UIGraphicsGetCurrentContext()!;
-//        context.setFillColor(#colorLiteral(red: 0.9352307916, green: 0.9353840947, blue: 0.9351981282, alpha: 1).cgColor)
-//        context.fill(rect)
-//        let normalImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-//        UIGraphicsEndImageContext()
-//        /// Set segmentedControl image
-//        view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
-//        view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
-//        view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
-//        return view
-//    }()
+    //    lazy var searchSegmentedView:UISegmentedControl = {
+    //        let view = UISegmentedControl(items: ["Search by city and area","Search by address"])
+    //        view.layer.cornerRadius = 16
+    //        layer.masksToBounds = true
+    //        view.clipsToBounds = true
+    //        view.apportionsSegmentWidthsByContent = true
+    //        view.layer.borderWidth = 1
+    //        view.layer.backgroundColor = UIColor.lightGray.cgColor
+    //        view.constrainHeight(constant: 50)
+    //        view.selectedSegmentIndex = 0
+    //        view.tintColor = .black
+    //        view.backgroundColor = .white
+    //        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
+    //        /// Gradient
+    //        let gradient = CAGradientLayer()
+    //        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 40, height: 20)
+    //        let leftColor = #colorLiteral(red: 0.6002450585, green: 0.3833707869, blue: 0.9996971488, alpha: 1)
+    //        let rightColor = #colorLiteral(red: 0.4903785586, green: 0.2679489255, blue: 0.9277817607, alpha: 1)
+    //        gradient.colors = [leftColor.cgColor, rightColor.cgColor]
+    //        gradient.startPoint = CGPoint(x: 0, y: 0.5)
+    //        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+    //        /// Create gradient image
+    //        UIGraphicsBeginImageContext(gradient.frame.size)
+    //        gradient.render(in: UIGraphicsGetCurrentContext()!)
+    //        let segmentedControlImage = UIGraphicsGetImageFromCurrentImageContext()
+    //        UIGraphicsEndImageContext()
+    //
+    //        // Normal Image
+    //        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+    //        UIGraphicsBeginImageContext(rect.size);
+    //        let context:CGContext = UIGraphicsGetCurrentContext()!;
+    //        context.setFillColor(#colorLiteral(red: 0.9352307916, green: 0.9353840947, blue: 0.9351981282, alpha: 1).cgColor)
+    //        context.fill(rect)
+    //        let normalImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+    //        UIGraphicsEndImageContext()
+    //        /// Set segmentedControl image
+    //        view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
+    //        view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
+    //        view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
+    //        return view
+    //    }()
     lazy var addressMainView:UIView = {
         let v = UIView(backgroundColor: .white)
         v.isHide(true)
@@ -92,28 +92,17 @@ class CustomLapSearchView: CustomBaseView {
     }()
     lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
     lazy var addressImage:UIImageView = {
-       let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
+        let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
         v.isUserInteractionEnabled = true
         v.contentMode = .scaleAspectFill
         v.constrainWidth(constant: 60)
         
         return v
     }()
-//    lazy var addressTextField:UITextField = {
-//        let s = createMainTextFields(place: "Address", type: .default,secre: true)
-//        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-//        img.isUserInteractionEnabled = true
-//        //        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
-//        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(0), width: CGFloat(60), height: CGFloat(60))
-//        s.rightView = img
-//        s.rightViewMode = .always
-//        s.isHide(true)
-//        return s
-//    }()
     lazy var mainDropView:UIView = {
         let l = UIView(backgroundColor: .white)
-       
-         l.addSubview(nameDrop)
+        
+        l.addSubview(nameDrop)
         return l
     }()
     lazy var nameDrop:DropDown = {
@@ -126,7 +115,7 @@ class CustomLapSearchView: CustomBaseView {
     lazy var orLabel = UILabel(text: "OR", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .center)
     lazy var mainDrop2View:UIView = {
         let l = UIView(backgroundColor: .white)
-      
+        
         l.addSubview(cityDrop)
         return l
     }()
@@ -140,7 +129,7 @@ class CustomLapSearchView: CustomBaseView {
     }()
     lazy var mainDrop3View:UIView = {
         let l = UIView(backgroundColor: .white)
-       
+        
         l.addSubview(areaDrop)
         return l
     }()
@@ -155,7 +144,7 @@ class CustomLapSearchView: CustomBaseView {
     
     lazy var insuranceView:UIView = {
         let v = UIView(backgroundColor: .white)
-       
+        
         v.addSubViews(views: insuranceLabel,insuranceSwitch)
         return v
     }()
@@ -207,10 +196,10 @@ class CustomLapSearchView: CustomBaseView {
     
     override func setupViews() {
         [mainDropView,mainDrop2View,mainDrop3View,delvieryView,insuranceView,addressMainView].forEach { (l) in
-             l.layer.cornerRadius = 8
-                   l.layer.borderWidth = 1
-                   l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-                   l.constrainHeight(constant: 60)
+            l.layer.cornerRadius = 8
+            l.layer.borderWidth = 1
+            l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+            l.constrainHeight(constant: 60)
         }
         backgroundColor = #colorLiteral(red: 0.9829737544, green: 0.9831344485, blue: 0.9829396605, alpha: 1)
         let textStack = getStack(views: addressMainView,mainDropView,orLabel,mainDrop2View,mainDrop3View,insuranceView,delvieryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
@@ -242,11 +231,6 @@ class CustomLapSearchView: CustomBaseView {
         addressMainView.isHide(!isVale)
     }
     
-//    @objc func handleOpenOther(sender: UISegmentedControl)  {
-//
-//        sender.selectedSegmentIndex == 0 ?    openTheseViewsOrHide(isVale: false) : openTheseViewsOrHide(isVale: true)
-//    }
-//
     
     
 }

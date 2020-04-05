@@ -10,6 +10,8 @@ import UIKit
 import iOSDropDown
 import TTSegmentedControl
 
+
+
 class CustomDoctorSearchView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
@@ -24,12 +26,6 @@ class CustomDoctorSearchView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    //    lazy var notifyImage:UIImageView = {
-    //        let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px"))
-    //        i.constrainWidth(constant: 30)
-    //        i.constrainHeight(constant: 30)
-    //        return i
-    //    }()
     lazy var titleLabel = UILabel(text: "Search", font: .systemFont(ofSize: 35), textColor: .white)
     lazy var userSpecificationLabel = UILabel(text: "Select Your Location", font: .systemFont(ofSize: 16), textColor: .white)
     
@@ -85,6 +81,9 @@ class CustomDoctorSearchView: CustomBaseView {
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+            self.doctorSearchViewModel.city = txt
+        }
         return i
     }()
     lazy var mainDrop2View:UIView = {
@@ -99,6 +98,10 @@ class CustomDoctorSearchView: CustomBaseView {
         i.arrowSize = 20
 //        i.arrowColor = .white
         i.placeholder = "Area".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+            self.doctorSearchViewModel.area = txt
+        }
+
         return i
     }()
     lazy var insuracneView:UIView = {
@@ -112,6 +115,7 @@ class CustomDoctorSearchView: CustomBaseView {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
         s.isOn = true
+        s.addTarget(self, action: #selector(handleOpenSwitch), for: .valueChanged)
         return s
     }()
     
@@ -120,6 +124,7 @@ class CustomDoctorSearchView: CustomBaseView {
         v.isHide(true)
            v.addSubViews(views: addressImage,addressLabel)
            v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
            return v
        }()
        lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
@@ -143,20 +148,10 @@ class CustomDoctorSearchView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
-   
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if searchCityButton.backgroundColor != nil {
-            addGradientInSenderAndRemoveOther(sender: searchCityButton)
-            searchCityButton.setTitleColor(.white, for: .normal)
-        }
-////        if searchCityButton.backgroundColor != nil {
-////                   addGradientInSenderAndRemoveOther(sender: searchCityButton)
-////                   searchCityButton.setTitleColor(.white, for: .normal)
-////               }
-////        addGradientInSenderAndRemoveOther(sender: searchButton)
-////        searchButton.setTitleColor(.white, for: .normal)
-    }
+    
+    let doctorSearchViewModel = DoctorSearchViewModel()
+    var handlerChooseLocation:(()->Void)?
+
     
     
     override func setupViews() {
@@ -211,5 +206,13 @@ class CustomDoctorSearchView: CustomBaseView {
     @objc func handleOpenOther(sender: UISegmentedControl)  {
         
         sender.selectedSegmentIndex == 0 ?    openTheseViewsOrHide(hide: true, vv: mainDrop2View,mainDropView,ss:addressMainView) : openTheseViewsOrHide(hide: false, vv: mainDrop2View,mainDropView,ss:addressMainView)
+    }
+    
+    @objc func handleOpenSwitch(sender:UISwitch)  {
+        doctorSearchViewModel.insuranceCompany =  sender.isOn
+    }
+    
+  @objc  func handleOpenLocation()  {
+        handlerChooseLocation?()
     }
 }
