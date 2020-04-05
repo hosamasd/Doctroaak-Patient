@@ -25,6 +25,8 @@ class DeatilsVC: UIViewController {
     }()
     lazy var customDetailsView:CustomDetailsView = {
         let v = CustomDetailsView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
     }()
     var index:Int? = 0
@@ -52,6 +54,16 @@ class DeatilsVC: UIViewController {
         customDetailsView.fillSuperview()
         
         
+        
+    }
+    
+    @objc  func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleBook()  {
+        let book = DoctorBookVC()
+        navigationController?.pushViewController(book, animated: true)
         
     }
 }

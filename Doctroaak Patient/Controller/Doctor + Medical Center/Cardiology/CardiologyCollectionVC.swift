@@ -11,6 +11,8 @@ import UIKit
 class CardiologyCollectionVC: BaseCollectionVC  {
     
     fileprivate let cellId = "cellId"
+    var handleCheckedIndex:((IndexPath)->Void)?
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
@@ -20,6 +22,10 @@ class CardiologyCollectionVC: BaseCollectionVC  {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CardinolgyCell
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        handleCheckedIndex?(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

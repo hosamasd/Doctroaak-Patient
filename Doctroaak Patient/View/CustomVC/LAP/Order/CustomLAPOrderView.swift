@@ -200,23 +200,17 @@ class CustomLAPOrderView: CustomBaseView {
     
     
     func makeTheseChanges(hide:Bool,height:CGFloat,all:Bool? = true)  {
-//        DispatchQueue.main.async {
         
             if all ?? true {
                 
                
-//                mainDropView.isHide(hide)
                 [self.mainDropView,addMoreImage].forEach({$0.isHide(hide)})
                 [self.centerImage,self.uploadView].forEach({$0.isHide(!hide)})
                 self.orLabel.isHide(true)
             }else {
                  [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,addMoreImage].forEach({$0.isHide(false)})
-//                [self.mainDropView,self.addLapCollectionVC.view,self.orLabel,self.centerImage,self.uploadView].forEach({$0.isHide(false)})
             }
          addLapCollectionVC.view.isHide(  addLapCollectionVC.medicineArray.count > 0 ? false : true )
-//            self.bubleViewHeightConstraint.constant = height
-//            self.view.layoutIfNeeded()
-//        }
     }
     
     fileprivate func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat,centerImg:CGFloat) {
@@ -229,11 +223,6 @@ class CustomLAPOrderView: CustomBaseView {
             self.bubleViewCenterImgHeightConstraint.constant = centerImg
             
         })
-//        LogoImage.image = img
-//        constainedLogoAnchor.trailing?.constant = tr
-//        constainedLogoAnchor.leading?.constant = log
-//        bubleViewBottomTitleConstraint.constant = bottomt
-//        bubleViewTopSegConstraint.constant = tops
     }
     
     @objc func handleOpenOther(sender:UISegmentedControl)  {
@@ -245,19 +234,9 @@ class CustomLAPOrderView: CustomBaseView {
         case 1:
             self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200) : makeTheseChanges( hide: false, height: 800)
             updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48, centerImg: 100 )
-//             LogoImage.image = #imageLiteral(resourceName: "Group 4116")
-//            constainedLogoAnchor.trailing?.constant = 0
-//            constainedLogoAnchor.leading?.constant = -48
-//            bubleViewBottomTitleConstraint.constant = 80
-//            bubleViewTopSegConstraint.constant = 186
         default:
             self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200,all: false) : makeTheseChanges( hide: false, height: 1000,all: false)
             updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
-//            LogoImage.image = #imageLiteral(resourceName: "Group 4116-1")
-//            constainedLogoAnchor.trailing?.constant = 60
-//            constainedLogoAnchor.leading?.constant = 0
-//            bubleViewBottomTitleConstraint.constant = 0
-//            bubleViewTopSegConstraint.constant = 80
         }
     }
     

@@ -12,6 +12,12 @@ class CardiologyVC: UIViewController {
     
     lazy var customCardiologyView:CustomCardiologyView = {
         let v = CustomCardiologyView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+
+        v.handleCheckedIndex = {[unowned self] indexPath in
+            let cDetails = DeatilsVC()
+            self.navigationController?.pushViewController(cDetails, animated: true)
+        }
         return v
     }()
     
@@ -28,14 +34,13 @@ class CardiologyVC: UIViewController {
     }
     
     func setupViews()  {
-        view.backgroundColor = #colorLiteral(red: 0.9829737544, green: 0.9831344485, blue: 0.9829396605, alpha: 1)
         
         view.addSubViews(views: customCardiologyView)
         customCardiologyView.fillSuperview()
-//        mainView.addSubViews(views: customDetailsView)
-//        customDetailsView.fillSuperview()
-        
-        
-        
     }
+    
+    
+    @objc  func handleBack()  {
+          navigationController?.popViewController(animated: true)
+      }
 }

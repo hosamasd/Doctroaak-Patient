@@ -38,8 +38,15 @@ class CustomCardiologyView: CustomBaseView {
         return v
     }()
     
-    lazy var cardiologyCollectionVC = CardiologyCollectionVC()
-    
+    var handleCheckedIndex:((IndexPath)->Void)?
+
+    lazy var cardiologyCollectionVC:CardiologyCollectionVC = {
+        let vc = CardiologyCollectionVC()
+        vc.handleCheckedIndex = {[unowned self] indexPath in
+            self.handleCheckedIndex?(indexPath)
+        }
+        return vc
+    }()
     override func setupViews() {
         backgroundColor = .white
         
