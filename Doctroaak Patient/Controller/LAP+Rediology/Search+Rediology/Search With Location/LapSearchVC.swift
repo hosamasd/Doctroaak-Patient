@@ -31,6 +31,7 @@ class LapSearchVC: CustomBaseViewVC {
             loct.delgate = self
             self.navigationController?.pushViewController(loct, animated: true)
         }
+        v.searchButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
         return v
     }()
     
@@ -90,6 +91,11 @@ class LapSearchVC: CustomBaseViewVC {
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
+    }
+    
+   @objc func handleSearch()  {
+    let details = LapSearchResultsVC(index:index)
+    navigationController?.pushViewController(details, animated: true)
     }
 }
 

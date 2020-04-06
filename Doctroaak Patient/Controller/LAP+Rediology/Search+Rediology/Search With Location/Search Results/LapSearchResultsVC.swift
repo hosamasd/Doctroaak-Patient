@@ -12,17 +12,26 @@ class LapSearchResultsVC: CustomBaseViewVC {
     
     lazy var customLapResultsView:CustomLapResultsView = {
         let v = CustomLapResultsView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+
         v.index = index
         v.handleCheckedIndex = {[unowned self] indexx in
             let selected = LAPSelectedSearchResultsVC(index: self.index)
-//            selected.index = self.index
             self.navigationController?.pushViewController(selected, animated: true)
             }
+
         return v
     }()
     
-    var index:Int = 0 //0 for lab 1 for residology
-
+    fileprivate let index:Int!
+    init(index:Int) {
+        self.index = index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +45,15 @@ class LapSearchResultsVC: CustomBaseViewVC {
     }
     
     override func setupViews()  {
-        view.backgroundColor = #colorLiteral(red: 0.9829737544, green: 0.9831344485, blue: 0.9829396605, alpha: 1)
         
         view.addSubViews(views: customLapResultsView)
         customLapResultsView.fillSuperview()
     }
+    
+    @objc  func handleBack()  {
+           navigationController?.popViewController(animated: true)
+       }
 
+  
+    
 }

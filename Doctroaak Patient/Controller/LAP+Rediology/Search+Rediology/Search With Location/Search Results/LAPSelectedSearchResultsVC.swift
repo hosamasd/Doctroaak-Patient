@@ -12,9 +12,11 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     
     lazy var customLAPSelectedSearchView:CustomLAPSelectedSearchView = {
         let v = CustomLAPSelectedSearchView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
+
         return v
     }()
-//    var index:Int? = 0
     
     fileprivate let index:Int!
     init(index:Int) {
@@ -28,9 +30,7 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        setupNavigation()
-        print(index)
+       
     }
     
     
@@ -42,8 +42,15 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         
         view.addSubViews(views: customLAPSelectedSearchView)
         customLAPSelectedSearchView.fillSuperview()
-        
-        
-        
     }
+    
+    @objc  func handleBack()  {
+           navigationController?.popViewController(animated: true)
+       }
+    
+   @objc func handleBook()  {
+        let book = LAPBookVC(index:index)
+           navigationController?.pushViewController(book, animated: true)
+    }
+    
 }

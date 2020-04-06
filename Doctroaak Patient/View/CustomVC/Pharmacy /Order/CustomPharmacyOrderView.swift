@@ -50,16 +50,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.isHide(true)
         return i
     }()
-    lazy var uploadView:UIView = {
-        let v = UIView(backgroundColor: .white)
-        v.layer.cornerRadius = 8
-        v.clipsToBounds = true
-        v.layer.borderColor = UIColor.gray.cgColor
-        v.layer.borderWidth = 1
-        v.addSubViews(views: uploadLabel,uploadImage)
-        v.constrainHeight(constant: 60)
-        return v
-    }()
+    lazy var uploadView = makeMainSubViewWithAppendView(vv: [uploadLabel,uploadImage])
     lazy var uploadLabel = UILabel(text: "Upload prescription", font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
     
     lazy var uploadImage:UIImageView = {

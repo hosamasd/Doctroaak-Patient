@@ -25,10 +25,6 @@ class PharmacyOrderVC: CustomBaseViewVC {
         return v
     }()
     
-    
-    
-    
-    
     lazy var customPharmacyOrderView:CustomPharmacyOrderView = {
         let v = CustomPharmacyOrderView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -83,7 +79,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         self.customPharmacyOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
     }
     
-    func setupViewModelObserver()  {
+   fileprivate func setupViewModelObserver()  {
         
         customPharmacyOrderView.pharamacyOrderViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
@@ -126,6 +122,8 @@ class PharmacyOrderVC: CustomBaseViewVC {
             self.customPharmacyOrderView.rosetaImageView.isHide(false)
         })
     }
+    
+   
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)

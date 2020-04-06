@@ -111,14 +111,7 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var addressTextField = createMainTextFields(place: "Address")
     
-    lazy var mainDrop3View:UIView = {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.constrainHeight(constant: 50)
-        return l
-    }()
+    lazy var mainDrop3View = makeMainSubViewWithAppendView(vv: [doenImage,insuracneText])
     lazy var doenImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-6"))
         i.constrainWidth(constant: 50)
@@ -195,7 +188,6 @@ class CustomRegisterView: CustomBaseView {
 
         let textStack = getStack(views: fullNameTextField,addressTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack,birthdayTextField,insuranceCodeTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
-        mainDrop3View.addSubViews(views: doenImage,insuracneText)
         mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,bottomStack,insuranceDrop,signUpButton)
         

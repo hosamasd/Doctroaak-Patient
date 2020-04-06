@@ -35,7 +35,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     
     lazy var doctorWorkingDataLabel = UILabel(text: "Doctor's working date", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var lapDoctorWorkingDataCollectionVC:DoctorWorkingDateCollectionVC = {
-       let vc = DoctorWorkingDateCollectionVC()
+        let vc = DoctorWorkingDateCollectionVC()
         vc.view.constrainHeight(constant: 300)
         return vc
     }()
@@ -47,7 +47,6 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
-        button.isEnabled = false
         return button
     }()
     
@@ -71,7 +70,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         
         lapResultsCelllll.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
         doctorWorkingDataLabel.anchor(top: lapResultsCelllll.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-//        doctorWorkingDataLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
+        //        doctorWorkingDataLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
         lapDoctorWorkingDataCollectionVC.view.anchor(top: doctorWorkingDataLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
         bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 16, right: 32))
