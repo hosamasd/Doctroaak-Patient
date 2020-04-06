@@ -16,14 +16,14 @@ class AddMedicineCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10//medicineArray.count
+        return medicineArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AddMedicineCell
-//        let med = medicineArray[indexPath.item]
+        let med = medicineArray[indexPath.item]
 //        
-//        cell.med = med
+        cell.med = med
         return cell
     }
     

@@ -10,13 +10,13 @@ import UIKit
 
 class AddMedicineCell: BaseCollectionCell {
     
-//    var med:MedicineModel!{
-//        didSet{
-//            nameLabel.text = med.name
-//            typeLabel.text = med.type
-//            countLabel.text = "\(med.count)"
-//        }
-//    }
+    var med:MedicineModel!{
+        didSet{
+            nameLabel.text = med.name
+            typeLabel.text = med.type
+            countLabel.text = "\(med.count)"
+        }
+    }
     
     
     lazy var nameLabel = UILabel(text: "Name", font: .systemFont(ofSize: 20), textColor: .black,textAlignment: .left)

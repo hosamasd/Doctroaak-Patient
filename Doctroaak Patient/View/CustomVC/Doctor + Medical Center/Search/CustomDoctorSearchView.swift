@@ -70,12 +70,7 @@ class CustomDoctorSearchView: CustomBaseView {
         return button
     }()
     
-    lazy var mainDropView:UIView = {
-        let l = UIView(backgroundColor: .white)
-        
-        l.addSubview(cityDrop)
-        return l
-    }()
+    lazy var mainDropView = makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]
@@ -87,12 +82,7 @@ class CustomDoctorSearchView: CustomBaseView {
         }
         return i
     }()
-    lazy var mainDrop2View:UIView = {
-        let l = UIView(backgroundColor: .white)
-        
-        l.addSubview(areaDrop)
-        return l
-    }()
+    lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]

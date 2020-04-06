@@ -10,7 +10,17 @@
 import UIKit
 extension UIView {
     
-    
+    func makeMainSubViewWithAppendView(vv:[UIView]) ->UIView {
+        let l = UIView(backgroundColor: .white)
+        l.layer.cornerRadius = 8
+        l.layer.borderWidth = 1
+        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+        l.constrainHeight(constant: 60)
+        vv.forEach { (v) in
+             l.addSubViews(views: v)
+        }
+       return l
+    }
     
     func createMainButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
         let button = UIButton(type: .system)

@@ -38,6 +38,7 @@ class CustomLapSearchView: CustomBaseView {
         view.selectedTextFont = .systemFont(ofSize: 12)
         view.didSelectItemWith = {[unowned self] (index, title) in
             index == 0 ?    self.openTheseViewsOrHide(isVale: false) : self.openTheseViewsOrHide(isVale: true)
+            self.lAPSearchViewModel.isFirstOpetion = index == 0 ? true : false
         }
         return view
     }()
@@ -84,9 +85,11 @@ class CustomLapSearchView: CustomBaseView {
     //        return view
     //    }()
     lazy var addressMainView:UIView = {
-        let v = UIView(backgroundColor: .white)
+        let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
         v.isHide(true)
-        v.addSubViews(views: addressImage,addressLabel)
+        //        v.addSubViews(views: addressImage,addressLabel)
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+        
         v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
         return v
     }()
@@ -99,86 +102,66 @@ class CustomLapSearchView: CustomBaseView {
         
         return v
     }()
-    lazy var mainDropView:UIView = {
-        let l = UIView(backgroundColor: .white)
-        
-        l.addSubview(nameDrop)
-        return l
-    }()
+    lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Name".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+            self.lAPSearchViewModel.name = txt
+        }
+        
         return i
     }()
     lazy var orLabel = UILabel(text: "OR", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .center)
-    lazy var mainDrop2View:UIView = {
-        let l = UIView(backgroundColor: .white)
-        
-        l.addSubview(cityDrop)
-        return l
-    }()
+    lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
-        //        i.arrowColor = .white
         i.placeholder = "City".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+            self.lAPSearchViewModel.city = txt
+        }
+        
         return i
     }()
-    lazy var mainDrop3View:UIView = {
-        let l = UIView(backgroundColor: .white)
-        
-        l.addSubview(areaDrop)
-        return l
-    }()
+    lazy var mainDrop3View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
-        //        i.arrowColor = .white
         i.placeholder = "Area".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+            self.lAPSearchViewModel.area = txt
+        }
         return i
     }()
     
-    lazy var insuranceView:UIView = {
-        let v = UIView(backgroundColor: .white)
-        
-        v.addSubViews(views: insuranceLabel,insuranceSwitch)
-        return v
-    }()
+    lazy var insuranceView = makeMainSubViewWithAppendView(vv: [insuranceLabel,insuranceSwitch])
+    
     lazy var insuranceLabel = UILabel(text: "Insurance company", font: .systemFont(ofSize: 20), textColor: .lightGray)
     
     lazy var insuranceSwitch:UISwitch = {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
         s.isOn = true
+        s.addTarget(self, action: #selector(handleInsuracneCheck), for: .valueChanged)
         return s
     }()
-    lazy var delvieryView:UIView = {
-        let v = UIView(backgroundColor: .white)
-        v.addSubViews(views: delvieryLabel,delvierySwitch)
-        return v
-    }()
+    lazy var delvieryView = makeMainSubViewWithAppendView(vv: [delvieryLabel,delvierySwitch])
+    
     lazy var delvieryLabel = UILabel(text: "Delivery ?", font: .systemFont(ofSize: 20), textColor: .lightGray)
     lazy var delvierySwitch:UISwitch = {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
         s.isOn = true
+        s.addTarget(self, action: #selector(handleDelvieryCheck), for: .valueChanged)
+        
         return s
     }()
-    lazy var customRequestMedicineView:CustomRequestMedicineView = {
-        let v = CustomRequestMedicineView()
-        v.isHide(true)
-        return v
-    }()
-    lazy var addMedicineCollectionVC:AddMedicineCollectionVC = {
-        let vc = AddMedicineCollectionVC()
-        vc.view.constrainHeight(constant: 250)
-        vc.view.isHide(true)
-        return vc
-    }()
+    
     
     lazy var searchButton:UIButton = {
         let button = UIButton()
@@ -192,16 +175,12 @@ class CustomLapSearchView: CustomBaseView {
         return button
     }()
     
+    var handlerChooseLocation:(()->Void)?
+    
+    let lAPSearchViewModel = LAPSearchViewModel()
     
     
     override func setupViews() {
-        [mainDropView,mainDrop2View,mainDrop3View,delvieryView,insuranceView,addressMainView].forEach { (l) in
-            l.layer.cornerRadius = 8
-            l.layer.borderWidth = 1
-            l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-            l.constrainHeight(constant: 60)
-        }
-        backgroundColor = #colorLiteral(red: 0.9829737544, green: 0.9831344485, blue: 0.9829396605, alpha: 1)
         let textStack = getStack(views: addressMainView,mainDropView,orLabel,mainDrop2View,mainDrop3View,insuranceView,delvieryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,searchSegmentedView,textStack,searchButton)
@@ -232,5 +211,17 @@ class CustomLapSearchView: CustomBaseView {
     }
     
     
+    @objc  func handleDelvieryCheck(sender:UISwitch)  {
+        lAPSearchViewModel.delivery = sender.isOn
+    }
+    
+    @objc  func handleInsuracneCheck(sender:UISwitch)  {
+        lAPSearchViewModel.insuranceCompany = sender.isOn
+    }
+    
+    @objc  func handleOpenLocation()  {
+        handlerChooseLocation?()
+    }
     
 }
+

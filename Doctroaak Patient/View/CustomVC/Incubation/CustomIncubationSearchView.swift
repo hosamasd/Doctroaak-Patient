@@ -29,15 +29,7 @@ class CustomIncubationSearchView: CustomBaseView {
     
     
     
-    lazy var mainDropView:UIView = {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.addSubview(cityDrop)
-        l.constrainHeight(constant: 60)
-        return l
-    }()
+    lazy var mainDropView = makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]
@@ -45,14 +37,7 @@ class CustomIncubationSearchView: CustomBaseView {
         i.placeholder = "City".localized
         return i
     }()
-    lazy var mainDrop2View:UIView = {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.addSubview(areaDrop)
-        return l
-    }()
+    lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]

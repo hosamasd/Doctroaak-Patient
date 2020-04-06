@@ -35,26 +35,6 @@ class CustomPharmacyOrderView: CustomBaseView {
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
-        //        view.didSelectItemWith = {[unowned self] (index, title) in
-        //            switch index {
-        //            case 0:
-        //                self.pharamacyOrderViewModel.isSecondOpetion = false
-        //                self.pharamacyOrderViewModel.isFirstOpetion = true
-        //                self.makeTheseChanges(  hide: true, height: 800)
-        //                self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 ,centerImg: 250)
-        //                self.addLapCollectionVC.view.isHide(true)
-        //            case 1:
-        //                self.pharamacyOrderViewModel.isSecondOpetion = true
-        //                self.pharamacyOrderViewModel.isFirstOpetion = false
-        //                self.addLapCollectionVC.medicineArray.count > 0 ?  self.makeTheseChanges( hide: false, height: 1200) : self.makeTheseChanges( hide: false, height: 800)
-        //                self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48, centerImg: 100 )
-        //            default:
-        //                self.pharamacyOrderViewModel.isSecondOpetion = false
-        //                self.pharamacyOrderViewModel.isFirstOpetion = false
-        //                self.addLapCollectionVC.medicineArray.count > 0 ?  self.makeTheseChanges( hide: false, height: 1200,all: false) : self.makeTheseChanges( hide: false, height: 1000,all: false)
-        //                self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
-        //            }
-        //        }
         return view
     }()
     
@@ -88,7 +68,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         return i
     }()
     lazy var orLabel = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
-    lazy var mainDropView = makeSubView(vv: nameDrop)
+    lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]
@@ -99,7 +79,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         }
         return i
     }()
-    lazy var main2DropView = makeSubView(vv: typeDrop)
+    lazy var main2DropView = makeMainSubViewWithAppendView(vv: [typeDrop])
     
     lazy var typeDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
@@ -126,7 +106,7 @@ class CustomPharmacyOrderView: CustomBaseView {
     lazy var addLapCollectionVC:AddMedicineCollectionVC = {
         let vc = AddMedicineCollectionVC()
         //        vc.view.constrainHeight(constant: 300)
-        vc.view.isHide(true)
+//        vc.view.isHide(true)
         return vc
     }()
     lazy var addMoreImage:UIImageView = {
@@ -134,6 +114,8 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.isUserInteractionEnabled = true
         i.constrainWidth(constant: 60)
         i.constrainHeight(constant: 60)
+        i.isUserInteractionEnabled = true
+        i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAddMore)))
         return i
     }()
     lazy var nextButton:UIButton = {
@@ -158,6 +140,8 @@ class CustomPharmacyOrderView: CustomBaseView {
     
     var isDataFound = false
     var isSecondIndex = false
+    
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -203,15 +187,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         //        nextButton.anchor(top: mainStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
     }
     
-    func makeSubView(vv:UIView) ->UIView {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.constrainHeight(constant: 60)
-        l.addSubview(vv)
-        return l
-    }
+    
     
     func makeTheseChanges(hide:Bool,height:CGFloat,all:Bool? = true)  {
         //        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
@@ -225,7 +201,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         }else {
             [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,self.addMoreImage,self.quantityLabel,self.customAddMinusView,self.main2DropView].forEach({$0.isHide(false)})
         }
-        self.addLapCollectionVC.view.isHide(  self.addLapCollectionVC.medicineArray.count > 0 ? false : true )
+//        self.addLapCollectionVC.view.isHide(  self.addLapCollectionVC.medicineArray.count > 0 ? false : true )
         
         //        })
     }
@@ -243,6 +219,18 @@ class CustomPharmacyOrderView: CustomBaseView {
     }
     
     
+    
+  @objc  func handleAddMore()  {
+    guard let type = pharamacyOrderViewModel.type,let name = pharamacyOrderViewModel.name,let count = pharamacyOrderViewModel.quantity?.toInt() else {print("all fields required"); return  }
+    let model = MedicineModel(name: name, type: type, count: count)
+    addLapCollectionVC.medicineArray.append(model)
+    DispatchQueue.main.async {
+        self.addLapCollectionVC.collectionView.reloadData()
+    }
+    
+    
+    print(type,name,count)
+    }
     
 }
 
