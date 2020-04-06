@@ -266,8 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				4EC38C712439FA9E005DE994 /* Location */,
-				4E006792243307C0004B1C3F /* PharmacyOrderVC.swift */,
-				4E00679824331315004B1C3F /* AddMedicineCollectionVC.swift */,
+				4EDF1C54243AF22200294DEA /* Order */,
 			);
 			path = "Pharmacy ";
 			sourceTree = "<group>";
@@ -858,6 +857,15 @@
 				4ED7127624321C0B00074363 /* IncubationResultsCollectionVC.swift */,
 			);
 			path = "Search Results";
+			sourceTree = "<group>";
+		};
+		4EDF1C54243AF22200294DEA /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				4E006792243307C0004B1C3F /* PharmacyOrderVC.swift */,
+				4E00679824331315004B1C3F /* AddMedicineCollectionVC.swift */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */ = {
