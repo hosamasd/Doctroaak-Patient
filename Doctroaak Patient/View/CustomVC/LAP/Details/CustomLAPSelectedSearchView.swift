@@ -10,6 +10,12 @@ import UIKit
 
 class CustomLAPSelectedSearchView: CustomBaseView {
     
+    var index:Int!{
+           didSet{
+               titleLabel.text = index == 1 ? "Rediology" : "Lap"
+           }
+       }
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill

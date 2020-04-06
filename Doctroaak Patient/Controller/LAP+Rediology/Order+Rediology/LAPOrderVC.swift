@@ -26,7 +26,7 @@ class LAPOrderVC: CustomBaseViewVC {
         let v = CustomLAPOrderView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
-
+        
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
             switch index {
             case 0:
@@ -40,6 +40,7 @@ class LAPOrderVC: CustomBaseViewVC {
         }
         return v
     }()
+    
     var bubleViewHeightConstraint:NSLayoutConstraint!
     
     var isDataFound = false
@@ -50,17 +51,15 @@ class LAPOrderVC: CustomBaseViewVC {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
     
     override func viewDidLoad() {
-           super.viewDidLoad()
-           setupViewModelObserver()
-           
-       }
-
-     //MARK:-User methods
+        super.viewDidLoad()
+        setupViewModelObserver()
+        
+    }
+    
+    //MARK:-User methods
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
@@ -83,25 +82,25 @@ class LAPOrderVC: CustomBaseViewVC {
     }
     
     fileprivate  func setupViewModelObserver()  {
-           
-           customLAPOrderView.laPOrderViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-               guard let isValid = isValidForm else {return}
-               //            self.customLoginView.loginButton.isEnabled = isValid
-               
-               self.changeButtonState(enable: isValid, vv: self.customLAPOrderView.nextButton)
-           }
-           
-           customLAPOrderView.laPOrderViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
-               if isValid == true {
-                   //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                   //                SVProgressHUD.show(withStatus: "Login...".localized)
-                   
-               }else {
-                   //                SVProgressHUD.dismiss()
-                   //                self.activeViewsIfNoData()
-               }
-           })
-       }
+        
+        customLAPOrderView.laPOrderViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+            guard let isValid = isValidForm else {return}
+            //            self.customLoginView.loginButton.isEnabled = isValid
+            
+            self.changeButtonState(enable: isValid, vv: self.customLAPOrderView.nextButton)
+        }
+        
+        customLAPOrderView.laPOrderViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
+            if isValid == true {
+                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                
+            }else {
+                //                SVProgressHUD.dismiss()
+                //                self.activeViewsIfNoData()
+            }
+        })
+    }
     
     fileprivate func makeFirstOption() {
         self.bubleViewHeightConstraint.constant = 900
@@ -128,7 +127,7 @@ class LAPOrderVC: CustomBaseViewVC {
         self.customLAPOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
     }
     
-    func makeTheseChanges(hide:Bool,height:CGFloat,all:Bool? = true)  {
+    fileprivate func makeTheseChanges(hide:Bool,height:CGFloat,all:Bool? = true)  {
         DispatchQueue.main.async {
             
             if all ?? true {
@@ -145,7 +144,7 @@ class LAPOrderVC: CustomBaseViewVC {
         }
     }
     
-    func hideOtherData()  {
+    fileprivate func hideOtherData()  {
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             [self.customLAPOrderView.uploadView,self.customLAPOrderView.centerImage].forEach({$0.isHide(true)})
             self.customLAPOrderView.rosetaImageView.isHide(false)
@@ -155,26 +154,19 @@ class LAPOrderVC: CustomBaseViewVC {
     //TODO:-Handle methods
     
     @objc func handleOpenGallery()  {
-           let imagePicker = UIImagePickerController()
-           imagePicker.delegate = self
-           imagePicker.sourceType = .photoLibrary
-           present(imagePicker, animated: true)
-       }
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true)
+    }
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     
-    //    @objc func handleOpenOther(sender:UISegmentedControl)  {
-    //        switch sender.selectedSegmentIndex {
-    //        case 0:
-    //            makeTheseChanges(  hide: true, height: 800)
-    //        case 1:
-    //            self.customLAPOrderView.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200) : makeTheseChanges( hide: false, height: 800)
-    //        default:
-    //            self.customLAPOrderView.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200,all: false) : makeTheseChanges( hide: false, height: 1000,all: false)
-    //        }
-    //    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 

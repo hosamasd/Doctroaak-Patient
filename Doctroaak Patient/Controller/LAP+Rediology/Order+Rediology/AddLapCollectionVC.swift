@@ -31,6 +31,9 @@ class AddLapCollectionVC: BaseCollectionVC {
         return .init(width: view.frame.width, height: 60)
     }
     
+    //MARK:-User methods
+
+    
     override func setupCollection() {
         collectionView.backgroundColor = .white
         collectionView.register(AddLAPCell.self, forCellWithReuseIdentifier: cellID)

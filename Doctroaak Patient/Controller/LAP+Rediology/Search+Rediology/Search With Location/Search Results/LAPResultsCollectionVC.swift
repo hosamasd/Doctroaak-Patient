@@ -35,6 +35,9 @@ class LAPResultsCollectionVC: BaseCollectionVC {
         return .init(width: view.frame.width, height: 120)
     }
     
+    //MARK:-User methods
+
+    
     override func setupCollection() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false

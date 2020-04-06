@@ -34,6 +34,9 @@ class CustomICUSearchView: CustomBaseView {
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+                   self.icuViewModel.city = txt
+               }
         return i
     }()
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
@@ -43,13 +46,17 @@ class CustomICUSearchView: CustomBaseView {
         i.arrowSize = 20
         //        i.arrowColor = .white
         i.placeholder = "Area".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+            self.icuViewModel.area = txt
+        }
         return i
     }()
     
     lazy var addressMainView:UIView = {
-        let v = UIView(backgroundColor: .white)
-        v.addSubViews(views: addressImage,addressLabel)
+        let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
         v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+
         return v
     }()
     lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
@@ -61,17 +68,6 @@ class CustomICUSearchView: CustomBaseView {
         
         return v
     }()
-    
-    //    lazy var addressTextField:UITextField = {
-    //        let s = createMainTextFields(place: "Address", type: .default,secre: true)
-    //        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-    //        img.isUserInteractionEnabled = true
-    //        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
-    //        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(60))
-    //        s.rightView = img
-    //        s.rightViewMode = .always
-    //        return s
-    //    }()
     lazy var searchButton:UIButton = {
         let button = UIButton()
         button.setTitle("Search", for: .normal)
@@ -84,19 +80,17 @@ class CustomICUSearchView: CustomBaseView {
         return button
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if searchButton.backgroundColor == nil {
-            addGradientInSenderAndRemoveOther(sender: searchButton)
-            searchButton.setTitleColor(.white, for: .normal)
-        }
-        
-    }
+    
+    let icuViewModel = ICUViewModel()
+    var handlerChooseLocation:(()->Void)?
+
+    
+    
     
     
     override func setupViews() {
         
-       
+        
         let textStack = getStack(views: mainDropView,mainDrop2View,addressMainView, spacing: 16, distribution: .fillEqually, axis: .vertical)
         //        let text2Stack = getStack(views: addressTextField,insuranceTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
@@ -124,8 +118,8 @@ class CustomICUSearchView: CustomBaseView {
     
     
     
-    @objc func handleLocation()  {
-        print(9999)
-    }
+     @objc  func handleOpenLocation()  {
+          handlerChooseLocation?()
+      }
     
 }

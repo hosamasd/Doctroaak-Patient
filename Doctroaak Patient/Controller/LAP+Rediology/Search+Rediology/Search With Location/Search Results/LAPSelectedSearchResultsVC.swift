@@ -14,7 +14,7 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         let v = CustomLAPSelectedSearchView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
-
+        v.index = index
         return v
     }()
     
@@ -24,15 +24,15 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
     }
     
+    //MARK:-User methods
+
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -44,6 +44,8 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         customLAPSelectedSearchView.fillSuperview()
     }
     
+     //TODO: -handle methods
+    
     @objc  func handleBack()  {
            navigationController?.popViewController(animated: true)
        }
@@ -53,4 +55,8 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
            navigationController?.pushViewController(book, animated: true)
     }
     
+    
+    required init?(coder aDecoder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
 }

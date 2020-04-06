@@ -79,7 +79,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         self.customPharmacyOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
     }
     
-   fileprivate func setupViewModelObserver()  {
+    fileprivate func setupViewModelObserver()  {
         
         customPharmacyOrderView.pharamacyOrderViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
@@ -123,7 +123,8 @@ class PharmacyOrderVC: CustomBaseViewVC {
         })
     }
     
-   
+    //TODO: -handle methods
+    
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)

@@ -48,31 +48,31 @@ class LapSearchVC: CustomBaseViewVC {
     }
     
     override func viewDidLoad() {
-           super.viewDidLoad()
-           setupViewModelObserver()
-       }
-       
-       //MARK:-User methods
-       
-       func setupViewModelObserver()  {
-          customLapSearchView.lAPSearchViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-               guard let isValid = isValidForm else {return}
-               //            self.customLoginView.loginButton.isEnabled = isValid
-               
-               self.changeButtonState(enable: isValid, vv: self.customLapSearchView.searchButton)
-           }
-           
-           customLapSearchView.lAPSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
-               if isReg == true {
-                   //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                   //                SVProgressHUD.show(withStatus: "Login...".localized)
-                   
-               }else {
-                   //                SVProgressHUD.dismiss()
-                   //                self.activeViewsIfNoData()
-               }
-           })
-       }
+        super.viewDidLoad()
+        setupViewModelObserver()
+    }
+    
+    //MARK:-User methods
+    
+    func setupViewModelObserver()  {
+        customLapSearchView.lAPSearchViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+            guard let isValid = isValidForm else {return}
+            //            self.customLoginView.loginButton.isEnabled = isValid
+            
+            self.changeButtonState(enable: isValid, vv: self.customLapSearchView.searchButton)
+        }
+        
+        customLapSearchView.lAPSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+            if isReg == true {
+                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                
+            }else {
+                //                SVProgressHUD.dismiss()
+                //                self.activeViewsIfNoData()
+            }
+        })
+    }
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
@@ -93,13 +93,17 @@ class LapSearchVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
     
-   @objc func handleSearch()  {
-    let details = LapSearchResultsVC(index:index)
-    navigationController?.pushViewController(details, animated: true)
+    @objc func handleSearch()  {
+        let details = LapSearchResultsVC(index:index)
+        navigationController?.pushViewController(details, animated: true)
     }
 }
 
+//MARK:-extension
+
+
 extension LapSearchVC : ChooseLocationVCProtocol{
+    
     func getLatAndLong(lat: Double, long: Double) {
         customLapSearchView.lAPSearchViewModel.lat = "\(lat)"
         customLapSearchView.lAPSearchViewModel.lng = "\(long)"

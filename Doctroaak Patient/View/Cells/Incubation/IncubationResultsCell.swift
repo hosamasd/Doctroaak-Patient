@@ -40,7 +40,7 @@ class IncubationResultsCell: BaseCollectionCell {
     
     
     
-    fileprivate func etupShadowss() {
+    fileprivate func setupShadowss() {
         layer.masksToBounds = false
         layer.cornerRadius = 5
         layer.shadowColor = UIColor.red.cgColor
@@ -53,8 +53,8 @@ class IncubationResultsCell: BaseCollectionCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        etupShadowss()
-        setupShadow(opacity: 1, radius: 20, offset: .init(width: 0, height: 20), color: .red)
+        setupShadowss()
+//        setupShadow(opacity: 1, radius: 20, offset: .init(width: 0, height: 20), color: .red)
         setupViewss()
     }
     

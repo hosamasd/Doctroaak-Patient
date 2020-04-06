@@ -1,14 +1,14 @@
 //
-//  DoctorSearchViewModel.swift
+//  IncubationSearchViewModel.swift
 //  Doctroaak Patient
 //
-//  Created by hosam on 4/5/20.
+//  Created by hosam on 4/6/20.
 //  Copyright © 2020 hosam. All rights reserved.
 //
 
 import UIKit
 
-class DoctorSearchViewModel {
+class IncubationSearchViewModel {
     
     var bindableIsLogging = Bindable<Bool>()
     var bindableIsFormValidate = Bindable<Bool>()
@@ -16,7 +16,6 @@ class DoctorSearchViewModel {
     //variables
     var city:String? {didSet {checkFormValidity()}}
     var area:String? {didSet {checkFormValidity()}}
-    var insuranceCompany:Bool? = true {didSet {checkFormValidity()}}
     var lat:String? {didSet {checkFormValidity()}}
     var lng:String? {didSet {checkFormValidity()}}
 
@@ -38,7 +37,7 @@ class DoctorSearchViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = city?.isEmpty == false &&  area?.isEmpty == false  && isFirstOpetion == true || isFirstOpetion == false &&  lat?.isEmpty == false && lng?.isEmpty == false
+        let isFormValid = city?.isEmpty == false &&  area?.isEmpty == false && isFirstOpetion == true || isFirstOpetion == false &&   lat?.isEmpty == false && lng?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

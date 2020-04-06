@@ -41,6 +41,7 @@ class CustomDoctorSearchView: CustomBaseView {
         view.selectedTextFont = .systemFont(ofSize: 12)
         view.didSelectItemWith = {[unowned self] (index, title) in
             index == 0 ?    self.openTheseViewsOrHide(hide: true, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView,index:index) : self.openTheseViewsOrHide(hide: false, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView,index:index)
+            self.doctorSearchViewModel.isFirstOpetion = index == 0 ? true : false
         }
         return view
     }()
@@ -187,13 +188,13 @@ class CustomDoctorSearchView: CustomBaseView {
     func openTheseViewsOrHide(hide:Bool,vv:UIView...,ss:UIView,index:Int)  {
         vv.forEach({$0.isHide(!hide)})
         ss.isHide(hide)
-        if index == 0 {
-            doctorSearchViewModel.lat=nil
-            doctorSearchViewModel.lng=nil
-        }else {
-            doctorSearchViewModel.city=nil
-            doctorSearchViewModel.area=nil
-        }
+//        if index == 0 {
+//            doctorSearchViewModel.lat=nil
+//            doctorSearchViewModel.lng=nil
+//        }else {
+//            doctorSearchViewModel.city=nil
+//            doctorSearchViewModel.area=nil
+//        }
     }
     
     

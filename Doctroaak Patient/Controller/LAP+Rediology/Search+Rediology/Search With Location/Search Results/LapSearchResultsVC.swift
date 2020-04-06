@@ -29,9 +29,7 @@ class LapSearchResultsVC: CustomBaseViewVC {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +37,8 @@ class LapSearchResultsVC: CustomBaseViewVC {
         setupNavigation()
     }
     
+    //MARK:-User methods
+
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -50,10 +50,14 @@ class LapSearchResultsVC: CustomBaseViewVC {
         customLapResultsView.fillSuperview()
     }
     
+     //TODO: -handle methods
+    
     @objc  func handleBack()  {
            navigationController?.popViewController(animated: true)
        }
 
-  
+  required init?(coder: NSCoder) {
+         fatalError("init(coder:) has not been implemented")
+     }
     
 }

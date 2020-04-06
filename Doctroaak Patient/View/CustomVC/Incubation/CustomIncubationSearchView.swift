@@ -35,6 +35,9 @@ class CustomIncubationSearchView: CustomBaseView {
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+            self.incubationSearchViewModel.city = txt
+        }
         return i
     }()
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
@@ -42,8 +45,10 @@ class CustomIncubationSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
-        //        i.arrowColor = .white
         i.placeholder = "Area".localized
+        i.didSelect {[unowned self] (txt, index, _) in
+            self.incubationSearchViewModel.area = txt
+        }
         return i
     }()
     
@@ -58,6 +63,7 @@ class CustomIncubationSearchView: CustomBaseView {
         view.selectedTextFont = .systemFont(ofSize: 12)
         view.didSelectItemWith = {[unowned self] (index, title) in
             index == 0 ?      self.openTheseViewsOrHide(hide: true, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView) : self.openTheseViewsOrHide(hide: false, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView)
+            self.incubationSearchViewModel.isFirstOpetion = index == 0 ? true : false
         }
         return view
     }()
@@ -65,15 +71,11 @@ class CustomIncubationSearchView: CustomBaseView {
     
     
     lazy var addressMainView:UIView = {
-        let v = UIView(backgroundColor: .white)
-        v.layer.cornerRadius = 8
-        v.clipsToBounds = true
-        v.layer.borderColor = UIColor.gray.cgColor
-        v.layer.borderWidth = 1
-        v.constrainHeight(constant: 60)
+        let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
         v.isHide(true)
-        v.addSubViews(views: addressImage,addressLabel)
         v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+        
         return v
     }()
     lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
@@ -85,20 +87,6 @@ class CustomIncubationSearchView: CustomBaseView {
         
         return v
     }()
-    
-    //    lazy var addressTextField:UITextField = {
-    //        let s = createMainTextFields(place: "Address", type: .default,secre: true)
-    //        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-    //        img.isUserInteractionEnabled = true
-    //
-    ////        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
-    //        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(60))
-    //        s.rightView = img
-    //        s.rightViewMode = .always
-    //        s.isHide(true)
-    //        s.constrainHeight(constant: 60)
-    //        return s
-    //    }()
     lazy var searchButton:UIButton = {
         let button = UIButton()
         button.setTitle("Search", for: .normal)
@@ -110,6 +98,10 @@ class CustomIncubationSearchView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
+    
+    let incubationSearchViewModel = IncubationSearchViewModel()
+    var handlerChooseLocation:(()->Void)?
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -159,6 +151,8 @@ class CustomIncubationSearchView: CustomBaseView {
     
     
     
-    
+    @objc  func handleOpenLocation()  {
+        handlerChooseLocation?()
+    }
     
 }
