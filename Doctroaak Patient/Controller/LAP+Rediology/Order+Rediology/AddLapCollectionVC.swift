@@ -12,7 +12,7 @@ import UIKit
 class AddLapCollectionVC: BaseCollectionVC {
     
     fileprivate let cellID = "cellID"
-    var medicineArray = ["one","two","three","four","fifie"]
+    var medicineArray = [String]()//["one","two","three","four","fifie"]
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

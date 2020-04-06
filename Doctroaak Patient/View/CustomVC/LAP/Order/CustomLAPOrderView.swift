@@ -124,6 +124,8 @@ class CustomLAPOrderView: CustomBaseView {
         i.isUserInteractionEnabled = true
         i.constrainWidth(constant: 60)
         i.constrainHeight(constant: 60)
+        i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAddMore)))
+
         return i
     }()
     lazy var nextButton:UIButton = {
@@ -193,7 +195,7 @@ class CustomLAPOrderView: CustomBaseView {
         }else {
             [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,addMoreImage].forEach({$0.isHide(false)})
         }
-        addLapCollectionVC.view.isHide(  addLapCollectionVC.medicineArray.count > 0 ? false : true )
+//        addLapCollectionVC.view.isHide(  addLapCollectionVC.medicineArray.count > 0 ? false : true )
     }
     
     func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat,centerImg:CGFloat) {
@@ -223,6 +225,17 @@ class CustomLAPOrderView: CustomBaseView {
         }
     }
     
+    @objc  func handleAddMore()  {
+       guard let name = laPOrderViewModel.name else {print("all fields required"); return  }
+//       let model = MedicineModel(name: name, type: type, count: count)
+        addLapCollectionVC.medicineArray.append(name)
+       DispatchQueue.main.async {
+           self.addLapCollectionVC.collectionView.reloadData()
+       }
+       
+       
+       print(name)
+       }
     
 }
 

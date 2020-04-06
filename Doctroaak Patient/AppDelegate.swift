@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: LAPOrderVC(index: 0))
+        window?.rootViewController = UINavigationController(rootViewController: LAPBookVC(index: 0))
         return true
     }
 

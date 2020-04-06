@@ -41,7 +41,7 @@ class LAPBookViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = dates?.isEmpty == false &&  index != -1 ||  index != -1 && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobileNumber?.isEmpty == false  && birthday?.isEmpty == false
+        let isFormValid = dates?.isEmpty == false &&  index != -1 && isFirstOpetion==true ||  index != -1 && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobileNumber?.isEmpty == false  && birthday?.isEmpty == false && isFirstOpetion==false
         
         bindableIsFormValidate.value = isFormValid
         
