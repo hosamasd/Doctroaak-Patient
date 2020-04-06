@@ -10,8 +10,22 @@ import UIKit
 
 class ICUSearchResultsVC: CustomBaseViewVC {
     
+    lazy var scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.backgroundColor = .clear
+        
+        return v
+    }()
+    lazy var mainView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.constrainHeight(constant: 900)
+        v.constrainWidth(constant: view.frame.width)
+        return v
+    }()
     lazy var customICUResultsView:CustomICUResultsView = {
         let v = CustomICUResultsView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+
         return v
     }()
     
@@ -28,10 +42,17 @@ class ICUSearchResultsVC: CustomBaseViewVC {
     }
     
     override func setupViews()  {
-        view.backgroundColor = #colorLiteral(red: 0.9829737544, green: 0.9831344485, blue: 0.9829396605, alpha: 1)
-        
-        view.addSubViews(views: customICUResultsView)
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customICUResultsView)
         customICUResultsView.fillSuperview()
     }
+    
+    
+    @objc  func handleBack()  {
+           navigationController?.popViewController(animated: true)
+       }
     
 }

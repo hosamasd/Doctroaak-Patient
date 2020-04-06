@@ -102,8 +102,8 @@ class LoginVC: CustomBaseViewVC {
     
     @objc  func handleLogin()  {
         let home = BaseSlidingVC()
-        present(home, animated: true, completion: nil)
-//        navigationController?.pushViewController(home, animated: true)
+//        present(home, animated: true, completion: nil)
+        navigationController?.pushViewController(home, animated: true)
     }
     
     @objc func handleForget()  {

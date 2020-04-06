@@ -43,7 +43,8 @@ class CustomLoginsView: CustomBaseView {
     lazy var forgetPasswordButton:UIButton = {
         let b = UIButton()
         b.setTitle("Forget Password ?".localized, for: .normal)
-        b.setTitleColor(#colorLiteral(red: 0.880725801, green: 0.8148735166, blue: 0.9894962907, alpha: 1), for: .normal)
+//        let c:UIColor = #colorLiteral(red: 0.7632597089, green: 0.6074588299, blue: 0.9954382777, alpha: 1)
+        b.setTitleColor(#colorLiteral(red: 0.7632597089, green: 0.6074588299, blue: 0.9954382777, alpha: 1), for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         b.backgroundColor = .clear
         b.constrainWidth(constant: 150)
@@ -85,7 +86,7 @@ class CustomLoginsView: CustomBaseView {
         
         NSLayoutConstraint.activate([
             subStack.centerXAnchor.constraint(equalTo: centerXAnchor),
-            subStack.centerYAnchor.constraint(equalTo: centerYAnchor,constant: 0),
+            subStack.centerYAnchor.constraint(equalTo: centerYAnchor,constant: 60),
             createStack.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0)
             
             ])

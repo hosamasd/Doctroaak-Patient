@@ -25,11 +25,17 @@ class VerificationVC: CustomBaseViewVC {
         
         return v
     }()
-    var index:Int = 0
     
     fileprivate var timer = Timer()
     fileprivate var seconds = 30
     let sMSCodeViewModel = SMSCodeViewModel()
+    
+    fileprivate let index:Int!
+    init(inde:Int) {
+        self.index = inde
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     
     
     override func viewDidLoad() {
@@ -40,7 +46,7 @@ class VerificationVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         customVerificationView.firstNumberTextField.becomeFirstResponder()
     }
     
@@ -153,6 +159,10 @@ class VerificationVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
     
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension VerificationVC: UITextFieldDelegate {

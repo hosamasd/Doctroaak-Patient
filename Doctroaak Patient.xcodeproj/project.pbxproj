@@ -590,8 +590,8 @@
 				4E13DDAE243087B300421737 /* BaseVCS */,
 				4E347CDC2430B8D200333C07 /* Menu */,
 				4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */,
-				4E1E52A024335847005E5695 /* LAP+Rediology */,
 				4E04C87A243230CF00D1AD1C /* Pharmacy  */,
+				4E1E52A024335847005E5695 /* LAP+Rediology */,
 				4ED7126A2432194A00074363 /* Incubation */,
 				4ED7125A2432137100074363 /* I.C.U */,
 				4E13DDAB2430879200421737 /* Registration */,
@@ -1371,7 +1371,7 @@
 			baseConfigurationReference = 0205F769D8BBEB849C19DF2D /* Pods-Doctroaak Patient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Doctroaak Patient/Doctroaak Patient.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RTZJMVRS2;
 				INFOPLIST_FILE = "$(SRCROOT)/Doctroaak Patient/Support Files/Info.plist";
@@ -1391,7 +1391,8 @@
 			baseConfigurationReference = 60BA14D456864443CE1D68A0 /* Pods-Doctroaak Patient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Doctroaak Patient/Doctroaak Patient.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RTZJMVRS2;
 				INFOPLIST_FILE = "$(SRCROOT)/Doctroaak Patient/Support Files/Info.plist";
@@ -1401,6 +1402,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hosam.net.Doctroaak-Patient";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

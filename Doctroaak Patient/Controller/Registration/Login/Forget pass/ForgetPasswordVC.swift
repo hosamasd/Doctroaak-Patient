@@ -19,7 +19,7 @@ class ForgetPasswordVC:   CustomBaseViewVC {
         v.nextButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
         return v
     }()
-
+    
     let forgetPassViewModel = ForgetPassViewModel()
     
     override func viewDidLoad() {
@@ -78,12 +78,9 @@ class ForgetPasswordVC:   CustomBaseViewVC {
     }
     
     @objc func handleDonePayment()  {
-        let verifiy = VerificationVC()
-        verifiy.index = 1
-//        verifiy.isFromForgetPassw = true
+        let verifiy = VerificationVC(inde: 1)
         navigationController?.pushViewController(verifiy, animated: true)
         
-        print(999)
     }
 }
 

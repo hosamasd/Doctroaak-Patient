@@ -10,16 +10,28 @@ import UIKit
 
 class ICUSearchVC: CustomBaseViewVC {
     
+    lazy var scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.backgroundColor = .clear
+        
+        return v
+    }()
+    lazy var mainView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.constrainHeight(constant: 900)
+        v.constrainWidth(constant: view.frame.width)
+        return v
+    }()
     
     lazy var customICUSearchView:CustomICUSearchView = {
         let v = CustomICUSearchView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.handlerChooseLocation = {[unowned self] in
-                          let loct = ChooseLocationVC()
-                          loct.delgate = self
-                          self.navigationController?.pushViewController(loct, animated: true)
-                      }
-                      v.searchButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
+            let loct = ChooseLocationVC()
+            loct.delgate = self
+            self.navigationController?.pushViewController(loct, animated: true)
+        }
+        v.searchButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
         return v
     }()
     
@@ -55,8 +67,11 @@ class ICUSearchVC: CustomBaseViewVC {
     }
     
     override func setupViews() {
-        
-        view.addSubViews(views: customICUSearchView)
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customICUSearchView)
         customICUSearchView.fillSuperview()
     }
     
@@ -65,9 +80,9 @@ class ICUSearchVC: CustomBaseViewVC {
     }
     
     @objc func handleSearch()  {
-           let details = ICUSearchResultsVC()
-           navigationController?.pushViewController(details, animated: true)
-       }
+        let details = ICUSearchResultsVC()
+        navigationController?.pushViewController(details, animated: true)
+    }
     
 }
 

@@ -31,7 +31,6 @@ class CustomPharmacyOrderView: CustomBaseView {
     lazy var orderSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
         view.itemTitles = ["prescription","Request a medicine","All"]
-        view.allowChangeThumbWidth = false
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
@@ -136,12 +135,13 @@ class CustomPharmacyOrderView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setupViewss()
         //        let maskedCorners: CACornerMask = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         //        orderSegmentedView.layer.maskedCorners = maskedCorners
     }
     
     
-    override func setupViews() {
+     func setupViewss() {
         bubleViewCenterImgHeightConstraint = centerImage.heightAnchor.constraint(equalToConstant: 250)
         bubleViewCenterImgHeightConstraint.isActive = true
         [titleLabel,orderSegmentedView,LogoImage].forEach({$0.translatesAutoresizingMaskIntoConstraints = false})
@@ -156,7 +156,6 @@ class CustomPharmacyOrderView: CustomBaseView {
         main2DropView.hstack(typeDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStack,nextButton)
-        //        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,customRequestMedicineView,addMedicineCollectionVC.view,nextButton,rosetaImageView,centerImage,uploadView,nextButton)
         
         
         constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
@@ -190,11 +189,9 @@ class CustomPharmacyOrderView: CustomBaseView {
             [self.centerImage,self.uploadView].forEach({$0.isHide(!hide)})
             self.orLabel.isHide(true)
         }else {
-            [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,self.addMoreImage,self.quantityLabel,self.customAddMinusView,self.main2DropView].forEach({$0.isHide(false)})
+           [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,addMoreImage].forEach({$0.isHide(false)})
+
         }
-//        self.addLapCollectionVC.view.isHide(  self.addLapCollectionVC.medicineArray.count > 0 ? false : true )
-        
-        //        })
     }
     
     func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat,centerImg:CGFloat) {

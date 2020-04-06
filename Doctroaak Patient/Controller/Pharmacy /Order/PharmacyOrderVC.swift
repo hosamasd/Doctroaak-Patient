@@ -19,7 +19,6 @@ class PharmacyOrderVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        //        v.constrainHeight(constant:  1200 )
         v.translatesAutoresizingMaskIntoConstraints = false
         v.constrainWidth(constant: view.frame.width)
         return v

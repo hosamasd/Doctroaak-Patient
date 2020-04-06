@@ -19,7 +19,7 @@ class DoctorBookVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 1000)
+        v.constrainHeight(constant: 900)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()

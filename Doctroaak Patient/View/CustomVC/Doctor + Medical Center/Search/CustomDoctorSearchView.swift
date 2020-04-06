@@ -33,12 +33,12 @@ class CustomDoctorSearchView: CustomBaseView {
     lazy var searchSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
         view.itemTitles = ["Search by city and area","Search by address"]
-        view.allowChangeThumbWidth = false
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
-        view.defaultTextFont = .systemFont(ofSize: 14)
-        view.selectedTextFont = .systemFont(ofSize: 12)
+//        view.noItemSelected = true
+//        view.defaultTextFont = .systemFont(ofSize: 14)
+//        view.selectedTextFont = .systemFont(ofSize: 12)
         view.didSelectItemWith = {[unowned self] (index, title) in
             index == 0 ?    self.openTheseViewsOrHide(hide: true, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView,index:index) : self.openTheseViewsOrHide(hide: false, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView,index:index)
             self.doctorSearchViewModel.isFirstOpetion = index == 0 ? true : false
@@ -144,25 +144,28 @@ class CustomDoctorSearchView: CustomBaseView {
     let doctorSearchViewModel = DoctorSearchViewModel()
     var handlerChooseLocation:(()->Void)?
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupViewss()
+    }
     
     
-    override func setupViews() {
+     func setupViewss() {
         [mainDrop2View,mainDropView,addressMainView,insuracneView].forEach { (v) in
             v.layer.cornerRadius = 8
             v.clipsToBounds = true
             v.layer.borderColor = UIColor.gray.cgColor
             v.layer.borderWidth = 1
         }
-        let ss = getStack(views: searchCityButton,searchAddressButton, spacing: -8, distribution: .fill, axis: .horizontal)
+//        let ss = getStack(views: searchCityButton,searchAddressButton, spacing: -8, distribution: .fill, axis: .horizontal)
         
         let textStack = getStack(views: mainDropView,mainDrop2View,addressMainView,insuracneView, spacing: 16, distribution: .fillEqually, axis: .vertical)
-        //        let text2Stack = getStack(views: addressTextField,insuranceTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         
         [cityDrop,areaDrop].forEach({$0.fillSuperview(padding: .init(top: 8, left: 16, bottom: 8, right: 16))})
         insuracneView.hstack(insuranceLabel,insuranceSwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
         
-        addSubViews(views: LogoImage,backImage,titleLabel,userSpecificationLabel,textStack,searchButton,searchSegmentedView)
+        addSubViews(views: LogoImage,backImage,titleLabel,userSpecificationLabel,searchSegmentedView,textStack,searchButton)
         
         NSLayoutConstraint.activate([
             textStack.centerXAnchor.constraint(equalTo: centerXAnchor),

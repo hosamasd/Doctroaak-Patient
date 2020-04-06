@@ -11,7 +11,18 @@ import SkyFloatingLabelTextField
 
 class LAPBookVC: CustomBaseViewVC {
     
-    
+    lazy var scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.backgroundColor = .clear
+        
+        return v
+    }()
+    lazy var mainView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.constrainHeight(constant: 900)
+        v.constrainWidth(constant: view.frame.width)
+        return v
+    }()
     lazy var customLAPBookView:CustomLAPBookView = {
         let v = CustomLAPBookView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -63,8 +74,11 @@ class LAPBookVC: CustomBaseViewVC {
     }
     
     override func setupViews() {
-        
-        view.addSubViews(views: customLAPBookView)
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customLAPBookView)
         customLAPBookView.fillSuperview()
     }
     

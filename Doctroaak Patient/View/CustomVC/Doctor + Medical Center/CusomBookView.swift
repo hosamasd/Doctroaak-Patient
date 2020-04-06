@@ -37,8 +37,6 @@ class CusomBookView: CustomBaseView {
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
-        view.defaultTextFont = .systemFont(ofSize: 14)
-        view.selectedTextFont = .systemFont(ofSize: 12)
         view.didSelectItemWith = {[unowned self] (index, title) in
             self.isActive = false
             self.subStack.isHide(index == 0 ? true : false)

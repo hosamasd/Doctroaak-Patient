@@ -79,13 +79,13 @@ class CustomMainServicesView: CustomBaseView {
     }()
     
     lazy var Image6:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "incubator"))
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4174-3"))
         i.contentMode = .scaleAspectFill
         return i
     }()
     
     lazy var Image7:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "icu"))
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4175-1"))
         i.contentMode = .scaleAspectFill
         return i
     }()

@@ -10,6 +10,18 @@ import UIKit
 
 class PharmacyLocationVC: CustomBaseViewVC {
     
+    lazy var scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.backgroundColor = .clear
+        
+        return v
+    }()
+    lazy var mainView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.constrainHeight(constant: 900)
+        v.constrainWidth(constant: view.frame.width)
+        return v
+    }()
     lazy var customPharmacyLocationView:CustomPharmacyLocationView = {
         let v = CustomPharmacyLocationView()
         v.handlerChooseLocation = {[unowned self] in
@@ -18,6 +30,7 @@ class PharmacyLocationVC: CustomBaseViewVC {
             self.navigationController?.pushViewController(loct, animated: true)
         }
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
     }()
     
@@ -55,8 +68,11 @@ class PharmacyLocationVC: CustomBaseViewVC {
     }
     
     override func setupViews() {
-        
-        view.addSubViews(views: customPharmacyLocationView)
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customPharmacyLocationView)
         customPharmacyLocationView.fillSuperview()
     }
     
@@ -66,6 +82,12 @@ class PharmacyLocationVC: CustomBaseViewVC {
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
+    
+  @objc  func handleNext()  {
+    let order = PharmacyOrderVC()
+    navigationController?.pushViewController(order, animated: true)
+    }
+    
 }
 
 
@@ -76,6 +98,8 @@ extension PharmacyLocationVC: ChooseLocationVCProtocol {
     func getLatAndLong(lat: Double, long: Double) {
         customPharmacyLocationView.pharamacyLocationViewModel.lat = "\(lat)"
         customPharmacyLocationView.pharamacyLocationViewModel.lng = "\(long)"
+        customPharmacyLocationView.addressLabel.text = "\(lat), \(long)"
+
         print(lat, "            ",long)
     }
     
