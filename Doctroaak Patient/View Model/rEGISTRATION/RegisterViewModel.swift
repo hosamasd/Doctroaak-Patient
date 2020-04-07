@@ -29,6 +29,8 @@ class RegisterViewModel {
     var isMale:Bool?  = true {didSet {checkFormValidity()}}
      var isAccept:Bool?  = false {didSet {checkFormValidity()}}
     
+    var isChoosedInsurance:Bool?  = false {didSet {checkFormValidity()}}
+
     
     func performRegister(completion:@escaping (Error?)->Void)  {
         guard let email = email,let password = password,let name = name,let phone = phone,let address = address,let birthday = birthday, let insurance = insurance
@@ -39,7 +41,11 @@ class RegisterViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && insurance?.isEmpty == false  && image != nil && insuranceCode?.isEmpty == false && isAccept != false
+//        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && insurance?.isEmpty == false  && image != nil && insuranceCode?.isEmpty == false && isAccept != false
+        
+        
+        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && image != nil  && isAccept != false && isChoosedInsurance == false || email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && insurance?.isEmpty == false  && image != nil && insuranceCode?.isEmpty == false && isAccept != false && isChoosedInsurance == true
+
         bindableIsFormValidate.value = isFormValid
         
     }

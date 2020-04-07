@@ -10,10 +10,11 @@
 import UIKit
 import iOSDropDown
 import UIMultiPicker
+import SkyFloatingLabelTextField
 
 class CustomRegisterView: CustomBaseView {
     
-   
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -100,7 +101,7 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var birthdayTextField:UITextField = {
         let t = UITextField()
-
+        
         t.layer.cornerRadius = 8
         t.clipsToBounds = true
         t.placeholder = "   Birthday"
@@ -121,14 +122,14 @@ class CustomRegisterView: CustomBaseView {
     lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 18), textColor: .black, textAlignment: .left)
     lazy var insuranceDrop:UIMultiPicker = {
         let v = UIMultiPicker(backgroundColor: .white)
-//        v.options = insuracneArray
+        v.options = insuracneArray
         v.color = .gray
         v.tintColor = .green
         v.font = .systemFont(ofSize: 30, weight: .bold)
         v.highlight(2, animated: true) // centering "Bitter"
         v.constrainHeight(constant: 150)
         v.isHide(true)
-//        v.addTarget(self, action: #selector(handleHidePicker), for: .valueChanged)
+        //        v.addTarget(self, action: #selector(handleHidePicker), for: .valueChanged)
         return v
     }()
     lazy var insuranceCodeTextField = createMainTextFields(place: "Insurance code")
@@ -137,7 +138,7 @@ class CustomRegisterView: CustomBaseView {
         let b = UIButton()
         b.setImage(#imageLiteral(resourceName: "Rectangle 1712"), for: .normal)
         b.setImage(#imageLiteral(resourceName: "DropDown_Checked"), for: .selected)
-//        b.addTarget(self, action: #selector(handleAgree), for: .touchUpInside)
+        //        b.addTarget(self, action: #selector(handleAgree), for: .touchUpInside)
         return b
     }()
     
@@ -162,39 +163,55 @@ class CustomRegisterView: CustomBaseView {
         return button
     }()
     
-//    var insuracneArray = ["one","two","three","sdfdsfsd"]
+    let registerViewModel = RegisterViewModel()
+    var iiii = ""
+    var de = ""
+    var insuracneArray = ["one","two","three","sdfdsfsd"]
+    //    var insuracneArray = ["one","two","three","sdfdsfsd"]
     
     override func layoutSubviews() {
         super.layoutSubviews()
         if boyButton.backgroundColor == nil  {
             addGradientInSenderAndRemoveOther(sender: boyButton)
         }
-//            let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
-//            let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1)
-//            boyButton.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)
         
-      
+    }
+    
+    fileprivate func addViewsTargets() {
+        insuranceCodeTextField.constrainHeight(constant: 60)
+        [  mobileNumberTextField,passwordTextField, emailTextField, fullNameTextField, confirmPasswordTextField, addressTextField,insuranceCodeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
+        girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
+        insuranceDrop.addTarget(self, action: #selector(handleHidePicker), for: .valueChanged)
+        birthdayTextField.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
+        mainDrop3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
+        acceptButton.addTarget(self, action: #selector(handleAgree), for: .touchUpInside)
     }
     
     override func setupViews() {
+        addViewsTargets()
+        
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: userProfileImage,userEditProfileImageView)
         subView.constrainWidth(constant: 100)
         subView.constrainHeight(constant: 100)
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         let bottomStack = getStack(views: UIView(),acceptButton,acceptLabel,createAccountButton,UIView(), spacing: 0, distribution: .fillProportionally, axis: .horizontal)
-
+        
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-
-        let textStack = getStack(views: fullNameTextField,addressTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack,birthdayTextField,insuranceCodeTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        
+        let textStack = getStack(views: fullNameTextField,addressTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack,birthdayTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        
         
         mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,bottomStack,insuranceDrop,signUpButton)
+        
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,insuranceCodeTextField,bottomStack,insuranceDrop,signUpButton)
+        
         
         NSLayoutConstraint.activate([
             bottomStack.centerXAnchor.constraint(equalTo: centerXAnchor),
             userProfileImage.centerXAnchor.constraint(equalTo: centerXAnchor)
-            ])
+        ])
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
@@ -202,14 +219,113 @@ class CustomRegisterView: CustomBaseView {
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         textStack.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-        //        genderStack.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
         insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         
-        bottomStack.anchor(top: textStack.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 16, left: 0, bottom: 0, right: 0))
+        insuranceCodeTextField.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        bottomStack.anchor(top: insuranceCodeTextField.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 16, left: 0, bottom: 0, right: 0))
+        
         
         signUpButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         
     }
+    
+    fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
+        if sender.backgroundColor == nil {
+            registerViewModel.isMale = isMale;return
+        }
+        addGradientInSenderAndRemoveOther(sender: sender, vv: secondBtn)
+        registerViewModel.isMale = isMale
+    }
+    
+    @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
+        if let datePicker = self.birthdayTextField.inputView as? UIDatePicker { // 2.1
+            let dateformatter = DateFormatter() // 2.2
+            dateformatter.dateStyle = .medium // 2.3
+            self.birthdayTextField.text = dateformatter.string(from: datePicker.date) //2.4
+            registerViewModel.birthday = dateformatter.string(from: datePicker.date) //2.4
+        }
+        self.birthdayTextField.resignFirstResponder() // 2.5
+        
+    }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+        guard let texts = text.text else { return  }
+        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+            if text == mobileNumberTextField {
+                if  !texts.isValidPhoneNumber    {
+                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                    registerViewModel.phone = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    registerViewModel.phone = texts
+                }
+                
+            }else if text == emailTextField {
+                if  !texts.isValidEmail    {
+                    floatingLabelTextField.errorMessage = "Invalid   Email".localized
+                    registerViewModel.email = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    registerViewModel.email = texts
+                }
+                
+            }else   if text == confirmPasswordTextField {
+                if text.text != passwordTextField.text {
+                    floatingLabelTextField.errorMessage = "Passowrd should be same".localized
+                    registerViewModel.confirmPassword = nil
+                }
+                else {
+                    registerViewModel.confirmPassword = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+            }else  if text == passwordTextField {
+                if(texts.count < 8 ) {
+                    floatingLabelTextField.errorMessage = "password must have 8 character".localized
+                    registerViewModel.password = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    registerViewModel.password = texts
+                }
+            }else  if text == addressTextField {
+                if (texts.count < 3 ) {
+                    floatingLabelTextField.errorMessage = "Invalid Address".localized
+                    registerViewModel.address = nil
+                }
+                else {
+                    
+                    registerViewModel.address = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+                
+            }else if text == fullNameTextField {
+                if (texts.count < 3 ) {
+                    floatingLabelTextField.errorMessage = "Invalid name".localized
+                    registerViewModel.name = nil
+                }
+                else {
+                    
+                    registerViewModel.name = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+                
+            }else  {
+                if (texts.count < 5 ) {
+                    floatingLabelTextField.errorMessage = "Invalid Code".localized
+                    registerViewModel.insuranceCode = nil
+                }
+                else {
+                    
+                    registerViewModel.insuranceCode = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+                
+            }
+        }
+    }
+    
     
     @objc func handleASD()  {
         passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
@@ -218,6 +334,39 @@ class CustomRegisterView: CustomBaseView {
     @objc func handleASDs()  {
         confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
     }
+    
+    @objc func handleHidePicker(sender:UIMultiPicker)  {
+        sender.selectedIndexes.forEach { (i) in
+            
+            de += insuracneArray[i] + ","
+        }
+        iiii = de
+        insuracneText.text = iiii
+        registerViewModel.insurance = iiii
+        de = ""
+    }
+    
+    @objc func handleOpenCloseInsurance()  {
+        registerViewModel.isChoosedInsurance = true
+        insuranceDrop.isHidden = !insuranceDrop.isHidden
+    }
+    
+    @objc func handleAgree(sender:UIButton)  {
+        
+        registerViewModel.isAccept = !registerViewModel.isAccept!
+        sender.isSelected = !sender.isSelected
+    }
+    
+    
+    
+    @objc func handleGirl(sender:UIButton)  {
+        changeBoyGirlState(sender,secondBtn: boyButton,isMale: false)
+    }
+    
+    @objc func handleBoy(sender:UIButton)  {
+        changeBoyGirlState(sender, secondBtn: girlButton, isMale: true)
+    }
+    
 }
 
 
