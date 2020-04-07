@@ -54,6 +54,8 @@ class PharmacyOrderVC: CustomBaseViewVC {
     //MARK:-User methods
     
     fileprivate func makeFirstOption() {
+        
+        
         self.bubleViewHeightConstraint.constant = 900
         self.customPharmacyOrderView.pharamacyOrderViewModel.isSecondOpetion = false
         self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = true
@@ -61,6 +63,16 @@ class PharmacyOrderVC: CustomBaseViewVC {
         self.customPharmacyOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 ,centerImg: 250)
         self.customPharmacyOrderView.addLapCollectionVC.view.isHide(true)
     }
+    
+  
+       
+//       fileprivate func makeLastOption() {
+//           self.bubleViewHeightConstraint.constant = 1000
+//           self.customLAPOrderView.laPOrderViewModel.isSecondOpetion = false
+//           self.customLAPOrderView.laPOrderViewModel.isFirstOpetion = false
+//           self.customLAPOrderView.addLapCollectionVC.medicineArray.count > 0 ?  self.customLAPOrderView.makeTheseChanges( hide: false, height: 1200,all: false) : self.customLAPOrderView.makeTheseChanges( hide: false, height: 1000,all: false)
+//           self.customLAPOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
+//       }
     
     fileprivate func makeSecondOption() {
         self.bubleViewHeightConstraint.constant = 1000
@@ -71,7 +83,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
     }
     
     fileprivate func makeLastOption() {
-        self.bubleViewHeightConstraint.constant = 1000
+        self.bubleViewHeightConstraint.constant = 1200
         self.customPharmacyOrderView.pharamacyOrderViewModel.isSecondOpetion = false
         self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = false
         self.customPharmacyOrderView.addLapCollectionVC.medicineArray.count > 0 ?  self.customPharmacyOrderView.makeTheseChanges( hide: false, height: 1200,all: false) : self.customPharmacyOrderView.makeTheseChanges( hide: false, height: 1000,all: false)

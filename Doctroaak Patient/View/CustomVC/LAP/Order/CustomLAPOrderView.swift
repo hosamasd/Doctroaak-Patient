@@ -196,7 +196,6 @@ class CustomLAPOrderView: CustomBaseView {
         }else {
             [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,addMoreImage].forEach({$0.isHide(false)})
         }
-//        addLapCollectionVC.view.isHide(  addLapCollectionVC.medicineArray.count > 0 ? false : true )
     }
     
     func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat,centerImg:CGFloat) {
@@ -210,21 +209,7 @@ class CustomLAPOrderView: CustomBaseView {
             
         })
     }
-    
-    @objc func handleOpenOther(sender:UISegmentedControl)  {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            makeTheseChanges(  hide: true, height: 800)
-            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 ,centerImg: 250)
-            addLapCollectionVC.view.isHide(true)
-        case 1:
-            self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200) : makeTheseChanges( hide: false, height: 800)
-            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48, centerImg: 100 )
-        default:
-            self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200,all: false) : makeTheseChanges( hide: false, height: 1000,all: false)
-            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
-        }
-    }
+   
     
     @objc  func handleAddMore()  {
        guard let name = laPOrderViewModel.name else {print("all fields required"); return  }
@@ -237,6 +222,25 @@ class CustomLAPOrderView: CustomBaseView {
        
        print(name)
        }
+    
+    
+    
+    
+     
+    //    @objc func handleOpenOther(sender:UISegmentedControl)  {
+    //        switch sender.selectedSegmentIndex {
+    //        case 0:
+    //            makeTheseChanges(  hide: true, height: 800)
+    //            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 ,centerImg: 250)
+    //            addLapCollectionVC.view.isHide(true)
+    //        case 1:
+    //            self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200) : makeTheseChanges( hide: false, height: 800)
+    //            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48, centerImg: 100 )
+    //        default:
+    //            self.addLapCollectionVC.medicineArray.count > 0 ?  makeTheseChanges( hide: false, height: 1200,all: false) : makeTheseChanges( hide: false, height: 1000,all: false)
+    //            updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
+    //        }
+    //    }
     
 }
 
