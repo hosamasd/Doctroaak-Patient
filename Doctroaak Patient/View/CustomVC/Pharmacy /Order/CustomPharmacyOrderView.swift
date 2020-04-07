@@ -34,6 +34,8 @@ class CustomPharmacyOrderView: CustomBaseView {
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
+        view.allowChangeThumbWidth = true
+
         return view
     }()
     
@@ -102,7 +104,7 @@ class CustomPharmacyOrderView: CustomBaseView {
     lazy var addMoreImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4178"))
         i.isUserInteractionEnabled = true
-        i.constrainWidth(constant: 60)
+//        i.constrainWidth(constant: 60)
         i.constrainHeight(constant: 60)
         i.isUserInteractionEnabled = true
         i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAddMore)))
@@ -152,9 +154,8 @@ class CustomPharmacyOrderView: CustomBaseView {
         
         
         let mainStack =  getStack(views: rosetaImageView,centerImage,uploadView,orLabel,mainDropView,main2DropView,ff,dd,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fill, axis: .vertical)
-        mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
-        main2DropView.hstack(typeDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
-        
+       
+         uploadView.hstack(uploadImage,uploadLabel)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStack,nextButton)
         
         
@@ -171,7 +172,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         bubleViewTopSegConstraint = orderSegmentedView.topAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 186)
         bubleViewTopSegConstraint.isActive = true
         mainStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 32, right: 32))
-        uploadView.hstack(uploadImage,uploadLabel)
+       
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
         //        nextButton.anchor(top: mainStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))

@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController:SecondWelcomeVC())
+        window?.rootViewController = UINavigationController(rootViewController:PharmacyOrderVC())//LAPOrderVC(index: 0))//PharmacyOrderVC())
         return true
     }
 
