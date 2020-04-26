@@ -29,32 +29,12 @@ class RegisterVC: CustomBaseViewVC {
     
     lazy var customRegisterView:CustomRegisterView = {
         let v = CustomRegisterView()
-//        v.insuranceDrop.options = insuracneArray
-//        v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
-//        v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
-//        v.insuranceDrop.addTarget(self, action: #selector(handleHidePicker), for: .valueChanged)
-//        v.mobileNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-//        v.passwordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-//        v.emailTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-//        v.fullNameTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-//        v.confirmPasswordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-//        v.addressTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-//        v.insuranceCodeTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.signUpButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
-//        v.birthdayTextField.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
-//        v.mainDrop3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
-//        v.acceptButton.addTarget(self, action: #selector(handleAgree), for: .touchUpInside)
-        //        v.passwordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         return v
     }()
     
-    //check to go specific way
-//    var iiii = ""
-//    var de = ""
-//    var insuracneArray = ["one","two","three","sdfdsfsd"]
-//    let registerViewModel = RegisterViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,40 +46,22 @@ class RegisterVC: CustomBaseViewVC {
     func setupViewModelObserver()  {
         
         customRegisterView.registerViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-                   guard let isValid = isValidForm else {return}
-                   //            self.customLoginView.loginButton.isEnabled = isValid
-                   
-                   self.changeButtonState(enable: isValid, vv: self.customRegisterView.signUpButton)
-               }
-               
-        customRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
-                   if isReg == true {
-                       //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                       //                SVProgressHUD.show(withStatus: "Login...".localized)
-                       
-                   }else {
-                       //                SVProgressHUD.dismiss()
-                       //                self.activeViewsIfNoData()
-                   }
-               })
+            guard let isValid = isValidForm else {return}
+            //            self.customLoginView.loginButton.isEnabled = isValid
+            
+            self.changeButtonState(enable: isValid, vv: self.customRegisterView.signUpButton)
+        }
         
-//        registerViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-//            guard let isValid = isValidForm else {return}
-//            //            self.customLoginView.loginButton.isEnabled = isValid
-//
-//            self.changeButtonState(enable: isValid, vv: self.customRegisterView.signUpButton)
-//        }
-//
-//        registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
-//            if isReg == true {
-//                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                //                SVProgressHUD.show(withStatus: "Login...".localized)
-//
-//            }else {
-//                //                SVProgressHUD.dismiss()
-//                //                self.activeViewsIfNoData()
-//            }
-//        })
+        customRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
+            if isReg == true {
+                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                
+            }else {
+                //                SVProgressHUD.dismiss()
+                //                self.activeViewsIfNoData()
+            }
+        })
     }
     
     override func setupViews() {
@@ -117,93 +79,7 @@ class RegisterVC: CustomBaseViewVC {
         navigationController?.navigationBar.isHide(true)
     }
     
-//    fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
-//        if sender.backgroundColor == nil {
-//            registerViewModel.isMale = isMale;return
-//        }
-//        addGradientInSenderAndRemoveOther(sender: sender, vv: secondBtn)
-//        registerViewModel.isMale = isMale
-//    }
-    
-    //TODO: -handle methods
-    
-//    @objc func textFieldDidChange(text: UITextField)  {
-//        guard let texts = text.text else { return  }
-//        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-//            if text == customRegisterView.mobileNumberTextField {
-//                if  !texts.isValidPhoneNumber    {
-//                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-//                    registerViewModel.phone = nil
-//                }
-//                else {
-//                    floatingLabelTextField.errorMessage = ""
-//                    registerViewModel.phone = texts
-//                }
-//                
-//            }else if text == customRegisterView.emailTextField {
-//                if  !texts.isValidEmail    {
-//                    floatingLabelTextField.errorMessage = "Invalid   Email".localized
-//                    registerViewModel.email = nil
-//                }
-//                else {
-//                    floatingLabelTextField.errorMessage = ""
-//                    registerViewModel.email = texts
-//                }
-//                
-//            }else   if text == customRegisterView.confirmPasswordTextField {
-//                if text.text != customRegisterView.passwordTextField.text {
-//                    floatingLabelTextField.errorMessage = "Passowrd should be same".localized
-//                    registerViewModel.confirmPassword = nil
-//                }
-//                else {
-//                    registerViewModel.confirmPassword = texts
-//                    floatingLabelTextField.errorMessage = ""
-//                }
-//            }else  if text == customRegisterView.passwordTextField {
-//                if(texts.count < 8 ) {
-//                    floatingLabelTextField.errorMessage = "password must have 8 character".localized
-//                    registerViewModel.password = nil
-//                }
-//                else {
-//                    floatingLabelTextField.errorMessage = ""
-//                    registerViewModel.password = texts
-//                }
-//            }else  if text == customRegisterView.addressTextField {
-//                if (texts.count < 3 ) {
-//                    floatingLabelTextField.errorMessage = "Invalid Address".localized
-//                    registerViewModel.address = nil
-//                }
-//                else {
-//                    
-//                    registerViewModel.address = texts
-//                    floatingLabelTextField.errorMessage = ""
-//                }
-//                
-//            }else if text == customRegisterView.fullNameTextField {
-//                if (texts.count < 3 ) {
-//                    floatingLabelTextField.errorMessage = "Invalid name".localized
-//                    registerViewModel.name = nil
-//                }
-//                else {
-//                    
-//                    registerViewModel.name = texts
-//                    floatingLabelTextField.errorMessage = ""
-//                }
-//                
-//            }else  {
-//                if (texts.count < 5 ) {
-//                    floatingLabelTextField.errorMessage = "Invalid Code".localized
-//                    registerViewModel.insuranceCode = nil
-//                }
-//                else {
-//                    
-//                    registerViewModel.insuranceCode = texts
-//                    floatingLabelTextField.errorMessage = ""
-//                }
-//                
-//            }
-//        }
-//    }
+    //TODO:-Handle methods
     
     @objc func handleOpenGallery()  {
         let imagePicker = UIImagePickerController()
@@ -220,50 +96,6 @@ class RegisterVC: CustomBaseViewVC {
         let verify = VerificationVC(inde: 0)
         navigationController?.pushViewController(verify, animated: true)
     }
-    
-//    @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
-//        if let datePicker = self.customRegisterView.birthdayTextField.inputView as? UIDatePicker { // 2.1
-//            let dateformatter = DateFormatter() // 2.2
-//            dateformatter.dateStyle = .medium // 2.3
-//            self.customRegisterView.birthdayTextField.text = dateformatter.string(from: datePicker.date) //2.4
-//            registerViewModel.birthday = dateformatter.string(from: datePicker.date) //2.4
-//        }
-//        self.customRegisterView.birthdayTextField.resignFirstResponder() // 2.5
-//
-//    }
-    
-    
-    
-//    @objc func handleHidePicker(sender:UIMultiPicker)  {
-//        sender.selectedIndexes.forEach { (i) in
-//
-//            de += insuracneArray[i] + ","
-//        }
-//        iiii = de
-//        customRegisterView.insuracneText.text = iiii
-//        registerViewModel.insurance = iiii
-//        de = ""
-//    }
-//
-//    @objc func handleOpenCloseInsurance()  {
-//        customRegisterView.insuranceDrop.isHidden = !customRegisterView.insuranceDrop.isHidden
-//    }
-//
-//    @objc func handleAgree(sender:UIButton)  {
-//
-//        registerViewModel.isAccept = !registerViewModel.isAccept!
-//        sender.isSelected = !sender.isSelected
-//    }
-//
-//
-//
-//    @objc func handleGirl(sender:UIButton)  {
-//        changeBoyGirlState(sender,secondBtn: customRegisterView.boyButton,isMale: false)
-//    }
-//
-//    @objc func handleBoy(sender:UIButton)  {
-//        changeBoyGirlState(sender, secondBtn: customRegisterView.girlButton, isMale: true)
-//    }
     
 }
 

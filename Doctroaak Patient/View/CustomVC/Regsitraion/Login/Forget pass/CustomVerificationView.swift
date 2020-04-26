@@ -48,6 +48,9 @@ class CustomVerificationView: CustomBaseView {
         return button
     }()
     
+    let sMSCodeViewModel = SMSCodeViewModel()
+    
+    
     override func setupViews() {
         resendButton.isEnabled = false
         let numbersStack = getStack(views: UIView(),firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,UIView(), spacing: 8, distribution: .fillEqually, axis: .horizontal)

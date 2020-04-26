@@ -456,8 +456,8 @@
 			isa = PBXGroup;
 			children = (
 				4E13DDD624308CC700421737 /* CustomMainForgetPassView.swift */,
-				4E13DDEA2430905C00421737 /* CustomNewPassView.swift */,
 				4E13DDE324308FA700421737 /* CustomVerificationView.swift */,
+				4E13DDEA2430905C00421737 /* CustomNewPassView.swift */,
 			);
 			path = "Forget pass";
 			sourceTree = "<group>";

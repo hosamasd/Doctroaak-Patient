@@ -116,7 +116,7 @@ class CustomRegisterView: CustomBaseView {
     lazy var doenImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-6"))
         i.constrainWidth(constant: 50)
-        i.constrainHeight(constant: 50)
+//        i.constrainHeight(constant: 50)
         return i
     }()
     lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 18), textColor: .black, textAlignment: .left)
