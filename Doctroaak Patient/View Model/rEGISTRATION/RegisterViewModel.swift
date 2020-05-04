@@ -23,28 +23,27 @@ class RegisterViewModel {
     var password:String? {didSet {checkFormValidity()}}
     var confirmPassword:String? {didSet {checkFormValidity()}}
     var birthday:String? {didSet {checkFormValidity()}}
-    var insurance:String? {didSet {checkFormValidity()}}
+    var isInsurance:Bool? = false {didSet {checkFormValidity()}}
      var insuranceCode:String? {didSet {checkFormValidity()}}
     var image:UIImage? {didSet {checkFormValidity()}}
-    var isMale:Bool?  = true {didSet {checkFormValidity()}}
+    var gender:String?  = "male" {didSet {checkFormValidity()}}
      var isAccept:Bool?  = false {didSet {checkFormValidity()}}
     
-    var isChoosedInsurance:Bool?  = false {didSet {checkFormValidity()}}
 
     
-    func performRegister(completion:@escaping (Error?)->Void)  {
-        guard let email = email,let password = password,let name = name,let phone = phone,let address = address,let birthday = birthday, let insurance = insurance
-           ,let insuranceCode = insuranceCode,let ismale = isMale else { return  }
+    func performRegister(completion:@escaping (MainRegisterAllModel?, Error?)->Void)  {
+        guard let email = email,let password = password,let name = name,let phone = phone,let address = address,let birthday = birthday,let image=image, let isInsurance = isInsurance
+           ,let insuranceCode = insuranceCode,let gender = gender else { return  }
         bindableIsResgiter.value = true
         
+        RegistrationServices.shared.mainAllRegister(isInsurance: isInsurance, photo: image, name: name, email: email, phone: phone, password: password, gender: gender, birthdate: birthday, address: address, insuranceCode: insuranceCode, completion: completion)
         //        RegistrationServices.shared.registerUser(name: username, email: email, phone: phone, password: password, completion: completion)
     }
     
     func checkFormValidity() {
-//        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && insurance?.isEmpty == false  && image != nil && insuranceCode?.isEmpty == false && isAccept != false
         
-        
-        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && image != nil  && isAccept != false && isChoosedInsurance == false || email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && insurance?.isEmpty == false  && image != nil && insuranceCode?.isEmpty == false && isAccept != false && isChoosedInsurance == true
+        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && image != nil  && isAccept != false  && isInsurance == false ||
+            email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && isInsurance == true  && image != nil && insuranceCode?.isEmpty == false && isAccept != false
 
         bindableIsFormValidate.value = isFormValid
         

@@ -10,7 +10,7 @@ import UIKit
 
 class AddMedicineCell: BaseCollectionCell {
     
-    var med:MedicineModel!{
+    var med:MedicineAddModel!{
         didSet{
             nameLabel.text = med.name
             typeLabel.text = med.type

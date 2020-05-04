@@ -231,10 +231,10 @@ class CustomRegisterView: CustomBaseView {
     
     fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
         if sender.backgroundColor == nil {
-            registerViewModel.isMale = isMale;return
+            registerViewModel.gender = isMale ? "male" : "female" ;return
         }
         addGradientInSenderAndRemoveOther(sender: sender, vv: secondBtn)
-        registerViewModel.isMale = isMale
+        registerViewModel.gender = isMale ? "male" : "female"
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
@@ -342,12 +342,12 @@ class CustomRegisterView: CustomBaseView {
         }
         iiii = de
         insuracneText.text = iiii
-        registerViewModel.insurance = iiii
+//        registerViewModel.insurance = iiii
         de = ""
     }
     
     @objc func handleOpenCloseInsurance()  {
-        registerViewModel.isChoosedInsurance = true
+        registerViewModel.isInsurance = true
         insuranceDrop.isHidden = !insuranceDrop.isHidden
     }
     

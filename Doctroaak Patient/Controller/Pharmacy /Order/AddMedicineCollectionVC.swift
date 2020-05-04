@@ -12,7 +12,7 @@ import UIKit
 class AddMedicineCollectionVC: BaseCollectionVC {
     
     fileprivate let cellID = "cellID"
-    var medicineArray = [MedicineModel]()
+    var medicineArray = [MedicineAddModel]()
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

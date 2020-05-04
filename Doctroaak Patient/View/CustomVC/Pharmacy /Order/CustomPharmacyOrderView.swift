@@ -206,7 +206,7 @@ class CustomPharmacyOrderView: CustomBaseView {
     
   @objc  func handleAddMore()  {
     guard let type = pharamacyOrderViewModel.type,let name = pharamacyOrderViewModel.name,let count = pharamacyOrderViewModel.quantity?.toInt() else {print("all fields required"); return  }
-    let model = MedicineModel(name: name, type: type, count: count)
+    let model = MedicineAddModel(name: name, type: type, count: count)
     addLapCollectionVC.medicineArray.append(model)
     DispatchQueue.main.async {
         self.addLapCollectionVC.view.isHide(false)
