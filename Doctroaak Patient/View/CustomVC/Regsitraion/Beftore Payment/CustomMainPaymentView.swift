@@ -43,6 +43,13 @@ class CustomMainPaymentView: CustomBaseView {
         i.isHide(true)
         return i
     }()
+    lazy var visaCardImage:UIImageView = {
+         let i = UIImageView(image: #imageLiteral(resourceName: "tw-visa-gold-card-498x28"))
+         i.contentMode = .scaleAspectFill
+         i.constrainWidth(constant: 250)
+         i.isHide(true)
+         return i
+     }()
     lazy var rightImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Rectangle 1724_22"))
         i.constrainWidth(constant: 8)
@@ -66,6 +73,12 @@ class CustomMainPaymentView: CustomBaseView {
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
         view.didSelectItemWith = {[unowned self] (index, title) in
+            self.paymentViewModel.firstChosen = index == 0 ? true : false
+            self.paymentViewModel.secondChosen = index == 1 ? true : false
+            self.paymentViewModel.thirdChosen = index == 2 ? true : false
+
+            
+                self.hideOrUnhide(tag: index)
             //            self.isActive = false
             //            self.subStack.isHide(index == 0 ? true : false)
             //            index == 0 ?  self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 200,bottomt:80,log: -48 ,centerImg: 250) : self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 60,bottomt:0,log: 0, centerImg: 100 )
@@ -91,6 +104,13 @@ class CustomMainPaymentView: CustomBaseView {
         return t
     }()
     
+    lazy var visaTextField:UITextField = {
+           let t = createMainTextFields(place: "222 1257 6632 ***   ")
+           t.textAlignment = .center
+           t.isHide(true)
+           return t
+       }()
+    
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
@@ -103,46 +123,50 @@ class CustomMainPaymentView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
-    lazy var firstScrollButton = createButtons(image: #imageLiteral(resourceName: "Ellipse 128"),tags: 1)
-    lazy var secondScrollButton = createButtons(image: #imageLiteral(resourceName: "Ellipse 129"),tags: 2)
     
-    var index = 0
     
     let paymentViewModel = PaymentViewModel()
     
     
     
     override func setupViews() {
-        [firstScrollButton,secondScrollButton].forEach({$0.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)})
+        [numberTextField,codeTextField,visaTextField].forEach({$0.constrainHeight(constant: 60)})
+        [numberTextField,codeTextField,visaTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
-        [numberTextField,codeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
-        let ss = getStack(views: firstScrollButton,secondScrollButton, spacing: 8, distribution: .fillEqually, axis: .horizontal)
-        
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,vodafoneImage,fawryImage,doneButton,leftImage,rightImage,ss,choosePayLabel,codeTextField,numberTextField)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,vodafoneImage,fawryImage,visaCardImage,doneButton,leftImage,rightImage,bookSegmentedView,chooseTitleLabel,choosePayLabel,codeTextField,numberTextField,visaTextField)
         
         NSLayoutConstraint.activate([
-            ss.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            bookSegmentedView.centerXAnchor.constraint(equalTo: centerXAnchor),
             vodafoneImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             fawryImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            visaCardImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+
         ])
-        choosePayLabel.centerInSuperview(size: .init(width: frame.width, height: 120))
+//        choosePayLabel.centerInSuperview(size: .init(width: frame.width, height: 120))
         //
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        vodafoneImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 32, left: 0, bottom: 0, right: 0))
-        fawryImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: nil,padding: .init(top: 32, left: 0, bottom: 0, right: 0))
+//        visaCardImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 32, left: 0, bottom: 0, right: 0))
+        vodafoneImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 24, left: 0, bottom: 0, right: 0))
+        fawryImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: nil,padding: .init(top: 24, left: 0, bottom: 0, right: 0))
+        visaCardImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: nil,padding: .init(top: 24, left: 0, bottom: 0, right: 0))
+
         
         leftImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: vodafoneImage.leadingAnchor,padding: .init(top: 32, left: 0, bottom: 0, right: -8))
         rightImage.anchor(top: soonLabel.bottomAnchor, leading: vodafoneImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 32, left: -8, bottom: 0, right: 0))
-        ss.anchor(top: choosePayLabel.topAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
-        numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
-        codeTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
+        bookSegmentedView.anchor(top: vodafoneImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+         chooseTitleLabel.anchor(top: bookSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        choosePayLabel.anchor(top: chooseTitleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        codeTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        visaTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
+    
     
     func createButtons(image:UIImage,tags:Int) -> UIButton {
         let b = UIButton()
@@ -153,26 +177,23 @@ class CustomMainPaymentView: CustomBaseView {
     }
     
     func hideOrUnhide(tag:Int)  {
+        rightImage.image = tag == 0 ? #imageLiteral(resourceName: "Rectangle 1724_22") : #imageLiteral(resourceName: "Rectangle 1724-1")
+        leftImage.image = tag == 2 ? #imageLiteral(resourceName: "Rectangle 1724_22") : #imageLiteral(resourceName: "Rectangle 1724")
+
+        choosePayLabel.text = tag == 0 ? "Enter your phone number :" : tag == 1 ? "Eneter the code :" : "Visa number :"
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-            self.rightImage.alpha = tag == 1 ? 1 : 0
-            self.leftImage.alpha = tag == 1 ? 0 : 1
+            self.rightImage.alpha = tag == 0 ? 1 :  tag == 1 ?  1 : 0
+            self.leftImage.alpha = tag == 0 ? 0 : 1
             
-            self.vodafoneImage.isHide(tag == 1 ? false : true)
-            self.fawryImage.isHide(tag == 1 ? true : false)
-            self.numberTextField.isHide(tag == 1 ? false : true)
-            self.codeTextField.isHide(tag == 1 ? true : false)
+            self.vodafoneImage.isHide(tag == 0 ? false : true)
+            self.fawryImage.isHide(tag == 1 ? false : true)
+            self.visaCardImage.isHide(tag == 2 ? false : true)
+            self.numberTextField.isHide(tag == 0 ? false : true)
+            self.codeTextField.isHide(tag == 1 ? false : true)
+            self.visaTextField.isHide(tag == 2 ? false : true)
+
+            
         })
-        //           DispatchQueue.main.async {[unowned self] in
-        //
-        //            self.rightImage.isHide(tag == 1 ? false : true)
-        //            self.leftImage.isHide(tag == 1 ? true : false)
-        //
-        //               self.vodafoneImage.isHide(tag == 1 ? false : true)
-        //               self.fawryImage.isHide(tag == 1 ? true : false)
-        //               self.numberTextField.isHide(tag == 1 ? false : true)
-        //               self.codeTextField.isHide(tag == 1 ? true : false)
-        //               //            self.num.rightViewMode = tag == 1 ? .always : .never
-        //           }
     }
     
     
@@ -191,7 +212,17 @@ class CustomMainPaymentView: CustomBaseView {
                     paymentViewModel.vodafoneVode = texts
                 }
                 
-            }else
+            }else if text == visaTextField {
+                if  texts.count < 8    {
+                    floatingLabelTextField.errorMessage = "Invalid   visa number".localized
+                    paymentViewModel.visaCard = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    paymentViewModel.visaCard = texts
+                }
+                
+            }   else
                 if(texts.count < 6 ) {
                     floatingLabelTextField.errorMessage = "code must have 6 character".localized
                     paymentViewModel.fawryCode = nil
@@ -206,7 +237,6 @@ class CustomMainPaymentView: CustomBaseView {
     
     
     @objc func handleChoosedButton(sender:UIButton)  {
-        [firstScrollButton,secondScrollButton].forEach({$0.setImage(#imageLiteral(resourceName: "Ellipse 129"), for: .normal)})
         
         sender.setImage( #imageLiteral(resourceName: "Ellipse 128"), for: .normal)
         switch sender.tag {
