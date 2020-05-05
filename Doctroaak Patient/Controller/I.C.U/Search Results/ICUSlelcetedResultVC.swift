@@ -16,8 +16,19 @@ class ICUSlelcetedResultVC: CustomBaseViewVC {
          return v
      }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        showToast(message: "hksjfbnkjsdnf sdl,fnsldkfn", font: .systemFont(ofSize: 20))
+//        popUp(context: self, msg: "sdgsdvdsgv dsgvdsgvds")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     
     override func setupViews() {
+//        showToast(message: "hksjfbnkjsdnf sdl,fnsldkfn", font: .systemFont(ofSize: 20))
+
         view.addSubview(customICUSelectedSearchView)
         customICUSelectedSearchView.fillSuperview()
     }
@@ -29,5 +40,6 @@ class ICUSlelcetedResultVC: CustomBaseViewVC {
   @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
-    
+
+   
 }
