@@ -124,8 +124,11 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     fileprivate func hideOrUnhide(b:Bool,b2:Bool) {
-        secondStack.isHide(b2)
-        bottomStack.isHide(b)
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.secondStack.isHide(b2)
+            self.bottomStack.isHide(b)
+        })
+        
     }
     
     @objc  func handleNext() {
@@ -173,7 +176,8 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     @objc func handlePayment()  {
-        print(9654)
+//        let payment = 
+        
     }
     
     @objc func handleSkip()  {
