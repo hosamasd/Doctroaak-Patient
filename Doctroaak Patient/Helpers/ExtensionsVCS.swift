@@ -8,7 +8,7 @@
 
 
 import UIKit
-
+import Alamofire
 
 extension UIViewController {
     
@@ -21,6 +21,18 @@ extension UIViewController {
        let numberOfDays = calendar.range(of: .day, in: .month, for: date)!
        return numberOfDays.count >= day
     }
+    
+    func removeViewWithAnimation(vvv:UIView) {
+           DispatchQueue.main.async {
+               UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                   vvv.transform = .init(translationX: 10000, y: 0)
+               }) { (_) in
+                   
+                   vvv.removeFromSuperview()
+               }
+           }
+          
+       }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
         
@@ -84,6 +96,16 @@ extension UIViewController {
         }
     }
     
+    func addCustomViewInCenter(views:UIView,height:CGFloat)  {
+           
+           view.addSubview(views)
+           views.centerInSuperview(size: .init(width: view.frame.width-64, height: height))
+           views.transform = .init(translationX: -1000, y: 0)
+           UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+               views.transform = .identity
+           })
+       }
+    
     func activeViewsIfNoData()  {
               DispatchQueue.main.async {
                   UIApplication.shared.endIgnoringInteractionEvents()
@@ -138,5 +160,11 @@ extension UIViewController {
                })
            }
     
-    
+    struct ConnectivityInternet {
+        static let sharedInstance = NetworkReachabilityManager()!
+        static var isConnectedToInternet:Bool {
+            return self.sharedInstance.isReachable
+        }
+    }
+
 }

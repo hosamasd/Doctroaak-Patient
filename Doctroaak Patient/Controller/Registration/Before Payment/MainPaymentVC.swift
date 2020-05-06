@@ -79,7 +79,9 @@ class MainPaymentVC: CustomBaseViewVC {
     }
     
     @objc func handleBack()  {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
+
+//        navigationController?.popViewController(animated: true)
     }
     
 }

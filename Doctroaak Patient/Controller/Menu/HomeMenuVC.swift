@@ -10,6 +10,8 @@ import UIKit
 
 class HomeMenuVC: CustomBaseViewVC {
     
+ 
+    
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
@@ -23,12 +25,36 @@ class HomeMenuVC: CustomBaseViewVC {
         return v
     }()
     
-    lazy var customMainHomeView:CustomMainHomeView = {
+    
+    
+   lazy var customMainHomeView:CustomMainHomeView = {
         let v = CustomMainHomeView()
+        v.handleDetails = {[unowned self] in
+            self.presentBeforePaymentVC()
+        }
+    v.handlePayments = {[unowned self] in
+        self.checkIfUserLogin()
+    }
         v.mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoServices)))
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         return v
     }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+               let t = CustomMainAlertVC()
+               t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+               t.modalTransitionStyle = .crossDissolve
+               t.modalPresentationStyle = .overCurrentContext
+               return t
+           }()
+        lazy var customAlertLoginView:CustomAlertLoginView = {
+               let v = CustomAlertLoginView()
+            v.setupAnimation(name: "4970-unapproved-cross")
+            v.handleOkTap = {[unowned self] in
+                self.handleremoveLoginAlert()
+            }
+               return v
+           }()
+    
     var index:Int? = 0
     
     
@@ -51,6 +77,26 @@ class HomeMenuVC: CustomBaseViewVC {
         
     }
     
+    func chooseVC(isDetail:Bool)  {
+        let vc = isDetail ?  FirstSkipPaymentVC() : MainPaymentVC()
+        let nav = UINavigationController(rootViewController: vc)
+                  nav.modalPresentationStyle = .fullScreen
+                  present(nav, animated: true)
+    }
+    
+    func checkIfUserLogin()  {
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            chooseVC(isDetail: false)
+        }else {
+            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
+            customAlertLoginView.problemsView.loopMode = .loop
+            present(customMainAlertVC, animated: true)
+        }
+    }
+    
+    fileprivate func presentBeforePaymentVC() {
+        chooseVC(isDetail: true)
+       }
     
     @objc func handleGoServices()  {
         let services = ServicesVC()
@@ -62,4 +108,14 @@ class HomeMenuVC: CustomBaseViewVC {
     (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
 
     }
+    
+    func handleremoveLoginAlert()  {
+            
+            removeViewWithAnimation(vvv: customAlertLoginView)
+            customMainAlertVC.dismiss(animated: true)
+        }
+      
+      @objc func handleDismiss()  {
+                dismiss(animated: true, completion: nil)
+            }
 }

@@ -139,14 +139,6 @@ class VerificationVC: CustomBaseViewVC {
     func goToNext(api_token:String,_ user_id:Int)  {
         self.updateStates(api_token: api_token,user_id)
         dismiss(animated: true, completion: nil)
-        //           if  isFromForgetPassw {
-        //               let  vc =  MainNewPassVC(indexx: index)
-        //               navigationController?.pushViewController(vc, animated: true)
-        //           }else {
-        //
-        //               let vc =  MainClinicDataVC(indexx: index,api_token: api_token,doctor_id: doctor_id)
-        //               navigationController?.pushViewController(vc, animated: true)
-        //           }
         
     }
     
@@ -189,14 +181,7 @@ class VerificationVC: CustomBaseViewVC {
             DispatchQueue.main.async {
                 self.goToNext(api_token: user.apiToken,user.id)
             }
-        }
-        
-        
-        //        let  vc  =  BaseSlidingVC()
-        //
-        ////        let  vc = index == 0 ? BaseSlidingVC() :   NewPassVC()
-        //        navigationController?.pushViewController(vc, animated: true)
-        
+        }      
     }
     
     @objc func handleBack()  {

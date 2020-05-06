@@ -12,6 +12,7 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     
     lazy var customFirstSkipPaymentView:CustomFirstSkipPaymentView = {
            let v = CustomFirstSkipPaymentView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
            return v
        }()
     
@@ -26,4 +27,8 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     override func setupNavigation()  {
           navigationController?.navigationBar.isHide(true)
       }
+    
+    @objc func handleDismiss()  {
+        dismiss(animated: true)
+    }
 }

@@ -16,8 +16,21 @@ class BaseAdsCell:  BaseCollectionCell{
         i.constrainWidth(constant: 40)
         return i
     }()
-    lazy var adsTitleLabel = UILabel(text: "Center Name", font: .systemFont(ofSize: 20), textColor: .white)
-    lazy var adsDiscriptionLabel = UILabel(text: "Advertising Area", font: .systemFont(ofSize: 18), textColor: #colorLiteral(red: 0.5948790312, green: 0.7596779466, blue: 0.9323453307, alpha: 1))
+    lazy var adsTitleLabel = UILabel(text: "Subscribe now to the \n200 EGP offer", font: .systemFont(ofSize: 16), textColor: .white,textAlignment: .left,numberOfLines: 2)
+    
+    lazy var paymentButton:UIButton = {
+       let b = UIButton(title: "    Payment  ", titleColor: .white, font: .systemFont(ofSize: 16), backgroundColor: #colorLiteral(red: 0.4781062007, green: 0.2103165984, blue: 1, alpha: 1), target: self, action: #selector(handlePay))
+        b.layer.cornerRadius = 8
+        b.clipsToBounds = true
+        b.constrainWidth(constant: 120)
+        return b
+    }()
+    lazy var detailButton = UIButton(title: "Details", titleColor: .white, font: .systemFont(ofSize: 16), backgroundColor: .clear, target: self, action: #selector(handleDeta))
+
+    
+    var handlePayments:(()->Void)?
+    var handleDetails:(()->Void)?
+
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -27,8 +40,17 @@ class BaseAdsCell:  BaseCollectionCell{
     override func setupViews() {
        layer.cornerRadius = 8
         clipsToBounds = true
-        let ss = stack(adsTitleLabel,adsDiscriptionLabel).withMargins(.init(top: 0, left: 0, bottom: 16, right: 0))
+        let sss = hstack(UIView(),detailButton,paymentButton,spacing: 16)
         
-        hstack(ss,adsLogoImage).withMargins(.init(top: 8, left: 16, bottom: 0, right: 16))
+        stack(adsTitleLabel,sss).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))
+        
+    }
+    
+   @objc func handlePay()  {
+        handlePayments?()
+    }
+    
+   @objc func handleDeta()  {
+        handleDetails?()
     }
 }

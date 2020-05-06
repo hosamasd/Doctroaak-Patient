@@ -33,35 +33,13 @@ class CustomMainHomeView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
     
-    lazy var mainView:UIView = {
-        let v = UIView(backgroundColor: .white)
-        v.layer.cornerRadius = 8
-        v.layer.borderWidth = 1
-        v.layer.borderColor = UIColor.lightGray.cgColor
-        v.clipsToBounds = true
-        v.addSubViews(views: Image1,label1)
+    lazy var mainView:UIView = makeMainSubViewWithAppendView(vv: [Image1,label1])
+    lazy var main2View:UIView =  {
+        let v = makeMainSubViewWithAppendView(vv: [Image2,label2])
+//        v.constrainHeight(constant: 100)
         return v
     }()
-    lazy var main2View:UIView = {
-        let v = UIView(backgroundColor: .white)
-        v.layer.cornerRadius = 8
-        v.layer.borderWidth = 1
-        v.layer.borderColor = UIColor.lightGray.cgColor
-        v.clipsToBounds = true
-        v.constrainHeight(constant: 80)
-        v.addSubViews(views: Image2,label2)
-        return v
-    }()
-    lazy var main3View:UIView = {
-        let v = UIView(backgroundColor: .white)
-        v.layer.cornerRadius = 8
-        v.layer.borderWidth = 1
-        v.layer.borderColor = UIColor.lightGray.cgColor
-        v.clipsToBounds = true
-        v.addSubViews(views: Image3,label3)
-        return v
-    }()
-    
+    lazy var main3View:UIView = makeMainSubViewWithAppendView(vv: [Image3,label3])
     lazy var label1 =  makeAttributedText(fir: " Find", sec: "Service")
     lazy var label2 =  makeAttributedText(fir: " Favorite", sec: "Doctor")
     lazy var label3 =  makeAttributedText(fir: " My", sec: "Orders")
@@ -95,16 +73,26 @@ class CustomMainHomeView: CustomBaseView {
         return i
     }()
     
-    lazy var baseAdsCell = BaseAdsCell()
+    lazy var baseAdsCell:BaseAdsCell = {
+       let b = BaseAdsCell()
+        b.handleDetails = {[unowned self] in
+            self.handleDetails?()
+        }
+        b.handlePayments = {[unowned self] in
+            self.handlePayments?()
+               }
+        return b
+    }()
     
-    
+    var handlePayments:(()->Void)?
+      var handleDetails:(()->Void)?
     
     
     override func setupViews() {
         main3View.hstack(Image3,label3)
         main2View.hstack(Image2,label2)
         mainView.hstack(Image1,label1)
-        let ss = getStack(views: mainView,main2View,main3View, spacing: 8, distribution: .fillEqually, axis: .vertical)
+        let ss = getStack(views: mainView,main2View,main3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,soonLabel,ss,baseAdsCell)
         

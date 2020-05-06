@@ -21,9 +21,14 @@ class MainLeftMenuCell: BaseCollectionCell {
     }()
     lazy var Label6 = UILabel(text: "Contact Us", font: .systemFont(ofSize: 24), textColor: .black)
     
+    override var isSelected: Bool{
+        didSet{
+            backgroundColor = isSelected ? #colorLiteral(red: 0.5359598994, green: 0.3686604202, blue: 0.9266062379, alpha: 1) : .white
+        }
+    }
     
     
-  override  func setupViews() {
+    override  func setupViews() {
         hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
     }
 }

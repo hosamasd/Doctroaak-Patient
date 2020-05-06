@@ -6,7 +6,8 @@
 //  Copyright © 2020 hosam. All rights reserved.
 //
 
-
+import SVProgressHUD
+import MOLH
 import UIKit
 
 class LoginVC: CustomBaseViewVC {
@@ -43,12 +44,12 @@ class LoginVC: CustomBaseViewVC {
         }
         customLoginsView.loginViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -63,6 +64,19 @@ class LoginVC: CustomBaseViewVC {
         customLoginsView.fillSuperview()
     }
     
+    func saveToken(user_id:Int,_ mobile:String)  {
+        
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.patientID)
+        
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.patienMobileNumber)
+        
+        userDefaults.synchronize()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
     
     @objc  func handleRegister()  {
         let register = RegisterVC()
@@ -71,18 +85,30 @@ class LoginVC: CustomBaseViewVC {
     }
     
     @objc  func handleLogin()  {
-        let home = BaseSlidingVC()
-        //        present(home, animated: true, completion: nil)
-        navigationController?.pushViewController(home, animated: true)
+        customLoginsView.loginViewModel.performLogging { (base, err) in
+            
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.saveToken(user_id: user.id,user.phone)
+            }
+            
+        }
     }
-    
-    @objc func handleForget()  {
-        let forget = ForgetPasswordVC()
-        navigationController?.pushViewController(forget, animated: true)
-    }
-    
-    @objc func handleBack()  {
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
+        
+        @objc func handleForget()  {
+            let forget = ForgetPasswordVC()
+            navigationController?.pushViewController(forget, animated: true)
+        }
+        
+        @objc func handleBack()  {
+            dismiss(animated: true, completion: nil)
+        }
+        
 }

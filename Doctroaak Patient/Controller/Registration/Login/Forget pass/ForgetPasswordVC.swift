@@ -12,11 +12,25 @@ import MOLH
 
 class ForgetPasswordVC:   CustomBaseViewVC {
     
-    
-    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+           let t = CustomMainAlertVC()
+           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+           t.modalTransitionStyle = .crossDissolve
+           t.modalPresentationStyle = .overCurrentContext
+           return t
+       }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+           let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleremoveLoginAlert()
+        }
+           return v
+       }()
     lazy var customForgetPassView:CustomForgetPassView = {
         let v = CustomForgetPassView()
         v.nextButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
     
@@ -24,8 +38,8 @@ class ForgetPasswordVC:   CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        che()
     }
+    
     
     //MARK:-User methods
     
@@ -65,6 +79,15 @@ class ForgetPasswordVC:   CustomBaseViewVC {
         
     }
     
+     func handleremoveLoginAlert()  {
+          
+          removeViewWithAnimation(vvv: customAlertLoginView)
+          customMainAlertVC.dismiss(animated: true)
+      }
+    
+    @objc func handleDismiss()  {
+              dismiss(animated: true, completion: nil)
+          }
     //TODO: -handle methods
     
   
@@ -74,5 +97,10 @@ class ForgetPasswordVC:   CustomBaseViewVC {
         navigationController?.pushViewController(verifiy, animated: true)
         
     }
+    
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
 

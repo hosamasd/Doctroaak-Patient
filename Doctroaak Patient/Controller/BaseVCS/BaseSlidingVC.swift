@@ -8,6 +8,7 @@
 
 
 import UIKit
+import MOLH
 
 class BaseSlidingVC: UIViewController {
     
@@ -30,6 +31,27 @@ class BaseSlidingVC: UIViewController {
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    
+    lazy var customAlertChooseLanguageView:CustomAlertChooseLanguageView = {
+                 let v = CustomAlertChooseLanguageView()
+        [v.englishButton,v.arabicButton,v.cancelButton].forEach({$0.addTarget(self, action: #selector(handleLanguages), for: .touchUpInside)})
+                 return v
+             }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+              let t = CustomMainAlertVC()
+              t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+              t.modalTransitionStyle = .crossDissolve
+              t.modalPresentationStyle = .overCurrentContext
+              return t
+          }()
+       lazy var customAlertLoginView:CustomAlertLoginView = {
+              let v = CustomAlertLoginView()
+           v.setupAnimation(name: "4970-unapproved-cross")
+           v.handleOkTap = {[unowned self] in
+               self.handleremoveLoginAlert()
+           }
+              return v
+          }()
     
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
      var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
@@ -219,4 +241,35 @@ class BaseSlidingVC: UIViewController {
         }
     }
     
+    func handleremoveLoginAlert()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
+        let login = LoginVC()
+        let nav = UINavigationController(rootViewController: login)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+            
+        }
+      
+      @objc func handleDismiss()  {
+                dismiss(animated: true, completion: nil)
+            }
+    
+    @objc func handleLanguages(sender:UIButton)  {
+        switch sender.tag {
+        case 0:
+            //english
+            print("english")
+            !MOLHLanguage.isArabic() ? () : print("not englisg")
+            case 1:
+            //arabic
+            print("arabic")
+            MOLHLanguage.isArabic() ? () : print("not arabic")
+        default:
+            ()
+        }
+        removeViewWithAnimation(vvv: customAlertChooseLanguageView)
+              customMainAlertVC.dismiss(animated: true)
+
+    }
 }

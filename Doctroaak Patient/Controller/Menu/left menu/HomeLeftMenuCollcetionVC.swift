@@ -11,8 +11,8 @@ import UIKit
 
 class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
-    var images:[UIImage] = [#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_info_24px")]
-    var deatas = ["Profile","Calender","Contact Us","Language","Help"]
+    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_notifications_active_24px").withRenderingMode(.alwaysTemplate),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
+    var deatas = ["Profile","Anayltics","Notifications","Contact Us","Language"]
     
     
     
@@ -34,17 +34,34 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC
-        baseSlid?.didSelectItemAtIndex(index: indexPath)
-//        handleCheckedIndex?(indexPath)
+       
+        checkIfLoggined(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return .init(width: view.frame.width, height: 100)
+        return .init(width: view.frame.width, height: 60)
     }
     
     //TODO: -handle methods
+    
+    func checkIfLoggined(_ indexPath:IndexPath)  {
+        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) && indexPath.item != 4 {
+            baseSlid.closeMenu()
+            baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertLoginView, height: 200)
+            baseSlid.customAlertLoginView.problemsView.loopMode = .loop
+            baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+        
+        }else if indexPath.item == 4  {
+            baseSlid.closeMenu()
+                       baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
+                       baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+        }else{
+            baseSlid.didSelectItemAtIndex(index: indexPath)
+
+        }
+    }
     
     override func setupCollection() {
         collectionView.backgroundColor = .white

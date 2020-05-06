@@ -17,7 +17,6 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         v.handleCheckedIndex = {[unowned self] index in
             print(index.item)
         }
-        //        v.firstStack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOne)))
         return v
     }()
     

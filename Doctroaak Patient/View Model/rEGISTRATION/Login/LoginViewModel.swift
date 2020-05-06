@@ -19,12 +19,12 @@ class LoginViewModel {
     var password:String? {didSet {checkFormValidity()}}
     
     
-    func performLogging(completion:@escaping (Error?)->Void)  {
+    func performLogging(completion:@escaping (MainLoginModel?,Error?)->Void)  {
         guard let phone = phone,let password = password
             else { return  }
         bindableIsLogging.value = true
         
-        //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
+        RegistrationServices.shared.MainLoginUser(phone: phone, password: password, completion: completion)
     }
     
     func checkFormValidity() {
