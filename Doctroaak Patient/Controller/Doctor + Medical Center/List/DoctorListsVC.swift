@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MOLH
+import SVProgressHUD
 
 class DoctorListsVC: CustomBaseViewVC {
     
@@ -34,6 +36,44 @@ class DoctorListsVC: CustomBaseViewVC {
     
     var index:Int = 0
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        getSpecification()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !ConnectivityInternet.isConnectedToInternet {
+            showToast(context: self, msg: "No interntetI Connection")
+        }
+    }
+    
+    
+    func getSpecification()  {
+        if userDefaults.bool(forKey: UserDefaultsConstants.isSpecificationsCached) {
+            getData()
+        }
+    }
+    
+    func getData()  {
+        SVProgressHUD.show(withStatus: "Looding")
+        MainServices.shared.getSpecificationss { (base, err) in
+            if let err=err{
+                SVProgressHUD.showError(withStatus: err.localizedDescription);return
+            }
+            SVProgressHUD.dismiss()
+            guard let specificationsArray = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+                self.customDoctorListsView.doctorListCollectionVC.specificationArray = specificationsArray
+
+                DispatchQueue.main.async {
+                    self.customDoctorListsView.doctorListCollectionVC.collectionView.reloadData()
+
+                    self.view.layoutIfNeeded()
+                }
+        }
+        
+        
+    }
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)

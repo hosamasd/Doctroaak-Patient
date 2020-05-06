@@ -30,6 +30,7 @@ class CustomDoctorListsView: CustomBaseView {
         vc.handleCheckedIndex = {[unowned self ] index in
             self.handleCheckedIndex?(index)
         }
+//        vc.view.isHide(vc.specificationArray.count < 1 ? true : false)
         return vc
     }()
     

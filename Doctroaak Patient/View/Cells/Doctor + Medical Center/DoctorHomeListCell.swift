@@ -7,8 +7,20 @@
 //
 
 import UIKit
+import SDWebImage
+import MOLH
 
 class DoctorHomeListCell: BaseCollectionCell {
+    
+    var spy:SpecificationModel!  {
+        didSet{
+            docLabel.text = MOLHLanguage.isRTLLanguage() ?  spy.nameAr : spy.name
+            let urlString = spy.url
+            guard let url = URL(string: urlString) else { return  }
+            docImage.sd_setImage(with: url)
+        }
+    }
+    
     
     lazy var mainView:UIView = {
        let v = UIView(backgroundColor: #colorLiteral(red: 0.7638213038, green: 0.6642241478, blue: 0.9906757474, alpha: 1))
@@ -22,7 +34,7 @@ class DoctorHomeListCell: BaseCollectionCell {
         i.constrainHeight(constant: 60)
         return i
     }()
-    lazy var docLabel = UILabel(text: "Cardiology", font: .systemFont(ofSize: 24), textColor: .black,textAlignment: .center)
+    lazy var docLabel = UILabel(text: "Cardiology", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center)
     
     
     

@@ -39,6 +39,8 @@ class WelcomeVC: CustomBaseViewVC {
     
     //MARK: -user methods
     
+    
+    
     override func setupViews() {
         
         view.addSubview(customWelcomeView)

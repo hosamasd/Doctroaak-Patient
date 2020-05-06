@@ -24,6 +24,10 @@ class ServicesVC: CustomBaseViewVC {
 
         return v
     }()
+    lazy var views = [
+        customMainServicesView.main1View,customMainServicesView.main2View,customMainServicesView.main3View,customMainServicesView.main4View,
+        customMainServicesView.main5View,customMainServicesView.main6View,customMainServicesView.main7View
+    ]
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
@@ -39,9 +43,25 @@ class ServicesVC: CustomBaseViewVC {
     var index:Int? = 0
     
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           setupAnimation()
+       }
     
     //MARK: -user methods
+    
+    fileprivate func setupAnimation()  {
+           views.forEach({$0.alpha = 1})
+           
+           let translateTransform = CGAffineTransform.init(translationX: 1000, y: 0)
+           let translateButtons = CGAffineTransform.init(translationX: -1000, y: 0)
+           
+        [ customMainServicesView.main1View, customMainServicesView.main3View,customMainServicesView.main5View,customMainServicesView.main7View].forEach({$0.transform = translateButtons})
+            [ customMainServicesView.main2View, customMainServicesView.main4View,customMainServicesView.main6View].forEach({$0.transform = translateTransform})
+        UIView.animate(withDuration: 0.7, delay: 0.6, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            [self.customMainServicesView.main1View, self.customMainServicesView.main3View,self.customMainServicesView.main5View,self.customMainServicesView.main7View,self.customMainServicesView.main2View, self.customMainServicesView.main4View,self.customMainServicesView.main6View].forEach({$0.transform = .identity})
+        })
+       }
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)

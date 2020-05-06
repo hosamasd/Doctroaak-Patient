@@ -25,7 +25,7 @@ struct SpecificationModel: Codable {
     let name, nameAr, nameFr: String
     let icon: String
     let createdAt, updatedAt: String
-//    let url: String
+    let url: String
     
     enum CodingKeys: String, CodingKey {
         case id, name
@@ -34,6 +34,6 @@ struct SpecificationModel: Codable {
         case icon
         case createdAt = "created_at"
         case updatedAt = "updated_at"
-//        case url
+        case url
     }
 }

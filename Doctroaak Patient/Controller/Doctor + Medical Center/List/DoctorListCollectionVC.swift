@@ -10,21 +10,21 @@ import UIKit
 
 class DoctorListCollectionVC: BaseCollectionVC {
     
-    var images:[UIImage] = [#imageLiteral(resourceName: "cardiovascular"),#imageLiteral(resourceName: "chest"),#imageLiteral(resourceName: "teeth"),#imageLiteral(resourceName: "teeth"),#imageLiteral(resourceName: "teeth"),#imageLiteral(resourceName: "teeth"),#imageLiteral(resourceName: "teeth")]
-    var deatas = ["Cardiology","Chest","Dentist ","Dentist","Dentist","Dentist","Dentist"]
+    var specificationArray = [SpecificationModel]()
     fileprivate let cellId = "cellId"
     
     var handleCheckedIndex:((IndexPath)->Void)?
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return deatas.count
+        return specificationArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorHomeListCell
-        cell.docImage.image = images[indexPath.item]
-        cell.docLabel.text = deatas[indexPath.item]
+        let spy = specificationArray[indexPath.item]
+        
+        cell.spy = spy
         return cell
     }
     
@@ -52,6 +52,7 @@ class DoctorListCollectionVC: BaseCollectionVC {
     //TODO: -handle methods
     
     override func setupCollection() {
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
         collectionView.register(DoctorHomeListCell.self, forCellWithReuseIdentifier: cellId)
     }
