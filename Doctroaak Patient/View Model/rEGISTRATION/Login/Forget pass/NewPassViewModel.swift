@@ -19,7 +19,7 @@ class NewPassViewModel {
     var confirmPassword:String? {didSet {checkFormValidity()}}
     
     
-    func performLogging(completion:@escaping (Error?)->Void)  {
+    func performLogging(completion:@escaping (MainForgetPasswordModel,Error?)->Void)  {
         guard let password = password,let confirmPassword = confirmPassword
             else { return  }
         bindableIsLogging.value = true

@@ -8,8 +8,8 @@
 
 
 import UIKit
-import SkyFloatingLabelTextField
-import UIMultiPicker
+import SVProgressHUD
+import MOLH
 
 
 class RegisterVC: CustomBaseViewVC {
@@ -39,9 +39,11 @@ class RegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        customRegisterView.getInsuraces()
     }
     
     //MARK:-User methods
+    
     
     func setupViewModelObserver()  {
         
@@ -54,12 +56,12 @@ class RegisterVC: CustomBaseViewVC {
         
         customRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -79,6 +81,22 @@ class RegisterVC: CustomBaseViewVC {
         navigationController?.navigationBar.isHide(true)
     }
     
+    func saveToken(user_id:Int,_ mobile:String)  {
+        
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.patientID)
+        
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.patienMobileNumber)
+        
+        userDefaults.synchronize()
+        goToNext(user_id)
+    }
+
+    func goToNext(_ user_id:Int)  {
+        let verify = VerificationVC(user_id: user_id, isFromForget: false)
+                  navigationController?.pushViewController(verify, animated: true)
+         }
+    
     //TODO:-Handle methods
     
     @objc func handleOpenGallery()  {
@@ -93,8 +111,22 @@ class RegisterVC: CustomBaseViewVC {
     }
     
     @objc  func handleNext()  {
-        let verify = VerificationVC(inde: 0)
-        navigationController?.pushViewController(verify, animated: true)
+        
+        customRegisterView.registerViewModel.performRegister { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.saveToken(user_id: user.id,user.phone)
+            }
+        }
+        
+       
     }
     
 }

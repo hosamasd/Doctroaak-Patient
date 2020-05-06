@@ -6,7 +6,7 @@
 //  Copyright © 2020 hosam. All rights reserved.
 //
 
-
+import SkyFloatingLabelTextField
 import UIKit
 
 class CustomVerificationView: CustomBaseView {
@@ -35,7 +35,8 @@ class CustomVerificationView: CustomBaseView {
     lazy var secondNumberTextField = createMainTextFieldsWithoutPods(place: "")
     lazy var thirdNumberTextField = createMainTextFieldsWithoutPods(place: "")
     lazy var forthNumberTextField = createMainTextFieldsWithoutPods(place: "")
-    
+    lazy var fifthNumberTextField = createMainTextFieldsWithoutPods(place: "")
+
     lazy var confirmButton:UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = ColorConstants.disabledButtonsGray
@@ -49,11 +50,13 @@ class CustomVerificationView: CustomBaseView {
     }()
     
     let sMSCodeViewModel = SMSCodeViewModel()
+    var user_id = 0
     
     
     override func setupViews() {
+        [ firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         resendButton.isEnabled = false
-        let numbersStack = getStack(views: UIView(),firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,UIView(), spacing: 8, distribution: .fillEqually, axis: .horizontal)
+        let numbersStack = getStack(views: firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         //        let mainStack = getStack(views: verificationLabel, spacing: <#T##CGFloat#>, distribution: <#T##UIStackView.Distribution#>, axis: <#T##NSLayoutConstraint.Axis#>)
         
         
@@ -85,4 +88,33 @@ class CustomVerificationView: CustomBaseView {
     @objc func handleASD()  {
         print(956)
     }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+        sMSCodeViewModel.user_id = user_id
+           guard let texts = text.text, !texts.isEmpty  else {self.changeButtonState(enable: false, vv: self.confirmButton);  return  }
+           
+           if texts.utf16.count==1{
+               switch text{
+               case firstNumberTextField:
+                   sMSCodeViewModel.smsCode = texts
+                   secondNumberTextField.becomeFirstResponder()
+               case secondNumberTextField:
+                   sMSCodeViewModel.sms2Code = texts
+                   thirdNumberTextField.becomeFirstResponder()
+               case thirdNumberTextField:
+                   sMSCodeViewModel.sms3Code = texts
+                   forthNumberTextField.becomeFirstResponder()
+               case forthNumberTextField:
+                   sMSCodeViewModel.sms4Code = texts
+                   fifthNumberTextField.becomeFirstResponder()
+                case fifthNumberTextField:
+                sMSCodeViewModel.sms5Code = texts
+                fifthNumberTextField.resignFirstResponder()
+               default:
+                   break
+               }
+           }else{
+               
+           }
+       }
 }

@@ -16,6 +16,9 @@
 		4E0067972433110B004B1C3F /* CustomRequestMedicineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0067962433110B004B1C3F /* CustomRequestMedicineView.swift */; };
 		4E00679924331315004B1C3F /* AddMedicineCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E00679824331315004B1C3F /* AddMedicineCollectionVC.swift */; };
 		4E00679B243313F8004B1C3F /* AddMedicineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E00679A243313F8004B1C3F /* AddMedicineCell.swift */; };
+		4E04215D2462968600584BF0 /* MainVerificationSMScODEModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04215C2462968600584BF0 /* MainVerificationSMScODEModel.swift */; };
+		4E04215F2462970E00584BF0 /* MainLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04215E2462970E00584BF0 /* MainLoginModel.swift */; };
+		4E0421612462993C00584BF0 /* MainForgetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0421602462993C00584BF0 /* MainForgetPasswordModel.swift */; };
 		4E04C87C243230F800D1AD1C /* PharmacyLocationVC .swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04C87B243230F800D1AD1C /* PharmacyLocationVC .swift */; };
 		4E04C8802432315300D1AD1C /* CustomPharmacyLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04C87F2432315300D1AD1C /* CustomPharmacyLocationView.swift */; };
 		4E04C882243235BE00D1AD1C /* CustomPaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */; };
@@ -165,6 +168,9 @@
 		4E0067962433110B004B1C3F /* CustomRequestMedicineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRequestMedicineView.swift; sourceTree = "<group>"; };
 		4E00679824331315004B1C3F /* AddMedicineCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMedicineCollectionVC.swift; sourceTree = "<group>"; };
 		4E00679A243313F8004B1C3F /* AddMedicineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMedicineCell.swift; sourceTree = "<group>"; };
+		4E04215C2462968600584BF0 /* MainVerificationSMScODEModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVerificationSMScODEModel.swift; sourceTree = "<group>"; };
+		4E04215E2462970E00584BF0 /* MainLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLoginModel.swift; sourceTree = "<group>"; };
+		4E0421602462993C00584BF0 /* MainForgetPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainForgetPasswordModel.swift; sourceTree = "<group>"; };
 		4E04C87B243230F800D1AD1C /* PharmacyLocationVC .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PharmacyLocationVC .swift"; sourceTree = "<group>"; };
 		4E04C87F2432315300D1AD1C /* CustomPharmacyLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPharmacyLocationView.swift; sourceTree = "<group>"; };
 		4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPaddingTextField.swift; sourceTree = "<group>"; };
@@ -1068,6 +1074,9 @@
 			isa = PBXGroup;
 			children = (
 				4EDE924F2460040A00205C64 /* MainRegisterAllModel.swift */,
+				4E04215C2462968600584BF0 /* MainVerificationSMScODEModel.swift */,
+				4E04215E2462970E00584BF0 /* MainLoginModel.swift */,
+				4E0421602462993C00584BF0 /* MainForgetPasswordModel.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -1305,6 +1314,7 @@
 				4EA06520243366B700D754AD /* CustomLapResultsView.swift in Sources */,
 				4E6D5BB524307183000FC72D /* ViewController.swift in Sources */,
 				4EDE924A2460022B00205C64 /* MainNotificationsModel.swift in Sources */,
+				4E04215F2462970E00584BF0 /* MainLoginModel.swift in Sources */,
 				4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */,
 				4EFDA72A2431D5050010AA7D /* CustomDoctorListsView.swift in Sources */,
 				4E006793243307C0004B1C3F /* PharmacyOrderVC.swift in Sources */,
@@ -1338,6 +1348,7 @@
 				4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */,
 				4ED135BB2439A1D0008BE002 /* DoctorSearchViewModel.swift in Sources */,
 				4EA8B11F2430E543008473D3 /* CustomProfileView.swift in Sources */,
+				4E04215D2462968600584BF0 /* MainVerificationSMScODEModel.swift in Sources */,
 				4EA8B1192430E373008473D3 /* BaseSlidingVC.swift in Sources */,
 				4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */,
 				4E6E04E924614F63008DE228 /* BeforPaymwentModel.swift in Sources */,
@@ -1375,6 +1386,7 @@
 				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
 				4E000D082461817600083BD5 /* NotificationsCollectionVC.swift in Sources */,
 				4ED135BD2439A77F008BE002 /* ChooseLocationVC.swift in Sources */,
+				4E0421612462993C00584BF0 /* MainForgetPasswordModel.swift in Sources */,
 				4EA8B11C2430E4F8008473D3 /* ProfileVC.swift in Sources */,
 				4E6E04EC24615033008DE228 /* BeforePaymentCell.swift in Sources */,
 				4ED712692432165A00074363 /* CustomICUResultsView.swift in Sources */,

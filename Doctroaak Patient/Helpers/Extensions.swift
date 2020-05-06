@@ -110,6 +110,29 @@ extension UIView {
         return t
     }
     
+    func changeButtonState(enable:Bool,vv:UIButton)  {
+        
+        
+        if enable {
+            if vv.backgroundColor != nil {
+                vv.applyGradient(colors: [ColorConstants.firstColorBangsegy,ColorConstants.secondColorBangsegy], index: 0)
+                vv.setTitleColor(.black, for: .normal)
+                vv.isEnabled = true
+            }
+            
+        }else {
+            if vv.backgroundColor == nil {
+                removeSublayer(vv, layerIndex: 0)
+                vv.backgroundColor =  ColorConstants.disabledButtonsGray
+                vv.setTitleColor(.black, for: .normal)
+                vv.isEnabled = false
+            }else {
+                vv.setTitleColor(.black, for: .normal)
+                vv.backgroundColor =  ColorConstants.disabledButtonsGray
+                vv.isEnabled = false
+            }
+        }
+    }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
            

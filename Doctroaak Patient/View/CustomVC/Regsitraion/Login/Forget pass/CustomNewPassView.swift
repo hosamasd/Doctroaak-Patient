@@ -6,7 +6,7 @@
 //  Copyright © 2020 hosam. All rights reserved.
 //
 
-
+import SkyFloatingLabelTextField
 import UIKit
 
 class CustomNewPassView: CustomBaseView {
@@ -64,7 +64,11 @@ class CustomNewPassView: CustomBaseView {
         return button
     }()
     
+    let newPassViewModel = NewPassViewModel()
+
+    
     override func setupViews() {
+        [passwordTextField,confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         let textStack = getStack(views: passwordTextField,confirmPasswordTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         choosePayLabel.constrainHeight(constant: 40)
@@ -75,8 +79,6 @@ class CustomNewPassView: CustomBaseView {
             choosePayLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0)
             ])
         
-        //        textStack.centerInSuperview(size: .init(width: frame.width-64, height: 116))
-        //
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -86,6 +88,34 @@ class CustomNewPassView: CustomBaseView {
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+           guard let texts = text.text else { return  }
+           if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+               if text == confirmPasswordTextField {
+                   if text.text != passwordTextField.text {
+                       floatingLabelTextField.errorMessage = "Passowrd should be same".localized
+                       newPassViewModel.confirmPassword = nil
+                   }
+                   else {
+                       newPassViewModel.confirmPassword = texts
+                       floatingLabelTextField.errorMessage = ""
+                   }
+               }else
+               {
+                   if(texts.count < 8 ) {
+                       floatingLabelTextField.errorMessage = "password must have 8 character".localized
+                       newPassViewModel.password = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       newPassViewModel.password = texts
+                   }
+               }
+               
+               
+           }
+       }
     
     @objc func handleASD()  {
         passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry

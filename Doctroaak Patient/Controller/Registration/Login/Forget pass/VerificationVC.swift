@@ -7,18 +7,17 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
+import SVProgressHUD
+import MOLH
 
 class VerificationVC: CustomBaseViewVC {
     
     
     lazy var customVerificationView:CustomVerificationView = {
         let v = CustomVerificationView()
+        v.user_id = user_id
         [v.firstNumberTextField,v.secondNumberTextField,v.thirdNumberTextField,v.forthNumberTextField].forEach({$0.delegate = self})
-        v.firstNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.secondNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.thirdNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.forthNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        
         v.resendButton.addTarget(self, action: #selector(handleResendCode), for: .touchUpInside)
         v.confirmButton.addTarget(self, action: #selector(handleConfirm), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -28,12 +27,17 @@ class VerificationVC: CustomBaseViewVC {
     
     fileprivate var timer = Timer()
     fileprivate var seconds = 30
-    let sMSCodeViewModel = SMSCodeViewModel()
     
-    fileprivate let index:Int!
-    init(inde:Int) {
-        self.index = inde
+    fileprivate let  isFromForget:Bool!
+    fileprivate let user_id:Int!
+    init(user_id:Int,isFromForget:Bool) {
+        self.user_id = user_id
+        self.isFromForget=isFromForget
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -43,6 +47,12 @@ class VerificationVC: CustomBaseViewVC {
         setupTimer()
         setupViewModelObserver()
     }
+    
+    //    func check()  {
+    //        RegistrationServices.shared.MainResendSmsCodeAgain(user_id: 47) { (base, err) in
+    //
+    //        }
+    //    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,18 +71,18 @@ class VerificationVC: CustomBaseViewVC {
     }
     
     func setupViewModelObserver()  {
-        sMSCodeViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        customVerificationView.sMSCodeViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             self.changeButtonState(enable: isValid, vv: self.customVerificationView.confirmButton)
         }
-        sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+        customVerificationView.sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -107,6 +117,39 @@ class VerificationVC: CustomBaseViewVC {
         self.customVerificationView.resendButton.isEnabled = true
     }
     
+    func resetViewModel()  {
+        customVerificationView.sMSCodeViewModel.smsCode = nil
+        customVerificationView.sMSCodeViewModel.sms2Code = nil
+        customVerificationView.sMSCodeViewModel.sms3Code = nil
+        customVerificationView.sMSCodeViewModel.sms4Code = nil
+        [customVerificationView.firstNumberTextField,customVerificationView.secondNumberTextField,customVerificationView.thirdNumberTextField,customVerificationView.forthNumberTextField,customVerificationView.fifthNumberTextField].forEach({$0.text = ""})
+    }
+    
+    func updateStates(api_token:String,_ user_id:Int)  {
+        
+        userDefaults.set(true, forKey: UserDefaultsConstants.isPatientLogin)
+        
+        userDefaults.set(api_token, forKey: UserDefaultsConstants.patientAPITOKEN)
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.patientUserID)
+        
+        
+        userDefaults.synchronize()
+    }
+    
+    func goToNext(api_token:String,_ user_id:Int)  {
+        self.updateStates(api_token: api_token,user_id)
+        dismiss(animated: true, completion: nil)
+        //           if  isFromForgetPassw {
+        //               let  vc =  MainNewPassVC(indexx: index)
+        //               navigationController?.pushViewController(vc, animated: true)
+        //           }else {
+        //
+        //               let vc =  MainClinicDataVC(indexx: index,api_token: api_token,doctor_id: doctor_id)
+        //               navigationController?.pushViewController(vc, animated: true)
+        //           }
+        
+    }
+    
     //TODO: -handle Methods
     
     @objc fileprivate func updateTimer() {
@@ -119,39 +162,40 @@ class VerificationVC: CustomBaseViewVC {
         }
     }
     
-    @objc func textFieldDidChange(text: UITextField)  {
-        sMSCodeViewModel.index = index
-        guard let texts = text.text, !texts.isEmpty  else {self.changeButtonState(enable: false, vv: self.customVerificationView.confirmButton);  return  }
-        
-        if texts.utf16.count==1{
-            switch text{
-            case customVerificationView.firstNumberTextField:
-                sMSCodeViewModel.smsCode = texts
-                customVerificationView.secondNumberTextField.becomeFirstResponder()
-            case customVerificationView.secondNumberTextField:
-                sMSCodeViewModel.sms2Code = texts
-                customVerificationView.thirdNumberTextField.becomeFirstResponder()
-            case customVerificationView.thirdNumberTextField:
-                sMSCodeViewModel.sms3Code = texts
-                customVerificationView.forthNumberTextField.becomeFirstResponder()
-            case customVerificationView.forthNumberTextField:
-                sMSCodeViewModel.sms4Code = texts
-                customVerificationView.forthNumberTextField.resignFirstResponder()
-            default:
-                break
-            }
-        }else{
-            
-        }
-    }
-    
     @objc func handleResendCode()  {
         setupTimer()
-    }
+        resetViewModel()
+        customVerificationView.sMSCodeViewModel.performResendSMSCode { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....")
+            self.activeViewsIfNoData()
+        }    }
     
     @objc  func handleConfirm()  {
-        let  vc = index == 0 ? BaseSlidingVC() :   NewPassVC()
-        navigationController?.pushViewController(vc, animated: true)
+        
+        customVerificationView.sMSCodeViewModel.performLogging { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);self.setupTimer(); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext(api_token: user.apiToken,user.id)
+            }
+        }
+        
+        
+        //        let  vc  =  BaseSlidingVC()
+        //
+        ////        let  vc = index == 0 ? BaseSlidingVC() :   NewPassVC()
+        //        navigationController?.pushViewController(vc, animated: true)
         
     }
     
@@ -160,9 +204,6 @@ class VerificationVC: CustomBaseViewVC {
     }
     
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 extension VerificationVC: UITextFieldDelegate {

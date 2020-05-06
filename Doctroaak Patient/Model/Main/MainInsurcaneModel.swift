@@ -12,7 +12,7 @@ import UIKit
 struct MainInsurcaneModel:Codable {
     let status: Int
     let message, messageEn: String
-    let data: [InsurcaneModel]
+    let data: [InsurcaneCompanyModel]
 
     enum CodingKeys: String, CodingKey {
         case status, message
@@ -21,7 +21,7 @@ struct MainInsurcaneModel:Codable {
     }
 }
 
-struct InsurcaneModel:Codable {
+struct InsurcaneCompanyModel:Codable {
     let id: Int
        let name, photo, nameAr, nameFr: String
        let createdAt, updatedAt: String?

@@ -16,48 +16,48 @@ class MainServices {
     static let shared = MainServices()
     
     func getDegrees(completion: @escaping (MainDegreeModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_degree".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_degree"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     func getSpecificationss(completion: @escaping (MainSpecificationModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_specialization".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_specialization"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     func getCitiess(completion: @escaping (MainCityModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_city".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_city"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     func getAreas(completion: @escaping (MainAreaModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_area".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_area"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     func getInsuracness(completion: @escaping (MainInsurcaneModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_insurance".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_insurance"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     func getMedicineTypes(completion: @escaping (MainMedicineTypeModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_medicines_type".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_medicines_type"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     func getMedicines(completion: @escaping (MainMedicineModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_medicines".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_medicines"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     func getRays(completion: @escaping (MainRaysModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_rays".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_rays"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     func getNotifications(completion: @escaping (MainNotificationsModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_specialization".toSecrueHttps()
-        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+        let urlString = baseUrl+"show_specialization"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
     static func mainGetMethodGenerics<T:Codable>(urlString:String,completion:@escaping (T?,Error?)->Void)  {

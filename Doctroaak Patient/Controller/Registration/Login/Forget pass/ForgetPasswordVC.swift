@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
+import SVProgressHUD
+import MOLH
 
 class ForgetPasswordVC:   CustomBaseViewVC {
     
@@ -15,36 +16,41 @@ class ForgetPasswordVC:   CustomBaseViewVC {
     
     lazy var customForgetPassView:CustomForgetPassView = {
         let v = CustomForgetPassView()
-        v.numberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.nextButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
         return v
     }()
     
-    let forgetPassViewModel = ForgetPassViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        che()
     }
     
     //MARK:-User methods
     
+    func che()  {
+        RegistrationServices.shared.MainForgetPassword(phone: "99999999992") { (base, err) in
+            
+        }
+    }
+    
     func setupViewModelObserver()  {
-        forgetPassViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        customForgetPassView.forgetPassViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
             
             self.changeButtonState(enable: isValid, vv: self.customForgetPassView.nextButton)
         }
         
-        forgetPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+        customForgetPassView.forgetPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Resending password...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                                SVProgressHUD.dismiss()
+                                self.activeViewsIfNoData()
             }
         })
     }
@@ -61,24 +67,10 @@ class ForgetPasswordVC:   CustomBaseViewVC {
     
     //TODO: -handle methods
     
-    @objc func textFieldDidChange(text: UITextField)  {
-        guard let texts = text.text else { return  }
-        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-            if  !texts.isValidPhoneNumber    {
-                floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                forgetPassViewModel.phone = nil
-            }
-            else {
-                floatingLabelTextField.errorMessage = ""
-                forgetPassViewModel.phone = texts
-            }
-            
-            
-        }
-    }
+  
     
     @objc func handleDonePayment()  {
-        let verifiy = VerificationVC(inde: 1)
+        let verifiy = NewPassVC()
         navigationController?.pushViewController(verifiy, animated: true)
         
     }

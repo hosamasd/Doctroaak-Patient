@@ -8,6 +8,8 @@
 
 
 import UIKit
+import SkyFloatingLabelTextField
+
 
 class CustomForgetPassView: CustomBaseView {
     
@@ -35,6 +37,8 @@ class CustomForgetPassView: CustomBaseView {
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
         s.leftView = button
         s.leftViewMode = .always
+        s.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+
         return s
     }()
     lazy var nextButton:UIButton = {
@@ -49,6 +53,9 @@ class CustomForgetPassView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
+    
+    let forgetPassViewModel = ForgetPassViewModel()
+
     
     override func setupViews() {
         
@@ -66,4 +73,20 @@ class CustomForgetPassView: CustomBaseView {
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+          guard let texts = text.text else { return  }
+          if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+              if  !texts.isValidPhoneNumber    {
+                  floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                  forgetPassViewModel.phone = nil
+              }
+              else {
+                  floatingLabelTextField.errorMessage = ""
+                  forgetPassViewModel.phone = texts
+              }
+              
+              
+          }
+      }
 }

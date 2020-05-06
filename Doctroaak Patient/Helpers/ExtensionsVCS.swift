@@ -84,6 +84,12 @@ extension UIViewController {
         }
     }
     
+    func activeViewsIfNoData()  {
+              DispatchQueue.main.async {
+                  UIApplication.shared.endIgnoringInteractionEvents()
+              }
+          }
+    
 //    func showToast(message : String, font: UIFont) {
 //
 //        let toastLabel = UILabel(frame: CGRect(x: 0 , y: self.view.frame.size.height-100, width: view.frame.width-32, height: 35))

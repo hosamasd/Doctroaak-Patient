@@ -11,6 +11,7 @@ import UIKit
 import iOSDropDown
 import UIMultiPicker
 import SkyFloatingLabelTextField
+import MOLH
 
 class CustomRegisterView: CustomBaseView {
     
@@ -111,26 +112,16 @@ class CustomRegisterView: CustomBaseView {
         return t
     }()
     lazy var addressTextField = createMainTextFields(place: "Address")
-    
-    lazy var mainDrop3View = makeMainSubViewWithAppendView(vv: [doenImage,insuracneText])
-    lazy var doenImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-6"))
-        i.constrainWidth(constant: 50)
-//        i.constrainHeight(constant: 50)
+    lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [insuranceDrop])
+
+  lazy var insuranceDrop:DropDown = {
+        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+        i.arrowSize = 20
+        i.placeholder = "Insurance company".localized
+        i.didSelect { (txt, index, _) in
+            self.registerViewModel.insuranceCode =  self.insuracneIDSArray[index]//index+1
+        }
         return i
-    }()
-    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 18), textColor: .black, textAlignment: .left)
-    lazy var insuranceDrop:UIMultiPicker = {
-        let v = UIMultiPicker(backgroundColor: .white)
-        v.options = insuracneArray
-        v.color = .gray
-        v.tintColor = .green
-        v.font = .systemFont(ofSize: 30, weight: .bold)
-        v.highlight(2, animated: true) // centering "Bitter"
-        v.constrainHeight(constant: 150)
-        v.isHide(true)
-        //        v.addTarget(self, action: #selector(handleHidePicker), for: .valueChanged)
-        return v
     }()
     lazy var insuranceCodeTextField = createMainTextFields(place: "Insurance code")
     
@@ -164,10 +155,8 @@ class CustomRegisterView: CustomBaseView {
     }()
     
     let registerViewModel = RegisterViewModel()
-    var iiii = ""
-    var de = ""
-    var insuracneArray = ["one","two","three","sdfdsfsd"]
-    //    var insuracneArray = ["one","two","three","sdfdsfsd"]
+    var insuracneArray = [String]()
+      var insuracneIDSArray = [Int]()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -179,14 +168,14 @@ class CustomRegisterView: CustomBaseView {
     
     fileprivate func addViewsTargets() {
         insuranceCodeTextField.constrainHeight(constant: 60)
-        [  mobileNumberTextField,passwordTextField, emailTextField, fullNameTextField, confirmPasswordTextField, addressTextField,insuranceCodeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        [  mobileNumberTextField,passwordTextField, emailTextField,addressTextField, fullNameTextField, confirmPasswordTextField, insuranceCodeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
         girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
-        insuranceDrop.addTarget(self, action: #selector(handleHidePicker), for: .valueChanged)
         birthdayTextField.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
-        mainDrop3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
         acceptButton.addTarget(self, action: #selector(handleAgree), for: .touchUpInside)
     }
+    
+  
     
     override func setupViews() {
         addViewsTargets()
@@ -200,12 +189,12 @@ class CustomRegisterView: CustomBaseView {
         
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         
-        let textStack = getStack(views: fullNameTextField,addressTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack,birthdayTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: fullNameTextField,addressTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack,birthdayTextField,mainDrop2View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         
-        mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        mainDrop2View.hstack(insuranceDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,insuranceCodeTextField,bottomStack,insuranceDrop,signUpButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,insuranceCodeTextField,bottomStack,signUpButton)
         
         
         NSLayoutConstraint.activate([
@@ -219,7 +208,6 @@ class CustomRegisterView: CustomBaseView {
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         textStack.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-        insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         
         insuranceCodeTextField.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         bottomStack.anchor(top: insuranceCodeTextField.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 16, left: 0, bottom: 0, right: 0))
@@ -228,6 +216,36 @@ class CustomRegisterView: CustomBaseView {
         signUpButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         
     }
+    
+    func getInsuraces()  {
+        fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
+
+    }
+    
+    func putDataInDrops(ir:[String],iid:[Int])  {
+           self.insuracneArray = ir
+           self.insuracneIDSArray = iid
+
+       }
+    
+    fileprivate func fetchEnglishData(isArabic:Bool) {
+           if isArabic {
+               
+               
+               if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int]{
+                   putDataInDrops( ir: specificationsArray, iid: specificationIds)
+
+               }
+           }else {
+               if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
+                   putDataInDrops( ir: specificationsArray, iid: specificationIds)
+               }
+           }
+        self.insuranceDrop.optionArray = self.insuracneArray
+           DispatchQueue.main.async {
+               self.layoutIfNeeded()
+           }
+       }
     
     fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
         if sender.backgroundColor == nil {
@@ -240,7 +258,7 @@ class CustomRegisterView: CustomBaseView {
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
         if let datePicker = self.birthdayTextField.inputView as? UIDatePicker { // 2.1
             let dateformatter = DateFormatter() // 2.2
-            dateformatter.dateStyle = .medium // 2.3
+            dateformatter.dateFormat = "yyyy-MM-dd"
             self.birthdayTextField.text = dateformatter.string(from: datePicker.date) //2.4
             registerViewModel.birthday = dateformatter.string(from: datePicker.date) //2.4
         }
@@ -318,7 +336,7 @@ class CustomRegisterView: CustomBaseView {
                 }
                 else {
                     
-                    registerViewModel.insuranceCode = texts
+                    registerViewModel.insuranceCode = texts.toInt()
                     floatingLabelTextField.errorMessage = ""
                 }
                 
@@ -335,21 +353,8 @@ class CustomRegisterView: CustomBaseView {
         confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
     }
     
-    @objc func handleHidePicker(sender:UIMultiPicker)  {
-        sender.selectedIndexes.forEach { (i) in
-            
-            de += insuracneArray[i] + ","
-        }
-        iiii = de
-        insuracneText.text = iiii
-//        registerViewModel.insurance = iiii
-        de = ""
-    }
-    
-    @objc func handleOpenCloseInsurance()  {
-        registerViewModel.isInsurance = true
-        insuranceDrop.isHidden = !insuranceDrop.isHidden
-    }
+   
+   
     
     @objc func handleAgree(sender:UIButton)  {
         
@@ -366,7 +371,6 @@ class CustomRegisterView: CustomBaseView {
     @objc func handleBoy(sender:UIButton)  {
         changeBoyGirlState(sender, secondBtn: girlButton, isMale: true)
     }
-    
 }
 
 
