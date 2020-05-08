@@ -67,8 +67,18 @@ class BaseSlidingVC: UIViewController {
         setupViews()
         setupGesture()
         setupViewControllers()
+       
         
         darkCoverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapped)))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+            let welcome = WelcomeVC()
+            welcome.modalPresentationStyle = .fullScreen
+            present(welcome, animated: true)
+        }else {}
     }
     
 //    override var preferredStatusBarStyle: UIStatusBarStyle {

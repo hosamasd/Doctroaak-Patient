@@ -13,6 +13,7 @@ class UserDefaultsConstants {
 
     static let isDataFound = "isDataFound"
     static let isCachedDriopLists = "isCachedDriopLists"
+    static let isWelcomeVCAppear="isWelcomeVCAppear"
 
     
     //welcome
