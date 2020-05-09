@@ -33,28 +33,28 @@ class BaseSlidingVC: UIViewController {
     }()
     
     lazy var customAlertChooseLanguageView:CustomAlertChooseLanguageView = {
-                 let v = CustomAlertChooseLanguageView()
+        let v = CustomAlertChooseLanguageView()
         [v.englishButton,v.arabicButton,v.cancelButton].forEach({$0.addTarget(self, action: #selector(handleLanguages), for: .touchUpInside)})
-                 return v
-             }()
+        return v
+    }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
-              let t = CustomMainAlertVC()
-              t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-              t.modalTransitionStyle = .crossDissolve
-              t.modalPresentationStyle = .overCurrentContext
-              return t
-          }()
-       lazy var customAlertLoginView:CustomAlertLoginView = {
-              let v = CustomAlertLoginView()
-           v.setupAnimation(name: "4970-unapproved-cross")
-           v.handleOkTap = {[unowned self] in
-               self.handleremoveLoginAlert()
-           }
-              return v
-          }()
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleremoveLoginAlert()
+        }
+        return v
+    }()
     
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
-     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
+    var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate let menuWidth:CGFloat = 300
     fileprivate var isMenuOpen:Bool = false
@@ -67,13 +67,13 @@ class BaseSlidingVC: UIViewController {
         setupViews()
         setupGesture()
         setupViewControllers()
-       
+        
         
         darkCoverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapped)))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
             let welcome = WelcomeVC()
             welcome.modalPresentationStyle = .fullScreen
@@ -81,14 +81,18 @@ class BaseSlidingVC: UIViewController {
         }else {}
     }
     
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return isMenuOpen ? .lightContent : .default
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    
+    //    override var preferredStatusBarStyle: UIStatusBarStyle {
+    //        return isMenuOpen ? .lightContent : .default
+    //    }
     
     //MARK: -user methods
     
     fileprivate func setupViews()  {
-//        view.backgroundColor = .red
+        //        view.backgroundColor = .red
         view.addSubViews(views: redView,blueView)
         
         NSLayoutConstraint.activate([
@@ -100,7 +104,7 @@ class BaseSlidingVC: UIViewController {
             blueView.trailingAnchor.constraint(equalTo: redView.leadingAnchor),
             blueView.widthAnchor.constraint(equalToConstant: menuWidth),
             blueView.bottomAnchor.constraint(equalTo: redView.bottomAnchor)
-            ])
+        ])
         self.redViewLeadingConstarint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
         //        redViewLeadingConstraint.constant = 150
         redViewLeadingConstarint.isActive = true
@@ -176,31 +180,31 @@ class BaseSlidingVC: UIViewController {
         performRightViewCleanUp()
         closeMenu()
         
-                switch index.row {
-                case 0:
-                    rightViewController = UINavigationController(rootViewController: ProfileVC())
-        //        case 1:
-        //            rightViewController = UINavigationController(rootViewController: ListVC())
-        //        case 2:
+        switch index.row {
+        case 0:
+            rightViewController = UINavigationController(rootViewController: ProfileVC())
+            //        case 1:
+            //            rightViewController = UINavigationController(rootViewController: ListVC())
+            //        case 2:
         //            rightViewController = BookmarkVC()
-                default:
-                    let vc = UIViewController()
-                    vc.view.backgroundColor = .red
-                    rightViewController = UINavigationController(rootViewController: vc)
-                    print(index.item)
-        //
-        //            let tabBarController = UITabBarController()
-        //            let momentsController = UIViewController()
-        //            momentsController.navigationItem.title = "Moments"
-        //            momentsController.view.backgroundColor = .orange
-        //            let navController = UINavigationController(rootViewController: momentsController)
-        //            navController.tabBarItem.title = "Moments"
-        //            tabBarController.viewControllers = [navController]
-        //            rightViewController = tabBarController
-                }
-                redView.addSubview(rightViewController.view)
-                addChild(rightViewController)
-                redView.bringSubviewToFront(darkCoverView)
+        default:
+            let vc = UIViewController()
+            vc.view.backgroundColor = .red
+            rightViewController = UINavigationController(rootViewController: vc)
+            print(index.item)
+            //
+            //            let tabBarController = UITabBarController()
+            //            let momentsController = UIViewController()
+            //            momentsController.navigationItem.title = "Moments"
+            //            momentsController.view.backgroundColor = .orange
+            //            let navController = UINavigationController(rootViewController: momentsController)
+            //            navController.tabBarItem.title = "Moments"
+            //            tabBarController.viewControllers = [navController]
+            //            rightViewController = tabBarController
+        }
+        redView.addSubview(rightViewController.view)
+        addChild(rightViewController)
+        redView.bringSubviewToFront(darkCoverView)
         
         
     }
@@ -258,12 +262,12 @@ class BaseSlidingVC: UIViewController {
         let nav = UINavigationController(rootViewController: login)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
-            
-        }
-      
-      @objc func handleDismiss()  {
-                dismiss(animated: true, completion: nil)
-            }
+        
+    }
+    
+    @objc func handleDismiss()  {
+        dismiss(animated: true, completion: nil)
+    }
     
     @objc func handleLanguages(sender:UIButton)  {
         switch sender.tag {
@@ -271,7 +275,7 @@ class BaseSlidingVC: UIViewController {
             //english
             print("english")
             !MOLHLanguage.isArabic() ? () : print("not englisg")
-            case 1:
+        case 1:
             //arabic
             print("arabic")
             MOLHLanguage.isArabic() ? () : print("not arabic")
@@ -279,7 +283,7 @@ class BaseSlidingVC: UIViewController {
             ()
         }
         removeViewWithAnimation(vvv: customAlertChooseLanguageView)
-              customMainAlertVC.dismiss(animated: true)
-
+        customMainAlertVC.dismiss(animated: true)
+        
     }
 }
