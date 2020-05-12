@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import SVProgressHUD
+import MOLH
 
 class DoctorSearchVC: CustomBaseViewVC {
     
@@ -25,6 +27,7 @@ class DoctorSearchVC: CustomBaseViewVC {
     }()
     lazy var customDoctorSearchView:CustomDoctorSearchView = {
         let v = CustomDoctorSearchView()
+        v.specificationId=specificationId
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.handlerChooseLocation = {[unowned self] in
             let loct = ChooseLocationVC()
@@ -34,6 +37,16 @@ class DoctorSearchVC: CustomBaseViewVC {
         v.searchButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
         return v
     }()
+    
+    fileprivate let specificationId:Int!
+    init(spy:Int) {
+        self.specificationId = spy
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,12 +65,12 @@ class DoctorSearchVC: CustomBaseViewVC {
         
         customDoctorSearchView.doctorSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Searching...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -86,14 +99,31 @@ class DoctorSearchVC: CustomBaseViewVC {
             //            var placeMark: CLPlacemark?
             guard let   placeMark = placemarks?[0] else {return}
             
+            // Address dictionary
+            print(placeMark.locality)
+                  // Location name
+                  if let locationName = placeMark.addressDictionary!["Name"] as? String,let city = placeMark.addressDictionary!["City"] as? String ,let country = placeMark.addressDictionary!["Country"] as? String {
+                    self.customDoctorSearchView.addressLabel.text =  " \(locationName) - \(String(describing: city)) - \(String(describing: country))"
+                        self.customDoctorSearchView.doctorSearchViewModel.lat = latitude
+                    self.customDoctorSearchView.doctorSearchViewModel.specificationId = self.specificationId
+                        self.customDoctorSearchView.doctorSearchViewModel.lng = longitude
+                  }
+
+                  
             // Location name
-            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
-            self.customDoctorSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
-            self.customDoctorSearchView.doctorSearchViewModel.lat = "\(latitude)"
-            self.customDoctorSearchView.doctorSearchViewModel.lng = "\(longitude)"
+//            let street = placeMark.subLocality; let city = placeMark.administrativeArea;let country = placeMark.country
+//            self.customDoctorSearchView.addressLabel.text =  " \(placeMark.subLocality ?? "") - \(String(describing: city)) - \(String(describing: country))"
+//            self.customDoctorSearchView.doctorSearchViewModel.lat = latitude
+//            self.customDoctorSearchView.doctorSearchViewModel.lng = longitude
+            
         })
         
         
+    }
+    
+    func goToNext(_ doctors:[PatientSearchDoctorsModel])  {
+        let card = CardiologyDoctorsResultsVC(doctors:doctors)
+        navigationController?.pushViewController(card, animated: true)
     }
     
     @objc  func handleBack()  {
@@ -101,9 +131,23 @@ class DoctorSearchVC: CustomBaseViewVC {
     }
     
     @objc func handleSearch()  {
-        let card = CardiologyVC()
-        navigationController?.pushViewController(card, animated: true)
-        
+        customDoctorSearchView.doctorSearchViewModel.performLogging { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext(user)
+            }
+            
+            
+            
+            
+        }
     }
 }
 

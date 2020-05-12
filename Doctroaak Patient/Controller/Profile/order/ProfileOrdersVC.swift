@@ -27,8 +27,8 @@ class ProfileOrdersVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         
         v.handleCheckedIndex = {[unowned self] indexPath in
-            let cDetails = DeatilsVC()
-            self.navigationController?.pushViewController(cDetails, animated: true)
+//            let cDetails = DeatilsSelectedDoctorsVC()
+//            self.navigationController?.pushViewController(cDetails, animated: true)
         }
         return v
     }()

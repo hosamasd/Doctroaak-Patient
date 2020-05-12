@@ -8,7 +8,23 @@
 
 
 import UIKit
+import SDWebImage
+import MOLH
+
 class DoctorWorkingDateCell: BaseCollectionCell {
+    
+    var day:WorkingHourModel! {
+        didSet{
+            doctorDayLabel.text = getDayFromIndex(day.day)
+            doctorFirstTimeLabel.text = changeTimeForButtonTitle(values: day.part1From)
+            doctorDayLastTimeLabel.text = changeTimeForButtonTitle(values: day.part1To)
+            
+            doctorSecondTimeLabel.text = changeTimeForButtonTitle(values: day.part2From)
+            doctorDaySecondLastTimeLabel.text = changeTimeForButtonTitle(values: day.part2To)
+            
+        }
+    }
+    
     
     lazy var logoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Rectangle 1751"))
@@ -29,15 +45,32 @@ class DoctorWorkingDateCell: BaseCollectionCell {
     override func setupViews() {
         let s = hstack(doctorFirstTimeLabel,doctorDayLastTimeLabel,spacing:8)
         let ss = hstack(doctorSecondTimeLabel,doctorDaySecondLastTimeLabel,spacing:8)
-
+        
         let dd = stack(s,ss)
         
         
         hstack(logoImage,doctorDayLabel,dd,spacing:16).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))
-
-//        hstack(logoImage,doctorDayLabel,doctorFirstTimeLabel,doctorDayLastTimeLabel,spacing:16).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))
+        
+        //        hstack(logoImage,doctorDayLabel,doctorFirstTimeLabel,doctorDayLastTimeLabel,spacing:16).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))
         
         addSubview(seperatorView)
         seperatorView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
+    }
+    
+    func getDayFromIndex (_ index:Int) ->String {
+        return index == 1 ? "Saturday" : index == 2 ? "Sunday" : index == 3 ? "Monday"  : index == 4 ? "Tuesday" : index == 5 ? "Wednsday" : index == 6 ? "Thursday" : "Friday"
+    }
+    
+    func changeTimeForButtonTitle(values:String)->String  {
+        var ppp = "am"
+        guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+               ppp = hours > 12 ? "pm" : "am"
+               hours =   hours > 12 ? hours - 12 : hours
+        guard let hou = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false) else {return "\(hours): 00 \(ppp)"}
+        
+        guard let minute = hou.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+       
+        return "\(hours):\(minute) \(ppp)"
+        
     }
 }

@@ -8,7 +8,15 @@
 
 
 import UIKit
-class CustomCardiologyView: CustomBaseView {
+class CustomCardiologyDoctorsResultsView: CustomBaseView {
+    
+        var doctorsArray:[PatientSearchDoctorsModel]! {
+        didSet{
+            patientFavoriteDoctorsCollectionVC.doctorsArray=doctorsArray
+                   patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
+        }
+    }
+    
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -29,7 +37,7 @@ class CustomCardiologyView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Cardiology", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Doctors", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)
@@ -38,15 +46,22 @@ class CustomCardiologyView: CustomBaseView {
         return v
     }()
     
-    var handleCheckedIndex:((IndexPath)->Void)?
+    var handleCheckedIndex:((PatientSearchDoctorsModel)->Void)?
+    var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
 
     lazy var patientFavoriteDoctorsCollectionVC:PatientFavoriteDoctorsCollectionVC = {
         let vc = PatientFavoriteDoctorsCollectionVC()
+       
         vc.handleCheckedIndex = {[unowned self] indexPath in
             self.handleCheckedIndex?(indexPath)
         }
+        vc.handleBookmarkDoctor = {[unowned self] doctor in
+            self.handleBookmarkDoctor?(doctor)
+        }
         return vc
     }()
+    
+    
     override func setupViews() {
         backgroundColor = .white
         

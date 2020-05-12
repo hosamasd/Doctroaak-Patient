@@ -10,6 +10,24 @@
 import UIKit
 class DoctorDaysShiftCell: BaseCollectionCell {
     
+    var day:FreeDayModel! {
+        didSet{
+            doctorDateLabel.text = day.date
+            if day.partID == 0  {
+                if shift1Button.backgroundColor != nil {
+                     addGradientInSenderAndRemoveOther(sender: shift1Button, vv: shift2Button)
+                           shift1Button.setTitleColor(.white, for: .normal)
+                }else {}
+            }else {
+                 if shift2Button.backgroundColor != nil {
+                addGradientInSenderAndRemoveOther(sender: shift2Button, vv: shift1Button)
+                shift2Button.setTitleColor(.white, for: .normal)
+                 }else {}
+            }
+        }
+    }
+    
+    
     lazy var logoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Rectangle 1751"))
         return i

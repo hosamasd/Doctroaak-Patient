@@ -1050,3 +1050,16 @@ extension UICollectionView{
     }
     
 }
+extension String {
+
+    func removeSubstringAfterOrBefore(needle: String, beforeNeedle: Bool = false) -> String? {
+        guard let range = self.range(of: needle) else { return nil }
+
+        if beforeNeedle {
+            return self.substring(to: range.lowerBound)
+        }
+
+        return self.substring(from: range.upperBound)
+    }
+
+}

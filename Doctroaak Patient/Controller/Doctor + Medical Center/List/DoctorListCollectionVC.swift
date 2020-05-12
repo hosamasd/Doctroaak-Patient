@@ -13,7 +13,7 @@ class DoctorListCollectionVC: BaseCollectionVC {
     var specificationArray = [SpecificationModel]()
     fileprivate let cellId = "cellId"
     
-    var handleCheckedIndex:((IndexPath)->Void)?
+    var handleCheckedIndex:((Int)->Void)?
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -30,7 +30,9 @@ class DoctorListCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        handleCheckedIndex?(indexPath)
+        let spy = specificationArray[indexPath.item]
+
+        handleCheckedIndex?(spy.id)
     }
     
 

@@ -27,15 +27,15 @@ class CustomDoctorListsView: CustomBaseView {
     
     lazy var doctorListCollectionVC:DoctorListCollectionVC = {
         let vc = DoctorListCollectionVC()
-        vc.handleCheckedIndex = {[unowned self ] index in
-            self.handleCheckedIndex?(index)
+        vc.handleCheckedIndex = {[unowned self ] id in
+            self.handleCheckedIndex?(id)
         }
 //        vc.view.isHide(vc.specificationArray.count < 1 ? true : false)
         return vc
     }()
     
     
-    var handleCheckedIndex:((IndexPath)->Void)?
+    var handleCheckedIndex:((Int)->Void)?
     
     override func setupViews() {
         

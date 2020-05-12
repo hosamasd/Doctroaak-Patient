@@ -12,14 +12,18 @@ import UIKit
 class DoctorSuggestShiftHorizentalVC: BaseCollectionVC {
     
     fileprivate let cellId = "cellId"
+    var suggestedDaysArray = [FreeDayModel]()
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return suggestedDaysArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorDaysShiftCell
+        let day = suggestedDaysArray[indexPath.item]
         
+        cell.day=day
         return cell
     }
     

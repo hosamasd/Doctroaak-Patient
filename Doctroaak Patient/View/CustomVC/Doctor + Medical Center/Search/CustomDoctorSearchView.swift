@@ -36,9 +36,6 @@ class CustomDoctorSearchView: CustomBaseView {
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
-        //        view.noItemSelected = true
-        //        view.defaultTextFont = .systemFont(ofSize: 14)
-        //        view.selectedTextFont = .systemFont(ofSize: 12)
         view.didSelectItemWith = {[unowned self] (index, title) in
             index == 0 ?    self.openTheseViewsOrHide(hide: true, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView,index:index) : self.openTheseViewsOrHide(hide: false, vv: self.mainDrop2View,self.mainDropView,ss:self.addressMainView,index:index)
             self.doctorSearchViewModel.isFirstOpetion = index == 0 ? true : false
@@ -94,7 +91,7 @@ class CustomDoctorSearchView: CustomBaseView {
         i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in
             self.doctorSearchViewModel.area = self.areaIDSArray[index]//index+1
-            
+            self.doctorSearchViewModel.specificationId = self.specificationId
         }
         return i
     }()
@@ -142,6 +139,7 @@ class CustomDoctorSearchView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
+    var specificationId:Int = 0
     
     let doctorSearchViewModel = DoctorSearchViewModel()
     var handlerChooseLocation:(()->Void)?
@@ -268,18 +266,11 @@ class CustomDoctorSearchView: CustomBaseView {
     func openTheseViewsOrHide(hide:Bool,vv:UIView...,ss:UIView,index:Int)  {
         vv.forEach({$0.isHide(!hide)})
         ss.isHide(hide)
-        //        if index == 0 {
-        //            doctorSearchViewModel.lat=nil
-        //            doctorSearchViewModel.lng=nil
-        //        }else {
-        //            doctorSearchViewModel.city=nil
-        //            doctorSearchViewModel.area=nil
-        //        }
     }
     
     
     @objc func handleOpenSwitch(sender:UISwitch)  {
-        doctorSearchViewModel.insuranceCompany =  sender.isOn
+        doctorSearchViewModel.isInsuranceCompany =  sender.isOn ? 0 : 1
     }
     
     @objc  func handleOpenLocation()  {

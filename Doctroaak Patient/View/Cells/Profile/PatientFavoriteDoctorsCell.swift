@@ -8,8 +8,33 @@
 
 
 import UIKit
+import SDWebImage
+import MOLH
 
 class PatientFavoriteDoctorsCell: BaseCollectionCell {
+    
+    var doctor:PatientSearchDoctorsModel! {
+        didSet{
+            guard let ss = doctor.photo.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
+                       let dd = "http"+ss ?? ""
+            guard let url = URL(string: dd) else { return  }
+            profileImage.sd_setImage(with: url)
+            profileInfoLabel.text = MOLHLanguage.isRTLLanguage() ? doctor.nameAr : doctor.name
+            profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
+            profileInfoReservationLabel.text = "Reservation: \(doctor.fees)"
+            profileInfoConsultaionLabel.text = "Consultation: \(doctor.fees2)"
+            for(index,view) in starsStackView.arrangedSubviews.enumerated(){
+                guard let img = view as? UIImageView else {return}
+                
+                let ratingInt = Int(doctor.reservationRate ?? "0" )
+                img.image = index >= ratingInt ?? 0 ? #imageLiteral(resourceName: "star-1") : #imageLiteral(resourceName: "star")
+            
+//                bookmarkImage.image =   favorite.contains(aqar.id ) ? #imageLiteral(resourceName: "Group 3923-10") : #imageLiteral(resourceName: "Group 3923s")
+
+            }
+         }
+    }
+    
     
     var isFavorite:Bool!{
         didSet{
@@ -80,8 +105,13 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     lazy var bookmarkImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "ic_favorite_border_24px"))
         i.constrainWidth(constant: 30)
+        i.isUserInteractionEnabled = true
+        i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBookmark)))
+
         return i
     }()
+    var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -126,5 +156,52 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         b.constrainWidth(constant: 20)
         b.constrainHeight(constant: 20)
         return b
+    }
+    
+    func getCityFromIndex(_ index:Int) -> String {
+       var citName = [String]()
+       var cityId = [Int]()
+       
+       if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
+                      
+                     citName = cityArray
+           cityId = cityIds
+                      
+                      
+                  
+              }else {
+                  if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
+                      citName = cityArray
+                      cityId = cityIds
+                  }
+              }
+       let ss = cityId.filter{$0 == index}
+       
+       return citName[ss.first ?? 1]
+    }
+    
+    func getAreaFromIndex(_ index:Int) -> String {
+        var citName = [String]()
+               var cityId = [Int]()
+           if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
+                                 
+                                citName = cityArray
+                      cityId = cityIds
+                                 
+                                 
+                             
+                         }else {
+                             if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
+                                 citName = cityArray
+                                 cityId = cityIds
+                             }
+                         }
+                  let ss = cityId.filter{$0 == index}
+                  
+                  return citName[ss.first ?? 1]
+       }
+    
+   @objc func handleBookmark()  {
+        handleBookmarkDoctor?(doctor)
     }
 }

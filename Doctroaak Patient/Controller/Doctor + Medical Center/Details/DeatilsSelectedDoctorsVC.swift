@@ -9,7 +9,7 @@
 
 import UIKit
 
-class DeatilsVC: UIViewController {
+class DeatilsSelectedDoctorsVC: UIViewController {
     
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -25,12 +25,19 @@ class DeatilsVC: UIViewController {
     }()
     lazy var customDetailsView:CustomDetailsView = {
         let v = CustomDetailsView()
+        v.selectedDoctor=selectedDoctor
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
     }()
-    var index:Int? = 0
-    
+    fileprivate let selectedDoctor:PatientSearchDoctorsModel!
+       init(doctors:PatientSearchDoctorsModel) {
+           self.selectedDoctor=doctors
+           super.init(nibName: nil, bundle: nil)
+       }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

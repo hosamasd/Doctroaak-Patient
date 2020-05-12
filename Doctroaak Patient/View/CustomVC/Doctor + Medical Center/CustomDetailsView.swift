@@ -8,8 +8,23 @@
 
 
 import UIKit
+import SDWebImage
+import MOLH
 
 class CustomDetailsView: CustomBaseView {
+    
+    var selectedDoctor:PatientSearchDoctorsModel! {
+        didSet{
+            patientFavoriteDoctorsCell.doctor=selectedDoctor
+            doctorSuggestShiftHorizentalVC.suggestedDaysArray = selectedDoctor.freeDays
+            doctorWorkingDateCollectionVC.workingDaysArray = selectedDoctor.workingHours
+            DispatchQueue.main.async {
+                self.doctorSuggestShiftHorizentalVC.collectionView.reloadData()
+                self.doctorWorkingDateCollectionVC.collectionView.reloadData()
+            }
+        }
+    }
+    
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -39,7 +54,11 @@ class CustomDetailsView: CustomBaseView {
         return v
     }()
     
-    lazy var patientFavoriteDoctorsCell = PatientFavoriteDoctorsCell()
+    lazy var patientFavoriteDoctorsCell:PatientFavoriteDoctorsCell = {
+        let v = PatientFavoriteDoctorsCell()
+        
+        return v
+    }()
     lazy var doctorSuggestShiftHorizentalVC:DoctorSuggestShiftHorizentalVC = {
         let v = DoctorSuggestShiftHorizentalVC()
         v.view.constrainHeight(constant: 180)
@@ -52,7 +71,7 @@ class CustomDetailsView: CustomBaseView {
     }()
     lazy var bookButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Book", for: .normal)
+        button.setTitle("Next", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.constrainHeight(constant: 50)
