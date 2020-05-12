@@ -14,8 +14,8 @@ class IncubationSearchViewModel {
     var bindableIsFormValidate = Bindable<Bool>()
     
     //variables
-    var city:String? {didSet {checkFormValidity()}}
-    var area:String? {didSet {checkFormValidity()}}
+    var city:Int? = -1 {didSet {checkFormValidity()}}
+    var area:Int? = -1 {didSet {checkFormValidity()}}
     var lat:String? {didSet {checkFormValidity()}}
     var lng:String? {didSet {checkFormValidity()}}
 
@@ -37,7 +37,7 @@ class IncubationSearchViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = city?.isEmpty == false &&  area?.isEmpty == false && isFirstOpetion == true || isFirstOpetion == false &&   lat?.isEmpty == false && lng?.isEmpty == false
+        let isFormValid = city != -1 &&  area != -1 && isFirstOpetion == true || isFirstOpetion == false &&   lat?.isEmpty == false && lng?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

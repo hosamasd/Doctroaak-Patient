@@ -14,8 +14,8 @@ class ICUViewModel {
     var bindableIsFormValidate = Bindable<Bool>()
     
     //variables
-    var city:String? {didSet {checkFormValidity()}}
-    var area:String? {didSet {checkFormValidity()}}
+    var city:Int? = -1 {didSet {checkFormValidity()}}
+    var area:Int? = -1  {didSet {checkFormValidity()}}
     var lat:String? {didSet {checkFormValidity()}}
     var lng:String? {didSet {checkFormValidity()}}
     
@@ -33,7 +33,7 @@ class ICUViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = city?.isEmpty == false &&  area?.isEmpty == false &&    lat?.isEmpty == false && lng?.isEmpty == false
+        let isFormValid = city != -1 &&  area != -1 &&    lat?.isEmpty == false && lng?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

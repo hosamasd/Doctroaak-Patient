@@ -36,6 +36,9 @@ class HomeMenuVC: CustomBaseViewVC {
             self.checkIfUserLogin()
         }
         v.mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoServices)))
+        v.main2View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoFavorites)))
+        v.main3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoMyOrders)))
+
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         return v
     }()
@@ -114,6 +117,16 @@ class HomeMenuVC: CustomBaseViewVC {
         removeViewWithAnimation(vvv: customAlertLoginView)
         customMainAlertVC.dismiss(animated: true)
     }
+    
+   @objc func handleGoFavorites()  {
+    let favorite = PatientFavoriteDoctorsVC()
+    navigationController?.pushViewController(favorite,animated:true)
+    
+    }
+    
+    @objc func handleGoMyOrders()  {
+          print(666)
+      }
     
     @objc func handleDismiss()  {
         dismiss(animated: true, completion: nil)

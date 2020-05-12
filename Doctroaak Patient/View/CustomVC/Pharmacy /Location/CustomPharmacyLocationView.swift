@@ -33,7 +33,7 @@ class CustomPharmacyLocationView: CustomBaseView {
 
         return v
     }()
-    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
     lazy var addressImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
         v.isUserInteractionEnabled = true

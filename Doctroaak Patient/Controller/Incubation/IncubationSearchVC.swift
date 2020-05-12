@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class IncubationSearchVC: CustomBaseViewVC {
     
@@ -74,6 +75,26 @@ class IncubationSearchVC: CustomBaseViewVC {
         customIncubationSearchView.fillSuperview()
     }
     
+    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
+               
+               let geoCoder = CLGeocoder()
+               let location = CLLocation(latitude: latitude, longitude: longitude)
+               geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+                   
+                   // Place details
+       //            var placeMark: CLPlacemark?
+                   guard let   placeMark = placemarks?[0] else {return}
+                   
+                   // Location name
+                   guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+                   self.customIncubationSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
+                   self.customIncubationSearchView.incubationSearchViewModel.lat = "\(latitude)"
+                   self.customIncubationSearchView.incubationSearchViewModel.lng = "\(longitude)"
+               })
+               
+               
+           }
+    
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
@@ -93,10 +114,7 @@ class IncubationSearchVC: CustomBaseViewVC {
 extension IncubationSearchVC : ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
-        customIncubationSearchView.incubationSearchViewModel.lat = "\(lat)"
-        customIncubationSearchView.incubationSearchViewModel.lng = "\(long)"
-        customIncubationSearchView.addressLabel.text = "\(lat) ,  \(long)"
-        print(lat, "            ",long)
+           convertLatLongToAddress(latitude: lat, longitude: long)
     }
     
 }

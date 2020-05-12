@@ -87,6 +87,8 @@
 		4E93E9A92434A717004C44F2 /* LAPSelectedSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93E9A82434A717004C44F2 /* LAPSelectedSearchResultsVC.swift */; };
 		4E9964D0243B45DF007689B8 /* IncubationSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9964CF243B45DF007689B8 /* IncubationSearchViewModel.swift */; };
 		4E9964D3243B49E2007689B8 /* ICUViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9964D2243B49E2007689B8 /* ICUViewModel.swift */; };
+		4E9ED867246A998F00627F2F /* PatientFavoriteDoctorsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9ED866246A998F00627F2F /* PatientFavoriteDoctorsVC.swift */; };
+		4E9ED869246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9ED868246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift */; };
 		4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */; };
 		4EA06520243366B700D754AD /* CustomLapResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0651F243366B700D754AD /* CustomLapResultsView.swift */; };
 		4EA21A132439D84B000F2EB0 /* DoctorBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA21A122439D84B000F2EB0 /* DoctorBookViewModel.swift */; };
@@ -158,10 +160,10 @@
 		4EFDA72F2431D68D0010AA7D /* DoctorHomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */; };
 		4EFE85B42431E1CB00E44DD1 /* DoctorSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */; };
 		4EFE85B62431E21200E44DD1 /* CustomDoctorSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */; };
-		4EFE85BB2431ED3300E44DD1 /* CardiologyCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B92431ED3200E44DD1 /* CardiologyCollectionVC.swift */; };
+		4EFE85BB2431ED3300E44DD1 /* PatientFavoriteDoctorsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85B92431ED3200E44DD1 /* PatientFavoriteDoctorsCollectionVC.swift */; };
 		4EFE85BC2431ED3300E44DD1 /* CardiologyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85BA2431ED3200E44DD1 /* CardiologyVC.swift */; };
 		4EFE85BF2431ED5D00E44DD1 /* CustomCardiologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85BE2431ED5D00E44DD1 /* CustomCardiologyView.swift */; };
-		4EFE85C12431ED8A00E44DD1 /* CardinolgyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85C02431ED8A00E44DD1 /* CardinolgyCell.swift */; };
+		4EFE85C12431ED8A00E44DD1 /* PatientFavoriteDoctorsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE85C02431ED8A00E44DD1 /* PatientFavoriteDoctorsCell.swift */; };
 		B4CA7CF06AA29ACDF3139C85 /* Pods_Doctroaak_Patient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092DC45AA74FAA03F635BA9B /* Pods_Doctroaak_Patient.framework */; };
 /* End PBXBuildFile section */
 
@@ -250,6 +252,8 @@
 		4E93E9A82434A717004C44F2 /* LAPSelectedSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPSelectedSearchResultsVC.swift; sourceTree = "<group>"; };
 		4E9964CF243B45DF007689B8 /* IncubationSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncubationSearchViewModel.swift; sourceTree = "<group>"; };
 		4E9964D2243B49E2007689B8 /* ICUViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICUViewModel.swift; sourceTree = "<group>"; };
+		4E9ED866246A998F00627F2F /* PatientFavoriteDoctorsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientFavoriteDoctorsVC.swift; sourceTree = "<group>"; };
+		4E9ED868246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPatientFavoriteDoctorsView.swift; sourceTree = "<group>"; };
 		4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapSearchResultsVC.swift; sourceTree = "<group>"; };
 		4EA0651F243366B700D754AD /* CustomLapResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLapResultsView.swift; sourceTree = "<group>"; };
 		4EA21A122439D84B000F2EB0 /* DoctorBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBookViewModel.swift; sourceTree = "<group>"; };
@@ -321,10 +325,10 @@
 		4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeListCell.swift; sourceTree = "<group>"; };
 		4EFE85B32431E1CB00E44DD1 /* DoctorSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorSearchVC.swift; sourceTree = "<group>"; };
 		4EFE85B52431E21200E44DD1 /* CustomDoctorSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDoctorSearchView.swift; sourceTree = "<group>"; };
-		4EFE85B92431ED3200E44DD1 /* CardiologyCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardiologyCollectionVC.swift; sourceTree = "<group>"; };
+		4EFE85B92431ED3200E44DD1 /* PatientFavoriteDoctorsCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientFavoriteDoctorsCollectionVC.swift; sourceTree = "<group>"; };
 		4EFE85BA2431ED3200E44DD1 /* CardiologyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardiologyVC.swift; sourceTree = "<group>"; };
 		4EFE85BE2431ED5D00E44DD1 /* CustomCardiologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCardiologyView.swift; sourceTree = "<group>"; };
-		4EFE85C02431ED8A00E44DD1 /* CardinolgyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardinolgyCell.swift; sourceTree = "<group>"; };
+		4EFE85C02431ED8A00E44DD1 /* PatientFavoriteDoctorsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientFavoriteDoctorsCell.swift; sourceTree = "<group>"; };
 		60BA14D456864443CE1D68A0 /* Pods-Doctroaak Patient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctroaak Patient.release.xcconfig"; path = "Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -362,6 +366,7 @@
 			children = (
 				4E000D042461812A00083BD5 /* CustomNotificationView.swift */,
 				4E483694246694E6006073F5 /* order */,
+				4E9ED868246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				4E000D0A246181AB00083BD5 /* NotificationCell.swift */,
+				4EFE85C02431ED8A00E44DD1 /* PatientFavoriteDoctorsCell.swift */,
 				4E4836922466907F006073F5 /* ProfileOrderCell.swift */,
 			);
 			path = Profile;
@@ -653,8 +659,7 @@
 			isa = PBXGroup;
 			children = (
 				4EA8B10D2430E0DF008473D3 /* left menu */,
-				4E347CDD2430B8F200333C07 /* HomeMenuVC.swift */,
-				4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */,
+				4E9ED865246A996900627F2F /* Home Menu */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -863,6 +868,25 @@
 				4E0067962433110B004B1C3F /* CustomRequestMedicineView.swift */,
 			);
 			path = Order;
+			sourceTree = "<group>";
+		};
+		4E9ED865246A996900627F2F /* Home Menu */ = {
+			isa = PBXGroup;
+			children = (
+				4E347CDD2430B8F200333C07 /* HomeMenuVC.swift */,
+				4E9ED86A246A9A7B00627F2F /* favorites */,
+				4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */,
+			);
+			path = "Home Menu";
+			sourceTree = "<group>";
+		};
+		4E9ED86A246A9A7B00627F2F /* favorites */ = {
+			isa = PBXGroup;
+			children = (
+				4E9ED866246A998F00627F2F /* PatientFavoriteDoctorsVC.swift */,
+				4EFE85B92431ED3200E44DD1 /* PatientFavoriteDoctorsCollectionVC.swift */,
+			);
+			path = favorites;
 			sourceTree = "<group>";
 		};
 		4EA8B10D2430E0DF008473D3 /* left menu */ = {
@@ -1194,7 +1218,6 @@
 			children = (
 				4EBBCD8A24320182005C8DF7 /* Details */,
 				4EFDA72E2431D68D0010AA7D /* DoctorHomeListCell.swift */,
-				4EFE85C02431ED8A00E44DD1 /* CardinolgyCell.swift */,
 			);
 			path = "Doctor + Medical Center";
 			sourceTree = "<group>";
@@ -1212,7 +1235,6 @@
 			isa = PBXGroup;
 			children = (
 				4EFE85BA2431ED3200E44DD1 /* CardiologyVC.swift */,
-				4EFE85B92431ED3200E44DD1 /* CardiologyCollectionVC.swift */,
 			);
 			path = Cardiology;
 			sourceTree = "<group>";
@@ -1355,7 +1377,9 @@
 				4ED7125F243213C500074363 /* CustomICUSearchView.swift in Sources */,
 				4EDF1AC32462C88D003DA449 /* CustomMainAlertVC.swift in Sources */,
 				4E13DDBA2430889500421737 /* SecondWelcomeVC.swift in Sources */,
+				4E9ED867246A998F00627F2F /* PatientFavoriteDoctorsVC.swift in Sources */,
 				4ED7127924321C3100074363 /* IncubationResultsCell.swift in Sources */,
+				4E9ED869246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift in Sources */,
 				4E9964D3243B49E2007689B8 /* ICUViewModel.swift in Sources */,
 				4E347CE12430B96B00333C07 /* CustomMainHomeView.swift in Sources */,
 				4EBBCD9524320330005C8DF7 /* CusomBookView.swift in Sources */,
@@ -1435,7 +1459,7 @@
 				4E13DDE92430903500421737 /* NewPassVC.swift in Sources */,
 				4E13DDD324308C8E00421737 /* ForgetPasswordVC.swift in Sources */,
 				4E203AFE2430919A002144FF /* RegisterVC.swift in Sources */,
-				4EFE85C12431ED8A00E44DD1 /* CardinolgyCell.swift in Sources */,
+				4EFE85C12431ED8A00E44DD1 /* PatientFavoriteDoctorsCell.swift in Sources */,
 				4E13DDC224308A7600421737 /* Extensions.swift in Sources */,
 				4E13DDCC24308B2B00421737 /* ExtensionsVCS.swift in Sources */,
 				4E000D052461812A00083BD5 /* CustomNotificationView.swift in Sources */,
@@ -1461,7 +1485,7 @@
 				4E6E04E2246144EC008DE228 /* FirstSkipPaymentVC.swift in Sources */,
 				4EDE923A2460019800205C64 /* MainDegreeModel.swift in Sources */,
 				4EFDA72F2431D68D0010AA7D /* DoctorHomeListCell.swift in Sources */,
-				4EFE85BB2431ED3300E44DD1 /* CardiologyCollectionVC.swift in Sources */,
+				4EFE85BB2431ED3300E44DD1 /* PatientFavoriteDoctorsCollectionVC.swift in Sources */,
 				4EFE85BC2431ED3300E44DD1 /* CardiologyVC.swift in Sources */,
 				4EC38C6F2439F9F2005DE994 /* PharamacyLocationViewModel.swift in Sources */,
 				4E13DDBC243088E100421737 /* CustomSecondWelcomeView.swift in Sources */,

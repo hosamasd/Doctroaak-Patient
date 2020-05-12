@@ -9,7 +9,14 @@
 
 import UIKit
 
-class CardinolgyCell: BaseCollectionCell {
+class PatientFavoriteDoctorsCell: BaseCollectionCell {
+    
+    var isFavorite:Bool!{
+        didSet{
+            bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
+        }
+    }
+    
     
     lazy var profileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)

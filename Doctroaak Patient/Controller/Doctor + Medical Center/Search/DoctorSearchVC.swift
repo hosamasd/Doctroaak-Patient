@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MapKit
 
 class DoctorSearchVC: CustomBaseViewVC {
     
@@ -76,6 +76,26 @@ class DoctorSearchVC: CustomBaseViewVC {
         customDoctorSearchView.fillSuperview()
     }
     
+    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+            
+            // Place details
+            //            var placeMark: CLPlacemark?
+            guard let   placeMark = placemarks?[0] else {return}
+            
+            // Location name
+            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+            self.customDoctorSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
+            self.customDoctorSearchView.doctorSearchViewModel.lat = "\(latitude)"
+            self.customDoctorSearchView.doctorSearchViewModel.lng = "\(longitude)"
+        })
+        
+        
+    }
+    
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
@@ -90,12 +110,9 @@ class DoctorSearchVC: CustomBaseViewVC {
 //MARK:-Extensions
 
 extension DoctorSearchVC: ChooseLocationVCProtocol {
-    func getLatAndLong(lat: Double, long: Double) {
-        customDoctorSearchView.doctorSearchViewModel.lat = "\(lat)"
-        customDoctorSearchView.doctorSearchViewModel.lng = "\(long)"
-        customDoctorSearchView.addressLabel.text = "\(lat), \(long)"
-        print(lat, "            ",long)
-    }
     
+    func getLatAndLong(lat: Double, long: Double) {
+        convertLatLongToAddress(latitude: lat, longitude: long)
+    }
     
 }

@@ -9,6 +9,7 @@
 import UIKit
 import iOSDropDown
 import TTSegmentedControl
+import MOLH
 
 class CustomLapSearchView: CustomBaseView {
     
@@ -40,48 +41,6 @@ class CustomLapSearchView: CustomBaseView {
         }
         return view
     }()
-    
-    //    lazy var searchSegmentedView:UISegmentedControl = {
-    //        let view = UISegmentedControl(items: ["Search by city and area","Search by address"])
-    //        view.layer.cornerRadius = 16
-    //        layer.masksToBounds = true
-    //        view.clipsToBounds = true
-    //        view.apportionsSegmentWidthsByContent = true
-    //        view.layer.borderWidth = 1
-    //        view.layer.backgroundColor = UIColor.lightGray.cgColor
-    //        view.constrainHeight(constant: 50)
-    //        view.selectedSegmentIndex = 0
-    //        view.tintColor = .black
-    //        view.backgroundColor = .white
-    //        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
-    //        /// Gradient
-    //        let gradient = CAGradientLayer()
-    //        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 40, height: 20)
-    //        let leftColor = #colorLiteral(red: 0.6002450585, green: 0.3833707869, blue: 0.9996971488, alpha: 1)
-    //        let rightColor = #colorLiteral(red: 0.4903785586, green: 0.2679489255, blue: 0.9277817607, alpha: 1)
-    //        gradient.colors = [leftColor.cgColor, rightColor.cgColor]
-    //        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-    //        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-    //        /// Create gradient image
-    //        UIGraphicsBeginImageContext(gradient.frame.size)
-    //        gradient.render(in: UIGraphicsGetCurrentContext()!)
-    //        let segmentedControlImage = UIGraphicsGetImageFromCurrentImageContext()
-    //        UIGraphicsEndImageContext()
-    //
-    //        // Normal Image
-    //        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
-    //        UIGraphicsBeginImageContext(rect.size);
-    //        let context:CGContext = UIGraphicsGetCurrentContext()!;
-    //        context.setFillColor(#colorLiteral(red: 0.9352307916, green: 0.9353840947, blue: 0.9351981282, alpha: 1).cgColor)
-    //        context.fill(rect)
-    //        let normalImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-    //        UIGraphicsEndImageContext()
-    //        /// Set segmentedControl image
-    //        view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
-    //        view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
-    //        view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
-    //        return view
-    //    }()
     lazy var addressMainView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
         v.isHide(true)
@@ -91,7 +50,7 @@ class CustomLapSearchView: CustomBaseView {
         v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
         return v
     }()
-    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
     lazy var addressImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
         v.isUserInteractionEnabled = true
@@ -119,8 +78,10 @@ class CustomLapSearchView: CustomBaseView {
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
-        i.didSelect {[unowned self] (txt, index, _) in
-            self.lAPSearchViewModel.city = txt
+        i.didSelect { (txt, index, _) in
+            self.getAreaAccordingToCityId(index: index)
+            
+            self.lAPSearchViewModel.city = self.cityIDSArray[index]//index+1
         }
         
         return i
@@ -132,7 +93,8 @@ class CustomLapSearchView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in
-            self.lAPSearchViewModel.area = txt
+            self.lAPSearchViewModel.area = self.areaIDSArray[index]//index+1
+            
         }
         return i
     }()
@@ -176,7 +138,13 @@ class CustomLapSearchView: CustomBaseView {
     var handlerChooseLocation:(()->Void)?
     
     let lAPSearchViewModel = LAPSearchViewModel()
+    var cityArray = [String]() //["one","two","three","sdfdsfsd"]
+    var areaArray = [String]()
     
+    var cityIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
+    var areaIDSArray = [Int]()
+    
+   
     
     override func setupViews() {
         let textStack = getStack(views: addressMainView,mainDropView,orLabel,mainDrop2View,mainDrop3View,insuranceView,delvieryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
@@ -202,6 +170,77 @@ class CustomLapSearchView: CustomBaseView {
         
     }
     
+    override init(frame: CGRect) {
+           super.init(frame: frame)
+           fetchData()
+       }
+       
+       required init?(coder aDecoder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
+    
+    fileprivate func getAreaAccordingToCityId(index:Int)  {
+        areaIDSArray.removeAll()
+        areaArray.removeAll()
+        
+        if let areaIdArra = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let areaIdArray = userDefaults.value(forKey: UserDefaultsConstants.areaCityIdsArrays) as? [Int],let areasStringArray =  MOLHLanguage.isRTLLanguage() ? userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] : userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String]  {
+            //            self.areaNumberArray = cityIdArra
+            
+            let areas = self.cityIDSArray[index]
+            
+            let areasFilteredArray = areaIdArray.indexes(of: areas)
+            areasFilteredArray.forEach { (s) in
+                areaIDSArray.append(areaIdArra[s])
+            }
+            areasFilteredArray.forEach { (indexx) in
+                
+                
+                areaArray.append( areasStringArray[indexx])
+                
+            }
+            
+            self.areaDrop.optionArray = areaArray
+            
+            DispatchQueue.main.async {
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    fileprivate func fetchData()  {
+        
+        fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
+    }
+    
+    fileprivate func fetchEnglishData(isArabic:Bool) {
+        if isArabic {
+            
+            
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
+                
+                putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds )
+                
+                
+            }
+        }else {
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
+                putDataInDrops(sr: cityArray, sid: cityIds, dr: degreeNames, did:degreeIds )
+                
+            }
+        }
+        self.cityDrop.optionArray = cityArray
+        self.areaDrop.optionArray = areaArray
+        DispatchQueue.main.async {
+            self.layoutIfNeeded()
+        }
+    }
+    
+    func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int])  {
+        self.cityArray = sr
+        self.areaArray = dr
+        self.cityIDSArray = sid
+        areaIDSArray = did
+    }
     
     func openTheseViewsOrHide(isVale:Bool)  {
         [mainDropView,mainDrop2View,mainDrop3View,orLabel].forEach({$0.isHide(isVale)})

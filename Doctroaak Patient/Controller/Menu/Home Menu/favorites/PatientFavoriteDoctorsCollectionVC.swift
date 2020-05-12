@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardiologyCollectionVC: BaseCollectionVC  {
+class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
     
     fileprivate let cellId = "cellId"
     var handleCheckedIndex:((IndexPath)->Void)?
@@ -19,8 +19,8 @@ class CardiologyCollectionVC: BaseCollectionVC  {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CardinolgyCell
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PatientFavoriteDoctorsCell
+        cell.isFavorite = true
         return cell
     }
     
@@ -35,10 +35,9 @@ class CardiologyCollectionVC: BaseCollectionVC  {
     
     override func setupCollection() {
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset.top = 16
         collectionView.backgroundColor = .white
-        collectionView.register(CardinolgyCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(PatientFavoriteDoctorsCell.self, forCellWithReuseIdentifier: cellId)
     }
 
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class LapSearchVC: CustomBaseViewVC {
     
@@ -89,6 +90,26 @@ class LapSearchVC: CustomBaseViewVC {
         customLapSearchView.fillSuperview()
     }
     
+     fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
+            
+            let geoCoder = CLGeocoder()
+            let location = CLLocation(latitude: latitude, longitude: longitude)
+            geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+                
+                // Place details
+    //            var placeMark: CLPlacemark?
+                guard let   placeMark = placemarks?[0] else {return}
+                
+                // Location name
+                guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+                self.customLapSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
+                self.customLapSearchView.lAPSearchViewModel.lat = "\(latitude)"
+                self.customLapSearchView.lAPSearchViewModel.lng = "\(longitude)"
+            })
+            
+            
+        }
+    
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
@@ -105,9 +126,7 @@ class LapSearchVC: CustomBaseViewVC {
 extension LapSearchVC : ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
-        customLapSearchView.lAPSearchViewModel.lat = "\(lat)"
-        customLapSearchView.lAPSearchViewModel.lng = "\(long)"
-        print(lat, "            ",long)
-    }
+        convertLatLongToAddress(latitude: lat, longitude: long)
+ }
     
 }

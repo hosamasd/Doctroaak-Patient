@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class PharmacyLocationVC: CustomBaseViewVC {
     
@@ -76,6 +77,26 @@ class PharmacyLocationVC: CustomBaseViewVC {
         customPharmacyLocationView.fillSuperview()
     }
     
+    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+            
+            // Place details
+            //            var placeMark: CLPlacemark?
+            guard let   placeMark = placemarks?[0] else {return}
+            
+            // Location name
+            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+            self.customPharmacyLocationView.addressLabel.text =  " \(street) - \(city) - \(country)"
+            self.customPharmacyLocationView.pharamacyLocationViewModel.lat = "\(latitude)"
+            self.customPharmacyLocationView.pharamacyLocationViewModel.lng = "\(longitude)"
+        })
+        
+        
+    }
+    
     //TODO: -handle methods
     
     
@@ -83,9 +104,9 @@ class PharmacyLocationVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
     
-  @objc  func handleNext()  {
-    let order = PharmacyOrderVC()
-    navigationController?.pushViewController(order, animated: true)
+    @objc  func handleNext()  {
+        let order = PharmacyOrderVC()
+        navigationController?.pushViewController(order, animated: true)
     }
     
 }
@@ -95,13 +116,9 @@ class PharmacyLocationVC: CustomBaseViewVC {
 //MARK:-Extensions
 
 extension PharmacyLocationVC: ChooseLocationVCProtocol {
-    func getLatAndLong(lat: Double, long: Double) {
-        customPharmacyLocationView.pharamacyLocationViewModel.lat = "\(lat)"
-        customPharmacyLocationView.pharamacyLocationViewModel.lng = "\(long)"
-        customPharmacyLocationView.addressLabel.text = "\(lat), \(long)"
-
-        print(lat, "            ",long)
-    }
     
+    func getLatAndLong(lat: Double, long: Double) {
+        convertLatLongToAddress(latitude: lat, longitude: long)
+    }
     
 }

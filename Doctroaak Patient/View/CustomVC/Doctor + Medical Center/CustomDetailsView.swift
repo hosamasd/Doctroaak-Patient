@@ -39,7 +39,7 @@ class CustomDetailsView: CustomBaseView {
         return v
     }()
     
-    let baseTestCell = CardinolgyCell()
+    lazy var patientFavoriteDoctorsCell = PatientFavoriteDoctorsCell()
     lazy var doctorSuggestShiftHorizentalVC:DoctorSuggestShiftHorizentalVC = {
         let v = DoctorSuggestShiftHorizentalVC()
         v.view.constrainHeight(constant: 180)
@@ -70,13 +70,13 @@ class CustomDetailsView: CustomBaseView {
     
     override func setupViews()  {
         
-        addSubViews(views: LogoImage,backImage,notifyImage,titleLabel,baseTestCell,suggestedLabel,workingDateLabel,doctorSuggestShiftHorizentalVC.view,doctorWorkingDateCollectionVC.view,bookButton)
+        addSubViews(views: LogoImage,backImage,notifyImage,titleLabel,patientFavoriteDoctorsCell,suggestedLabel,workingDateLabel,doctorSuggestShiftHorizentalVC.view,doctorWorkingDateCollectionVC.view,bookButton)
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        baseTestCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-        suggestedLabel.anchor(top: baseTestCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        patientFavoriteDoctorsCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        suggestedLabel.anchor(top: patientFavoriteDoctorsCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         
         doctorSuggestShiftHorizentalVC.view.anchor(top: suggestedLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         workingDateLabel.anchor(top: doctorSuggestShiftHorizentalVC.view.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))

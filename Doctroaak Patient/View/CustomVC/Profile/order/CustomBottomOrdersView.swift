@@ -10,44 +10,56 @@ import UIKit
 
 class CustomBottomOrdersView: CustomBaseView {
     
-    lazy var doctorLabel = UILabel(text: "doctor", font: .systemFont(ofSize: 16), textColor: .black)
-    lazy var doctorImage = createImages(img: UIImage(named: "doctor (2)-1" ) ?? UIImage())
-    lazy var firstView = createViews(v: firstImage)
-    lazy var secondView = createViews(v: secondImage)
-    lazy var thirdView = createViews(v: thirdImage)
-    lazy var forthView = createViews(v: forthImage)
-
+    lazy var doctorLabel = createLabels(title: "Doctors")
+    lazy var pharamacyLabel = createLabels(title: "Pharamacy")
+    lazy var labLabel = createLabels(title: "Lab")
+    lazy var radiologyLabel = createLabels(title: "Radiology")
+    
+    lazy var firstView = createViews(v: firstImage, x: doctorLabel)
+    lazy var secondView = createViews(v: secondImage, x: pharamacyLabel)
+    lazy var thirdView = createViews(v: thirdImage, x: labLabel)
+    lazy var forthView = createViews(v: forthImage, x: radiologyLabel)
+    
     lazy var firstImage = createImages(img: #imageLiteral(resourceName: "medicine (2)-1"))
     lazy var secondImage = createImages(img: #imageLiteral(resourceName: "medicine (2)-1"))
-    lazy var thirdImage = createImages(img: UIImage(named: "Union 1-1") ?? UIImage())
+    lazy var thirdImage = createImages(img: UIImage(named: "Union 1-2") ?? UIImage())
     lazy var forthImage = createImages(img: #imageLiteral(resourceName: "Group 84-1"))
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        firstImage.contentMode = .scaleAspectFit
+        [labLabel,pharamacyLabel,radiologyLabel].forEach({$0.isHide(true)})
+
     }
     
     override func setupViews() {
-        let first = hstack(doctorImage,doctorLabel, spacing: 8)
-        
-        hstack(first,secondView,thirdView,forthView,spacing:8,distribution:.fillEqually)
-        [firstImage,secondImage,thirdImage,forthImage].forEach({$0.centerInSuperview()})
+
+        hstack(firstView,secondView,thirdView,forthView,spacing:0,distribution:.fillEqually)
     }
     
     func createImages(img:UIImage) -> UIImageView {
         let im = UIImageView(image: img)
         im.contentMode = .scaleAspectFill
-//        im.constrainWidth(constant: 20)
-        im.isUserInteractionEnabled = true
+        im.clipsToBounds = true
+//        im.constrainHeight(constant: 10)
         return im
     }
     
-    func createViews(v:UIView) -> UIView {
-        let z = UIView(backgroundColor: #colorLiteral(red: 0.9243445992, green: 0.8774182796, blue: 1, alpha: 1))
+    func createLabels(title:String) -> UILabel {
+        let la = UILabel(text: title, font: .systemFont(ofSize: 12), textColor: #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1), textAlignment: .center)
         
-        z.layer.cornerRadius = 24
+        return la
+    }
+    
+    func createViews(v:UIView,x:UIView) -> UIView {
+        let z = UIView(backgroundColor: .lightGray)//#colorLiteral(red: 0.9243445992, green: 0.8774182796, blue: 1, alpha: 1))
+        z.isUserInteractionEnabled = true
+        z.layer.cornerRadius = 16
         z.clipsToBounds = true
-        z.addSubview(v)
+        z.addSubViews(views: v,x)
+//        z.stack(v,x,UIView(),spacing:8,alignment:.center).padTop(8)//.padBottom(8)
+        z.stack(v,x,spacing:0,alignment:.center)//.padTop(8)//.padBottom(8)
+
         return z
     }
 }

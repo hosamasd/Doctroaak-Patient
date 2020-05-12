@@ -10,6 +10,14 @@
 import UIKit
 extension UIView {
     
+       func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+            let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+            layer.mask = mask
+        }
+    
+    
     func makeMainSubViewWithAppendView(vv:[UIView]) ->UIView {
         let l = UIView(backgroundColor: .white)
         l.layer.cornerRadius = 8
@@ -213,4 +221,10 @@ extension UIScrollView {
         
     }
     
+}
+
+extension Array where Element: Equatable {
+    func indexes(of element: Element) -> [Int] {
+        return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
+    }
 }

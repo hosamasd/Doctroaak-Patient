@@ -15,9 +15,9 @@ class LAPSearchViewModel {
     var bindableIsFormValidate = Bindable<Bool>()
     
     //variables
-    var city:String? {didSet {checkFormValidity()}}
+    var city:Int? = -1 {didSet {checkFormValidity()}}
     var name:String? {didSet {checkFormValidity()}}
-    var area:String? {didSet {checkFormValidity()}}
+    var area:Int? = -1 {didSet {checkFormValidity()}}
     var insuranceCompany:Bool? = true {didSet {checkFormValidity()}}
     var delivery:Bool? = true {didSet {checkFormValidity()}}
     var lat:String? {didSet {checkFormValidity()}}
@@ -40,7 +40,7 @@ class LAPSearchViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = name?.isEmpty == false && city?.isEmpty == false && area?.isEmpty == false && isFirstOpetion == true || lat?.isEmpty == false &&  lng?.isEmpty == false && isFirstOpetion == false
+        let isFormValid = name?.isEmpty == false && city != -1 && area  != -1 && isFirstOpetion == true || lat?.isEmpty == false &&  lng?.isEmpty == false && isFirstOpetion == false
         
         bindableIsFormValidate.value = isFormValid
         

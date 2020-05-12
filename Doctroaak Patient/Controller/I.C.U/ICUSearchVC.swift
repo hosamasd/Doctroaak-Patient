@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ICUSearchVC: CustomBaseViewVC {
     
@@ -75,6 +76,26 @@ class ICUSearchVC: CustomBaseViewVC {
         customICUSearchView.fillSuperview()
     }
     
+    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
+                  
+                  let geoCoder = CLGeocoder()
+                  let location = CLLocation(latitude: latitude, longitude: longitude)
+                  geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+                      
+                      // Place details
+          //            var placeMark: CLPlacemark?
+                      guard let   placeMark = placemarks?[0] else {return}
+                      
+                      // Location name
+                      guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+                      self.customICUSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
+                      self.customICUSearchView.icuViewModel.lat = "\(latitude)"
+                      self.customICUSearchView.icuViewModel.lng = "\(longitude)"
+                  })
+                  
+                  
+              }
+    
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
@@ -94,10 +115,6 @@ class ICUSearchVC: CustomBaseViewVC {
 extension ICUSearchVC : ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
-        customICUSearchView.icuViewModel.lat = "\(lat)"
-        customICUSearchView.icuViewModel.lng = "\(long)"
-        customICUSearchView.addressLabel.text = "\(lat) ,  \(long)"
-        print(lat, "            ",long)
+           convertLatLongToAddress(latitude: lat, longitude: long)
     }
-    
 }
