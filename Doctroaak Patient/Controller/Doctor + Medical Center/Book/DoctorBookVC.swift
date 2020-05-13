@@ -122,7 +122,7 @@ class DoctorBookVC: CustomBaseViewVC {
 //            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
             
             DispatchQueue.main.async {
-                self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert)
+                self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
 //                self.dismiss(animated: true, completion: nil)
                 //                       self.saveToken(user_id: user.id,user.phone)
             }

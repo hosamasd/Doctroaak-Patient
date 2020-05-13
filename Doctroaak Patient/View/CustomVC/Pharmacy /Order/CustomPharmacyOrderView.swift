@@ -9,6 +9,7 @@
 import UIKit
 import TTSegmentedControl
 import iOSDropDown
+import MOLH
 
 class CustomPharmacyOrderView: CustomBaseView {
     
@@ -35,7 +36,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
         view.allowChangeThumbWidth = true
-
+        
         return view
     }()
     
@@ -72,6 +73,23 @@ class CustomPharmacyOrderView: CustomBaseView {
         return i
     }()
     lazy var main2DropView = makeMainSubViewWithAppendView(vv: [typeDrop])
+    lazy var textView:UITextView = {
+        let tx = UITextView()
+        tx.isScrollEnabled = false
+        tx.font = UIFont.systemFont(ofSize: 16)
+        tx.delegate = self
+//        tx.sizeToFit()
+        return tx
+    }()
+    lazy var placeHolderLabel = UILabel(text: "Enter Text (Optional)".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .left )
+    lazy var  mainView:UIView = {
+        let v = makeMainSubViewWithAppendView(vv: [textView,placeHolderLabel])
+//        v.constrainHeight(constant: 120)
+//        v.hstack(placeHolderLabel)
+//        v.hstack(textView)
+        v.isHide(true)
+        return v
+    } ()
     
     lazy var typeDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
@@ -98,7 +116,7 @@ class CustomPharmacyOrderView: CustomBaseView {
     lazy var addLapCollectionVC:AddMedicineCollectionVC = {
         let vc = AddMedicineCollectionVC()
         //        vc.view.constrainHeight(constant: 300)
-//        vc.view.isHide(true)
+        //        vc.view.isHide(true)
         return vc
     }()
     lazy var addMoreImage:UIImageView = {
@@ -133,8 +151,16 @@ class CustomPharmacyOrderView: CustomBaseView {
     var isDataFound = false
     var isSecondIndex = false
     
-    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTextChanged), name: UITextView.textDidChangeNotification, object: nil)
         
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func setupViews() {
         bubleViewCenterImgHeightConstraint = centerImage.heightAnchor.constraint(equalToConstant: 250)
@@ -144,32 +170,33 @@ class CustomPharmacyOrderView: CustomBaseView {
         
         let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
         let ff = getStack(views: quantityLabel,customAddMinusView, spacing: 8, distribution: .fillProportionally, axis: .horizontal)
+        textView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 0))
+        placeHolderLabel.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 0))
         
-        
-        let mainStack =  getStack(views: rosetaImageView,centerImage,uploadView,orLabel,mainDropView,main2DropView,ff,dd,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fill, axis: .vertical)
-       mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
+        let mainStack =  getStack(views: rosetaImageView,centerImage,uploadView,orLabel,mainDropView,main2DropView,ff,dd,mainView,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fill, axis: .vertical)
+        mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         main2DropView.hstack(typeDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
-
-         uploadView.hstack(uploadImage,uploadLabel)
+        
+        uploadView.hstack(uploadImage,uploadLabel)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStack,nextButton)
         
         
         constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-            
-            //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: -30, left: 0, bottom: 0, right: -60))
-            backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-            titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -80, right: 0))
-            bubleViewBottomTitleConstraint = titleLabel.bottomAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 80)
-            bubleViewBottomTitleConstraint.isActive = true
-            
-            soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-            orderSegmentedView.anchor(top: backImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 186, left: 32, bottom: 16, right: 32))
-            bubleViewTopSegConstraint = orderSegmentedView.topAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 186)
-            bubleViewTopSegConstraint.isActive = true
-            
-            mainStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 32, right: 32))
-            
-            nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: -30, left: 0, bottom: 0, right: -60))
+        backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
+        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -80, right: 0))
+        bubleViewBottomTitleConstraint = titleLabel.bottomAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 80)
+        bubleViewBottomTitleConstraint.isActive = true
+        
+        soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+        orderSegmentedView.anchor(top: backImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 186, left: 32, bottom: 16, right: 32))
+        bubleViewTopSegConstraint = orderSegmentedView.topAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 186)
+        bubleViewTopSegConstraint.isActive = true
+        
+        mainStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 32, right: 32))
+        
+        nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
     
@@ -185,8 +212,8 @@ class CustomPharmacyOrderView: CustomBaseView {
             [self.centerImage,self.uploadView].forEach({$0.isHide(!hide)})
             self.orLabel.isHide(true)
         }else {
-           [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,addMoreImage].forEach({$0.isHide(false)})
-
+            [self.mainDropView,self.orLabel,self.centerImage,self.uploadView,addMoreImage].forEach({$0.isHide(false)})
+            
         }
     }
     
@@ -202,22 +229,40 @@ class CustomPharmacyOrderView: CustomBaseView {
         })
     }
     
-    
-    
-  @objc  func handleAddMore()  {
-    guard let type = pharamacyOrderViewModel.type,let name = pharamacyOrderViewModel.name,let count = pharamacyOrderViewModel.quantity?.toInt() else {print("all fields required"); return  }
-    let model = MedicineAddModel(name: name, type: type, count: count)
-    addLapCollectionVC.medicineArray.append(model)
-    DispatchQueue.main.async {
-        self.addLapCollectionVC.view.isHide(false)
-        self.addLapCollectionVC.collectionView.reloadData()
+    @objc  func handleTextChanged()  {
+        placeHolderLabel.isHidden = textView.text.count != 0
+        
     }
     
-    
-    print(type,name,count)
+    @objc  func handleAddMore()  {
+        guard let type = pharamacyOrderViewModel.type,let name = pharamacyOrderViewModel.name,let count = pharamacyOrderViewModel.quantity?.toInt() else {print("all fields required"); return  }
+        let model = MedicineAddModel(name: name, type: type, count: count)
+        addLapCollectionVC.medicineArray.append(model)
+        DispatchQueue.main.async {
+            self.addLapCollectionVC.view.isHide(false)
+            self.addLapCollectionVC.collectionView.reloadData()
+        }
+        
+        
+        print(type,name,count)
     }
     
 }
 
 
 
+
+extension CustomPharmacyOrderView: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        //        mainView.layer.borderColor = ColorConstant.mainBackgroundColor.cgColor
+        guard let texts = textView.text else { return  }
+        
+        if  texts.count == 0 {
+            pharamacyOrderViewModel.notes = nil
+        }
+        else {
+            pharamacyOrderViewModel.notes = texts
+        }
+    }
+}

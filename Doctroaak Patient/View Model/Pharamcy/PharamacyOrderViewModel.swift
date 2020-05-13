@@ -18,6 +18,8 @@ class PharamacyOrderViewModel {
     var type:String? {didSet {checkFormValidity()}}
     var name:String? {didSet {checkFormValidity()}}
     var quantity:String? {didSet {checkFormValidity()}}
+    var notes:String? {didSet {checkFormValidity()}}
+
     
     var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
     var isSecondOpetion:Bool?  = false {didSet {checkFormValidity()}}
