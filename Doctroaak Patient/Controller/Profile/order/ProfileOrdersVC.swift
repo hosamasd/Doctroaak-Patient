@@ -62,33 +62,35 @@ class ProfileOrdersVC: CustomBaseViewVC {
         customBottomOrdersView.anchor(top: customProfileOrdersView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
     
-    func hideAndUnhide(v:UIView,vv:[UIView],img:UIImageView,otherImage:[UIImageView])  {
-        
-        DispatchQueue.main.async {
-            v.isHide(false)
-            img.image?.withRenderingMode(.alwaysTemplate)
-            vv.forEach({$0.isHide(true)})
-        }
-        
-    }
-    
+    func hideAndUnhide(FIRv:UIView,TTv:[UIView],v:UILabel,vv:[UILabel],img:UIImageView,otherImage:[UIImageView])  {
+           
+           DispatchQueue.main.async {
+               v.isHide(false)
+            FIRv.backgroundColor = #colorLiteral(red: 0.9275586605, green: 0.8786675334, blue: 1, alpha: 1)
+            TTv.forEach({$0.backgroundColor = UIColor.lightGray})
+               img.image?.withRenderingMode(.alwaysTemplate)
+               otherImage.forEach({$0.image?.withRenderingMode(.alwaysOriginal)})
+               vv.forEach({$0.isHide(true)})
+           }
+           
+       }
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     
     @objc func handleDoctors()  {
-        hideAndUnhide(v: customBottomOrdersView.doctorLabel, vv: [customBottomOrdersView.labLabel,customBottomOrdersView.radiologyLabel,customBottomOrdersView.pharamacyLabel], img: customBottomOrdersView.firstImage, otherImage: [customBottomOrdersView.secondImage,customBottomOrdersView.thirdImage,customBottomOrdersView.forthImage])
+        hideAndUnhide(FIRv:customBottomOrdersView.firstView,TTv:[customBottomOrdersView.secondView,customBottomOrdersView.thirdView,customBottomOrdersView.forthView],v: customBottomOrdersView.doctorLabel, vv: [customBottomOrdersView.labLabel,customBottomOrdersView.radiologyLabel,customBottomOrdersView.pharamacyLabel], img: customBottomOrdersView.firstImage, otherImage: [customBottomOrdersView.secondImage,customBottomOrdersView.thirdImage,customBottomOrdersView.forthImage])
     }
     
     @objc func handlePharamcys()  {
-        hideAndUnhide(v: customBottomOrdersView.pharamacyLabel, vv: [customBottomOrdersView.labLabel,customBottomOrdersView.radiologyLabel,customBottomOrdersView.doctorLabel], img: customBottomOrdersView.secondImage, otherImage: [customBottomOrdersView.firstImage,customBottomOrdersView.thirdImage,customBottomOrdersView.forthImage])
+        hideAndUnhide(FIRv:customBottomOrdersView.secondView,TTv:[customBottomOrdersView.firstView,customBottomOrdersView.thirdView,customBottomOrdersView.forthView],v: customBottomOrdersView.pharamacyLabel, vv: [customBottomOrdersView.labLabel,customBottomOrdersView.radiologyLabel,customBottomOrdersView.doctorLabel], img: customBottomOrdersView.secondImage, otherImage: [customBottomOrdersView.firstImage,customBottomOrdersView.thirdImage,customBottomOrdersView.forthImage])
     }
     @objc func handleLabs()  {
-        hideAndUnhide(v: customBottomOrdersView.labLabel, vv: [customBottomOrdersView.doctorLabel,customBottomOrdersView.radiologyLabel,customBottomOrdersView.pharamacyLabel], img: customBottomOrdersView.thirdImage, otherImage: [customBottomOrdersView.secondImage,customBottomOrdersView.firstImage,customBottomOrdersView.forthImage])
+        hideAndUnhide(FIRv:customBottomOrdersView.thirdView,TTv:[customBottomOrdersView.secondView,customBottomOrdersView.firstView,customBottomOrdersView.forthView],v: customBottomOrdersView.labLabel, vv: [customBottomOrdersView.doctorLabel,customBottomOrdersView.radiologyLabel,customBottomOrdersView.pharamacyLabel], img: customBottomOrdersView.thirdImage, otherImage: [customBottomOrdersView.secondImage,customBottomOrdersView.firstImage,customBottomOrdersView.forthImage])
     }
     @objc func handleRadiologys()  {
-        hideAndUnhide(v: customBottomOrdersView.radiologyLabel, vv: [customBottomOrdersView.labLabel,customBottomOrdersView.doctorLabel,customBottomOrdersView.pharamacyLabel], img: customBottomOrdersView.forthImage, otherImage: [customBottomOrdersView.secondImage,customBottomOrdersView.thirdImage,customBottomOrdersView.firstImage])
+        hideAndUnhide(FIRv:customBottomOrdersView.forthView,TTv:[customBottomOrdersView.secondView,customBottomOrdersView.thirdView,customBottomOrdersView.firstView],v: customBottomOrdersView.radiologyLabel, vv: [customBottomOrdersView.labLabel,customBottomOrdersView.doctorLabel,customBottomOrdersView.pharamacyLabel], img: customBottomOrdersView.forthImage, otherImage: [customBottomOrdersView.secondImage,customBottomOrdersView.thirdImage,customBottomOrdersView.firstImage])
     }
     
 }

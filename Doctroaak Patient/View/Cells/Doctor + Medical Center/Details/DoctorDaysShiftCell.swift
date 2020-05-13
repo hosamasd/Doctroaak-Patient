@@ -14,16 +14,14 @@ class DoctorDaysShiftCell: BaseCollectionCell {
         didSet{
             doctorDateLabel.text = day.date
             if day.partID == 0  {
-                if shift1Button.backgroundColor != nil {
-                     addGradientInSenderAndRemoveOther(sender: shift1Button, vv: shift2Button)
-                           shift1Button.setTitleColor(.white, for: .normal)
-                }else {}
+                addGradientInSenderAndRemoveOther(sender: shift1Button)
+                shift1Button.setTitleColor(.white, for: .normal)
+                
             }else {
-                 if shift2Button.backgroundColor != nil {
-                addGradientInSenderAndRemoveOther(sender: shift2Button, vv: shift1Button)
+                addGradientInSenderAndRemoveOther(sender: shift2Button)
                 shift2Button.setTitleColor(.white, for: .normal)
-                 }else {}
             }
+            
         }
     }
     
@@ -58,11 +56,11 @@ class DoctorDaysShiftCell: BaseCollectionCell {
         return b
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        addGradientInSenderAndRemoveOther(sender: shift1Button)
-        shift1Button.setTitleColor(.white, for: .normal)
-    }
+    //    override func layoutSubviews() {
+    //        super.layoutSubviews()
+    //        addGradientInSenderAndRemoveOther(sender: shift1Button)
+    //        shift1Button.setTitleColor(.white, for: .normal)
+    //    }
     
     override func setupViews() {
         backgroundColor = .white

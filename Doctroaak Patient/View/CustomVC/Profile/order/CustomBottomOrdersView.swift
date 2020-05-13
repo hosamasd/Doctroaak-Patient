@@ -10,10 +10,10 @@ import UIKit
 
 class CustomBottomOrdersView: CustomBaseView {
     
-    lazy var doctorLabel = createLabels(title: "Doctors")
-    lazy var pharamacyLabel = createLabels(title: "Pharamacy")
-    lazy var labLabel = createLabels(title: "Lab")
-    lazy var radiologyLabel = createLabels(title: "Radiology")
+    lazy var doctorLabel = createLabels(title: "Doctors\n")
+    lazy var pharamacyLabel = createLabels(title: "Pharamacy\n")
+    lazy var labLabel = createLabels(title: "Lab\n")
+    lazy var radiologyLabel = createLabels(title: "Radiology\n")
     
     lazy var firstView = createViews(v: firstImage, x: doctorLabel)
     lazy var secondView = createViews(v: secondImage, x: pharamacyLabel)
@@ -29,7 +29,7 @@ class CustomBottomOrdersView: CustomBaseView {
         super.layoutSubviews()
         firstImage.contentMode = .scaleAspectFit
         [labLabel,pharamacyLabel,radiologyLabel].forEach({$0.isHide(true)})
-
+        firstView.backgroundColor = #colorLiteral(red: 0.9275586605, green: 0.8786675334, blue: 1, alpha: 1)
     }
     
     override func setupViews() {
@@ -39,14 +39,14 @@ class CustomBottomOrdersView: CustomBaseView {
     
     func createImages(img:UIImage) -> UIImageView {
         let im = UIImageView(image: img)
-        im.contentMode = .scaleAspectFill
+        im.contentMode = .scaleAspectFit
         im.clipsToBounds = true
 //        im.constrainHeight(constant: 10)
         return im
     }
     
     func createLabels(title:String) -> UILabel {
-        let la = UILabel(text: title, font: .systemFont(ofSize: 12), textColor: #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1), textAlignment: .center)
+        let la = UILabel(text: title, font: .systemFont(ofSize: 12), textColor: #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1), textAlignment: .center,numberOfLines: 2)
         
         return la
     }
