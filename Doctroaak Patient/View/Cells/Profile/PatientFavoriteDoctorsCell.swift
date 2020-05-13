@@ -177,8 +177,9 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
             }
         }
         let ss = cityId.filter{$0 == index}
+        let ff = ss.first ?? 1
         
-        return citName[ss.first ?? 1]
+        return citName[ff - 1 ]
     }
     
     func getAreaFromIndex(_ index:Int) -> String {
@@ -198,8 +199,8 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
             }
         }
         let ss = cityId.filter{$0 == index}
-        
-        return citName[ss.first ?? 1]
+         let ff = ss.first ?? 1
+        return citName[ff-1]
     }
     
     @objc func handleBookmark()  {

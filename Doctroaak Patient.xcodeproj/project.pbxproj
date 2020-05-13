@@ -111,7 +111,7 @@
 		4EBBCD8C2432018D005C8DF7 /* DoctorWorkingDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD8B2432018D005C8DF7 /* DoctorWorkingDateCell.swift */; };
 		4EBBCD8E243201A2005C8DF7 /* DoctorDaysShiftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD8D243201A2005C8DF7 /* DoctorDaysShiftCell.swift */; };
 		4EBBCD9324320310005C8DF7 /* DoctorBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD9224320310005C8DF7 /* DoctorBookVC.swift */; };
-		4EBBCD9524320330005C8DF7 /* CusomBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD9424320330005C8DF7 /* CusomBookView.swift */; };
+		4EBBCD9524320330005C8DF7 /* CusomDoctorBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD9424320330005C8DF7 /* CusomDoctorBookView.swift */; };
 		4EBF9E16243B04B4004F2A1D /* LAPSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF9E15243B04B4004F2A1D /* LAPSearchViewModel.swift */; };
 		4EC38C6F2439F9F2005DE994 /* PharamacyLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC38C6E2439F9F2005DE994 /* PharamacyLocationViewModel.swift */; };
 		4EC38C732439FCA0005DE994 /* PharamacyOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC38C722439FCA0005DE994 /* PharamacyOrderViewModel.swift */; };
@@ -278,7 +278,7 @@
 		4EBBCD8B2432018D005C8DF7 /* DoctorWorkingDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorWorkingDateCell.swift; sourceTree = "<group>"; };
 		4EBBCD8D243201A2005C8DF7 /* DoctorDaysShiftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDaysShiftCell.swift; sourceTree = "<group>"; };
 		4EBBCD9224320310005C8DF7 /* DoctorBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBookVC.swift; sourceTree = "<group>"; };
-		4EBBCD9424320330005C8DF7 /* CusomBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusomBookView.swift; sourceTree = "<group>"; };
+		4EBBCD9424320330005C8DF7 /* CusomDoctorBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusomDoctorBookView.swift; sourceTree = "<group>"; };
 		4EBF9E15243B04B4004F2A1D /* LAPSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPSearchViewModel.swift; sourceTree = "<group>"; };
 		4EC38C6E2439F9F2005DE994 /* PharamacyLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyLocationViewModel.swift; sourceTree = "<group>"; };
 		4EC38C722439FCA0005DE994 /* PharamacyOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyOrderViewModel.swift; sourceTree = "<group>"; };
@@ -1230,7 +1230,7 @@
 				4ED135BE2439A7AD008BE002 /* Search */,
 				4EFE85BE2431ED5D00E44DD1 /* CustomCardiologyDoctorsResultsView.swift */,
 				4EBBCD8424320132005C8DF7 /* CustomDetailsView.swift */,
-				4EBBCD9424320330005C8DF7 /* CusomBookView.swift */,
+				4EBBCD9424320330005C8DF7 /* CusomDoctorBookView.swift */,
 			);
 			path = "Doctor + Medical Center";
 			sourceTree = "<group>";
@@ -1404,7 +1404,7 @@
 				4E9ED869246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift in Sources */,
 				4E9964D3243B49E2007689B8 /* ICUViewModel.swift in Sources */,
 				4E347CE12430B96B00333C07 /* CustomMainHomeView.swift in Sources */,
-				4EBBCD9524320330005C8DF7 /* CusomBookView.swift in Sources */,
+				4EBBCD9524320330005C8DF7 /* CusomDoctorBookView.swift in Sources */,
 				4EDDC5F02462DF4B005A9253 /* CustomAlertChooseLanguageView.swift in Sources */,
 				4E93E9A92434A717004C44F2 /* LAPSelectedSearchResultsVC.swift in Sources */,
 				4E00679B243313F8004B1C3F /* AddMedicineCell.swift in Sources */,

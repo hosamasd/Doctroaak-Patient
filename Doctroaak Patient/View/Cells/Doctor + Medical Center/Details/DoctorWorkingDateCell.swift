@@ -15,13 +15,14 @@ class DoctorWorkingDateCell: BaseCollectionCell {
     
     var day:WorkingHourModel! {
         didSet{
+            if  day.active == 1 {
             doctorDayLabel.text = getDayFromIndex(day.day)
             doctorFirstTimeLabel.text = changeTimeForButtonTitle(values: day.part1From)
             doctorDayLastTimeLabel.text = changeTimeForButtonTitle(values: day.part1To)
             
             doctorSecondTimeLabel.text = changeTimeForButtonTitle(values: day.part2From)
             doctorDaySecondLastTimeLabel.text = changeTimeForButtonTitle(values: day.part2To)
-            
+            }else {}
         }
     }
     
@@ -31,11 +32,11 @@ class DoctorWorkingDateCell: BaseCollectionCell {
         i.constrainWidth(constant: 6)
         return i
     }()
-    lazy var doctorDayLabel = UILabel(text: "Sunday", font: .systemFont(ofSize: 16), textColor: .black)
-    lazy var doctorFirstTimeLabel = UILabel(text: "11:30 am    ", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.5594891906, green: 0.8141058087, blue: 0.8912931085, alpha: 1))
-    lazy var doctorDayLastTimeLabel = UILabel(text: "11:30 pm    ", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.8214932084, green: 0.1086590812, blue: 0.01575340517, alpha: 1))
-    lazy var doctorSecondTimeLabel = UILabel(text: "11:30 am    ", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.5594891906, green: 0.8141058087, blue: 0.8912931085, alpha: 1))
-    lazy var doctorDaySecondLastTimeLabel = UILabel(text: "11:30 pm    ", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.8214932084, green: 0.1086590812, blue: 0.01575340517, alpha: 1))
+    lazy var doctorDayLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var doctorFirstTimeLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.5594891906, green: 0.8141058087, blue: 0.8912931085, alpha: 1))
+    lazy var doctorDayLastTimeLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.8214932084, green: 0.1086590812, blue: 0.01575340517, alpha: 1))
+    lazy var doctorSecondTimeLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.5594891906, green: 0.8141058087, blue: 0.8912931085, alpha: 1))
+    lazy var doctorDaySecondLastTimeLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.8214932084, green: 0.1086590812, blue: 0.01575340517, alpha: 1))
     lazy var seperatorView:UIView = {
         let v = UIView(backgroundColor: .lightGray)
         v.constrainHeight(constant: 1)

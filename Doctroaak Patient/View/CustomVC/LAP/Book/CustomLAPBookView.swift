@@ -41,14 +41,14 @@ class CustomLAPBookView: CustomBaseView {
             if index == 0 {
                 self.subStack.isHide(true)
                 self.dateCenterTextField.isHide(false)
-//                self.lapBookViewModel.secondDates = nil
-//                [self.fullNameTextField,self.monthTextField,self.mobileNumberTextField,self.dayTextField,self.yearTextField,self.dateTextField].forEach({$0.text = ""})
+                //                self.lapBookViewModel.secondDates = nil
+                //                [self.fullNameTextField,self.monthTextField,self.mobileNumberTextField,self.dayTextField,self.yearTextField,self.dateTextField].forEach({$0.text = ""})
                 
             }else {
                 self.subStack.isHide(false)
                 self.dateCenterTextField.isHide(true)
-//                self.dateCenterTextField.text = ""
-//                self.lapBookViewModel.dates = nil
+                //                self.dateCenterTextField.text = ""
+                //                self.lapBookViewModel.dates = nil
                 
             }
         }
@@ -221,7 +221,7 @@ class CustomLAPBookView: CustomBaseView {
     
     
     func putTextInTextFieldsAllDate(tf:UITextField,dp:UIDatePicker)  {
-      
+        
         let dateMainformatter = DateFormatter() // 2.2
         
         let dateformatter = DateFormatter() // 2.2
@@ -248,10 +248,10 @@ class CustomLAPBookView: CustomBaseView {
     
     fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
         if sender.backgroundColor == nil {
-            lapBookViewModel.isMale = isMale;return
+            lapBookViewModel.isMale = isMale ?  "male" : "female";return
         }else {
             addGradientInSenderAndRemoveOther(sender: sender, vv: secondBtn)
-            lapBookViewModel.isMale = isMale
+            lapBookViewModel.isMale = isMale ?  "male" : "female"
         }
     }
     
@@ -307,21 +307,21 @@ class CustomLAPBookView: CustomBaseView {
     @objc func tap3Done(sender: Any) {
         if let datePicker = self.yearTextField.inputView as? UIDatePicker { // 2.1
             //
-             datePicker.datePickerMode = UIDatePicker.Mode.date
+            datePicker.datePickerMode = UIDatePicker.Mode.date
             putTextInTextFieldsAllDate( tf: yearTextField, dp: datePicker)
         }
     }
     
     @objc func tap4Done(sender: Any ) {
         if let datePicker = self.monthTextField.inputView as? UIDatePicker { // 2.1
-             datePicker.datePickerMode = UIDatePicker.Mode.date
+            datePicker.datePickerMode = UIDatePicker.Mode.date
             putTextInTextFieldsAllDate( tf: monthTextField, dp: datePicker)
         }
     }
     
     @objc func tapAllDone(sender: UITextField) {
         if let datePicker = self.dayTextField.inputView as? UIDatePicker {
-              datePicker.datePickerMode = UIDatePicker.Mode.date
+            datePicker.datePickerMode = UIDatePicker.Mode.date
             putTextInTextFieldsAllDate( tf: dayTextField, dp: datePicker)
         }
         

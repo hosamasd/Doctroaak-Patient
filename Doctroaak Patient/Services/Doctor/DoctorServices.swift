@@ -17,4 +17,12 @@ class DoctorServices {
         MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
 
     }
+    
+    func getBookDoctorsResults(patient_id:Int,clinic_id:Int,type:Int,date:String,notes:String,api_token:String,completion: @escaping (MainPatientSearchDoctorsModel?, Error?) ->Void)  {
+        let urlString =  "\(baseUrl)clinic/order/create?patient_id=\(patient_id)&clinic_id=\(clinic_id)&date=\(date)&type=\(type)&notes=\(notes)&api_token=\(api_token)".toSecrueHttps()
+        
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+
+    }
+    
 }

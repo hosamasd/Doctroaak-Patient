@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = ProfileOrdersVC()//UINavigationController(rootViewController:ForgetPasswordVC())//VerificationVC(user_id: 47, isFromForget: false))//LAPOrderVC(index: 0))//PharmacyOrderVC())
+        window?.rootViewController = DoctorBookVC()//UINavigationController(rootViewController:ForgetPasswordVC())//VerificationVC(user_id: 47, isFromForget: false))//LAPOrderVC(index: 0))//PharmacyOrderVC())
         return true
     }
 

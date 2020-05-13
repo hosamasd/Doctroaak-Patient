@@ -23,8 +23,9 @@ class DoctorBookVC: CustomBaseViewVC {
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
-    lazy var cusomBookView:CusomBookView = {
-        let v = CusomBookView()
+    lazy var cusomDoctorBookView:CusomDoctorBookView = {
+        let v = CusomDoctorBookView()
+        v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
 //        v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
 //        v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
 //        v.shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
@@ -42,14 +43,14 @@ class DoctorBookVC: CustomBaseViewVC {
        
        func setupViewModelObserver()  {
            
-           cusomBookView.doctorBookViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+           cusomDoctorBookView.doctorBookViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
                guard let isValid = isValidForm else {return}
                //            self.customLoginView.loginButton.isEnabled = isValid
                
-               self.changeButtonState(enable: isValid, vv: self.cusomBookView.bookButton)
+               self.changeButtonState(enable: isValid, vv: self.cusomDoctorBookView.bookButton)
            }
            
-           cusomBookView.doctorBookViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
+           cusomDoctorBookView.doctorBookViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
                if isValid == true {
                    //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
                    //                SVProgressHUD.show(withStatus: "Login...".localized)
@@ -73,11 +74,21 @@ class DoctorBookVC: CustomBaseViewVC {
         scrollView.addSubview(mainView)
         //        mainView.fillSuperview()
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        mainView.addSubViews(views: cusomBookView)
-        cusomBookView.fillSuperview()
+        mainView.addSubViews(views: cusomDoctorBookView)
+        cusomDoctorBookView.fillSuperview()
         
         
         
+    }
+    
+    func getNotes() ->String {
+        let ss = ","
+        
+        return cusomDoctorBookView.doctorBookViewModel.fullName!+ss+cusomDoctorBookView.mobileNumberTextField.text!+ss+cusomDoctorBookView.ageTextField.text!+ss+cusomDoctorBookView.doctorBookViewModel.isMale!
+    }
+    
+   @objc func handleBook()  {
+    self.cusomDoctorBookView.doctorBookViewModel.notes = cusomDoctorBookView.doctorBookViewModel.isFirstOpetion! ? "" : getNotes()
     }
     
 //    fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {

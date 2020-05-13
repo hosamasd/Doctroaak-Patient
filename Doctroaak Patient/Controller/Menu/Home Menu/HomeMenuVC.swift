@@ -38,7 +38,7 @@ class HomeMenuVC: CustomBaseViewVC {
         v.mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoServices)))
         v.main2View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoFavorites)))
         v.main3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoMyOrders)))
-
+        
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         return v
     }()
@@ -58,12 +58,26 @@ class HomeMenuVC: CustomBaseViewVC {
         return v
     }()
     
-    var index:Int? = 0
+    lazy var views = [ customMainHomeView.mainView,customMainHomeView.main2View,customMainHomeView.main3View]
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupAnimation()
+    }
     
     
     //MARK: -user methods
+    
+    fileprivate func setupAnimation()  {
+        views.forEach({$0.alpha = 1})
+        
+        customMainHomeView.mainView.transform = CGAffineTransform.init(translationX: 0, y: 1000)
+        customMainHomeView.main3View.transform = CGAffineTransform.init(translationX: 0, y: -1000)
+        customMainHomeView.main2View.transform = CGAffineTransform.init(translationX: -1000, y: 0)
+        UIView.animate(withDuration: 0.7, delay: 0.6, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            [ self.customMainHomeView.mainView,self.customMainHomeView.main2View,self.customMainHomeView.main3View].forEach({$0.transform = .identity})
+        })
+    }
     
     override func setupNavigation()  {
         navigationController?.isNavigationBarHidden = true
@@ -103,7 +117,10 @@ class HomeMenuVC: CustomBaseViewVC {
     
     @objc func handleGoServices()  {
         let services = ServicesVC()
-        navigationController?.pushViewController(services, animated: true)
+        let nav = UINavigationController(rootViewController: services)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+        //        navigationController?.pushViewController(services, animated: true)
         
     }
     
@@ -118,15 +135,15 @@ class HomeMenuVC: CustomBaseViewVC {
         customMainAlertVC.dismiss(animated: true)
     }
     
-   @objc func handleGoFavorites()  {
-    let favorite = PatientFavoriteDoctorsVC()
-    navigationController?.pushViewController(favorite,animated:true)
-    
+    @objc func handleGoFavorites()  {
+        let favorite = PatientFavoriteDoctorsVC()
+        navigationController?.pushViewController(favorite,animated:true)
+        
     }
     
     @objc func handleGoMyOrders()  {
-          print(666)
-      }
+        print(666)
+    }
     
     @objc func handleDismiss()  {
         dismiss(animated: true, completion: nil)

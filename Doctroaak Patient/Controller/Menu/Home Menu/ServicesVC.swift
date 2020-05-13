@@ -50,6 +50,8 @@ class ServicesVC: CustomBaseViewVC {
     
     //MARK: -user methods
     
+
+    
     fileprivate func setupAnimation()  {
            views.forEach({$0.alpha = 1})
            
@@ -124,7 +126,8 @@ class ServicesVC: CustomBaseViewVC {
     }
     
    @objc func handleBack()  {
-        navigationController?.popViewController(animated: true)
+    dismiss(animated: true)
+//        navigationController?.popViewController(animated: true)
     }
 
 }

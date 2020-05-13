@@ -21,7 +21,7 @@ class LAPBookViewModel {
     var mobileNumber:String? {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
     var birthday:String? {didSet {checkFormValidity()}}
-    var isMale:Bool?  = true {didSet {checkFormValidity()}}
+    var isMale:String?  = "male" {didSet {checkFormValidity()}}
     var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
     
     

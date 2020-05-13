@@ -16,7 +16,13 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return workingDaysArray.count
+        var ss = 0
+        
+        workingDaysArray.forEach { (w) in
+            let d = w.active == 0 ? 0 : 1
+            ss += d
+        }
+        return  ss//workingDaysArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -30,6 +36,9 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let index = workingDaysArray[indexPath.item]
+        
+        let height:CGFloat = index.active == 0 ? 0 : 60
         
         return .init(width: view.frame.width, height: 60)
     }

@@ -66,12 +66,12 @@ class CusomDoctorBookView: CustomBaseView {
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [typeDrop])
     lazy var typeDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
+        i.optionArray = ["New","Consultation","Continue"]
         i.arrowSize = 20
         i.placeholder = "Type".localized
         i.didSelect {[unowned self] (txt, index, _) in
-            self.doctorBookViewModel.type = txt
-            self.doctorBookViewModel.secondType = txt
+            self.doctorBookViewModel.type = index+1
+            self.doctorBookViewModel.secondType = index+1
         }
         return i
     }()
@@ -81,10 +81,10 @@ class CusomDoctorBookView: CustomBaseView {
     lazy var fullNameTextField = createMainTextFields(place: "Full name")
     lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
     lazy var ageTextField = createMainTextFields(place: "enter Age",type: .numberPad)
-
-    lazy var boyButton:UIButton = createMainButton(title: "Male",img:#imageLiteral(resourceName: "toilet"))
     
-    lazy var girlButton:UIButton = createMainButton(title: "Female",img:#imageLiteral(resourceName: "toile11t"))
+    lazy var boyButton:UIButton = createMainButton(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false)
+    
+    lazy var girlButton:UIButton = createMainButton(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
     lazy var subStack:UIStackView = {
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         
@@ -195,16 +195,19 @@ class CusomDoctorBookView: CustomBaseView {
     }
     
     
-    func createMainButton(title:String,img:UIImage) -> UIButton {
+    func createMainButton(title:String,img:UIImage,bg:Bool?) -> UIButton {
         let button = UIButton(type: .system)
-              button.setTitle(title, for: .normal)
-              button.setTitleColor(.black, for: .normal)
-              button.backgroundColor = ColorConstants.disabledButtonsGray
-              button.layer.cornerRadius = 8
-              button.layer.borderWidth = 1
-              button.layer.borderColor = UIColor.gray.cgColor
-              button.clipsToBounds = true
-              button.leftImage(image: img, renderMode: .alwaysOriginal)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        if (bg == true) {
+            button.backgroundColor = ColorConstants.disabledButtonsGray
+        }else{}
+        
+        button.layer.cornerRadius = 8
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.clipsToBounds = true
+        button.leftImage(image: img, renderMode: .alwaysOriginal)
         return button
         
     }
@@ -223,11 +226,11 @@ class CusomDoctorBookView: CustomBaseView {
     
     fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
         if sender.backgroundColor == nil {
-            doctorBookViewModel.isMale = isMale;return
+            doctorBookViewModel.isMale = isMale ? "male" : "female";return
             
         }
         addGradientInSenderAndRemoveOther(sender: sender, vv: secondBtn)
-        doctorBookViewModel.isMale = isMale;return
+        doctorBookViewModel.isMale = isMale ? "male" : "female";return
         
     }
     
@@ -275,14 +278,14 @@ class CusomDoctorBookView: CustomBaseView {
                     doctorBookViewModel.fullName = texts
                 }
             } else  if text == ageTextField {
-                           if  texts.count < 1    {
-                               floatingLabelTextField.errorMessage = "Invalid   Age".localized
-                               doctorBookViewModel.age = nil
-                           }
-                           else {
-                               floatingLabelTextField.errorMessage = ""
-                            doctorBookViewModel.age = texts.toInt()
-                           }
+                if  texts.count < 1    {
+                    floatingLabelTextField.errorMessage = "Invalid   Age".localized
+                    doctorBookViewModel.age = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    doctorBookViewModel.age = texts.toInt()
+                }
             } else
                 if  !texts.isValidPhoneNumber    {
                     floatingLabelTextField.errorMessage = "Invalid   Phone".localized
@@ -291,24 +294,23 @@ class CusomDoctorBookView: CustomBaseView {
                 else {
                     floatingLabelTextField.errorMessage = ""
                     doctorBookViewModel.mobile = texts
-                }
             }
+        }
         
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
         if let datePicker = self.dateTextField.inputView as? UIDatePicker { // 2.1
-            datePicker.datePickerMode = UIDatePicker.Mode.date
-            let dateformatter = DateFormatter() // 2.2
-            dateformatter.setLocalizedDateFormatFromTemplate("yyyy-M-dd")// 2.3
-            let tzt = dateformatter.string(from: datePicker.date) //2.4
             
-            self.dateTextField.text = tzt
-            doctorBookViewModel.date = tzt
-            doctorBookViewModel.secondDate = tzt
-            //            self.handleTextContents?(dateTextField.text ?? "",true)
-        }
-        self.dateTextField.resignFirstResponder() // 2.5
+            let dateformatter = DateFormatter() // 2.2
+                       dateformatter.dateFormat = "yyyy-MM-dd"
+                       self.dateTextField.text = dateformatter.string(from: datePicker.date) //2.4
+                       doctorBookViewModel.date = dateformatter.string(from: datePicker.date) //2.4
+            doctorBookViewModel.secondDate = dateformatter.string(from: datePicker.date) //2.4
+
+                   }
+                   self.dateTextField.resignFirstResponder() // 2.5
+            
     }
     
     
