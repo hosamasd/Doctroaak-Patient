@@ -65,10 +65,8 @@ class LoginVC: CustomBaseViewVC {
     }
     
     func saveToken(user_id:Int,_ mobile:String)  {
-        
+        userDefaults.set(true, forKey: UserDefaultsConstants.isPatientLogin)
         userDefaults.set(user_id, forKey: UserDefaultsConstants.patientID)
-        
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         userDefaults.set(mobile, forKey: UserDefaultsConstants.patienMobileNumber)
         
         userDefaults.synchronize()
@@ -101,14 +99,14 @@ class LoginVC: CustomBaseViewVC {
             
         }
     }
-        
-        @objc func handleForget()  {
-            let forget = ForgetPasswordVC()
-            navigationController?.pushViewController(forget, animated: true)
-        }
-        
-        @objc func handleBack()  {
-            dismiss(animated: true, completion: nil)
-        }
-        
+    
+    @objc func handleForget()  {
+        let forget = ForgetPasswordVC()
+        navigationController?.pushViewController(forget, animated: true)
+    }
+    
+    @objc func handleBack()  {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

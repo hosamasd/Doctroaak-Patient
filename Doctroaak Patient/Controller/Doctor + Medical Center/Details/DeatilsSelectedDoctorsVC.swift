@@ -25,16 +25,21 @@ class DeatilsSelectedDoctorsVC: UIViewController {
     }()
     lazy var customDetailsView:CustomDetailsView = {
         let v = CustomDetailsView()
+        v.patientApiToken=patientApiToken
+        v.patient_id=patient_id
         v.selectedDoctor=selectedDoctor
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
     }()
+    
+    var patient_id:Int?
+    var patientApiToken:String?
     fileprivate let selectedDoctor:PatientSearchDoctorsModel!
-       init(doctors:PatientSearchDoctorsModel) {
-           self.selectedDoctor=doctors
-           super.init(nibName: nil, bundle: nil)
-       }
+    init(doctors:PatientSearchDoctorsModel) {
+        self.selectedDoctor=doctors
+        super.init(nibName: nil, bundle: nil)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -69,7 +74,10 @@ class DeatilsSelectedDoctorsVC: UIViewController {
     }
     
     @objc func handleBook()  {
-        let book = DoctorBookVC()
+       
+        
+        guard let apiTpken = patientApiToken,let patientId=patient_id, let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
+        let book = DoctorBookVC(clinic_id: clinic_id, patient_id: patientId, api_token: apiTpken)
         navigationController?.pushViewController(book, animated: true)
         
     }

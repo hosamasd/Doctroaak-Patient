@@ -20,8 +20,8 @@ class ServicesVC: CustomBaseViewVC {
         v.main5View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpen4VC)))
         v.main6View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpen5VC)))
         v.main7View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpen6VC)))
-
-
+        
+        
         return v
     }()
     lazy var views = [
@@ -40,37 +40,39 @@ class ServicesVC: CustomBaseViewVC {
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
-    var index:Int? = 0
+    var patient_id:Int?
+    var patientApiToken:String?
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           setupAnimation()
-       }
+        super.viewWillAppear(animated)
+        setupAnimation()
+    }
     
     //MARK: -user methods
     
-
+    
     
     fileprivate func setupAnimation()  {
-           views.forEach({$0.alpha = 1})
-           
-           let translateTransform = CGAffineTransform.init(translationX: 1000, y: 0)
-           let translateButtons = CGAffineTransform.init(translationX: -1000, y: 0)
-           
+        views.forEach({$0.alpha = 1})
+        
+        let translateTransform = CGAffineTransform.init(translationX: 1000, y: 0)
+        let translateButtons = CGAffineTransform.init(translationX: -1000, y: 0)
+        
         [ customMainServicesView.main1View, customMainServicesView.main3View,customMainServicesView.main5View,customMainServicesView.main7View].forEach({$0.transform = translateButtons})
-            [ customMainServicesView.main2View, customMainServicesView.main4View,customMainServicesView.main6View].forEach({$0.transform = translateTransform})
+        [ customMainServicesView.main2View, customMainServicesView.main4View,customMainServicesView.main6View].forEach({$0.transform = translateTransform})
         UIView.animate(withDuration: 0.7, delay: 0.6, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             [self.customMainServicesView.main1View, self.customMainServicesView.main3View,self.customMainServicesView.main5View,self.customMainServicesView.main7View,self.customMainServicesView.main2View, self.customMainServicesView.main4View,self.customMainServicesView.main6View].forEach({$0.transform = .identity})
         })
-       }
+    }
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
     
     override func setupViews()  {
-
+        
         view.addSubview(scrollView)
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
@@ -81,53 +83,55 @@ class ServicesVC: CustomBaseViewVC {
     }
     
     func goToNextVC(vc:CustomBaseViewVC,indexx:Int)  {
-//        vc.index = indexx
+        //        vc.index = indexx
         navigationController?.pushViewController(vc, animated: true)
     }
     
     //TODO:-Hnadle methods
     
-  @objc  func handleOpenVC()  {
-    let doc = DoctorListsVC()
-    navigationController?.pushViewController(doc, animated: true)
-    
+    @objc  func handleOpenVC()  {
+        let doc = DoctorListsVC()
+        doc.patientApiToken=patientApiToken
+        doc.patient_id=patient_id
+        navigationController?.pushViewController(doc, animated: true)
+        
     }
- 
+    
     
     @objc  func handleOpen2VC()  {
-       let phar = PharmacyLocationVC()
-       navigationController?.pushViewController(phar, animated: true)
-       
-       }
+        let phar = PharmacyLocationVC()
+        navigationController?.pushViewController(phar, animated: true)
+        
+    }
     
     @objc  func handleOpen3VC()  {
-       let lab = LapSearchVC(index: 0)
-       navigationController?.pushViewController(lab, animated: true)
-       
-       }
+        let lab = LapSearchVC(index: 0)
+        navigationController?.pushViewController(lab, animated: true)
+        
+    }
     
     @objc  func handleOpen4VC()  {
-       let lab = LapSearchVC(index: 1) //for Rediology
-            navigationController?.pushViewController(lab, animated: true)
-       
-       }
+        let lab = LapSearchVC(index: 1) //for Rediology
+        navigationController?.pushViewController(lab, animated: true)
+        
+    }
     
     @objc  func handleOpen5VC()  {
-       let doc = IncubationSearchVC()
-       navigationController?.pushViewController(doc, animated: true)
-       
-       }
-
+        let doc = IncubationSearchVC()
+        navigationController?.pushViewController(doc, animated: true)
+        
+    }
+    
     
     @objc  func handleOpen6VC()  {
-    let doc = ICUSearchVC()
-    navigationController?.pushViewController(doc, animated: true)
-    
+        let doc = ICUSearchVC()
+        navigationController?.pushViewController(doc, animated: true)
+        
     }
     
-   @objc func handleBack()  {
-    dismiss(animated: true)
-//        navigationController?.popViewController(animated: true)
+    @objc func handleBack()  {
+        dismiss(animated: true)
+        //        navigationController?.popViewController(animated: true)
     }
-
+    
 }

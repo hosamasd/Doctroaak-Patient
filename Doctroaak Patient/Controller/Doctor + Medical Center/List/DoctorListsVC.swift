@@ -29,12 +29,16 @@ class DoctorListsVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.handleCheckedIndex = {[unowned self] spy in
             let vc = DoctorSearchVC(spy: spy)
+            vc.patientApiToken=self.patientApiToken
+            vc.patient_id=self.patient_id
             self.navigationController?.pushViewController(vc, animated: true)
         }
         return v
     }()
     
     var index:Int = 0
+    var patient_id:Int?
+    var patientApiToken:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,13 +67,13 @@ class DoctorListsVC: CustomBaseViewVC {
             }
             SVProgressHUD.dismiss()
             guard let specificationsArray = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-                self.customDoctorListsView.doctorListCollectionVC.specificationArray = specificationsArray
-
-                DispatchQueue.main.async {
-                    self.customDoctorListsView.doctorListCollectionVC.collectionView.reloadData()
-
-                    self.view.layoutIfNeeded()
-                }
+            self.customDoctorListsView.doctorListCollectionVC.specificationArray = specificationsArray
+            
+            DispatchQueue.main.async {
+                self.customDoctorListsView.doctorListCollectionVC.collectionView.reloadData()
+                
+                self.view.layoutIfNeeded()
+            }
         }
         
         

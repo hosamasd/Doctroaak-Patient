@@ -59,6 +59,14 @@ class HomeMenuVC: CustomBaseViewVC {
     }()
     
     lazy var views = [ customMainHomeView.mainView,customMainHomeView.main2View,customMainHomeView.main3View]
+    var patient_Id:Int?
+    var patientAPITOKEN:String?
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        putUserId()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -67,6 +75,13 @@ class HomeMenuVC: CustomBaseViewVC {
     
     
     //MARK: -user methods
+    
+    func putUserId()  {
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            patient_Id = userDefaults.integer(forKey: UserDefaultsConstants.patientUserID)
+            patientAPITOKEN = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN)
+        }else {}
+    }
     
     fileprivate func setupAnimation()  {
         views.forEach({$0.alpha = 1})
@@ -117,6 +132,8 @@ class HomeMenuVC: CustomBaseViewVC {
     
     @objc func handleGoServices()  {
         let services = ServicesVC()
+        services.patientApiToken=patientAPITOKEN
+        services.patient_id=patient_Id
         let nav = UINavigationController(rootViewController: services)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)

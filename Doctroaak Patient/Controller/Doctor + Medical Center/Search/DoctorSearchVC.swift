@@ -37,7 +37,8 @@ class DoctorSearchVC: CustomBaseViewVC {
         v.searchButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
         return v
     }()
-    
+    var patient_id:Int?
+    var patientApiToken:String?
     fileprivate let specificationId:Int!
     init(spy:Int) {
         self.specificationId = spy
@@ -101,20 +102,20 @@ class DoctorSearchVC: CustomBaseViewVC {
             
             // Address dictionary
             print(placeMark.locality)
-                  // Location name
-                  if let locationName = placeMark.addressDictionary!["Name"] as? String,let city = placeMark.addressDictionary!["City"] as? String ,let country = placeMark.addressDictionary!["Country"] as? String {
-                    self.customDoctorSearchView.addressLabel.text =  " \(locationName) - \(String(describing: city)) - \(String(describing: country))"
-                        self.customDoctorSearchView.doctorSearchViewModel.lat = latitude
-                    self.customDoctorSearchView.doctorSearchViewModel.specificationId = self.specificationId
-                        self.customDoctorSearchView.doctorSearchViewModel.lng = longitude
-                  }
-
-                  
             // Location name
-//            let street = placeMark.subLocality; let city = placeMark.administrativeArea;let country = placeMark.country
-//            self.customDoctorSearchView.addressLabel.text =  " \(placeMark.subLocality ?? "") - \(String(describing: city)) - \(String(describing: country))"
-//            self.customDoctorSearchView.doctorSearchViewModel.lat = latitude
-//            self.customDoctorSearchView.doctorSearchViewModel.lng = longitude
+            if let locationName = placeMark.addressDictionary!["Name"] as? String,let city = placeMark.addressDictionary!["City"] as? String ,let country = placeMark.addressDictionary!["Country"] as? String {
+                self.customDoctorSearchView.addressLabel.text =  " \(locationName) - \(String(describing: city)) - \(String(describing: country))"
+                self.customDoctorSearchView.doctorSearchViewModel.lat = latitude
+                self.customDoctorSearchView.doctorSearchViewModel.specificationId = self.specificationId
+                self.customDoctorSearchView.doctorSearchViewModel.lng = longitude
+            }
+            
+            
+            // Location name
+            //            let street = placeMark.subLocality; let city = placeMark.administrativeArea;let country = placeMark.country
+            //            self.customDoctorSearchView.addressLabel.text =  " \(placeMark.subLocality ?? "") - \(String(describing: city)) - \(String(describing: country))"
+            //            self.customDoctorSearchView.doctorSearchViewModel.lat = latitude
+            //            self.customDoctorSearchView.doctorSearchViewModel.lng = longitude
             
         })
         
@@ -122,7 +123,10 @@ class DoctorSearchVC: CustomBaseViewVC {
     }
     
     func goToNext(_ doctors:[PatientSearchDoctorsModel])  {
+        
         let card = CardiologyDoctorsResultsVC(doctors:doctors)
+        card.patientApiToken=patientApiToken
+        card.patient_id=patient_id
         navigationController?.pushViewController(card, animated: true)
     }
     

@@ -104,7 +104,9 @@ class CusomDoctorBookView: CustomBaseView {
     }()
     let doctorBookViewModel = DoctorBookViewModel()
     
-    
+    var  api_token:String = ""
+       var patient_id:Int = 1
+     var clinic_id:Int = 1
     var constainedLogoAnchor:AnchoredConstraints!
     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
     var bubleViewTopSegConstraint:NSLayoutConstraint!
@@ -112,6 +114,9 @@ class CusomDoctorBookView: CustomBaseView {
     var isDataFound = false
     var isSecondIndex = false
     var isActive = true
+//    var api_token:String!
+//    var patient_id:Int!
+//    var clinic_id:Int!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -300,17 +305,20 @@ class CusomDoctorBookView: CustomBaseView {
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
+        doctorBookViewModel.api_token=api_token
+        doctorBookViewModel.patient_id=patient_id
+        doctorBookViewModel.clinic_id=clinic_id
         if let datePicker = self.dateTextField.inputView as? UIDatePicker { // 2.1
             
             let dateformatter = DateFormatter() // 2.2
-                       dateformatter.dateFormat = "yyyy-MM-dd"
-                       self.dateTextField.text = dateformatter.string(from: datePicker.date) //2.4
-                       doctorBookViewModel.date = dateformatter.string(from: datePicker.date) //2.4
+            dateformatter.dateFormat = "yyyy-MM-dd"
+            self.dateTextField.text = dateformatter.string(from: datePicker.date) //2.4
+            doctorBookViewModel.date = dateformatter.string(from: datePicker.date) //2.4
             doctorBookViewModel.secondDate = dateformatter.string(from: datePicker.date) //2.4
-
-                   }
-                   self.dateTextField.resignFirstResponder() // 2.5
             
+        }
+        self.dateTextField.resignFirstResponder() // 2.5
+        
     }
     
     

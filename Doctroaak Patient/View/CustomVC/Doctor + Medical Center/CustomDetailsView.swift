@@ -79,6 +79,9 @@ class CustomDetailsView: CustomBaseView {
         return button
     }()
     
+    var patient_id:Int?
+       var patientApiToken:String?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         addGradientInSenderAndRemoveOther(sender: bookButton)

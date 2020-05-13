@@ -8,6 +8,8 @@
 
 
 import UIKit
+import SVProgressHUD
+import MOLH
 
 class DoctorBookVC: CustomBaseViewVC {
     
@@ -25,42 +27,60 @@ class DoctorBookVC: CustomBaseViewVC {
     }()
     lazy var cusomDoctorBookView:CusomDoctorBookView = {
         let v = CusomDoctorBookView()
+        v.patient_id = patient_id
+        v.api_token = api_token
+        v.clinic_id = clinic_id
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
-//        v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
-//        v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
-//        v.shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
-//        v.shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
+        //        v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
+        //        v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
+        //        v.shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
+        //        v.shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
         return v
     }()
+    
+    fileprivate let api_token:String!
+    fileprivate let patient_id:Int!
+    fileprivate let clinic_id:Int!
+    
+    init(clinic_id:Int,patient_id:Int,api_token:String) {
+        self.api_token=api_token
+        self.clinic_id=clinic_id
+        self.patient_id=patient_id
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-
+        
     }
     
     //MARK:-User methods
-       
-       func setupViewModelObserver()  {
-           
-           cusomDoctorBookView.doctorBookViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-               guard let isValid = isValidForm else {return}
-               //            self.customLoginView.loginButton.isEnabled = isValid
-               
-               self.changeButtonState(enable: isValid, vv: self.cusomDoctorBookView.bookButton)
-           }
-           
-           cusomDoctorBookView.doctorBookViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
-               if isValid == true {
-                   //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                   //                SVProgressHUD.show(withStatus: "Login...".localized)
-                   
-               }else {
-                   //                SVProgressHUD.dismiss()
-                   //                self.activeViewsIfNoData()
-               }
-           })
-       }
+    
+    func setupViewModelObserver()  {
+        
+        cusomDoctorBookView.doctorBookViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+            guard let isValid = isValidForm else {return}
+            //            self.customLoginView.loginButton.isEnabled = isValid
+            
+            self.changeButtonState(enable: isValid, vv: self.cusomDoctorBookView.bookButton)
+        }
+        
+        cusomDoctorBookView.doctorBookViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
+            if isValid == true {
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Waitting...".localized)
+                
+            }else {
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
+            }
+        })
+    }
     
     override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -87,42 +107,23 @@ class DoctorBookVC: CustomBaseViewVC {
         return cusomDoctorBookView.doctorBookViewModel.fullName!+ss+cusomDoctorBookView.mobileNumberTextField.text!+ss+cusomDoctorBookView.ageTextField.text!+ss+cusomDoctorBookView.doctorBookViewModel.isMale!
     }
     
-   @objc func handleBook()  {
-    self.cusomDoctorBookView.doctorBookViewModel.notes = cusomDoctorBookView.doctorBookViewModel.isFirstOpetion! ? "" : getNotes()
+    @objc func handleBook()  {
+        self.cusomDoctorBookView.doctorBookViewModel.notes = cusomDoctorBookView.doctorBookViewModel.isFirstOpetion! ? "" : getNotes()
+        
+        cusomDoctorBookView.doctorBookViewModel.performLogging(notessss: getNotes()) { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                print(9999)
+                //                       self.saveToken(user_id: user.id,user.phone)
+            }
+        }
     }
     
-//    fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
-//        if sender.backgroundColor == nil {
-////            registerViewModel.isMale = isMale;return
-//        }
-//        addGradientInSenderAndRemoveOther(sender: sender, vv: secondBtn)
-////        registerViewModel.isMale = isMale
-//    }
-//    
-//    func changeShiftsState(_ sender: UIButton,secondBtn:UIButton,isShift1:Bool) {
-//        if sender.backgroundColor == nil {
-//            //            registerViewModel.isMale = isMale;return
-//        }
-//        addGradientInSenderAndRemoveOther(sender: sender, vv: secondBtn)
-//        //        registerViewModel.isMale = isMale
-//    }
-//    //TODO: -handle methods
-//    
-//    @objc func handleGirl(sender:UIButton)  {
-//        changeBoyGirlState(sender,secondBtn: cusomBookView.boyButton,isMale: false)
-//    }
-//    
-//    @objc func handleBoy(sender:UIButton)  {
-//        changeBoyGirlState(sender, secondBtn: cusomBookView.girlButton, isMale: true)
-//    }
-//    
-//  @objc  func handle1Shift(sender:UIButton)  {
-//        changeShiftsState(sender, secondBtn: cusomBookView.shift2Button, isShift1: false)
-//
-//    }
-//    
-//    @objc  func handle2Shift(sender:UIButton)  {
-//        changeShiftsState(sender, secondBtn: cusomBookView.shift1Button, isShift1: true)
-//        
-//    }
 }

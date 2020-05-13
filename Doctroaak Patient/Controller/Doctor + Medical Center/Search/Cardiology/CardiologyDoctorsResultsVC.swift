@@ -17,6 +17,8 @@ class CardiologyDoctorsResultsVC: UIViewController {
         
         v.handleCheckedIndex = {[unowned self] doctor in
             let cDetails = DeatilsSelectedDoctorsVC(doctors: doctor)
+            cDetails.patientApiToken=self.patientApiToken
+            cDetails.patient_id=self.patient_id
             self.navigationController?.pushViewController(cDetails, animated: true)
         }
         v.handleBookmarkDoctor = {[unowned self] doctor in
@@ -25,6 +27,8 @@ class CardiologyDoctorsResultsVC: UIViewController {
         return v
     }()
     
+    var patient_id:Int?
+    var patientApiToken:String?
     fileprivate let doctorsArray:[PatientSearchDoctorsModel]!
     init(doctors:[PatientSearchDoctorsModel]) {
         self.doctorsArray=doctors
