@@ -45,7 +45,7 @@ class CusomDoctorBookView: CustomBaseView {
             self.subStack.isHide(index == 0 ? true : false)
             index == 0 ?  self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 200,bottomt:80,log: -48 ,centerImg: 250) : self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 60,bottomt:0,log: 0, centerImg: 100 )
             self.doctorBookViewModel.isFirstOpetion = index == 0 ? true : false
-            
+            self.resetAll()
         }
         return view
     }()
@@ -178,6 +178,11 @@ class CusomDoctorBookView: CustomBaseView {
         
     }
     
+    func resetAll()  {
+        mobileNumberTextField.text = nil
+        ageTextField.text = nil
+    }
+    
     fileprivate func secondButtons(title:String) ->UIButton {
         let b  = UIButton()
         b.setTitle(title, for: .normal)
@@ -261,12 +266,13 @@ class CusomDoctorBookView: CustomBaseView {
     
     @objc  func handle1Shift(sender:UIButton)  {
         changeShiftsState(sender, secondBtn: shift2Button, isShift1: false)
-        
+        doctorBookViewModel.part = 0
     }
     
     @objc  func handle2Shift(sender:UIButton)  {
         changeShiftsState(sender, secondBtn: shift1Button, isShift1: true)
-        
+        doctorBookViewModel.part = 1
+
     }
     
     @objc func textFieldDidChange(text: UITextField)  {

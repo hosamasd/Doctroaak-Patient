@@ -104,6 +104,7 @@
 		4EB36AA124616A7F00B67458 /* MainPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB36AA024616A7F00B67458 /* MainPaymentVC.swift */; };
 		4EB36AA324616A9500B67458 /* CustomMainPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB36AA224616A9500B67458 /* CustomMainPaymentView.swift */; };
 		4EB36AA524616AC300B67458 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB36AA424616AC300B67458 /* PaymentViewModel.swift */; };
+		4EB516D7246C1CBD00991D29 /* MainPatientOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB516D6246C1CBD00991D29 /* MainPatientOrderModel.swift */; };
 		4EBBCD8324320115005C8DF7 /* DeatilsSelectedDoctorsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD8224320115005C8DF7 /* DeatilsSelectedDoctorsVC.swift */; };
 		4EBBCD8524320132005C8DF7 /* CustomDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD8424320132005C8DF7 /* CustomDetailsView.swift */; };
 		4EBBCD872432015E005C8DF7 /* DoctorSuggestShiftHorizentalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD862432015E005C8DF7 /* DoctorSuggestShiftHorizentalVC.swift */; };
@@ -271,6 +272,7 @@
 		4EB36AA024616A7F00B67458 /* MainPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPaymentVC.swift; sourceTree = "<group>"; };
 		4EB36AA224616A9500B67458 /* CustomMainPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainPaymentView.swift; sourceTree = "<group>"; };
 		4EB36AA424616AC300B67458 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		4EB516D6246C1CBD00991D29 /* MainPatientOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPatientOrderModel.swift; sourceTree = "<group>"; };
 		4EBBCD8224320115005C8DF7 /* DeatilsSelectedDoctorsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeatilsSelectedDoctorsVC.swift; sourceTree = "<group>"; };
 		4EBBCD8424320132005C8DF7 /* CustomDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailsView.swift; sourceTree = "<group>"; };
 		4EBBCD862432015E005C8DF7 /* DoctorSuggestShiftHorizentalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorSuggestShiftHorizentalVC.swift; sourceTree = "<group>"; };
@@ -1200,6 +1202,7 @@
 			isa = PBXGroup;
 			children = (
 				4EF799A8246AB547006160E3 /* MainPatientSearchDoctorsModel.swift */,
+				4EB516D6246C1CBD00991D29 /* MainPatientOrderModel.swift */,
 			);
 			path = Doctor;
 			sourceTree = "<group>";
@@ -1544,6 +1547,7 @@
 				4EFDA72C2431D5840010AA7D /* DoctorListCollectionVC.swift in Sources */,
 				4ED7125C2432139100074363 /* ICUSearchVC.swift in Sources */,
 				4EA8B1172430E20D008473D3 /* MainLeftMenuCell.swift in Sources */,
+				4EB516D7246C1CBD00991D29 /* MainPatientOrderModel.swift in Sources */,
 				4E48369124669047006073F5 /* ProfileOrderCollectionVC.swift in Sources */,
 				4ED712672432151300074363 /* ICUResultsCell.swift in Sources */,
 				4E04C8802432315300D1AD1C /* CustomPharmacyLocationView.swift in Sources */,

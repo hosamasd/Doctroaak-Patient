@@ -9,7 +9,7 @@
 
 import UIKit
 
-let baseUrl = "http://doctoraak.sphinxatapps.com/public/api/"
+let baseUrl = "http://doctoraak.com/public/api/"
 
 
 class MainServices {

@@ -64,16 +64,6 @@ class PharmacyOrderVC: CustomBaseViewVC {
         self.customPharmacyOrderView.addLapCollectionVC.view.isHide(true)
     }
     
-  
-       
-//       fileprivate func makeLastOption() {
-//           self.bubleViewHeightConstraint.constant = 1000
-//           self.customLAPOrderView.laPOrderViewModel.isSecondOpetion = false
-//           self.customLAPOrderView.laPOrderViewModel.isFirstOpetion = false
-//           self.customLAPOrderView.addLapCollectionVC.medicineArray.count > 0 ?  self.customLAPOrderView.makeTheseChanges( hide: false, height: 1200,all: false) : self.customLAPOrderView.makeTheseChanges( hide: false, height: 1000,all: false)
-//           self.customLAPOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
-//       }
-    
     fileprivate func makeSecondOption() {
         self.bubleViewHeightConstraint.constant = 1000
         self.customPharmacyOrderView.pharamacyOrderViewModel.isSecondOpetion = true
