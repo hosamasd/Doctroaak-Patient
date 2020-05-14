@@ -86,12 +86,13 @@ class PharmacyLocationVC: CustomBaseViewVC {
             // Place details
             //            var placeMark: CLPlacemark?
             guard let   placeMark = placemarks?[0] else {return}
-            
+            self.customPharmacyLocationView.pharamacyLocationViewModel.lat = latitude
+            self.customPharmacyLocationView.pharamacyLocationViewModel.lng = longitude
+            self.customPharmacyLocationView.addressLabel.text =  placeMark.locality
             // Location name
             guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
-            self.customPharmacyLocationView.addressLabel.text =  " \(street) - \(city) - \(country)"
-            self.customPharmacyLocationView.pharamacyLocationViewModel.lat = "\(latitude)"
-            self.customPharmacyLocationView.pharamacyLocationViewModel.lng = "\(longitude)"
+            self.customPharmacyLocationView.addressLabel.text =   "\(street) - \(city) - \(country)"
+            
         })
         
         
@@ -105,8 +106,11 @@ class PharmacyLocationVC: CustomBaseViewVC {
     }
     
     @objc  func handleNext()  {
-        let order = PharmacyOrderVC()
-        navigationController?.pushViewController(order, animated: true)
+        customPharmacyLocationView.pharamacyLocationViewModel.performLogging {[unowned self] (la, lng, delivery, insurance) in
+            let order = PharmacyOrderVC(latt: la, lon: lng, insurance: insurance, delivery: delivery)
+            self.navigationController?.pushViewController(order, animated: true)
+        }
+        
     }
     
 }

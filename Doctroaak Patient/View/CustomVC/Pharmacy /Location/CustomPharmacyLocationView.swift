@@ -148,9 +148,9 @@ class CustomPharmacyLocationView: CustomBaseView {
    @objc func handleOpenSwitch(sender:UISwitch)  {
     switch sender.tag {
     case 0:
-        pharamacyLocationViewModel.insuranceCompany = sender.isOn
+        pharamacyLocationViewModel.insuranceCompany = sender.isOn ? 0 : 1
     default:
-        pharamacyLocationViewModel.delivery = sender.isOn
+        pharamacyLocationViewModel.delivery = sender.isOn ? 0 : 1
     }
     }
 }

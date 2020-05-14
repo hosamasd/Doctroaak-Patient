@@ -68,7 +68,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, index, _) in
-            self.pharamacyOrderViewModel.name = txt
+//            self.pharamacyOrderViewModel.name = txt
         }
         return i
     }()
@@ -78,15 +78,15 @@ class CustomPharmacyOrderView: CustomBaseView {
         tx.isScrollEnabled = false
         tx.font = UIFont.systemFont(ofSize: 16)
         tx.delegate = self
-//        tx.sizeToFit()
+        //        tx.sizeToFit()
         return tx
     }()
     lazy var placeHolderLabel = UILabel(text: "Enter Text (Optional)".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .left )
     lazy var  mainView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [textView,placeHolderLabel])
-//        v.constrainHeight(constant: 120)
-//        v.hstack(placeHolderLabel)
-//        v.hstack(textView)
+        //        v.constrainHeight(constant: 120)
+        //        v.hstack(placeHolderLabel)
+        //        v.hstack(textView)
         v.isHide(true)
         return v
     } ()
@@ -97,7 +97,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Type".localized
         i.didSelect {[unowned self] (txt, index, _) in
-            self.pharamacyOrderViewModel.type = txt
+            self.pharamacyOrderViewModel.api_token = txt
         }
         return i
     }()
@@ -105,10 +105,10 @@ class CustomPharmacyOrderView: CustomBaseView {
     lazy var customAddMinusView:CustomAddMinusView = {
         let v = CustomAddMinusView()
         v.handleAddClousre = {[unowned self] count in
-            self.pharamacyOrderViewModel.quantity = "\(count)"
+//            self.pharamacyOrderViewModel.quantity = "\(count)"
         }
         v.handleMinusClousre = {[unowned self] count in
-            self.pharamacyOrderViewModel.quantity = "\(count)"
+//            self.pharamacyOrderViewModel.quantity = "\(count)"
         }
         return v
     } ()
@@ -141,7 +141,12 @@ class CustomPharmacyOrderView: CustomBaseView {
     }()
     
     let pharamacyOrderViewModel = PharamacyOrderViewModel()
-    
+    var  latt:Double?
+    var  long:Double?
+    var  api_token:String?
+    var  patient_id:Int?
+    var  insurance:Int?
+    var  delivery:Int?
     
     var constainedLogoAnchor:AnchoredConstraints!
     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
@@ -235,16 +240,18 @@ class CustomPharmacyOrderView: CustomBaseView {
     }
     
     @objc  func handleAddMore()  {
-        guard let type = pharamacyOrderViewModel.type,let name = pharamacyOrderViewModel.name,let count = pharamacyOrderViewModel.quantity?.toInt() else {print("all fields required"); return  }
-        let model = MedicineAddModel(name: name, type: type, count: count)
-        addLapCollectionVC.medicineArray.append(model)
+        let type = PharamcyOrderModel(medicineID: 1, medicineTypeID: 1, amount: 1)
+        
+//        guard let type = pharamacyOrderViewModel.api_token,let name = pharamacyOrderViewModel.name,let count = pharamacyOrderViewModel.quantity?.toInt() else {print("all fields required"); return  }
+//        let model = MedicineAddModel(name: name, type: type, count: count)
+//        addLapCollectionVC.medicineArray.append(model)
         DispatchQueue.main.async {
             self.addLapCollectionVC.view.isHide(false)
             self.addLapCollectionVC.collectionView.reloadData()
         }
         
         
-        print(type,name,count)
+//        print(type,name,count)
     }
     
 }

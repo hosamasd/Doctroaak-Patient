@@ -8,6 +8,7 @@
 
 
 import UIKit
+import Alamofire
 
 let baseUrl = "http://doctoraak.com/public/api/"
 
@@ -99,4 +100,57 @@ class MainServices {
                }
                }.resume()
        }
+    
+    func makeMainPostGenericUsingAlmofire<T:Codable>(urlString:String,postStrings:String,photo:UIImage? = nil,orderDetails:[PharamcyOrderModel]? = nil ,radiologyorderDetails:[RadiologyOrderModel]? = nil,completion:@escaping (T?,Error?)->Void)  {
+              
+               let urlsString = postStrings.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+               //
+               Alamofire.upload(multipartFormData: { (multipartFormData) in
+                if let photo = photo {
+                   if let data = photo.pngData() {
+                       multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
+                   }
+                }
+                   let jsonEncoder = JSONEncoder()
+                   let jsonData = try? jsonEncoder.encode(orderDetails)
+                   if orderDetails?.isEmpty != nil {
+                       multipartFormData.append(jsonData ?? Data(), withName: "orderDetails")
+                   }
+                //radiology
+                let json2Encoder = JSONEncoder()
+                                  let json2Data = try? jsonEncoder.encode(radiologyorderDetails)
+                                  if radiologyorderDetails?.isEmpty != nil {
+                                      multipartFormData.append(jsonData ?? Data(), withName: "orderDetails")
+                                  }
+               }, to:urlsString!)
+               { (result) in
+                   switch result {
+                   case .success(let upload, _, _):
+                       
+                       upload.uploadProgress(closure: { (progress) in
+                           //Print progress
+                           print(progress)
+                       })
+                       
+                       upload.responseJSON { response in
+                           //print response.result
+                           print(response.result)
+                           guard let data = response.data else {return}
+                           
+                           do {
+                               let objects = try JSONDecoder().decode(T.self, from: data)
+                               // success
+                               completion(objects,nil)
+                           } catch let error {
+                               completion(nil,error)
+                           }
+                       }
+                       
+                   case .failure( let encodingError):
+                       completion(nil,encodingError)
+                       break
+                       //print encodingError.description
+                   }
+               }
+    }
 }

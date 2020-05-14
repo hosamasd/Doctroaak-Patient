@@ -15,34 +15,50 @@ class PharamacyOrderViewModel {
     
     //variables
     var image:UIImage? {didSet {checkFormValidity()}}
-    var type:String? {didSet {checkFormValidity()}}
-    var name:String? {didSet {checkFormValidity()}}
-    var quantity:String? {didSet {checkFormValidity()}}
-    var notes:String? {didSet {checkFormValidity()}}
+    var api_token:String? {didSet {checkFormValidity()}}
+    var latt:Double? = -1.0 {didSet {checkFormValidity()}}
+    var lang:Double? = -1.0 {didSet {checkFormValidity()}}
+    var notes:String? = "" {didSet {checkFormValidity()}}
+    var orderDetails:[PharamcyOrderModel]? {didSet {checkFormValidity()}}
+    var patient_id:Int? = -1 {didSet {checkFormValidity()}}
+    var insurance:Int? = -1 {didSet {checkFormValidity()}}
+    var delivery:Int? = -1 {didSet {checkFormValidity()}}
 
     
     var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
     var isSecondOpetion:Bool?  = false {didSet {checkFormValidity()}}
+    var isThirdOpetion:Bool?  = false {didSet {checkFormValidity()}}
+
     
     
     
     
-    
-    func performLogging(completion:@escaping (Error?)->Void)  {
+    func performLogging(completion:@escaping (MainPatientOrderModel?,Error?)->Void)  {
         if isFirstOpetion ?? true {
-            guard let image = image else { return  }
+            guard let image = image,let latt = latt,let long = lang,let patient_id=patient_id,let api_token=api_token,let insurance=insurance,let delivery=delivery else { return  }
+             bindableIsLogging.value = true
+            DoctorServices.shared.postBookPharamacyResults(photo: image, patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long, notes: "", api_token: api_token, completion: completion)
+            
         }else if isSecondOpetion ?? true {
-            guard let name = name,let type = type,let quantity=quantity else { return  }
-        }else {
-            guard let image = image,let name = name,let type = type,let quantity=quantity else { return  }
+            guard let orderDetails = orderDetails,let notes = notes,let latt = latt,let long = lang,let patient_id=patient_id,let api_token=api_token,let insurance=insurance,let delivery=delivery else { return  }
+             bindableIsLogging.value = true
+            DoctorServices.shared.postBookPharamacyResults( patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long, notes: notes, api_token: api_token, completion: completion)
+        }else if isThirdOpetion ?? true {
+            guard let notes = notes,let latt = latt,let long = lang,let patient_id=patient_id,let api_token=api_token,let insurance=insurance,let delivery=delivery else { return  }
+             bindableIsLogging.value = true
+            DoctorServices.shared.postBookPharamacyResults(photo: image, patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long,orderDetails: orderDetails, notes: notes, api_token: api_token, completion: completion)
         }
-        bindableIsLogging.value = true
+       
         
         //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
     
     func checkFormValidity() {
-        let isFormValid = image != nil  && isFirstOpetion == true   ||   type?.isEmpty == false && name?.isEmpty == false && quantity?.isEmpty == false && isSecondOpetion == true || image != nil    && type?.isEmpty == false && name?.isEmpty == false && quantity?.isEmpty == false && isSecondOpetion == false
+        let isFormValid = image != nil  && isFirstOpetion == true && insurance != -1 && delivery != -1 && lang != -1.0 && latt != -1.0 && api_token?.isEmpty == false && patient_id != -1   ||
+            orderDetails?.isEmpty == false && insurance != -1 && delivery != -1 && lang != -1.0 && latt != -1.0 && api_token?.isEmpty == false && patient_id != -1  && isSecondOpetion == true ||
+            image != nil    && orderDetails?.isEmpty == false  && isThirdOpetion == true && insurance != -1 && delivery != -1 && lang != -1.0 && latt != -1.0 && api_token?.isEmpty == false && patient_id != -1 ||
+            isThirdOpetion == true && insurance != -1 && delivery != -1 && lang != -1.0 && latt != -1.0 && api_token?.isEmpty == false && patient_id != -1 && image != nil ||
+            isThirdOpetion == true && insurance != -1 && delivery != -1 && lang != -1.0 && latt != -1.0 && api_token?.isEmpty == false && patient_id != -1 && orderDetails?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

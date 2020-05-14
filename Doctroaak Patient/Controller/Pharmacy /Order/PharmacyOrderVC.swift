@@ -26,6 +26,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     lazy var customPharmacyOrderView:CustomPharmacyOrderView = {
         let v = CustomPharmacyOrderView()
+        self.addValues()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
@@ -42,8 +43,26 @@ class PharmacyOrderVC: CustomBaseViewVC {
         return v
     }()
     
+    var  api_token:String?
+    var  patient_id:Int?
     var bubleViewHeightConstraint:NSLayoutConstraint!
+    fileprivate let latt:Double!
+    fileprivate let long:Double!
     
+    fileprivate let insurance:Int!
+    fileprivate let delivery:Int!
+    
+    init(latt:Double,lon:Double,insurance:Int,delivery:Int) {
+        self.delivery=delivery
+        self.insurance=insurance
+        self.latt=latt
+        self.long=lon
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,11 +75,20 @@ class PharmacyOrderVC: CustomBaseViewVC {
     func check()  {
         let order:[PharamcyOrderModel] = [PharamcyOrderModel(medicineID: 1, medicineTypeID: 1, amount: 1),
                                           .init(medicineID: 1, medicineTypeID: 1, amount: 1)
-                                          ]
+        ]
         
         DoctorServices.shared.postBookPharamacyResults(photo: #imageLiteral(resourceName: "star-1"), patient_id: 50, insurance: 0, delivery: 0,latt: 29.970245729247,lang: 29.970245729247,orderDetails: order, notes: "", api_token: "BrieOhmeR8CqML2RqBQDtXZWETE") { (base, err) in
             print(err)
         }
+    }
+    
+    fileprivate  func addValues()  {
+        customPharmacyOrderView.api_token=api_token;    customPharmacyOrderView.pharamacyOrderViewModel.lang=long
+        customPharmacyOrderView.patient_id=patient_id;  customPharmacyOrderView.pharamacyOrderViewModel.latt=latt
+        customPharmacyOrderView.latt=latt;              customPharmacyOrderView.pharamacyOrderViewModel.insurance=insurance
+        customPharmacyOrderView.long=long;              customPharmacyOrderView.pharamacyOrderViewModel.delivery=delivery
+        customPharmacyOrderView.insurance=insurance;    customPharmacyOrderView.pharamacyOrderViewModel.patient_id=patient_id
+        customPharmacyOrderView.delivery=delivery;      customPharmacyOrderView.pharamacyOrderViewModel.api_token=api_token
     }
     
     fileprivate func makeFirstOption() {
@@ -73,7 +101,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         self.customPharmacyOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 ,centerImg: 250)
         self.customPharmacyOrderView.addLapCollectionVC.view.isHide(true)
         self.customPharmacyOrderView.mainView.isHide(true)
-
+        
     }
     
     fileprivate func makeSecondOption() {
@@ -92,7 +120,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         self.customPharmacyOrderView.addLapCollectionVC.medicineArray.count > 0 ?  self.customPharmacyOrderView.makeTheseChanges( hide: false, height: 1200,all: false) : self.customPharmacyOrderView.makeTheseChanges( hide: false, height: 1000,all: false)
         self.customPharmacyOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
         self.customPharmacyOrderView.mainView.isHide(false)
-
+        
     }
     
     fileprivate func setupViewModelObserver()  {
@@ -160,14 +188,23 @@ class PharmacyOrderVC: CustomBaseViewVC {
 
 extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    fileprivate func putDefaultViewModel(_ img: UIImage) {
+        customPharmacyOrderView.pharamacyOrderViewModel.lang = long
+        customPharmacyOrderView.pharamacyOrderViewModel.image = img
+        
+    }
+    
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let img = info[.originalImage]  as? UIImage   {
             customPharmacyOrderView.pharamacyOrderViewModel.image = img
             customPharmacyOrderView.rosetaImageView.image = img
         }
         if let img = info[.editedImage]  as? UIImage   {
-            customPharmacyOrderView.pharamacyOrderViewModel.image = img
+            
             customPharmacyOrderView.rosetaImageView.image = img
+            customPharmacyOrderView.pharamacyOrderViewModel.image = img
+            
+            //            putDefaultViewModel(img)
         }
         
         hideOtherData()

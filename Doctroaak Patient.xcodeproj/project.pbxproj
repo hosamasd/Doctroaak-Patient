@@ -90,6 +90,7 @@
 		4E9964D3243B49E2007689B8 /* ICUViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9964D2243B49E2007689B8 /* ICUViewModel.swift */; };
 		4E9ED867246A998F00627F2F /* PatientFavoriteDoctorsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9ED866246A998F00627F2F /* PatientFavoriteDoctorsVC.swift */; };
 		4E9ED869246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9ED868246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift */; };
+		4E9F0B4D246C4DA800BB0FC0 /* RadiologyOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9F0B4C246C4DA800BB0FC0 /* RadiologyOrderModel.swift */; };
 		4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */; };
 		4EA06520243366B700D754AD /* CustomLapResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0651F243366B700D754AD /* CustomLapResultsView.swift */; };
 		4EA21A132439D84B000F2EB0 /* DoctorBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA21A122439D84B000F2EB0 /* DoctorBookViewModel.swift */; };
@@ -259,6 +260,7 @@
 		4E9964D2243B49E2007689B8 /* ICUViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICUViewModel.swift; sourceTree = "<group>"; };
 		4E9ED866246A998F00627F2F /* PatientFavoriteDoctorsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientFavoriteDoctorsVC.swift; sourceTree = "<group>"; };
 		4E9ED868246A9A1100627F2F /* CustomPatientFavoriteDoctorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPatientFavoriteDoctorsView.swift; sourceTree = "<group>"; };
+		4E9F0B4C246C4DA800BB0FC0 /* RadiologyOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiologyOrderModel.swift; sourceTree = "<group>"; };
 		4EA0651D2433667300D754AD /* LapSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapSearchResultsVC.swift; sourceTree = "<group>"; };
 		4EA0651F243366B700D754AD /* CustomLapResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLapResultsView.swift; sourceTree = "<group>"; };
 		4EA21A122439D84B000F2EB0 /* DoctorBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBookViewModel.swift; sourceTree = "<group>"; };
@@ -794,6 +796,7 @@
 				4EDE92382460018F00205C64 /* Main */,
 				4EDE92512460040D00205C64 /* Register */,
 				4E6E04E824614F63008DE228 /* BeforPaymwentModel.swift */,
+				4E9F0B4E246C4DAC00BB0FC0 /* Radiology */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -906,6 +909,14 @@
 				4EFE85B92431ED3200E44DD1 /* PatientFavoriteDoctorsCollectionVC.swift */,
 			);
 			path = favorites;
+			sourceTree = "<group>";
+		};
+		4E9F0B4E246C4DAC00BB0FC0 /* Radiology */ = {
+			isa = PBXGroup;
+			children = (
+				4E9F0B4C246C4DA800BB0FC0 /* RadiologyOrderModel.swift */,
+			);
+			path = Radiology;
 			sourceTree = "<group>";
 		};
 		4EA8B10D2430E0DF008473D3 /* left menu */ = {
@@ -1487,6 +1498,7 @@
 				4E13DDC824308AD300421737 /* LoginViewModel.swift in Sources */,
 				4E1E529D24335619005E5695 /* CustomSeg.swift in Sources */,
 				4E6E04E524614563008DE228 /* CustomFirstSkipPaymentView.swift in Sources */,
+				4E9F0B4D246C4DA800BB0FC0 /* RadiologyOrderModel.swift in Sources */,
 				4E6D5BCD243071FA000FC72D /* ExtensionUivew.swift in Sources */,
 				4E4F84AA2430CBB9005EFC4C /* ServicesVC.swift in Sources */,
 				4EBBCD8324320115005C8DF7 /* DeatilsSelectedDoctorsVC.swift in Sources */,
