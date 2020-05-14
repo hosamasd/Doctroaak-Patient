@@ -13,6 +13,15 @@ import MOLH
 
 class CustomLapSearchView: CustomBaseView {
     
+    var index:Int!{
+        didSet{
+            titleLabel.text = index == 0 ? "Lab" : "Radiology"
+            self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
+            
+        }
+    }
+    
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -44,7 +53,6 @@ class CustomLapSearchView: CustomBaseView {
     lazy var addressMainView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
         v.isHide(true)
-        //        v.addSubViews(views: addressImage,addressLabel)
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
         
         v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
@@ -62,11 +70,11 @@ class CustomLapSearchView: CustomBaseView {
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
+        //        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, index, _) in
-            self.lAPSearchViewModel.name = txt
+            self.lAPSearchViewModel.name = index == 0 ? self.labNameIDSArray[index] : self.radiologyIDSArray[index]
         }
         
         return i
@@ -138,13 +146,17 @@ class CustomLapSearchView: CustomBaseView {
     var handlerChooseLocation:(()->Void)?
     
     let lAPSearchViewModel = LAPSearchViewModel()
-    var cityArray = [String]() //["one","two","three","sdfdsfsd"]
+    var cityArray = [String]()
     var areaArray = [String]()
+    var labNameArray = [String]()
+    var radiologyNameArray = [String]()
     
-    var cityIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
+    var labNameIDSArray = [Int]()
+    var cityIDSArray = [Int]()
     var areaIDSArray = [Int]()
+    var radiologyIDSArray = [Int]()
     
-   
+    
     
     override func setupViews() {
         let textStack = getStack(views: addressMainView,mainDropView,orLabel,mainDrop2View,mainDrop3View,insuranceView,delvieryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
@@ -171,13 +183,13 @@ class CustomLapSearchView: CustomBaseView {
     }
     
     override init(frame: CGRect) {
-           super.init(frame: frame)
-           fetchData()
-       }
-       
-       required init?(coder aDecoder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
+        super.init(frame: frame)
+        fetchData()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     fileprivate func getAreaAccordingToCityId(index:Int)  {
         areaIDSArray.removeAll()
@@ -216,30 +228,35 @@ class CustomLapSearchView: CustomBaseView {
         if isArabic {
             
             
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.labNameARArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let radArrays = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameARArray) as? [String],let radIdss = userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
                 
-                putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds )
+                putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds,nn: nameArrays,ni: nameIdss,rN: radArrays,rI: radIdss )
                 
                 
             }
         }else {
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
-                putDataInDrops(sr: cityArray, sid: cityIds, dr: degreeNames, did:degreeIds )
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.labNameArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let radArrays = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameArray) as? [String],let radIdss = userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
+                putDataInDrops(sr: cityArray, sid: cityIds, dr: degreeNames, did:degreeIds,nn: nameArrays,ni: nameIdss,rN: radArrays,rI: radIdss )
                 
             }
         }
         self.cityDrop.optionArray = cityArray
         self.areaDrop.optionArray = areaArray
+        //        self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
         DispatchQueue.main.async {
             self.layoutIfNeeded()
         }
     }
     
-    func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int])  {
+    func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int],nn:[String],ni:[Int],rN:[String],rI:[Int])  {
         self.cityArray = sr
         self.areaArray = dr
         self.cityIDSArray = sid
         areaIDSArray = did
+        self.labNameArray=nn
+        self.labNameIDSArray=ni
+        self.radiologyNameArray=rN
+        self.radiologyIDSArray=rI
     }
     
     func openTheseViewsOrHide(isVale:Bool)  {

@@ -10,6 +10,10 @@ import SVProgressHUD
 import MOLH
 import UIKit
 
+protocol LoginVCPrototcol {
+    func useApiAndPatienId(api:String,patient:Int)
+}
+
 class LoginVC: CustomBaseViewVC {
     
     lazy var customLoginsView:CustomLoginsView = {
@@ -23,6 +27,7 @@ class LoginVC: CustomBaseViewVC {
         return v
     }()
     
+    var delgate:LoginVCPrototcol?
     
     
     //    let loginViewModel = LoginViewModel()
@@ -64,13 +69,17 @@ class LoginVC: CustomBaseViewVC {
         customLoginsView.fillSuperview()
     }
     
-    func saveToken(user_id:Int,_ mobile:String)  {
+    func saveToken(use:PatienModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.isPatientLogin)
-        userDefaults.set(user_id, forKey: UserDefaultsConstants.patientID)
-        userDefaults.set(mobile, forKey: UserDefaultsConstants.patienMobileNumber)
+        userDefaults.set(use.id, forKey: UserDefaultsConstants.patientID)
+        userDefaults.set(use.apiToken, forKey: UserDefaultsConstants.patientAPITOKEN)
+        
+        userDefaults.set(use.phone, forKey: UserDefaultsConstants.patienMobileNumber)
         
         userDefaults.synchronize()
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) {
+            self.delgate?.useApiAndPatienId(api: use.apiToken, patient: use.id)
+        }
     }
     
     
@@ -94,7 +103,7 @@ class LoginVC: CustomBaseViewVC {
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
             DispatchQueue.main.async {
-                self.saveToken(user_id: user.id,user.phone)
+                self.saveToken(use: user)
             }
             
         }

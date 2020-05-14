@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-
+import MOLH
+import SVProgressHUD
 
 class PharmacyOrderVC: CustomBaseViewVC {
     
@@ -29,6 +29,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         self.addValues()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
+        v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
             switch index {
             case 0:
@@ -39,6 +40,21 @@ class PharmacyOrderVC: CustomBaseViewVC {
             default:
                 self.makeLastOption()
             }
+        }
+        return v
+    }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleremoveLoginAlert()
         }
         return v
     }()
@@ -134,12 +150,12 @@ class PharmacyOrderVC: CustomBaseViewVC {
         
         customPharmacyOrderView.pharamacyOrderViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
             if isValid == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Booking...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -167,6 +183,22 @@ class PharmacyOrderVC: CustomBaseViewVC {
         })
     }
     
+    func presentAlert()  {
+        
+        customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
+        customAlertLoginView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+        
+    }
+    
+    func presentLogin()  {
+        let login = LoginVC()
+        login.delgate=self
+        let nav = UINavigationController(rootViewController: login)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+    
     //TODO: -handle methods
     
     
@@ -180,6 +212,45 @@ class PharmacyOrderVC: CustomBaseViewVC {
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true)
     }
+    
+    
+    @objc func handleBook()  {
+        if api_token == nil  {
+            presentAlert()
+        }else {
+            customPharmacyOrderView.pharamacyOrderViewModel.performBooking { (base, err) in
+                
+             if let err = err {
+                            SVProgressHUD.showError(withStatus: err.localizedDescription)
+                            self.activeViewsIfNoData();return
+                        }
+                        SVProgressHUD.dismiss()
+                        self.activeViewsIfNoData()
+                        guard let message = base else {return }
+            //            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
+                        
+                        DispatchQueue.main.async {
+                            self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
+
+//                            self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
+            //                self.dismiss(animated: true, completion: nil)
+                            //                       self.saveToken(user_id: user.id,user.phone)
+                        }
+                    }
+        }
+    }
+    
+    @objc func handleDismiss()  {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func handleremoveLoginAlert()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
+        presentLogin()
+        
+    }
+    
 }
 
 
@@ -217,4 +288,13 @@ extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControll
     }
     
     
+}
+
+extension PharmacyOrderVC:LoginVCPrototcol {
+    
+    func useApiAndPatienId(api: String, patient: Int) {
+        api_token = api
+        patient_id=patient
+        handleBack()
+    }
 }

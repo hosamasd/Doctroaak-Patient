@@ -112,6 +112,14 @@ extension UIViewController {
               }
           }
     
+    func createAlert(title:String,message:String,style:UIAlertController.Style)  {
+           let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+           let action = UIAlertAction(title: "Ok", style: .default) { (_) in
+               alert.dismiss(animated: true)
+           }
+           alert.addAction(action)
+           present(alert, animated: true)
+       }
 //    func showToast(message : String, font: UIFont) {
 //
 //        let toastLabel = UILabel(frame: CGRect(x: 0 , y: self.view.frame.size.height-100, width: view.frame.width-32, height: 35))

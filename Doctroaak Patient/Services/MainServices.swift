@@ -61,6 +61,16 @@ class MainServices {
         MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
+    func getLabs(completion: @escaping (MainGetLabModel?, Error?) -> ())  {
+        let urlString = baseUrl+"show/lab"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+    }
+    
+    func getRadiologys(completion: @escaping (MainGetRadiologyModel?, Error?) -> ())  {
+        let urlString = baseUrl+"show/radiology"
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+    }
+    
     static func mainGetMethodGenerics<T:Codable>(urlString:String,completion:@escaping (T?,Error?)->Void)  {
         
         guard let url = URL(string: urlString) else { return }
@@ -80,77 +90,77 @@ class MainServices {
     }
     
     static func registerationPostMethodGeneric<T:Codable>(postString:String,url:URL,completion:@escaping (T?,Error?)->Void)  {
-           var request = URLRequest(url: url)
-           request.httpMethod = "POST"
-           
-           
-           request.httpBody = postString.data(using: .utf8)
-           
-           URLSession.shared.dataTask(with: request) { (data, response, err) in
-               if let error = err {
-                   completion(nil,error)
-               }
-               guard let data = data else {return}
-               do {
-                   let objects = try JSONDecoder().decode(T.self, from: data)
-                   // success
-                   completion(objects,nil)
-               } catch let error {
-                   completion(nil,error)
-               }
-               }.resume()
-       }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        
+        request.httpBody = postString.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, err) in
+            if let error = err {
+                completion(nil,error)
+            }
+            guard let data = data else {return}
+            do {
+                let objects = try JSONDecoder().decode(T.self, from: data)
+                // success
+                completion(objects,nil)
+            } catch let error {
+                completion(nil,error)
+            }
+        }.resume()
+    }
     
     func makeMainPostGenericUsingAlmofire<T:Codable>(urlString:String,postStrings:String,photo:UIImage? = nil,orderDetails:[PharamcyOrderModel]? = nil ,radiologyorderDetails:[RadiologyOrderModel]? = nil,completion:@escaping (T?,Error?)->Void)  {
-              
-               let urlsString = postStrings.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-               //
-               Alamofire.upload(multipartFormData: { (multipartFormData) in
-                if let photo = photo {
-                   if let data = photo.pngData() {
-                       multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
-                   }
+        
+        let urlsString = postStrings.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        //
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            if let photo = photo {
+                if let data = photo.pngData() {
+                    multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
                 }
-                   let jsonEncoder = JSONEncoder()
-                   let jsonData = try? jsonEncoder.encode(orderDetails)
-                   if orderDetails?.isEmpty != nil {
-                       multipartFormData.append(jsonData ?? Data(), withName: "orderDetails")
-                   }
-                //radiology
-                let json2Encoder = JSONEncoder()
-                                  let json2Data = try? jsonEncoder.encode(radiologyorderDetails)
-                                  if radiologyorderDetails?.isEmpty != nil {
-                                      multipartFormData.append(jsonData ?? Data(), withName: "orderDetails")
-                                  }
-               }, to:urlsString!)
-               { (result) in
-                   switch result {
-                   case .success(let upload, _, _):
-                       
-                       upload.uploadProgress(closure: { (progress) in
-                           //Print progress
-                           print(progress)
-                       })
-                       
-                       upload.responseJSON { response in
-                           //print response.result
-                           print(response.result)
-                           guard let data = response.data else {return}
-                           
-                           do {
-                               let objects = try JSONDecoder().decode(T.self, from: data)
-                               // success
-                               completion(objects,nil)
-                           } catch let error {
-                               completion(nil,error)
-                           }
-                       }
-                       
-                   case .failure( let encodingError):
-                       completion(nil,encodingError)
-                       break
-                       //print encodingError.description
-                   }
-               }
+            }
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try? jsonEncoder.encode(orderDetails)
+            if orderDetails?.isEmpty != nil {
+                multipartFormData.append(jsonData ?? Data(), withName: "orderDetails")
+            }
+            //radiology
+            let json2Encoder = JSONEncoder()
+            let json2Data = try? jsonEncoder.encode(radiologyorderDetails)
+            if radiologyorderDetails?.isEmpty != nil {
+                multipartFormData.append(jsonData ?? Data(), withName: "orderDetails")
+            }
+        }, to:urlsString!)
+        { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    //Print progress
+                    print(progress)
+                })
+                
+                upload.responseJSON { response in
+                    //print response.result
+                    print(response.result)
+                    guard let data = response.data else {return}
+                    
+                    do {
+                        let objects = try JSONDecoder().decode(T.self, from: data)
+                        // success
+                        completion(objects,nil)
+                    } catch let error {
+                        completion(nil,error)
+                    }
+                }
+                
+            case .failure( let encodingError):
+                completion(nil,encodingError)
+                break
+                //print encodingError.description
+            }
+        }
     }
 }

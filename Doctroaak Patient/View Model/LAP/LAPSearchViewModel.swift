@@ -16,7 +16,7 @@ class LAPSearchViewModel {
     
     //variables
     var city:Int? = -1 {didSet {checkFormValidity()}}
-    var name:String? {didSet {checkFormValidity()}}
+    var name:Int? = -1 {didSet {checkFormValidity()}}
     var area:Int? = -1 {didSet {checkFormValidity()}}
     var insuranceCompany:Bool? = true {didSet {checkFormValidity()}}
     var delivery:Bool? = true {didSet {checkFormValidity()}}
@@ -28,7 +28,7 @@ class LAPSearchViewModel {
     
     
     
-    func performLogging(completion:@escaping (Error?)->Void)  {
+    func performSearching(completion:@escaping (Error?)->Void)  {
         if isFirstOpetion ?? true {
             guard let name = name,let city = city,let area = area else { return  }
         }else {
@@ -40,7 +40,7 @@ class LAPSearchViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = name?.isEmpty == false && city != -1 && area  != -1 && isFirstOpetion == true || lat?.isEmpty == false &&  lng?.isEmpty == false && isFirstOpetion == false
+        let isFormValid = name != -1 && city != -1 && area  != -1 && isFirstOpetion == true || lat?.isEmpty == false &&  lng?.isEmpty == false && isFirstOpetion == false
         
         bindableIsFormValidate.value = isFormValid
         

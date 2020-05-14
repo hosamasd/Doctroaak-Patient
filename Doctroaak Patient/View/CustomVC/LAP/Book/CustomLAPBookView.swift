@@ -143,7 +143,7 @@ class CustomLAPBookView: CustomBaseView {
         return button
     }()
     let lapBookViewModel = LAPBookViewModel()
-    
+   
     var index:Int = 0
     
     var isActive = true

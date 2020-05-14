@@ -33,7 +33,7 @@ class PharamacyOrderViewModel {
     
     
     
-    func performLogging(completion:@escaping (MainPatientOrderModel?,Error?)->Void)  {
+    func performBooking(completion:@escaping (MainPatientOrderModel?,Error?)->Void)  {
         if isFirstOpetion ?? true {
             guard let image = image,let latt = latt,let long = lang,let patient_id=patient_id,let api_token=api_token,let insurance=insurance,let delivery=delivery else { return  }
              bindableIsLogging.value = true

@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import SVProgressHUD
+import MOLH
 
 class LapSearchVC: CustomBaseViewVC {
     
@@ -26,6 +28,7 @@ class LapSearchVC: CustomBaseViewVC {
     
     lazy var customLapSearchView:CustomLapSearchView = {
         let v = CustomLapSearchView()
+        v.index=index
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.handlerChooseLocation = {[unowned self] in
             let loct = ChooseLocationVC()
@@ -51,9 +54,16 @@ class LapSearchVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        check()
     }
     
     //MARK:-User methods
+    
+    func check()  {
+        SearchServices.shared.labGetSearchResults(firstOption: false, lab_id: 1,city: 1,are: 1, insurance: 0, delivery: 0,latt: 0.2,lang: 10.00) { (base, err) in
+            print(err)
+        }
+    }
     
     func setupViewModelObserver()  {
         customLapSearchView.lAPSearchViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
@@ -65,12 +75,12 @@ class LapSearchVC: CustomBaseViewVC {
         
         customLapSearchView.lAPSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Searching...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                                SVProgressHUD.dismiss()
+                                self.activeViewsIfNoData()
             }
         })
     }
@@ -115,6 +125,9 @@ class LapSearchVC: CustomBaseViewVC {
     }
     
     @objc func handleSearch()  {
+        
+        customLapSearchView.lAPSearchViewModel
+        
         let details = LapSearchResultsVC(index:index)
         navigationController?.pushViewController(details, animated: true)
     }

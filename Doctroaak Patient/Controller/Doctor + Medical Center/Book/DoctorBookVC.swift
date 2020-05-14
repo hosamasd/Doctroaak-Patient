@@ -109,9 +109,9 @@ class DoctorBookVC: CustomBaseViewVC {
     }
     
     @objc func handleBook()  {
-//        self.cusomDoctorBookView.doctorBookViewModel.notes = cusomDoctorBookView.doctorBookViewModel.isFirstOpetion! ? "" : getNotes()
+        //        self.cusomDoctorBookView.doctorBookViewModel.notes = cusomDoctorBookView.doctorBookViewModel.isFirstOpetion! ? "" : getNotes()
         
-        cusomDoctorBookView.doctorBookViewModel.performLogging(notessss: getNotes()) { (base, err) in
+        cusomDoctorBookView.doctorBookViewModel.performBooking(notessss: getNotes()) { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.activeViewsIfNoData();return
@@ -119,23 +119,17 @@ class DoctorBookVC: CustomBaseViewVC {
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let message = base else {return }
-//            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
+            //            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
             
             DispatchQueue.main.async {
-                self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
-//                self.dismiss(animated: true, completion: nil)
+                self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
+//                self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
+                //                self.dismiss(animated: true, completion: nil)
                 //                       self.saveToken(user_id: user.id,user.phone)
             }
         }
     }
     
     
-    func createAlert(title:String,message:String,style:UIAlertController.Style)  {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
-        let action = UIAlertAction(title: "Ok", style: .default) { (_) in
-            alert.dismiss(animated: true)
-        }
-        alert.addAction(action)
-        present(alert, animated: true)
-    }
+    
 }
