@@ -28,15 +28,22 @@ class LapSearchResultsVC: CustomBaseViewVC {
         v.radiologyArrayResults = radiologyArrayResults
         v.labArrayResults=labArrayResults
         v.index = index
-        v.handleCheckedIndex = {[unowned self] indexx in
+        v.handleLabCheckedIndex = {[unowned self] indexx in
             let selected = LAPSelectedSearchResultsVC(index: self.index)
+            selected.labArrayResults=indexx
             self.navigationController?.pushViewController(selected, animated: true)
         }
+        v.handleRdiologyCheckedIndex = {[unowned self] indexx in
+                  let selected = LAPSelectedSearchResultsVC(index: self.index)
+                  selected.radiologyArrayResults=indexx
+                  self.navigationController?.pushViewController(selected, animated: true)
+              }
         
         return v
     }()
     
     //    fileprivate let
+    
     var labArrayResults = [LapSearchModel]()
     var radiologyArrayResults = [RadiologySearchModel]()
     

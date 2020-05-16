@@ -39,7 +39,7 @@ struct RadiologySearchModel:Codable {
     let reservationRate, degreeRate, createdAt, updatedAt: String
     let distance: Double
     let radiologyInsurances: [RadiologyInsuranceModel]
-    let workingHours: [RadiologyWorkingHour]
+    let workingHours: [RadiologyWorkingHourModel]
     let insuranceCompany: [InsurcaneCompanyModel]
     
     enum CodingKeys: String, CodingKey {
@@ -78,7 +78,7 @@ struct RadiologyInsuranceModel:Codable {
     }
 }
 
-struct RadiologyWorkingHour:Codable {
+struct RadiologyWorkingHourModel:Codable {
     let id, radiologyID, day: Int
     let partFrom, partTo: String
     let active: Int

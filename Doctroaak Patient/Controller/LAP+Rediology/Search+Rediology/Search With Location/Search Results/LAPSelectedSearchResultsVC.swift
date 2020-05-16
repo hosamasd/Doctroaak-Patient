@@ -10,25 +10,30 @@ import UIKit
 
 class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     
-    lazy var scrollView: UIScrollView = {
-        let v = UIScrollView()
-        v.backgroundColor = .clear
-        
-        return v
-    }()
-    lazy var mainView:UIView = {
-        let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 900)
-        v.constrainWidth(constant: view.frame.width)
-        return v
-    }()
+//    lazy var scrollView: UIScrollView = {
+//        let v = UIScrollView()
+//        v.backgroundColor = .clear
+//
+//        return v
+//    }()
+//    lazy var mainView:UIView = {
+//        let v = UIView(backgroundColor: .white)
+//        v.constrainHeight(constant: 900)
+//        v.constrainWidth(constant: view.frame.width)
+//        return v
+//    }()
     lazy var customLAPSelectedSearchView:CustomLAPSelectedSearchView = {
         let v = CustomLAPSelectedSearchView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         v.index = index
+        v.lab = labArrayResults
+        v.rad=radiologyArrayResults
         return v
     }()
+    
+    var labArrayResults: LapSearchModel?
+    var radiologyArrayResults :RadiologySearchModel?
     
     fileprivate let index:Int!
     init(index:Int) {
@@ -51,12 +56,12 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     }
     
     override func setupViews()  {
-        view.addSubview(scrollView)
-        scrollView.fillSuperview()
-        scrollView.addSubview(mainView)
-        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        mainView.addSubViews(views: customLAPSelectedSearchView)
+        view.addSubview(customLAPSelectedSearchView)
         customLAPSelectedSearchView.fillSuperview()
+//        scrollView.addSubview(mainView)
+//        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+//        mainView.addSubViews(views: customLAPSelectedSearchView)
+//        customLAPSelectedSearchView.fillSuperview()
     }
     
     //TODO: -handle methods

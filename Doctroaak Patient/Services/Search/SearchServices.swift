@@ -67,9 +67,9 @@ class SearchServices {
                 checks = "?lab_id=\(lab_id!)&insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
                 
             }else if   lab_id == -1 && (city != -1 && are != -1) {
-                           checks = "?insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
-                           
-                       }
+                checks = "?insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
+                
+            }
         }
         else {
             checks = "?insurance=\(insurance)&delivery=\(delivery)&lang=\(lang!)&latt=\(latt!)"

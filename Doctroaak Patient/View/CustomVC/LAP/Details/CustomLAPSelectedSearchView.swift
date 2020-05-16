@@ -7,12 +7,55 @@
 //
 
 import UIKit
+import SDWebImage
+import MOLH
+
 
 class CustomLAPSelectedSearchView: CustomBaseView {
     
     var index:Int!{
+        didSet{
+//            if index == 0 {
+//                lapResultsCelllll.lab = labArrayResults
+//
+//            }else {
+//                lapResultsCelllll.rad = radiologyArrayResults
+//            }
+            titleLabel.text = index == 1 ? "Rediology" : "Lap"
+            doctorWorkingDataLabel.text = index == 0 ? "Lab  working hours" : "Rediology  working hours"
+//            DispatchQueue.main.async {
+//                if self.index == 0 {
+//                    self.lapResultsCelllll.lab = self.labArrayResults
+//
+//                }else {
+//                    self.lapResultsCelllll.rad = self.radiologyArrayResults
+//                }
+//            }
+//            guard let workingLab = labArrayResults?.workingHours ,let workingRad =  radiologyArrayResults?.workingHours else { return  }
+//            lapDoctorWorkingDataCollectionVC.labWorkingDaysArray = workingLab
+        }
+    }
+    var lab:LapSearchModel? {
+        didSet{
+            guard let lab = lab else { return  }
+            lapDoctorWorkingDataCollectionVC.labWorkingDaysArray =  lab.workingHours
+            lapDoctorWorkingDataCollectionVC.collectionView.reloadData()
+             DispatchQueue.main.async {
+                self.lapResultsCelllll.lab =  self.lab
+            }
+        }
+    }
+    
+    var rad:RadiologySearchModel? {
            didSet{
-               titleLabel.text = index == 1 ? "Rediology" : "Lap"
+            guard let rad = rad else { return  }
+
+               lapDoctorWorkingDataCollectionVC.radWorkingDaysArray = rad.workingHours
+            lapDoctorWorkingDataCollectionVC.collectionView.reloadData()
+
+                DispatchQueue.main.async {
+                    self.lapResultsCelllll.rad = self.rad
+               }
            }
        }
     
@@ -39,10 +82,10 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     
     lazy var lapResultsCelllll = LAPResultsCelllll()
     
-    lazy var doctorWorkingDataLabel = UILabel(text: "Doctor's working date", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var doctorWorkingDataLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var lapDoctorWorkingDataCollectionVC:DoctorWorkingDateCollectionVC = {
         let vc = DoctorWorkingDateCollectionVC()
-        vc.view.constrainHeight(constant: 300)
+//        vc.view.constrainHeight(constant: 300)
         return vc
     }()
     lazy var bookButton:UIButton = {
@@ -56,6 +99,9 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         return button
     }()
     
+//    var labArrayResults: LapSearchModel?
+//    var radiologyArrayResults :RadiologySearchModel?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if bookButton.backgroundColor != nil {
@@ -65,7 +111,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     }
     
     override func setupViews() {
-        
+        lapResultsCelllll.constrainHeight(constant: 150)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,lapResultsCelllll,lapDoctorWorkingDataCollectionVC.view,doctorWorkingDataLabel,bookButton)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
@@ -77,7 +123,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         lapResultsCelllll.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
         doctorWorkingDataLabel.anchor(top: lapResultsCelllll.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         //        doctorWorkingDataLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-        lapDoctorWorkingDataCollectionVC.view.anchor(top: doctorWorkingDataLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        lapDoctorWorkingDataCollectionVC.view.anchor(top: doctorWorkingDataLabel.bottomAnchor, leading: leadingAnchor, bottom: bookButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
         bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 16, right: 32))
     }

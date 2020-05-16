@@ -15,17 +15,47 @@ class DoctorWorkingDateCell: BaseCollectionCell {
     
     var day:WorkingHourModel! {
         didSet{
+            guard let day = day else { return  }
             if  day.active == 1 {
-            doctorDayLabel.text = getDayFromIndex(day.day)
-            doctorFirstTimeLabel.text = changeTimeForButtonTitle(values: day.part1From)
-            doctorDayLastTimeLabel.text = changeTimeForButtonTitle(values: day.part1To)
-            
-            doctorSecondTimeLabel.text = changeTimeForButtonTitle(values: day.part2From)
-            doctorDaySecondLastTimeLabel.text = changeTimeForButtonTitle(values: day.part2To)
+                doctorDayLabel.text = getDayFromIndex(day.day)
+                doctorFirstTimeLabel.text = changeTimeForButtonTitle(values: day.part1From)
+                doctorDayLastTimeLabel.text = changeTimeForButtonTitle(values: day.part1To)
+                
+                doctorSecondTimeLabel.text = changeTimeForButtonTitle(values: day.part2From)
+                doctorDaySecondLastTimeLabel.text = changeTimeForButtonTitle(values: day.part2To)
             }else {}
         }
     }
     
+    var lab:LabWorkingHourModel! {
+        didSet{
+            guard let lab = lab else { return  }
+
+            if  lab.active == 1 {
+                doctorDayLabel.text = getDayFromIndex(lab.day)
+                doctorFirstTimeLabel.text = changeTimeForButtonTitle(values: lab.partFrom)
+                doctorDayLastTimeLabel.text = changeTimeForButtonTitle(values: lab.partTo)
+                
+//                doctorSecondTimeLabel.text = changeTimeForButtonTitle(values: lab.part2From)
+//                doctorDaySecondLastTimeLabel.text = changeTimeForButtonTitle(values: lab.part2To)
+            }else {}
+        }
+    }
+    
+    var rad:RadiologyWorkingHourModel! {
+        didSet{
+            guard let rad = rad else { return  }
+
+            if  rad.active == 1 {
+                doctorDayLabel.text = getDayFromIndex(rad.day)
+                doctorFirstTimeLabel.text = changeTimeForButtonTitle(values: rad.partFrom)
+                doctorDayLastTimeLabel.text = changeTimeForButtonTitle(values: rad.partTo)
+                
+//                doctorSecondTimeLabel.text = changeTimeForButtonTitle(values: rad.part2From)
+//                doctorDaySecondLastTimeLabel.text = changeTimeForButtonTitle(values: rad.part2To)
+            }else {}
+        }
+    }
     
     lazy var logoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Rectangle 1751"))
@@ -65,12 +95,12 @@ class DoctorWorkingDateCell: BaseCollectionCell {
     func changeTimeForButtonTitle(values:String)->String  {
         var ppp = "am"
         guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
-               ppp = hours > 12 ? "pm" : "am"
-               hours =   hours > 12 ? hours - 12 : hours
+        ppp = hours > 12 ? "pm" : "am"
+        hours =   hours > 12 ? hours - 12 : hours
         guard let hou = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false) else {return "\(hours): 00 \(ppp)"}
         
         guard let minute = hou.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
-       
+        
         return "\(hours):\(minute) \(ppp)"
         
     }

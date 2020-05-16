@@ -14,7 +14,7 @@ class CustomLapResultsView: CustomBaseView {
         didSet{
             titleLabel.text = index == 1 ? "Rediology" : "Lap"
             lapResultsCollectionVC.index = index
-
+            
             if index == 0 {
                 lapResultsCollectionVC.labArrayResults=labArrayResults
                 lapResultsCollectionVC.index = index
@@ -50,14 +50,17 @@ class CustomLapResultsView: CustomBaseView {
     
     lazy var lapResultsCollectionVC:LAPResultsCollectionVC = {
         let vc = LAPResultsCollectionVC()
-        vc.handleCheckedIndex = {[unowned self] index in
-            self.handleCheckedIndex?(index)
+        vc.handleLabCheckedIndex = {[unowned self] index in
+            self.handleLabCheckedIndex?(index)
         }
-        
+        vc.handleRdiologyCheckedIndex = {[unowned self] index in
+            self.handleRdiologyCheckedIndex?(index)
+        }
         return vc
     }()
     
-    var handleCheckedIndex:((IndexPath)->Void)?
+    var handleLabCheckedIndex:((LapSearchModel)->Void)?
+    var handleRdiologyCheckedIndex:((RadiologySearchModel)->Void)?
     var labArrayResults = [LapSearchModel]()
     var radiologyArrayResults = [RadiologySearchModel]()
     
