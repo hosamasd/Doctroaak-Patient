@@ -38,63 +38,27 @@ class CustomLAPOrderView: CustomBaseView {
         view.useShadow = true
         return view
     }()
-    
-    //    lazy var orderSegmentedView:UISegmentedControl = {
-    //        let view = UISegmentedControl(items: ["prescription"," Analysis name","All"])
-    //        view.translatesAutoresizingMaskIntoConstraints = false
-    //        view.layer.cornerRadius = 16
-    //        layer.masksToBounds = true
-    //        view.clipsToBounds = true
-    //        view.apportionsSegmentWidthsByContent = true
-    //        view.layer.borderWidth = 1
-    //        view.layer.backgroundColor = UIColor.lightGray.cgColor
-    //        view.constrainHeight(constant: 50)
-    //        view.selectedSegmentIndex = 0
-    //        view.tintColor = .black
-    //        view.backgroundColor = .white
-    //        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 20)
-    //        /// Gradient
-    //        let gradient = CAGradientLayer()
-    //        gradient.frame =  CGRect(x: 0, y: 0, width:  UIScreen.main.bounds.width - 40, height: 20)
-    //        let leftColor = #colorLiteral(red: 0.6002450585, green: 0.3833707869, blue: 0.9996971488, alpha: 1)
-    //        let rightColor = #colorLiteral(red: 0.4903785586, green: 0.2679489255, blue: 0.9277817607, alpha: 1)
-    //        gradient.colors = [leftColor.cgColor, rightColor.cgColor]
-    //        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-    //        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-    //        /// Create gradient image
-    //        UIGraphicsBeginImageContext(gradient.frame.size)
-    //        gradient.render(in: UIGraphicsGetCurrentContext()!)
-    //        let segmentedControlImage = UIGraphicsGetImageFromCurrentImageContext()
-    //        UIGraphicsEndImageContext()
-    //
-    //        // Normal Image
-    //        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
-    //        UIGraphicsBeginImageContext(rect.size);
-    //        let context:CGContext = UIGraphicsGetCurrentContext()!;
-    //        context.setFillColor(#colorLiteral(red: 0.9352307916, green: 0.9353840947, blue: 0.9351981282, alpha: 1).cgColor)
-    //        context.fill(rect)
-    //        let normalImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-    //        UIGraphicsEndImageContext()
-    //        /// Set segmentedControl image
-    //        view.setBackgroundImage(normalImage, for: .normal, barMetrics: .default)
-    //        view.setBackgroundImage(segmentedControlImage, for: .selected, barMetrics: .default)
-    //                view.addTarget(self, action: #selector(handleOpenOther), for: .valueChanged)
-    //        return view
-    //    }()
     lazy var centerImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
         i.translatesAutoresizingMaskIntoConstraints = false
+        i.contentMode = .scaleAspectFill
+
+//        i.constrainHeight(constant: 120)
+        i.clipsToBounds = true
         return i
     }()
     lazy var rosetaImageView:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "G4-G5 Sample Rx"))
         i.contentMode = .scaleAspectFill
         i.clipsToBounds = true
-
         i.isHide(true)
         return i
     }()
-    lazy var uploadView = makeMainSubViewWithAppendView(vv: [uploadLabel,uploadImage])
+    lazy var uploadView:UIView = {
+       let v = makeMainSubViewWithAppendView(vv: [uploadLabel,uploadImage])
+        v.constrainHeight(constant: 60)
+        return v
+    }()
     lazy var uploadLabel = UILabel(text: "Upload prescription", font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
     
     lazy var uploadImage:UIImageView = {
@@ -114,9 +78,13 @@ class CustomLAPOrderView: CustomBaseView {
         }
         return i
     }()
+    lazy var firstStack:UIStackView = {
+        let s = stack(centerImage,uploadView,spacing:16)
+        return s
+    }()
     lazy var addLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
-        //        vc.view.constrainHeight(constant: 300)
+//                vc.view.constrainHeight(constant: 150)
 //        vc.view.isHide(true)
         return vc
     }()
@@ -152,19 +120,21 @@ class CustomLAPOrderView: CustomBaseView {
     
     
     override func setupViews() {
-        bubleViewCenterImgHeightConstraint = centerImage.heightAnchor.constraint(equalToConstant: 250)
-        bubleViewCenterImgHeightConstraint.isActive = true
-        [titleLabel,orderSegmentedView,LogoImage].forEach({$0.translatesAutoresizingMaskIntoConstraints = false})
-        [orLabel,addMoreImage,mainDropView].forEach({$0.isHide(true)})
-        
+//        bubleViewCenterImgHeightConstraint = centerImage.heightAnchor.constraint(equalToConstant: 250)
+//        bubleViewCenterImgHeightConstraint.isActive = true
+//        [titleLabel,orderSegmentedView,LogoImage].forEach({$0.translatesAutoresizingMaskIntoConstraints = false})
+//        [orLabel,addMoreImage,mainDropView].forEach({$0.isHide(true)})
+//
         let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
-        
-        
-        let mainStack =  getStack(views: rosetaImageView,centerImage,uploadView,orLabel,mainDropView,dd,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fill, axis: .vertical)
+//
+//          let mainStack =  getStack(views: rosetaImageView,centerImage,uploadView,orLabel,mainDropView,dd,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fillEqually, axis: .vertical)
+//        let mainStack =  getStack(views: rosetaImageView,centerImage,uploadView,orLabel,mainDropView,dd,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fillEqually, axis: .vertical)
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         uploadView.hstack(uploadImage,uploadLabel)
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStack,nextButton)
         
+//        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStack,nextButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,firstStack,nextButton)
+
         
         constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         
@@ -179,7 +149,9 @@ class CustomLAPOrderView: CustomBaseView {
         bubleViewTopSegConstraint = orderSegmentedView.topAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 186)
         bubleViewTopSegConstraint.isActive = true
         
-        mainStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 32, right: 32))
+        firstStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 32, right: 32))
+
+//        mainStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 32, right: 32))
         
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         

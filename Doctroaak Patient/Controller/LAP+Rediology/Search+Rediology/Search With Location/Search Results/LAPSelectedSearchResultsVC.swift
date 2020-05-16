@@ -10,18 +10,6 @@ import UIKit
 
 class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     
-//    lazy var scrollView: UIScrollView = {
-//        let v = UIScrollView()
-//        v.backgroundColor = .clear
-//
-//        return v
-//    }()
-//    lazy var mainView:UIView = {
-//        let v = UIView(backgroundColor: .white)
-//        v.constrainHeight(constant: 900)
-//        v.constrainWidth(constant: view.frame.width)
-//        return v
-//    }()
     lazy var customLAPSelectedSearchView:CustomLAPSelectedSearchView = {
         let v = CustomLAPSelectedSearchView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -29,9 +17,20 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         v.index = index
         v.lab = labArrayResults
         v.rad=radiologyArrayResults
+        v.handleGetLocation = {[unowned self] (la,lng) in
+            let v = OpenLocationUsingLatAndLongView(lat: la, lng: lng)
+            self.customMainAlertVC.addCustomViewInCenter(views: v, height: 200)
+            self.present(self.customMainAlertVC, animated: true)
+        }
         return v
     }()
-    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     var labArrayResults: LapSearchModel?
     var radiologyArrayResults :RadiologySearchModel?
     
@@ -58,10 +57,6 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     override func setupViews()  {
         view.addSubview(customLAPSelectedSearchView)
         customLAPSelectedSearchView.fillSuperview()
-//        scrollView.addSubview(mainView)
-//        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-//        mainView.addSubViews(views: customLAPSelectedSearchView)
-//        customLAPSelectedSearchView.fillSuperview()
     }
     
     //TODO: -handle methods
@@ -75,6 +70,9 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         navigationController?.pushViewController(book, animated: true)
     }
     
+    @objc func handleDismiss()  {
+        dismiss(animated: true, completion: nil)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

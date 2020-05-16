@@ -106,6 +106,8 @@ class  LAPResultsCelllll: BaseCollectionCell {
         super.init(frame: frame)
         setupShadowss()
         setupViewss()
+//        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -130,6 +132,8 @@ class  LAPResultsCelllll: BaseCollectionCell {
         //        b.setImage(image, for: .normal)
         b.constrainWidth(constant: 20)
         b.constrainHeight(constant: 20)
+        b.isUserInteractionEnabled = true
+//        b.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
         return b
     }
     
@@ -176,5 +180,22 @@ class  LAPResultsCelllll: BaseCollectionCell {
         let ff = ss.first ?? 1
         return citName[ff-1]
     }
+    
+//    @objc func handleLocation()  {
+//        var lat:Double
+//        var lng:Double
+//        if rad != nil {
+//            lat = rad.latt.toDouble() ?? 0.0
+//            lng=rad.lang.toDouble() ?? 0.0
+//        }else if lab != nil {
+//            lat = lab.latt.toDouble() ?? 0.0
+//            lng=lab.lang.toDouble() ?? 0.0
+//        }else {
+//            lat = 0.0
+//            lng = 0.0
+//        }
+//        
+//        handleGetLocation?(lat,lng)
+//    }
 }
 

@@ -20,26 +20,19 @@ class PharmacyOrderVC: CustomBaseViewVC {
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
         v.translatesAutoresizingMaskIntoConstraints = false
+//                v.constrainHeight(constant: 1200)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
     
-    lazy var customPharmacyOrderView:CustomPharmacyOrderView = {
-        let v = CustomPharmacyOrderView()
-        self.addValues()
+    lazy var customPharmacyOrderView:CustomSecondPharmacyOrderView = {
+        let v = CustomSecondPharmacyOrderView()
+        //        self.addValues()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
         v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
-            switch index {
-            case 0:
-                self.makeFirstOption()
-            case 1:
-                
-                self.makeSecondOption()
-            default:
-                self.makeLastOption()
-            }
+            self.hideOrUndie(index: index)
         }
         return v
     }()
@@ -83,7 +76,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        check()
+        //        check()
     }
     
     //MARK:-User methods
@@ -98,45 +91,17 @@ class PharmacyOrderVC: CustomBaseViewVC {
         }
     }
     
-    fileprivate  func addValues()  {
-        customPharmacyOrderView.api_token=api_token;    customPharmacyOrderView.pharamacyOrderViewModel.lang=long
-        customPharmacyOrderView.patient_id=patient_id;  customPharmacyOrderView.pharamacyOrderViewModel.latt=latt
-        customPharmacyOrderView.latt=latt;              customPharmacyOrderView.pharamacyOrderViewModel.insurance=insurance
-        customPharmacyOrderView.long=long;              customPharmacyOrderView.pharamacyOrderViewModel.delivery=delivery
-        customPharmacyOrderView.insurance=insurance;    customPharmacyOrderView.pharamacyOrderViewModel.patient_id=patient_id
-        customPharmacyOrderView.delivery=delivery;      customPharmacyOrderView.pharamacyOrderViewModel.api_token=api_token
-    }
-    
-    fileprivate func makeFirstOption() {
-        
-        
-        self.bubleViewHeightConstraint.constant = 900
-        self.customPharmacyOrderView.pharamacyOrderViewModel.isSecondOpetion = false
-        self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = true
-        self.customPharmacyOrderView.makeTheseChanges(  hide: true, height: 800)
-        self.customPharmacyOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48 ,centerImg: 250)
-        self.customPharmacyOrderView.addLapCollectionVC.view.isHide(true)
-        self.customPharmacyOrderView.mainView.isHide(true)
-        
-    }
-    
-    fileprivate func makeSecondOption() {
-        self.bubleViewHeightConstraint.constant = 1000
-        self.customPharmacyOrderView.pharamacyOrderViewModel.isSecondOpetion = true
-        self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = false
-        self.customPharmacyOrderView.addLapCollectionVC.medicineArray.count > 0 ?  self.customPharmacyOrderView.makeTheseChanges( hide: false, height: 1200) : self.customPharmacyOrderView.makeTheseChanges( hide: false, height: 800)
-        self.customPharmacyOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 186,bottomt:80,log: -48, centerImg: 100 )
-        self.customPharmacyOrderView.mainView.isHide(false)
-    }
-    
-    fileprivate func makeLastOption() {
-        self.bubleViewHeightConstraint.constant = 1200
-        self.customPharmacyOrderView.pharamacyOrderViewModel.isSecondOpetion = false
-        self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = false
-        self.customPharmacyOrderView.addLapCollectionVC.medicineArray.count > 0 ?  self.customPharmacyOrderView.makeTheseChanges( hide: false, height: 1200,all: false) : self.customPharmacyOrderView.makeTheseChanges( hide: false, height: 1000,all: false)
-        self.customPharmacyOrderView.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 80,bottomt:0,log: 0, centerImg: 100 )
-        self.customPharmacyOrderView.mainView.isHide(false)
-        
+    func hideOrUndie(index:Int)  {
+        self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = index == 0 ? true : false
+        self.customPharmacyOrderView.pharamacyOrderViewModel.isSecondOpetion = index == 1 ? true : false
+        self.customPharmacyOrderView.pharamacyOrderViewModel.isThirdOpetion = index == 2 ? true : false
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {[unowned self] in
+            self.customPharmacyOrderView.secondStack.isHide(index == 0 ? true : false)
+            self.customPharmacyOrderView.orLabel.isHide(index == 2 ? false :  true)
+            self.customPharmacyOrderView.firstStack.isHide(index == 1 ? true : false)
+            self.bubleViewHeightConstraint.constant = index == 0 ? 900 : index == 1 ? 900 : 1300
+            
+        })
     }
     
     fileprivate func setupViewModelObserver()  {
@@ -176,13 +141,6 @@ class PharmacyOrderVC: CustomBaseViewVC {
         customPharmacyOrderView.fillSuperview()
     }
     
-    func hideOtherData()  {
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-            [self.customPharmacyOrderView.uploadView,self.customPharmacyOrderView.centerImage].forEach({$0.isHide(true)})
-            self.customPharmacyOrderView.rosetaImageView.isHide(false)
-        })
-    }
-    
     func presentAlert()  {
         
         customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
@@ -220,23 +178,23 @@ class PharmacyOrderVC: CustomBaseViewVC {
         }else {
             customPharmacyOrderView.pharamacyOrderViewModel.performBooking { (base, err) in
                 
-             if let err = err {
-                            SVProgressHUD.showError(withStatus: err.localizedDescription)
-                            self.activeViewsIfNoData();return
-                        }
-                        SVProgressHUD.dismiss()
-                        self.activeViewsIfNoData()
-                        guard let message = base else {return }
-            //            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
-                        
-                        DispatchQueue.main.async {
-                            self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
-
-//                            self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
-            //                self.dismiss(animated: true, completion: nil)
-                            //                       self.saveToken(user_id: user.id,user.phone)
-                        }
-                    }
+                if let err = err {
+                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.activeViewsIfNoData();return
+                }
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
+                guard let message = base else {return }
+                //            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
+                
+                DispatchQueue.main.async {
+                    self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
+                    
+                    //                            self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
+                    //                self.dismiss(animated: true, completion: nil)
+                    //                       self.saveToken(user_id: user.id,user.phone)
+                }
+            }
         }
     }
     
@@ -278,7 +236,7 @@ extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControll
             //            putDefaultViewModel(img)
         }
         
-        hideOtherData()
+        //        hideOtherData()
         dismiss(animated: true)
     }
     

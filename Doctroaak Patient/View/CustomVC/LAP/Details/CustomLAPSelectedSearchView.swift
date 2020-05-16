@@ -15,24 +15,8 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     
     var index:Int!{
         didSet{
-//            if index == 0 {
-//                lapResultsCelllll.lab = labArrayResults
-//
-//            }else {
-//                lapResultsCelllll.rad = radiologyArrayResults
-//            }
             titleLabel.text = index == 1 ? "Rediology" : "Lap"
             doctorWorkingDataLabel.text = index == 0 ? "Lab  working hours" : "Rediology  working hours"
-//            DispatchQueue.main.async {
-//                if self.index == 0 {
-//                    self.lapResultsCelllll.lab = self.labArrayResults
-//
-//                }else {
-//                    self.lapResultsCelllll.rad = self.radiologyArrayResults
-//                }
-//            }
-//            guard let workingLab = labArrayResults?.workingHours ,let workingRad =  radiologyArrayResults?.workingHours else { return  }
-//            lapDoctorWorkingDataCollectionVC.labWorkingDaysArray = workingLab
         }
     }
     var lab:LapSearchModel? {
@@ -80,7 +64,14 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         return v
     }()
     
-    lazy var lapResultsCelllll = LAPResultsCelllll()
+    lazy var lapResultsCelllll:LAPResultsCelllll = {
+       let v = LAPResultsCelllll()
+        v.locationImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
+//        v.handleGetLocation = {[unowned self] (la,ln) in
+//            self.handleGetLocation?(la,ln)
+//    }
+        return v
+    }()
     
     lazy var doctorWorkingDataLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var lapDoctorWorkingDataCollectionVC:DoctorWorkingDateCollectionVC = {
@@ -99,6 +90,8 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         return button
     }()
     
+    var handleGetLocation:((Double,Double) ->Void)?
+
 //    var labArrayResults: LapSearchModel?
 //    var radiologyArrayResults :RadiologySearchModel?
     
@@ -127,4 +120,26 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         
         bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 16, right: 32))
     }
+    
+    @objc func handleLocation()  {
+//        guard let lat = lab?.latt.toDouble(),let lng=lab?.lang.toDouble() else {  handleGetLocation?(lat,lng); return }
+        var lat:Double = 0.0
+        var lng:Double = 0.0
+           if rad != nil {
+            guard let lat = rad?.latt.toDouble(),let lng=rad?.lang.toDouble() else {  handleGetLocation?(0.0,0.0); return }
+            handleGetLocation?(lat,lng);return
+//            lat = rad?.latt.toDouble() ?? 0.0
+//               lng=rad.lang.toDouble() ?? 0.0
+           }else if lab != nil {
+            guard let lat = lab?.latt.toDouble(),let lng=lab?.lang.toDouble() else {  handleGetLocation?(0.0,0.0); return }
+            handleGetLocation?(lat,lng);return
+//               lat = lab.latt.toDouble() ?? 0.0
+//               lng=lab.lang.toDouble() ?? 0.0
+           }else {
+               lat = 0.0
+               lng = 0.0
+           }
+           
+           handleGetLocation?(lat,lng)
+       }
 }

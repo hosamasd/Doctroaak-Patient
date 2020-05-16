@@ -20,7 +20,7 @@ class LAPBookViewModel {
     var fullName:String? {didSet {checkFormValidity()}}
     var mobileNumber:String? {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
-    var birthday:String? {didSet {checkFormValidity()}}
+    var age:Int? = -1 {didSet {checkFormValidity()}}
     var isMale:String?  = "male" {didSet {checkFormValidity()}}
     var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
     
@@ -32,7 +32,7 @@ class LAPBookViewModel {
         if isFirstOpetion ?? true {
             guard let dates = dates else { return  }
         }else {
-            guard let secondDates = secondDates, let fullName = fullName, let mobileNumber = mobileNumber,let birthday = birthday
+            guard let secondDates = secondDates, let fullName = fullName, let mobileNumber = mobileNumber,let age = age
                 else { return  }
         }
         bindableIsLogging.value = true
@@ -41,7 +41,7 @@ class LAPBookViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = dates?.isEmpty == false &&  index != -1 && isFirstOpetion==true ||  index != -1 && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobileNumber?.isEmpty == false  && birthday?.isEmpty == false && isFirstOpetion==false
+        let isFormValid = dates?.isEmpty == false &&  index != -1 && isFirstOpetion==true ||  index != -1 && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobileNumber?.isEmpty == false  && age  != -1 && isFirstOpetion==false
         
         bindableIsFormValidate.value = isFormValid
         

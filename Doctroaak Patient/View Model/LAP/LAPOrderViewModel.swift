@@ -20,7 +20,8 @@ class LAPOrderViewModel {
     
     var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
     var isSecondOpetion:Bool?  = false {didSet {checkFormValidity()}}
-    
+    var isThirdOpetion:Bool?  = false {didSet {checkFormValidity()}}
+
     
     
     

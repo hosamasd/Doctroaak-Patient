@@ -40,60 +40,43 @@ class CustomLAPBookView: CustomBaseView {
             self.lapBookViewModel.isFirstOpetion = index == 0 ? true : false
             if index == 0 {
                 self.subStack.isHide(true)
-                self.dateCenterTextField.isHide(false)
-                //                self.lapBookViewModel.secondDates = nil
-                //                [self.fullNameTextField,self.monthTextField,self.mobileNumberTextField,self.dayTextField,self.yearTextField,self.dateTextField].forEach({$0.text = ""})
-                
             }else {
                 self.subStack.isHide(false)
-                self.dateCenterTextField.isHide(true)
-                //                self.dateCenterTextField.text = ""
-                //                self.lapBookViewModel.dates = nil
                 
             }
         }
         return view
     }()
-    lazy var dateTextField:UITextField={
-        let t = UITextField()
-        t.placeholder =  "Enter Date".localized
+    lazy var dateTextField:UITextField = {
+        let t = createMainTextFields(place: " date".localized)
         t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
-        
+        t.constrainHeight(constant: 60)
         return t
     }()
-    lazy var dateCenterTextField :UITextField={
-        let t = UITextField()
-        t.placeholder =  "Enter Date".localized
-        t.setInputViewDatePicker(target: self, selector: #selector(tap2Done)) //1
+    lazy var secondDateTextField:UITextField = {
+        let t = createMainTextFields(place: " date".localized)
+        t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
+        t.constrainHeight(constant: 60)
         return t
     }()
+    //    lazy var dateTextField:UITextField={
+    //        let t = UITextField()
+    //        t.placeholder =  "Enter Date".localized
+    //        t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
+    //        t.layer.cornerRadius = 8
+    //        t.clipsToBounds = true
+    //        t.layer.borderWidth = 1
+    //        t.layer.borderColor = UIColor.lightGray.cgColor
+    //        t.constrainHeight(constant: 60)
+    //        return t
+    //    }()
+    
     lazy var fullNameTextField = createMainTextFields(place: "Full name")
     lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
+    lazy var ageTextField = createMainTextFields(place: "enter age",type: .numberPad)
     
     
     
-    lazy var dayTextField:UITextField = {
-        let t = UITextField()
-        t.placeholder =  "DD".localized
-        t.setInputViewDatePicker(target: self, selector: #selector(tapAllDone)) //1
-        t.tag = 0
-        return t
-    }()
-    
-    lazy var monthTextField:UITextField = {
-        let t = UITextField()
-        t.placeholder =  "MM".localized
-        t.setInputViewDatePicker(target: self, selector: #selector(tap4Done(sender:))) //1
-        t.tag = 1
-        return t
-    }()
-    lazy var yearTextField:UITextField = {
-        let t = UITextField()
-        t.placeholder =  "YYYY".localized
-        t.setInputViewDatePicker(target: self, selector: #selector(tap3Done(sender:))) //1
-        t.tag = 2
-        return t
-    }()
     lazy var boyButton:UIButton = {
         
         let button = UIButton(type: .system)
@@ -124,8 +107,7 @@ class CustomLAPBookView: CustomBaseView {
     lazy var subStack:UIStackView = {
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         
-        let tx = getStack(views: dayTextField,monthTextField,yearTextField, spacing: 8, distribution: .fillEqually, axis: .horizontal)
-        let s = getStack(views:dateTextField,fullNameTextField,mobileNumberTextField,tx,genderStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let s = getStack(views:secondDateTextField,fullNameTextField,mobileNumberTextField,ageTextField,genderStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
         s.isHide(true)
         return s
     }()
@@ -143,7 +125,7 @@ class CustomLAPBookView: CustomBaseView {
         return button
     }()
     let lapBookViewModel = LAPBookViewModel()
-   
+    
     var index:Int = 0
     
     var isActive = true
@@ -159,22 +141,13 @@ class CustomLAPBookView: CustomBaseView {
     }
     
     override func setupViews() {
-        [monthTextField,dayTextField,yearTextField,dateCenterTextField,dateTextField].forEach { (t) in
-            t.textAlignment = .center
-            t.layer.cornerRadius = 8
-            t.layer.borderWidth = 1
-            t.layer.borderColor = UIColor.lightGray.cgColor
-            t.clipsToBounds = true
-            t.constrainHeight(constant: 60)
-        }
-        [mobileNumberTextField,fullNameTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        })
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,dateCenterTextField,subStack,bookButton)
+        //        dateTextField.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 16))
         
-        NSLayoutConstraint.activate([
-            dateCenterTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            dateCenterTextField.centerYAnchor.constraint(equalTo: centerYAnchor,constant: 60)
-        ])
+        [mobileNumberTextField,fullNameTextField,ageTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        })
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,dateTextField,subStack,bookButton)
+        
+        //        mainDateView.centerInSuperview(size: .init(width: frame.width-128, height: 60))
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
@@ -185,7 +158,8 @@ class CustomLAPBookView: CustomBaseView {
         
         
         orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
-        dateCenterTextField.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
+        dateTextField.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
+        //        dateCenterTextField.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
         subStack.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 46, bottom: 0, right: 32))
         bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 32, bottom: 16, right: 32))
         
@@ -220,31 +194,7 @@ class CustomLAPBookView: CustomBaseView {
     }
     
     
-    func putTextInTextFieldsAllDate(tf:UITextField,dp:UIDatePicker)  {
-        
-        let dateMainformatter = DateFormatter() // 2.2
-        
-        let dateformatter = DateFormatter() // 2.2
-        let date2formatter = DateFormatter() // 2.2
-        let date3formatter = DateFormatter() // 2.2
-        
-        
-        dateMainformatter.setLocalizedDateFormatFromTemplate("dd:MM:YYYY")
-        
-        dateformatter.setLocalizedDateFormatFromTemplate("dd")
-        date2formatter.setLocalizedDateFormatFromTemplate("MM")
-        
-        date3formatter.setLocalizedDateFormatFromTemplate("YYYY")
-        dayTextField.text = dateformatter.string(from: dp.date)
-        monthTextField.text = date2formatter.string(from: dp.date)
-        yearTextField.text = date3formatter.string(from: dp.date)
-        
-        //         tf.text = dateformatter.string(from: dp.date) //2.4
-        lapBookViewModel.birthday = dateMainformatter.string(from: dp.date)
-        
-        endEditing(true)
-        tf.resignFirstResponder() // 2.5
-    }
+    
     
     fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
         if sender.backgroundColor == nil {
@@ -268,7 +218,16 @@ class CustomLAPBookView: CustomBaseView {
                     floatingLabelTextField.errorMessage = ""
                     lapBookViewModel.fullName = texts
                 }
-            }else {
+            }else  if text == ageTextField {
+                if  texts.count < 1    {
+                    floatingLabelTextField.errorMessage = "Invalid   Age".localized
+                    lapBookViewModel.age = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    lapBookViewModel.age = texts.toInt()
+                }
+            } else {
                 if  !texts.isValidPhoneNumber    {
                     floatingLabelTextField.errorMessage = "Invalid   Phone".localized
                     lapBookViewModel.mobileNumber = nil
@@ -291,40 +250,20 @@ class CustomLAPBookView: CustomBaseView {
     }
     
     @objc func tapDone(sender: UITextField) {
-        //
+        //       doctorBookViewModel.api_token=api_token
+        //               doctorBookViewModel.patient_id=patient_id
+        //               doctorBookViewModel.clinic_id=clinic_id
         if let datePicker = self.dateTextField.inputView as? UIDatePicker { // 2.1
-            putTextInTextFields(tf: dateTextField, dp: datePicker,isOnly: false)
+            
+            let dateformatter = DateFormatter() // 2.2
+            dateformatter.dateFormat = "yyyy-MM-dd"
+            self.dateTextField.text = dateformatter.string(from: datePicker.date) //2.4
+            self.secondDateTextField.text = dateformatter.string(from: datePicker.date) //2.4
+            lapBookViewModel.dates = dateformatter.string(from: datePicker.date) //2.4
+            lapBookViewModel.secondDates = dateformatter.string(from: datePicker.date) //2.4
+            
         }
-        //
-    }
-    //
-    @objc func tap2Done(sender: Any ) {
-        if let datePicker = self.dateCenterTextField.inputView as? UIDatePicker { // 2.1
-            putTextInTextFields(tf: dateCenterTextField, dp: datePicker,isOnly: true)
-        }
-    }
-    //
-    @objc func tap3Done(sender: Any) {
-        if let datePicker = self.yearTextField.inputView as? UIDatePicker { // 2.1
-            //
-            datePicker.datePickerMode = UIDatePicker.Mode.date
-            putTextInTextFieldsAllDate( tf: yearTextField, dp: datePicker)
-        }
-    }
-    
-    @objc func tap4Done(sender: Any ) {
-        if let datePicker = self.monthTextField.inputView as? UIDatePicker { // 2.1
-            datePicker.datePickerMode = UIDatePicker.Mode.date
-            putTextInTextFieldsAllDate( tf: monthTextField, dp: datePicker)
-        }
-    }
-    
-    @objc func tapAllDone(sender: UITextField) {
-        if let datePicker = self.dayTextField.inputView as? UIDatePicker {
-            datePicker.datePickerMode = UIDatePicker.Mode.date
-            putTextInTextFieldsAllDate( tf: dayTextField, dp: datePicker)
-        }
-        
+        self.dateTextField.resignFirstResponder() // 2.5
     }
     
     
