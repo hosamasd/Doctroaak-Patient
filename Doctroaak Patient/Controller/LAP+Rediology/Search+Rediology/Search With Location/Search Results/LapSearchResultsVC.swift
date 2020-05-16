@@ -25,7 +25,8 @@ class LapSearchResultsVC: CustomBaseViewVC {
     lazy var customLapResultsView:CustomLapResultsView = {
         let v = CustomLapResultsView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        
+        v.radiologyArrayResults = radiologyArrayResults
+        v.labArrayResults=labArrayResults
         v.index = index
         v.handleCheckedIndex = {[unowned self] indexx in
             let selected = LAPSelectedSearchResultsVC(index: self.index)
@@ -34,6 +35,10 @@ class LapSearchResultsVC: CustomBaseViewVC {
         
         return v
     }()
+    
+    //    fileprivate let
+    var labArrayResults = [LapSearchModel]()
+    var radiologyArrayResults = [RadiologySearchModel]()
     
     fileprivate let index:Int!
     init(index:Int) {

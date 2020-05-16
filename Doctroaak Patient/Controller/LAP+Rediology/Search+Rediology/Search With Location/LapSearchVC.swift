@@ -54,7 +54,7 @@ class LapSearchVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        check()
+//                check()
     }
     
     //MARK:-User methods
@@ -75,12 +75,12 @@ class LapSearchVC: CustomBaseViewVC {
         
         customLapSearchView.lAPSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                                SVProgressHUD.show(withStatus: "Searching...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Searching...".localized)
                 
             }else {
-                                SVProgressHUD.dismiss()
-                                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -100,36 +100,76 @@ class LapSearchVC: CustomBaseViewVC {
         customLapSearchView.fillSuperview()
     }
     
-     fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
+    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
             
-            let geoCoder = CLGeocoder()
-            let location = CLLocation(latitude: latitude, longitude: longitude)
-            geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
-                
-                // Place details
-    //            var placeMark: CLPlacemark?
-                guard let   placeMark = placemarks?[0] else {return}
-                
-                // Location name
-                guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
-                self.customLapSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
-                self.customLapSearchView.lAPSearchViewModel.lat = "\(latitude)"
-                self.customLapSearchView.lAPSearchViewModel.lng = "\(longitude)"
-            })
+            // Place details
+            //            var placeMark: CLPlacemark?
+            guard let   placeMark = placemarks?[0] else {return}
+            self.customLapSearchView.addressLabel.text =  placeMark.locality
             
+            // Location name
+            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+            self.customLapSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
             
-        }
+        })
+        
+        
+    }
+    
+    func goToNext(_ patient:[LapSearchModel]? = nil , _ radiology:[RadiologySearchModel]? = nil)  {
+        let details = LapSearchResultsVC(index:index)
+        details.labArrayResults=patient ?? []
+        details.radiologyArrayResults=radiology ?? []
+        navigationController?.pushViewController(details, animated: true)
+    }
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     
+    fileprivate func makeLabSearch() {
+        customLapSearchView.lAPSearchViewModel.performLabSearching { (base, err) in
+            
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext(user)
+            }
+            
+        }
+    }
+    
+    fileprivate func makeRadiologySearch() {
+        customLapSearchView.lAPSearchViewModel.performRadiologySearching { (base, err) in
+            
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext(nil,user)
+            }
+            
+        }
+    }
+    
     @objc func handleSearch()  {
         
-        customLapSearchView.lAPSearchViewModel
-        
-        let details = LapSearchResultsVC(index:index)
-        navigationController?.pushViewController(details, animated: true)
+        index == 0 ? makeLabSearch() : makeRadiologySearch()
     }
 }
 
@@ -140,6 +180,10 @@ extension LapSearchVC : ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
         convertLatLongToAddress(latitude: lat, longitude: long)
- }
+        self.customLapSearchView.lAPSearchViewModel.lat = lat
+        self.customLapSearchView.lAPSearchViewModel.lng = long
+        self.customLapSearchView.lAPSearchViewModel.index = index
+
+    }
     
 }

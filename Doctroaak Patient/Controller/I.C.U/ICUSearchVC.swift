@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import SVProgressHUD
+import MOLH
 
 class ICUSearchVC: CustomBaseViewVC {
     
@@ -39,9 +41,16 @@ class ICUSearchVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        put()
     }
     
     //MARK:-User methods
+    
+    func put()  {
+        SearchServices.shared.iCUGetSearchResults(city: 0, are: 0, latt: 10.0, lang: 10.0) { (base, err) in
+            
+        }
+    }
     
     func setupViewModelObserver()  {
         customICUSearchView.icuViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
@@ -53,12 +62,12 @@ class ICUSearchVC: CustomBaseViewVC {
         
         customICUSearchView.icuViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Searching...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -77,44 +86,64 @@ class ICUSearchVC: CustomBaseViewVC {
     }
     
     fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
-                  
-                  let geoCoder = CLGeocoder()
-                  let location = CLLocation(latitude: latitude, longitude: longitude)
-                  geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
-                      
-                      // Place details
-          //            var placeMark: CLPlacemark?
-                      guard let   placeMark = placemarks?[0] else {return}
-                      
-                      // Location name
-                      guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
-                      self.customICUSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
-                      self.customICUSearchView.icuViewModel.lat = "\(latitude)"
-                      self.customICUSearchView.icuViewModel.lng = "\(longitude)"
-                  })
-                  
-                  
-              }
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+            
+            // Place details
+            //            var placeMark: CLPlacemark?
+            guard let   placeMark = placemarks?[0] else {return}
+            self.customICUSearchView.addressLabel.text = placeMark.locality
+            // Location name
+            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+            self.customICUSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
+        })
+        
+        
+    }
+    
+    func goToNext()  {
+        let details = ICUSearchResultsVC()
+        navigationController?.pushViewController(details, animated: true)
+    }
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     
     @objc func handleSearch()  {
-        let details = ICUSearchResultsVC()
-        navigationController?.pushViewController(details, animated: true)
+        
+        customICUSearchView.icuViewModel.performSearchinging { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext()
+            }
+            
+            
+        }
+        
     }
     
 }
-
-
-
-//MARK:-extension
-
-
-extension ICUSearchVC : ChooseLocationVCProtocol{
     
-    func getLatAndLong(lat: Double, long: Double) {
-           convertLatLongToAddress(latitude: lat, longitude: long)
-    }
+    
+    
+    //MARK:-extension
+    
+    
+    extension ICUSearchVC : ChooseLocationVCProtocol{
+        
+        func getLatAndLong(lat: Double, long: Double) {
+            convertLatLongToAddress(latitude: lat, longitude: long)
+            self.customICUSearchView.icuViewModel.lat = lat
+            self.customICUSearchView.icuViewModel.lng = long
+        }
 }

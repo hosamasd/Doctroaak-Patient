@@ -88,10 +88,10 @@ class CustomICUSearchView: CustomBaseView {
     
     let icuViewModel = ICUViewModel()
     var handlerChooseLocation:(()->Void)?
-    var cityArray = [String]() //["one","two","three","sdfdsfsd"]
+    var cityArray = [String]() 
     var areaArray = [String]()
     
-    var cityIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
+    var cityIDSArray = [Int]()
     var areaIDSArray = [Int]()
     
     

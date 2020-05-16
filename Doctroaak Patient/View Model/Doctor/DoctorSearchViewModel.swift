@@ -32,11 +32,11 @@ class DoctorSearchViewModel {
         if isFirstOpetion ?? true {
             guard let city = city,let area = area,let specificationId=specificationId,let isInsuranceCompany=isInsuranceCompany,let isFirstOpetion=isFirstOpetion else { return  }
              bindableIsLogging.value = true
-            DoctorServices.shared.getSearchDoctorsResults(firstOption: isFirstOpetion, specialization_id: specificationId, area: area, city: city, insurance: isInsuranceCompany, latt: 0, lang: 0, completion: completion)
+            SearchServices.shared.getSearchDoctorsResults(firstOption: isFirstOpetion, specialization_id: specificationId, area: area, city: city, insurance: isInsuranceCompany, latt: 0, lang: 0, completion: completion)
         }else {
             guard let lat = lat,let lng = lng,let specificationId=specificationId,let isFirstOpetion=isFirstOpetion,let isInsuranceCompany=isInsuranceCompany else { return  }
              bindableIsLogging.value = true
-            DoctorServices.shared.getSearchDoctorsResults(firstOption: isFirstOpetion, specialization_id: specificationId, area: 0, city: 0, insurance: isInsuranceCompany, latt: lat, lang: lng, completion: completion)
+            SearchServices.shared.getSearchDoctorsResults(firstOption: isFirstOpetion, specialization_id: specificationId, area: 0, city: 0, insurance: isInsuranceCompany, latt: lat, lang: lng, completion: completion)
         }
        
         

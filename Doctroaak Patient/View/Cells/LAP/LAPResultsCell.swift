@@ -7,8 +7,44 @@
 //
 
 import UIKit
+import SDWebImage
+import MOLH
 
 class LAPResultsCell: BaseCollectionCell {
+    
+    var lab:LapSearchModel!{
+        didSet{
+            let name = MOLHLanguage.isRTLLanguage() ?  lab.nameAr ?? lab.name : lab.name
+            let city = getCityFromIndex(lab.city)
+            let area = getAreaFromIndex(lab.area)
+            let avaible = lab.active == 0 ? "Available" : "UnAvailable"
+            
+            let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+                   attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
+                   profileInfoLabel.attributedText = attributeText
+            profileInfoDeliveryyLabel.text = "Delivery \(avaible)"
+            let urlString = lab.photo
+            guard let url = URL(string: urlString) else { return  }
+            profileImage.sd_setImage(with: url)
+        }
+    }
+    
+    var rad:RadiologySearchModel!{
+           didSet{
+               let name = MOLHLanguage.isRTLLanguage() ?  rad.nameAr ?? rad.name : rad.name
+               let city = getCityFromIndex(rad.city)
+               let area = getAreaFromIndex(rad.area)
+               let avaible = rad.active == 0 ? "Available" : "UnAvailable"
+
+               let attributeText = NSMutableAttributedString(string: name, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+                      attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
+                      profileInfoLabel.attributedText = attributeText
+               profileInfoDeliveryyLabel.text = "Delivery \(avaible)"
+               let urlString = rad.photo
+               guard let url = URL(string: urlString) else { return  }
+               profileImage.sd_setImage(with: url)
+           }
+       }
     
     
     lazy var profileImage:UIImageView = {
@@ -21,13 +57,13 @@ class LAPResultsCell: BaseCollectionCell {
     }()
     lazy var profileInfoLabel:UILabel = {
         let l = UILabel()
-        let attributeText = NSMutableAttributedString(string: "Dr. Hagar Mohamed \n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-        attributeText.append(NSAttributedString(string: "Mokattam, Giza \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
+        let attributeText = NSMutableAttributedString(string: "", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+        attributeText.append(NSAttributedString(string: "", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
         l.attributedText = attributeText
-        l.numberOfLines = 2
+        l.numberOfLines = 0
         return l
     }()
-    lazy var profileInfoDeliveryyLabel = UILabel(text: "Delivery available", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var profileInfoDeliveryyLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black)
     
     
     lazy var profileInfoAvailbilityButton = createImagess(image: #imageLiteral(resourceName: "available"))
@@ -82,6 +118,66 @@ class LAPResultsCell: BaseCollectionCell {
         b.constrainHeight(constant: 20)
         return b
     }
+    
+    func getCityFromIndex(_ index:Int) -> String {
+           var citName = [String]()
+           var cityId = [Int]()
+           
+           if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
+               
+               citName = cityArray
+               cityId = cityIds
+               
+               
+               
+           }else {
+               if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
+                   citName = cityArray
+                   cityId = cityIds
+               }
+           }
+           let ss = cityId.filter{$0 == index}
+           let ff = ss.first ?? 1
+           
+           return citName[ff - 1 ]
+       }
+       
+       func getAreaFromIndex(_ index:Int) -> String {
+           var citName = [String]()
+           var cityId = [Int]()
+           if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
+               
+               citName = cityArray
+               cityId = cityIds
+               
+               
+               
+           }else {
+               if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
+                   citName = cityArray
+                   cityId = cityIds
+               }
+           }
+           let ss = cityId.filter{$0 == index}
+            let ff = ss.first ?? 1
+           return citName[ff-1]
+       }
+    
+//    func createMainData(index:Int,lab:Codable)  {
+//
+//                      let name = MOLHLanguage.isRTLLanguage() ?  lab.nameAr ?? lab.name : lab.name
+//                      let city = getCityFromIndex(lab.city)
+//                      let area = getAreaFromIndex(lab.area)
+//                      let avaible = lab.active == 0 ? "Available" : "UnAvailable"
+//
+//                      let attributeText = NSMutableAttributedString(string: name, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+//                             attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
+//                             profileInfoLabel.attributedText = attributeText
+//                      profileInfoDeliveryyLabel.text = "Delivery \(avaible)"
+//                      let urlString = lab.photo
+//                      guard let url = URL(string: urlString) else { return  }
+//                      profileImage.sd_setImage(with: url)
+//                  }
     
 }
 

@@ -13,6 +13,16 @@ class CustomLapResultsView: CustomBaseView {
     var index:Int!{
         didSet{
             titleLabel.text = index == 1 ? "Rediology" : "Lap"
+            lapResultsCollectionVC.index = index
+
+            if index == 0 {
+                lapResultsCollectionVC.labArrayResults=labArrayResults
+                lapResultsCollectionVC.index = index
+                
+            }else {
+                lapResultsCollectionVC.radiologyArrayResults = radiologyArrayResults
+            }
+            lapResultsCollectionVC.collectionView.reloadData()
         }
     }
     
@@ -43,11 +53,13 @@ class CustomLapResultsView: CustomBaseView {
         vc.handleCheckedIndex = {[unowned self] index in
             self.handleCheckedIndex?(index)
         }
+        
         return vc
     }()
     
     var handleCheckedIndex:((IndexPath)->Void)?
-
+    var labArrayResults = [LapSearchModel]()
+    var radiologyArrayResults = [RadiologySearchModel]()
     
     override func setupViews() {
         

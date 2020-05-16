@@ -93,7 +93,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
                                           .init(medicineID: 1, medicineTypeID: 1, amount: 1)
         ]
         
-        DoctorServices.shared.postBookPharamacyResults(photo: #imageLiteral(resourceName: "star-1"), patient_id: 50, insurance: 0, delivery: 0,latt: 29.970245729247,lang: 29.970245729247,orderDetails: order, notes: "", api_token: "BrieOhmeR8CqML2RqBQDtXZWETE") { (base, err) in
+        OrdserBookSerivce.shared.postBookPharamacyResults(photo: #imageLiteral(resourceName: "star-1"), patient_id: 50, insurance: 0, delivery: 0,latt: 29.970245729247,lang: 29.970245729247,orderDetails: order, notes: "", api_token: "BrieOhmeR8CqML2RqBQDtXZWETE") { (base, err) in
             print(err)
         }
     }

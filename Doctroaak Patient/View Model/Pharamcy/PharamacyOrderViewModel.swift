@@ -37,20 +37,19 @@ class PharamacyOrderViewModel {
         if isFirstOpetion ?? true {
             guard let image = image,let latt = latt,let long = lang,let patient_id=patient_id,let api_token=api_token,let insurance=insurance,let delivery=delivery else { return  }
              bindableIsLogging.value = true
-            DoctorServices.shared.postBookPharamacyResults(photo: image, patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long, notes: "", api_token: api_token, completion: completion)
+            OrdserBookSerivce.shared.postBookPharamacyResults(photo: image, patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long, notes: "", api_token: api_token, completion: completion)
             
         }else if isSecondOpetion ?? true {
             guard let orderDetails = orderDetails,let notes = notes,let latt = latt,let long = lang,let patient_id=patient_id,let api_token=api_token,let insurance=insurance,let delivery=delivery else { return  }
              bindableIsLogging.value = true
-            DoctorServices.shared.postBookPharamacyResults( patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long, notes: notes, api_token: api_token, completion: completion)
+            OrdserBookSerivce.shared.postBookPharamacyResults( patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long, notes: notes, api_token: api_token, completion: completion)
         }else if isThirdOpetion ?? true {
             guard let notes = notes,let latt = latt,let long = lang,let patient_id=patient_id,let api_token=api_token,let insurance=insurance,let delivery=delivery else { return  }
              bindableIsLogging.value = true
-            DoctorServices.shared.postBookPharamacyResults(photo: image, patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long,orderDetails: orderDetails, notes: notes, api_token: api_token, completion: completion)
+            OrdserBookSerivce.shared.postBookPharamacyResults(photo: image, patient_id: patient_id, insurance: insurance, delivery: delivery, latt: latt, lang: long,orderDetails: orderDetails, notes: notes, api_token: api_token, completion: completion)
         }
        
         
-        //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
     
     func checkFormValidity() {

@@ -73,8 +73,14 @@ class CustomLapSearchView: CustomBaseView {
         //        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Name".localized
-        i.didSelect {[unowned self] (txt, index, _) in
-            self.lAPSearchViewModel.name = index == 0 ? self.labNameIDSArray[index] : self.radiologyIDSArray[index]
+        i.didSelect {[unowned self] (txt, indexx, _) in
+            self.lAPSearchViewModel.index = self.index
+            if self.index == 0 {
+                self.lAPSearchViewModel.lab_id  = self.labNameIDSArray[indexx]
+            }else{
+                self.lAPSearchViewModel.radiology_id = self.radiologyIDSArray[indexx]
+            }
+//            self.lAPSearchViewModel.lab_id = index == 0 ? self.labNameIDSArray[index] : self.radiologyIDSArray[index]
         }
         
         return i
@@ -87,6 +93,8 @@ class CustomLapSearchView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "City".localized
         i.didSelect { (txt, index, _) in
+            self.lAPSearchViewModel.index = index
+
             self.getAreaAccordingToCityId(index: index)
             
             self.lAPSearchViewModel.city = self.cityIDSArray[index]//index+1
@@ -266,11 +274,11 @@ class CustomLapSearchView: CustomBaseView {
     
     
     @objc  func handleDelvieryCheck(sender:UISwitch)  {
-        lAPSearchViewModel.delivery = sender.isOn
+        lAPSearchViewModel.delivery = sender.isOn ? 0 : 1
     }
     
     @objc  func handleInsuracneCheck(sender:UISwitch)  {
-        lAPSearchViewModel.insuranceCompany = sender.isOn
+        lAPSearchViewModel.insuranceCompany = sender.isOn ? 0 : 1
     }
     
     @objc  func handleOpenLocation()  {
