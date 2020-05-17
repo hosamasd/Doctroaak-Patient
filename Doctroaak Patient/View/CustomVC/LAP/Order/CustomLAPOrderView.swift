@@ -74,7 +74,7 @@ class CustomLAPOrderView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, index, _) in
-            self.laPOrderViewModel.name = txt
+//            self.laPOrderViewModel.name = txt
         }
         return i
     }()
@@ -184,9 +184,12 @@ class CustomLAPOrderView: CustomBaseView {
    
     
     @objc  func handleAddMore()  {
+      
+        
        guard let name = laPOrderViewModel.name else {print("all fields required"); return  }
+          let order = RadiologyOrderModel(raysID: name)
 //       let model = MedicineModel(name: name, type: type, count: count)
-        addLapCollectionVC.medicineArray.append(name)
+        addLapCollectionVC.medicineArray.append(order)
        DispatchQueue.main.async {
            self.addLapCollectionVC.collectionView.reloadData()
        }

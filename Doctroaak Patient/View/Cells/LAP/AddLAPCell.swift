@@ -10,9 +10,9 @@ import UIKit
 
 class AddLAPCell: BaseCollectionCell {
     
-    var med:String!{
+    var med:RadiologyOrderModel!{
         didSet{
-            nameLabel.text = med
+            nameLabel.text = getNameFromIndex(med.raysID)
         }
     }
     
@@ -45,5 +45,9 @@ class AddLAPCell: BaseCollectionCell {
         hstack(leftImage,nameLabel,closeImage,spacing:8,alignment:.center).withMargins(.init(top: 0, left: 8, bottom: 0, right: 8))
         addSubview(seperatorView)
         seperatorView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 8, bottom: 0, right: 0))
+    }
+    
+    func getNameFromIndex(_ index:Int) -> String {
+        return "\(index)"
     }
 }

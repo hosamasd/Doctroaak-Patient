@@ -15,32 +15,49 @@ class LAPOrderViewModel {
     
     //variables
     var image:UIImage? {didSet {checkFormValidity()}}
-    var name:String? {didSet {checkFormValidity()}}
-    var quantity:String? {didSet {checkFormValidity()}}
-    
+    var orderDetails:[RadiologyOrderModel]? {didSet {checkFormValidity()}}
+    var name:Int? = -1 {didSet {checkFormValidity()}}
+    var index:Int? = 0 {didSet {checkFormValidity()}}
+
     var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
     var isSecondOpetion:Bool?  = false {didSet {checkFormValidity()}}
     var isThirdOpetion:Bool?  = false {didSet {checkFormValidity()}}
-
     
     
     
     
-    func performLogging(completion:@escaping (Error?)->Void)  {
+    
+    func performOrdering(completion:@escaping (UIImage?,[RadiologyOrderModel]?)->Void)  {
         if isFirstOpetion ?? true {
             guard let image = image else { return  }
+            bindableIsLogging.value = true
+            completion(image,nil)
         }else if isSecondOpetion ?? true {
-            guard let name = name,let quantity=quantity else { return  }
-        }else {
-            guard let image = image,let name = name,let quantity=quantity else { return  }
+            guard let orderDetails = orderDetails else { return  }
+            bindableIsLogging.value = true
+            completion(nil,orderDetails)
+        }else if isThirdOpetion ?? true{
+            if image != nil  {
+                guard let image = image else { return  }
+                bindableIsLogging.value = true
+                completion(image,nil)
+            }else if image != nil && orderDetails != nil {
+                guard let image = image,let orderDetails = orderDetails else { return  }
+                bindableIsLogging.value = true
+                completion(image,orderDetails)
+                
+            }else if  orderDetails != nil {
+                guard let orderDetails = orderDetails else { return  }
+                bindableIsLogging.value = true
+                completion(nil,orderDetails)
+                
+            }
         }
-        bindableIsLogging.value = true
         
-        //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
     
     func checkFormValidity() {
-        let isFormValid = image != nil  && isFirstOpetion == true   ||   name?.isEmpty == false && quantity?.isEmpty == false && isSecondOpetion == true || image != nil     && name?.isEmpty == false && quantity?.isEmpty == false && isSecondOpetion == false
+        let isFormValid = image != nil  && isFirstOpetion == true   ||   orderDetails?.isEmpty == false  && isSecondOpetion == true || image != nil     && orderDetails?.isEmpty == false  && isThirdOpetion == true || image != nil     && isThirdOpetion == true || isThirdOpetion == true &&  orderDetails?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

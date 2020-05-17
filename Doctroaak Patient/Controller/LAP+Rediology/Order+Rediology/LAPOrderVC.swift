@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SVProgressHUD
+import MOLH
 
 class LAPOrderVC: CustomBaseViewVC {
     
@@ -18,8 +20,8 @@ class LAPOrderVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-                v.translatesAutoresizingMaskIntoConstraints = false
-//        v.constrainHeight(constant: 1000)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        //        v.constrainHeight(constant: 1000)
         
         v.constrainWidth(constant: view.frame.width)
         return v
@@ -27,22 +29,10 @@ class LAPOrderVC: CustomBaseViewVC {
     lazy var customLAPOrderView:CustomAndLAPOrderView = {
         let v = CustomAndLAPOrderView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
-                   self.hideOrUndie(index: index)
-               }
-        //        v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
-        
-        //        v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
-        //            switch index {
-        //            case 0:
-        //                self.makeFirstOption()
-        //            case 1:
-        //
-        //                self.makeSecondOption()
-        //            default:
-        //                self.makeLastOption()
-        //            }
-        //        }
+            self.hideOrUndie(index: index)
+        }
         return v
     }()
     
@@ -80,24 +70,24 @@ class LAPOrderVC: CustomBaseViewVC {
         scrollView.addSubview(mainView)
         //        mainView.fillSuperview()
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-                bubleViewHeightConstraint = mainView.heightAnchor.constraint(equalToConstant: 900)
-                bubleViewHeightConstraint.isActive = true
+        bubleViewHeightConstraint = mainView.heightAnchor.constraint(equalToConstant: 900)
+        bubleViewHeightConstraint.isActive = true
         mainView.addSubViews(views: customLAPOrderView)
         customLAPOrderView.fillSuperview()
     }
     
     func hideOrUndie(index:Int)  {
-           self.customLAPOrderView.laPOrderViewModel.isFirstOpetion = index == 0 ? true : false
-           self.customLAPOrderView.laPOrderViewModel.isSecondOpetion = index == 1 ? true : false
-           self.customLAPOrderView.laPOrderViewModel.isThirdOpetion = index == 2 ? true : false
-           UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {[unowned self] in
-               self.customLAPOrderView.secondStack.isHide(index == 0 ? true : false)
-               self.customLAPOrderView.orLabel.isHide(index == 2 ? false :  true)
-               self.customLAPOrderView.firstStack.isHide(index == 1 ? true : false)
-               self.bubleViewHeightConstraint.constant = index == 0 ? 900 : index == 1 ? 900 : 1100
-               
-           })
-       }
+        self.customLAPOrderView.laPOrderViewModel.isFirstOpetion = index == 0 ? true : false
+        self.customLAPOrderView.laPOrderViewModel.isSecondOpetion = index == 1 ? true : false
+        self.customLAPOrderView.laPOrderViewModel.isThirdOpetion = index == 2 ? true : false
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {[unowned self] in
+            self.customLAPOrderView.secondStack.isHide(index == 0 ? true : false)
+            self.customLAPOrderView.orLabel.isHide(index == 2 ? false :  true)
+            self.customLAPOrderView.firstStack.isHide(index == 1 ? true : false)
+            self.bubleViewHeightConstraint.constant = index == 0 ? 900 : index == 1 ? 900 : 1100
+            
+        })
+    }
     
     fileprivate  func setupViewModelObserver()  {
         
@@ -110,12 +100,12 @@ class LAPOrderVC: CustomBaseViewVC {
         
         customLAPOrderView.laPOrderViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
             if isValid == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+//                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+//                                SVProgressHUD.show(withStatus: "Ordering...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+//                                SVProgressHUD.dismiss()
+//                                self.activeViewsIfNoData()
             }
         })
     }
@@ -131,6 +121,12 @@ class LAPOrderVC: CustomBaseViewVC {
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleNext()  {
+        customLAPOrderView.laPOrderViewModel.performOrdering { (img, order) in
+            
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

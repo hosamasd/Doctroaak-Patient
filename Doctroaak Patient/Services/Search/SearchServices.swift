@@ -95,6 +95,16 @@ class SearchServices {
         MainServices.mainGetMethodGenerics(urlString: postString, completion: completion)
     }
     
+    func incubationGetSearchResults(isFirst:Bool,city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainLapSearchModel?, Error?) ->Void)  {
+        let urlString = "\(baseUrl)incubation/get".toSecrueHttps()
+        let checks = isFirst ? "?city=\(city!)&are=\(are!)" : "?latt=\(latt!)&lang=\(lang!)"
+        
+        
+        let postString = urlString+checks
+        
+        MainServices.mainGetMethodGenerics(urlString: postString, completion: completion)
+    }
+    
     
     
     

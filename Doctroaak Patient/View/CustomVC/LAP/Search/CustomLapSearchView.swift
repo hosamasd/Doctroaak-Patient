@@ -92,12 +92,12 @@ class CustomLapSearchView: CustomBaseView {
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
-        i.didSelect { (txt, index, _) in
-            self.lAPSearchViewModel.index = index
+        i.didSelect { (txt, indexx, _) in
+            self.lAPSearchViewModel.index = self.index
 
-            self.getAreaAccordingToCityId(index: index)
+            self.getAreaAccordingToCityId(index: indexx)
             
-            self.lAPSearchViewModel.city = self.cityIDSArray[index]//index+1
+            self.lAPSearchViewModel.city = self.cityIDSArray[indexx]//index+1
         }
         
         return i
