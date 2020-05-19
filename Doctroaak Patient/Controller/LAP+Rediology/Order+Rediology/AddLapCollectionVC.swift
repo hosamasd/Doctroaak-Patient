@@ -14,17 +14,20 @@ class AddLapCollectionVC: BaseCollectionVC {
     fileprivate let cellID = "cellID"
     var medicineArray = [RadiologyOrderModel]()//["one","two","three","four","fifie"]
     
+   
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20//medicineArray.count
+        return medicineArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AddLAPCell
-        cell.backgroundColor = .orange
-//                let med = medicineArray[indexPath.item]
-//        //
-//                cell.med = med
+                let med = medicineArray[indexPath.item]
+        //
+                cell.med = med
         return cell
     }
     
@@ -37,8 +40,8 @@ class AddLapCollectionVC: BaseCollectionVC {
   
     
     override func setupCollection() {
-//        collectionView.backgroundColor = .white
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .white
+//        collectionView.backgroundColor = .red
         collectionView.register(AddLAPCell.self, forCellWithReuseIdentifier: cellID)
     }
 }

@@ -100,8 +100,11 @@ class CustomAndLAPOrderView: CustomBaseView {
         
         return i
     }()
+    
+    
     lazy var addssLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
+        vc.view.backgroundColor = .red
         vc.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handles)))
 //        vc.collectionView.backgroundColor = .red
 //        vc.collectionView.isHide(false)
@@ -111,7 +114,7 @@ class CustomAndLAPOrderView: CustomBaseView {
     }()
     lazy var orLabel:UILabel = {
         let l = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
-//        l.isHide(true)
+        l.isHide(true)
         return l
     }()
     
@@ -128,7 +131,7 @@ class CustomAndLAPOrderView: CustomBaseView {
         let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
         //        let s = getStack(views: mainDropView,addLapCollectionVC.view, spacing: 16, distribution: .fillProportionally, axis: .vertical)
         
-        let s = getStack(views: mainDropView,dd,addssLapCollectionVC.view,UIView(backgroundColor: .yellow), spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let s = getStack(views: mainDropView,dd,addssLapCollectionVC.view,UIView(backgroundColor: .yellow), spacing: 16, distribution: .fill, axis: .vertical)
         //        s.isHide(true)
         return s
     }()
@@ -205,24 +208,25 @@ class CustomAndLAPOrderView: CustomBaseView {
     
     override func setupViews() {
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
-        let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
 
         let mainStacxk = getStack(views: firstStack,orLabel,secondStack, spacing: 16, distribution: .fill, axis: .vertical)
         
-//        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,addssLapCollectionVC.view,nextButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
+//        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,addssLapCollectionVC.view,nextButton)
+
+        
 
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        
-        
-        
-        
+
+
+
+
         orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
-        addssLapCollectionVC.view.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 24, left: 46, bottom: 32, right: 32))
+        mainStacxk.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 24, left: 46, bottom: 32, right: 32))
 //        orLabel.anchor(top: firstStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 46, bottom: 32, right: 32))
 //        addssLapCollectionVC.view.anchor(top: firstStack.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 8, left: 46, bottom: 32, right: 32))
 

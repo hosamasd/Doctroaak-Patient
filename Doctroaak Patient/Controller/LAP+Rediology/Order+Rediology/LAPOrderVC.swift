@@ -22,12 +22,12 @@ class LAPOrderVC: CustomBaseViewVC {
         let v = UIView(backgroundColor: .white)
         v.translatesAutoresizingMaskIntoConstraints = false
         //        v.constrainHeight(constant: 1000)
-        
+
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
-    lazy var customAndLAPOrderView:CustomAndLAPOrderView = {
-        let v = CustomAndLAPOrderView()
+    lazy var customAndLAPOrderView:CustomLAPOrderView = {
+        let v = CustomLAPOrderView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
@@ -67,6 +67,7 @@ class LAPOrderVC: CustomBaseViewVC {
     }
     
     override func setupViews() {
+        
         view.addSubview(scrollView)
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
