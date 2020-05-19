@@ -31,6 +31,7 @@ class LAPBookVC: CustomBaseViewVC {
         v.index = index
        v.patient_id = patient_id ?? 0
                v.api_token = api_token ?? ""
+        v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
@@ -48,6 +49,7 @@ class LAPBookVC: CustomBaseViewVC {
         }
         return v
     }()
+    
     
     var orders:[RadiologyOrderModel]?
     var img:UIImage?
@@ -187,10 +189,12 @@ class LAPBookVC: CustomBaseViewVC {
     
     
     @objc func handleBook()  {
-        if api_token == nil  {
+        if api_token == nil && patient_id == nil  {
             presentAlert()
         }else {
-            
+            guard let api = api_token,let patientId = patient_id else { return  }
+            customLAPBookView.lapBookViewModel.api_token=api
+            customLAPBookView.lapBookViewModel.patient_id=patientId
             index == 0 ? makeLabSearch() : makeRadiologySearch()
         }
     }

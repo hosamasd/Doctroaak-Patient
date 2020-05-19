@@ -39,7 +39,8 @@ class LapSearchVC: CustomBaseViewVC {
         return v
     }()
     
-    
+    var apiToken:String?
+       var patientId:Int? 
     fileprivate let index:Int!
     
     init(index:Int) {
@@ -122,6 +123,8 @@ class LapSearchVC: CustomBaseViewVC {
     
     func goToNext(_ patient:[LapSearchModel]? = nil , _ radiology:[RadiologySearchModel]? = nil)  {
         let details = LapSearchResultsVC(index:index)
+        details.apiToken=apiToken
+        details.patientId=patientId
         details.labArrayResults=patient ?? []
         details.radiologyArrayResults=radiology ?? []
         navigationController?.pushViewController(details, animated: true)

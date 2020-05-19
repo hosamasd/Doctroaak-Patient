@@ -37,14 +37,14 @@ class LAPOrderViewModel {
             bindableIsLogging.value = true
             completion(nil,orderDetails)
         }else if isThirdOpetion ?? true{
-            if image != nil  {
-                guard let image = image else { return  }
-                bindableIsLogging.value = true
-                completion(image,nil)
-            }else if image != nil && orderDetails != nil {
-                guard let image = image,let orderDetails = orderDetails else { return  }
-                bindableIsLogging.value = true
-                completion(image,orderDetails)
+            if image != nil && orderDetails != nil {
+            guard let image = image,let orderDetails = orderDetails else { return  }
+            bindableIsLogging.value = true
+            completion(image,orderDetails)
+            }else if image != nil  {
+            guard let image = image else { return  }
+            bindableIsLogging.value = true
+            completion(image,nil)
                 
             }else if  orderDetails != nil {
                 guard let orderDetails = orderDetails else { return  }

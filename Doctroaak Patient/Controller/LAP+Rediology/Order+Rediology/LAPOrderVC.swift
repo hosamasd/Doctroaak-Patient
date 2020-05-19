@@ -28,6 +28,8 @@ class LAPOrderVC: CustomBaseViewVC {
     }()
     lazy var customAndLAPOrderView:CustomLAPOrderView = {
         let v = CustomLAPOrderView()
+        v.patientId = patientId ?? 0
+        v.apiToken = apiToken ?? ""
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
@@ -39,8 +41,9 @@ class LAPOrderVC: CustomBaseViewVC {
     }()
     
     var bubleViewHeightConstraint:NSLayoutConstraint!
+    var apiToken:String?
+    var patientId:Int? 
     
-    var isDataFound = false
     
     fileprivate let index:Int!
     init(index:Int) {

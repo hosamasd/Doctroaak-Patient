@@ -43,20 +43,16 @@ class CustomLAPOrderView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
         i.translatesAutoresizingMaskIntoConstraints = false
         i.contentMode = .scaleAspectFit
-        
-        //        i.constrainHeight(constant: 120)
         i.clipsToBounds = true
         return i
     }()
-     lazy var rosetaImageView:UIImageView = {
-           let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
-           i.contentMode = .scaleAspectFill
-           i.clipsToBounds = true
-           i.constrainHeight(constant: 200)
-           
-           //           i.isHide(true)
-           return i
-       }()
+    lazy var rosetaImageView:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
+        i.contentMode = .scaleAspectFill
+        i.clipsToBounds = true
+        i.constrainHeight(constant: 200)
+        return i
+    }()
     lazy var uploadView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [uploadLabel,uploadImage])
         v.constrainHeight(constant: 60)
@@ -70,10 +66,10 @@ class CustomLAPOrderView: CustomBaseView {
         return i
     }()
     lazy var orLabel:UILabel = {
-           let l = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
-           l.isHide(true)
-           return l
-       }()
+        let l = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
+        l.isHide(true)
+        return l
+    }()
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
@@ -81,12 +77,12 @@ class CustomLAPOrderView: CustomBaseView {
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
             self.laPOrderViewModel.index = self.index
-                      if self.index == 0 {
-                          self.laPOrderViewModel.name  = self.labNameIDSArray[indexx]
-                      }else{
-                          self.laPOrderViewModel.name = self.radiologyIDSArray[indexx]
-                      
-                  }        }
+            if self.index == 0 {
+                self.laPOrderViewModel.name  = self.labNameIDSArray[indexx]
+            }else{
+                self.laPOrderViewModel.name = self.radiologyIDSArray[indexx]
+                
+            }        }
         return i
     }()
     lazy var firstStack:UIStackView = {
@@ -95,8 +91,6 @@ class CustomLAPOrderView: CustomBaseView {
     }()
     lazy var addLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
-//        vc.view.constrainHeight(constant: 250)
-        //        vc.view.isHide(true)
         return vc
     }()
     lazy var addMoreImage:UIImageView = {
@@ -141,7 +135,8 @@ class CustomLAPOrderView: CustomBaseView {
     var labNameIDSArray = [Int]()
     var radiologyIDSArray = [Int]()
     let laPOrderViewModel = LAPOrderViewModel()
-    
+    var apiToken:String?
+    var patientId:Int? 
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -176,7 +171,6 @@ class CustomLAPOrderView: CustomBaseView {
         }
         self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
         
-        //        self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
         DispatchQueue.main.async {
             self.layoutIfNeeded()
         }
@@ -189,18 +183,13 @@ class CustomLAPOrderView: CustomBaseView {
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         uploadView.hstack(uploadImage,uploadLabel)
         
-        //        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStack,nextButton)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
         
         
         constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         
-        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: -30, left: 0, bottom: 0, right: -60))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -80, right: 0))
-        //        bubleViewBottomTitleConstraint = titleLabel.bottomAnchor.constraint(equalTo: backImage.bottomAnchor, constant: 80)
-        //        bubleViewBottomTitleConstraint.isActive = true
-        //
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
         mainStacxk.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 24, left: 46, bottom: 32, right: 32))
@@ -251,11 +240,7 @@ class CustomLAPOrderView: CustomBaseView {
         DispatchQueue.main.async {
             self.addLapCollectionVC.collectionView.reloadData()
             self.laPOrderViewModel.orderDetails = self.addLapCollectionVC.medicineArray
-        }
-        
-        
-        print(name)
-    }
+        }    }
     
 }
 

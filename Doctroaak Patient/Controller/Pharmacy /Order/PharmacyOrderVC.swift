@@ -20,14 +20,15 @@ class PharmacyOrderVC: CustomBaseViewVC {
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
         v.translatesAutoresizingMaskIntoConstraints = false
-//                v.constrainHeight(constant: 1200)
+        //                v.constrainHeight(constant: 1200)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
     
     lazy var customPharmacyOrderView:CustomSecondPharmacyOrderView = {
         let v = CustomSecondPharmacyOrderView()
-        //        self.addValues()
+        v.api_token=self.api_token
+        v.patient_id=self.patient_id
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
         v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
@@ -173,9 +174,13 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     
     @objc func handleBook()  {
-        if api_token == nil  {
+        if api_token == nil && patient_id == nil  {
             presentAlert()
         }else {
+            guard let api = api_token,let patientId = patient_id else { return  }
+            customPharmacyOrderView.pharamacyOrderViewModel.api_token=api
+            customPharmacyOrderView.pharamacyOrderViewModel.patient_id=patientId
+            
             customPharmacyOrderView.pharamacyOrderViewModel.performBooking { (base, err) in
                 
                 if let err = err {
@@ -253,6 +258,6 @@ extension PharmacyOrderVC:LoginVCPrototcol {
     func useApiAndPatienId(api: String, patient: Int) {
         api_token = api
         patient_id=patient
-        handleBack()
+        handleBook()
     }
 }

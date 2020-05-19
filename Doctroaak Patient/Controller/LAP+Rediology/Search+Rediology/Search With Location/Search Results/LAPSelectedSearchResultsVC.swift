@@ -33,7 +33,8 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     }()
     var labArrayResults: LapSearchModel?
     var radiologyArrayResults :RadiologySearchModel?
-    
+    var apiToken:String?
+       var patientId:Int?
     fileprivate let index:Int!
     init(index:Int) {
         self.index = index
@@ -67,6 +68,8 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     
     @objc func handleBook()  {
         let book = LAPBookVC(index:index)
+        book.patient_id=patientId
+        book.api_token=apiToken
         navigationController?.pushViewController(book, animated: true)
     }
     

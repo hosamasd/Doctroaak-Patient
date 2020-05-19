@@ -35,7 +35,8 @@ class PharmacyLocationVC: CustomBaseViewVC {
         return v
     }()
     
-    
+    var apiToken:String?
+          var patientId:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +109,8 @@ class PharmacyLocationVC: CustomBaseViewVC {
     @objc  func handleNext()  {
         customPharmacyLocationView.pharamacyLocationViewModel.performLogging {[unowned self] (la, lng, delivery, insurance) in
             let order = PharmacyOrderVC(latt: la, lon: lng, insurance: insurance, delivery: delivery)
+            order.api_token=self.apiToken
+            order.patient_id=self.patientId
             self.navigationController?.pushViewController(order, animated: true)
         }
         

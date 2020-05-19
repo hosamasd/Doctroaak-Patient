@@ -85,7 +85,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect { (txt, indexx, _) in
-//                                   self.pharamacyOrderViewModel. = self.index
+            //                                   self.pharamacyOrderViewModel. = self.index
             self.medicineNameChosen = self.medicineNameIDSArray[indexx]
         }
         return i
@@ -162,7 +162,8 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     var mdeicineTypeArray = [String]()
     var medicineNameChosen = 0
     var medicineTypeChosen = 0
-    
+    var  api_token:String?{didSet{pharamacyOrderViewModel.api_token=api_token} }
+    var  patient_id:Int?{didSet{pharamacyOrderViewModel.patient_id=patient_id}}
     
     var medicineNameIDSArray = [Int]()
     var mdeicineTypeIDSArray = [Int]()
@@ -199,18 +200,18 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
                 
             }
         }
-                   self.nameDrop.optionArray = medicineNameArray
-                   self.typeDrop.optionArray = mdeicineTypeArray
+        self.nameDrop.optionArray = medicineNameArray
+        self.typeDrop.optionArray = mdeicineTypeArray
         DispatchQueue.main.async {
             self.layoutIfNeeded()
         }
     }
     
     func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int])  {
-                   self.medicineNameArray = sr
-                   self.mdeicineTypeArray = dr
-                   self.medicineNameIDSArray = sid
-                   mdeicineTypeIDSArray = did
+        self.medicineNameArray = sr
+        self.mdeicineTypeArray = dr
+        self.medicineNameIDSArray = sid
+        mdeicineTypeIDSArray = did
     }
     
     override func setupViews() {

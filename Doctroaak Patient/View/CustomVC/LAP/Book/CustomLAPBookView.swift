@@ -59,17 +59,6 @@ class CustomLAPBookView: CustomBaseView {
         t.constrainHeight(constant: 60)
         return t
     }()
-    //    lazy var dateTextField:UITextField={
-    //        let t = UITextField()
-    //        t.placeholder =  "Enter Date".localized
-    //        t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
-    //        t.layer.cornerRadius = 8
-    //        t.clipsToBounds = true
-    //        t.layer.borderWidth = 1
-    //        t.layer.borderColor = UIColor.lightGray.cgColor
-    //        t.constrainHeight(constant: 60)
-    //        return t
-    //    }()
     
     lazy var fullNameTextField = createMainTextFields(place: "Full name")
     lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
@@ -127,8 +116,8 @@ class CustomLAPBookView: CustomBaseView {
     let lapBookViewModel = LAPBookViewModel()
     
     var index:Int = 0
-    var  api_token:String?
-    var  patient_id:Int?
+    var  api_token:String?{didSet{lapBookViewModel.api_token=api_token} }
+    var  patient_id:Int?{didSet{lapBookViewModel.patient_id=patient_id}}
     var isActive = true
     
     override func layoutSubviews() {

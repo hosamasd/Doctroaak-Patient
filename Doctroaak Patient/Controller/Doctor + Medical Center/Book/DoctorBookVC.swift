@@ -31,23 +31,34 @@ class DoctorBookVC: CustomBaseViewVC {
         v.api_token = api_token ?? ""
         v.clinic_id = clinic_id
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
-        //        v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
-        //        v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
-        //        v.shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
-        //        v.shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
+        return v
+    }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleremoveLoginAlert()
+        }
         return v
     }()
     
     var  api_token:String?
     var  patient_id:Int?
-//    fileprivate let api_token:String!
-//    fileprivate let patient_id:Int!
+    //    fileprivate let api_token:String!
+    //    fileprivate let patient_id:Int!
     fileprivate let clinic_id:Int!
     
     init(clinic_id:Int) {
-//        self.api_token=api_token
+        //        self.api_token=api_token
         self.clinic_id=clinic_id
-//        self.patient_id=patient_id
+        //        self.patient_id=patient_id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -110,28 +121,69 @@ class DoctorBookVC: CustomBaseViewVC {
         return name+ss+mobile+ss+age+ss+isMale
     }
     
-    @objc func handleBook()  {
-        //        self.cusomDoctorBookView.doctorBookViewModel.notes = cusomDoctorBookView.doctorBookViewModel.isFirstOpetion! ? "" : getNotes()
+    func presentAlert()  {
         
-        cusomDoctorBookView.doctorBookViewModel.performBooking(notessss: getNotes()) { (base, err) in
-            if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.activeViewsIfNoData();return
-            }
-            SVProgressHUD.dismiss()
-            self.activeViewsIfNoData()
-            guard let message = base else {return }
-            //            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
+        customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
+        customAlertLoginView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+        
+    }
+    
+    func presentLogin()  {
+        let login = LoginVC()
+        login.delgate=self
+        let nav = UINavigationController(rootViewController: login)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleBook()  {
+        if api_token == nil && patient_id==nil {
+            presentAlert()
             
-            DispatchQueue.main.async {
-                self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
-//                self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
-                //                self.dismiss(animated: true, completion: nil)
-                //                       self.saveToken(user_id: user.id,user.phone)
+        }else {
+            guard let api = api_token,let patientId = patient_id else { return  }
+            cusomDoctorBookView.doctorBookViewModel.api_token=api
+            cusomDoctorBookView.doctorBookViewModel.patient_id=patientId
+            cusomDoctorBookView.doctorBookViewModel.performBooking(notessss: getNotes()) { (base, err) in
+                if let err = err {
+                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.activeViewsIfNoData();return
+                }
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
+                guard let message = base else {return }
+                //            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
+                
+                DispatchQueue.main.async {
+                    self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
+                    //                self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
+                    //                self.dismiss(animated: true, completion: nil)
+                    //                       self.saveToken(user_id: user.id,user.phone)
+                }
             }
         }
     }
     
     
+    func handleremoveLoginAlert()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
+        presentLogin()
+        
+    }
     
+}
+
+extension DoctorBookVC: LoginVCPrototcol {
+    
+    func useApiAndPatienId(api: String, patient: Int) {
+        api_token = api
+        patient_id=patient
+        handleBook()
+    }
 }

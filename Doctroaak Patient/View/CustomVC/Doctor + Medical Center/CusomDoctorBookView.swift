@@ -104,8 +104,8 @@ class CusomDoctorBookView: CustomBaseView {
     }()
     let doctorBookViewModel = DoctorBookViewModel()
     
-    var  api_token:String = ""
-       var patient_id:Int = 1
+    var  api_token:String?{didSet{doctorBookViewModel.api_token=api_token} }
+       var  patient_id:Int?{didSet{doctorBookViewModel.patient_id=patient_id}}
      var clinic_id:Int = 1
     var constainedLogoAnchor:AnchoredConstraints!
     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
