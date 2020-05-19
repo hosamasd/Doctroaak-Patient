@@ -28,8 +28,10 @@ class LAPOrderVC: CustomBaseViewVC {
     }()
     lazy var customAndLAPOrderView:CustomLAPOrderView = {
         let v = CustomLAPOrderView()
+        v.index=index
         v.patientId = patientId ?? 0
         v.apiToken = apiToken ?? ""
+        v.labId=self.labId
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
@@ -43,10 +45,12 @@ class LAPOrderVC: CustomBaseViewVC {
     var bubleViewHeightConstraint:NSLayoutConstraint!
     var apiToken:String?
     var patientId:Int? 
-    
+    fileprivate let labId:Int!
+
     
     fileprivate let index:Int!
-    init(index:Int) {
+    init(index:Int,lab:Int) {
+        self.labId=lab
         self.index = index
         super.init(nibName: nil, bundle: nil)
     }
@@ -113,7 +117,7 @@ class LAPOrderVC: CustomBaseViewVC {
     }
     
     func putData(_ img:UIImage? = nil,_ orders:[RadiologyOrderModel]? = nil)  {
-        let book = LAPBookVC(index: index)
+        let book = LAPBookVC(index: index,labId: labId)
         if img != nil {
             book.img = img
         }

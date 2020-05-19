@@ -26,11 +26,12 @@ class LAPBookViewModel {
     var patient_id:Int? = -1 {didSet {checkFormValidity()}}
     var lab_id:Int? = -1 {didSet {checkFormValidity()}}
     var rad_id:Int? = -1 {didSet {checkFormValidity()}}
+    
     var male:String = "male" {didSet {checkFormValidity()}}
     
     var api_token:String? {didSet {checkFormValidity()}}
     var fullName:String? {didSet {checkFormValidity()}}
-      var mobile:String? {didSet {checkFormValidity()}}
+    var mobile:String? {didSet {checkFormValidity()}}
     var age:Int? = -1 {didSet {checkFormValidity()}}
     
     
@@ -89,10 +90,22 @@ class LAPBookViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != nil && image != nil  ||
-            dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != nil && orderDetails != nil ||
-            index == 1 && secondDates?.isEmpty == false && isFirstOpetion==false && orderDetails != nil ||
-            index == 1 && secondDates?.isEmpty == false && isFirstOpetion==false && image != nil
+        let isFormValid = dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != -1 && image != nil  ||
+            dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != -1 && orderDetails != nil ||
+             dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != -1 && orderDetails != nil && image != nil  ||
+            
+            isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && image  != nil  && age != -1 && lab_id != -1 &&  index == 0 ||
+            isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && orderDetails  != nil  && age != -1 && lab_id != -1 &&  index == 0 ||
+            isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && image  != nil  && age != -1 && orderDetails  != nil && lab_id != -1 &&  index == 0 ||
+
+            dates?.isEmpty == false &&  index == 1 && isFirstOpetion==true && rad_id != -1 && image != nil  ||
+            dates?.isEmpty == false &&  index == 1 && isFirstOpetion==true && rad_id != -1 && orderDetails != nil ||
+             dates?.isEmpty == false &&  index == 1 && isFirstOpetion==true && rad_id != -1 && orderDetails != nil && image != nil  ||
+            
+            isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && age != -1 && image  != nil && rad_id != -1  &&  index == 1 ||
+            isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && age != -1 &&  orderDetails  != nil && rad_id != -1  &&  index == 1 ||
+            isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && age  != -1 && image  != nil && orderDetails  != nil && rad_id != -1  &&  index == 1
+            
         
         bindableIsFormValidate.value = isFormValid
         

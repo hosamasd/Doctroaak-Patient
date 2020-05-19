@@ -29,8 +29,11 @@ class LAPBookVC: CustomBaseViewVC {
         let v = CustomLAPBookView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.index = index
-       v.patient_id = patient_id ?? 0
-               v.api_token = api_token ?? ""
+        v.lapBookViewModel.lab_id=self.labId
+        v.patient_id = patient_id ?? 0
+        v.lapBookViewModel.image = self.img
+        v.lapBookViewModel.orderDetails = self.orders
+        v.api_token = api_token ?? ""
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
     }()
@@ -56,8 +59,11 @@ class LAPBookVC: CustomBaseViewVC {
     
     var  api_token:String?
     var  patient_id:Int?
+    fileprivate let labId:Int!
+    
     fileprivate let index:Int!
-    init(index:Int) {
+    init(index:Int,labId:Int) {
+        self.labId=labId
         self.index = index
         super.init(nibName: nil, bundle: nil)
     }
@@ -133,10 +139,10 @@ class LAPBookVC: CustomBaseViewVC {
     
     func getNotes() ->String {
         guard let name = customLAPBookView.fullNameTextField.text,let  mobile = customLAPBookView.mobileNumberTextField.text,let age = customLAPBookView.ageTextField.text  else { return "" }
-           let ss = ","
-           let isMale = customLAPBookView.lapBookViewModel.male
-           return name+ss+mobile+ss+age+ss+isMale
-       }
+        let ss = ","
+        let isMale = customLAPBookView.lapBookViewModel.male
+        return name+ss+mobile+ss+age+ss+isMale
+    }
     
     fileprivate func makeLabSearch() {
         customLAPBookView.lapBookViewModel.performLabBooking(notess: getNotes()) { (base, err) in
@@ -148,15 +154,18 @@ class LAPBookVC: CustomBaseViewVC {
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let message = base else {return }
-
-           DispatchQueue.main.async {
-                               self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
-                           }
+            
+            DispatchQueue.main.async {
+                self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
+            }
             
         }
     }
     
     fileprivate func makeRadiologySearch() {
+        
+        
+        
         customLAPBookView.lapBookViewModel.performRadiologyBooking(notess: getNotes()) { (base, err) in
             
             if let err = err {
@@ -166,14 +175,14 @@ class LAPBookVC: CustomBaseViewVC {
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let message = base else {return }
-
-           DispatchQueue.main.async {
-                               self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
-
-                               //                            self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
-                               //                self.dismiss(animated: true, completion: nil)
-                               //                       self.saveToken(user_id: user.id,user.phone)
-                           }
+            
+            DispatchQueue.main.async {
+                self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
+                
+                //                            self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
+                //                self.dismiss(animated: true, completion: nil)
+                //                       self.saveToken(user_id: user.id,user.phone)
+            }
             
         }
     }
@@ -182,7 +191,17 @@ class LAPBookVC: CustomBaseViewVC {
     
     
     @objc  func handleBack()  {
-        navigationController?.popViewController(animated: true)
+        
+        if api_token == nil && patient_id == nil  {
+            presentAlert()
+        }else {
+            guard let api = api_token,let patientId = patient_id else { return  }
+            customLAPBookView.lapBookViewModel.api_token=api
+            customLAPBookView.lapBookViewModel.patient_id=patientId
+            index == 0 ? makeLabSearch() : makeRadiologySearch()
+            
+            
+        }
     }
     
     

@@ -74,6 +74,7 @@
 		4E483696246694FE006073F5 /* CustomBottomOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E483695246694FE006073F5 /* CustomBottomOrdersView.swift */; };
 		4E4F84AA2430CBB9005EFC4C /* ServicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */; };
 		4E4F84AC2430CBEF005EFC4C /* CustomMainServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F84AB2430CBEF005EFC4C /* CustomMainServicesView.swift */; };
+		4E5368A12473FC7F000B564E /* MainICUFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5368A02473FC7F000B564E /* MainICUFilterModel.swift */; };
 		4E60640C246C429600A93238 /* PharamcyOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E60640B246C429600A93238 /* PharamcyOrderModel.swift */; };
 		4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB224307183000FC72D /* AppDelegate.swift */; };
 		4E6D5BB524307183000FC72D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D5BB424307183000FC72D /* ViewController.swift */; };
@@ -251,6 +252,7 @@
 		4E483695246694FE006073F5 /* CustomBottomOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottomOrdersView.swift; sourceTree = "<group>"; };
 		4E4F84A92430CBB9005EFC4C /* ServicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesVC.swift; sourceTree = "<group>"; };
 		4E4F84AB2430CBEF005EFC4C /* CustomMainServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainServicesView.swift; sourceTree = "<group>"; };
+		4E5368A02473FC7F000B564E /* MainICUFilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainICUFilterModel.swift; sourceTree = "<group>"; };
 		4E60640B246C429600A93238 /* PharamcyOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamcyOrderModel.swift; sourceTree = "<group>"; };
 		4E6D5BAF24307183000FC72D /* Doctroaak Patient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doctroaak Patient.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6D5BB224307183000FC72D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -719,6 +721,14 @@
 			path = order;
 			sourceTree = "<group>";
 		};
+		4E53689F2473FC60000B564E /* ICU */ = {
+			isa = PBXGroup;
+			children = (
+				4E5368A02473FC7F000B564E /* MainICUFilterModel.swift */,
+			);
+			path = ICU;
+			sourceTree = "<group>";
+		};
 		4E60640A246C427400A93238 /* Pharamacy */ = {
 			isa = PBXGroup;
 			children = (
@@ -809,6 +819,7 @@
 		4E6D5BC8243071B1000FC72D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4E53689F2473FC60000B564E /* ICU */,
 				4EDFE771246D6EEA003AF02A /* LAB */,
 				4E60640A246C427400A93238 /* Pharamacy */,
 				4EF799A7246AB524006160E3 /* Doctor */,
@@ -1494,6 +1505,7 @@
 				4E000D0B246181AB00083BD5 /* NotificationCell.swift in Sources */,
 				4EA06520243366B700D754AD /* CustomLapResultsView.swift in Sources */,
 				4E6D5BB524307183000FC72D /* ViewController.swift in Sources */,
+				4E5368A12473FC7F000B564E /* MainICUFilterModel.swift in Sources */,
 				4EDE924A2460022B00205C64 /* MainNotificationsModel.swift in Sources */,
 				4E04215F2462970E00584BF0 /* MainLoginModel.swift in Sources */,
 				4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */,

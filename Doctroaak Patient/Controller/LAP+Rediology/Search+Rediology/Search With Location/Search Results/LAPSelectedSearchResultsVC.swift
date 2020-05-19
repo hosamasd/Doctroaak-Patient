@@ -67,9 +67,12 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     }
     
     @objc func handleBook()  {
-        let book = LAPBookVC(index:index)
-        book.patient_id=patientId
-        book.api_token=apiToken
+        let labId:Int = index == 0 ? labArrayResults?.id ?? 0 : radiologyArrayResults?.id ?? 0
+        
+        
+        let book = LAPOrderVC(index:index,lab:labId )
+        book.patientId=patientId
+        book.apiToken=apiToken
         navigationController?.pushViewController(book, animated: true)
     }
     

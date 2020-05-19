@@ -24,7 +24,7 @@ class ICUViewModel {
     
     
     
-    func performSearchinging(completion:@escaping (MainLapSearchModel?,Error?)->Void)  {
+    func performSearchinging(completion:@escaping (MainICUFilterModel?,Error?)->Void)  {
         if lat != nil && lng != nil {
             guard   let lat = lat,let lng = lng else { return  }
             bindableIsLogging.value = true

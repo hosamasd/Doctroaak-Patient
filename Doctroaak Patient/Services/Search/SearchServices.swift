@@ -81,7 +81,7 @@ class SearchServices {
         
     }
     
-    func iCUGetSearchResults(city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainLapSearchModel?, Error?) ->Void)  {
+    func iCUGetSearchResults(city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainICUFilterModel?, Error?) ->Void)  {
         let urlString = "\(baseUrl)icu/get".toSecrueHttps()
         var checks = ""
         

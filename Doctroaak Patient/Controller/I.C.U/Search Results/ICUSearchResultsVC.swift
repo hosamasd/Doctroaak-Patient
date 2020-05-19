@@ -29,6 +29,12 @@ class ICUSearchResultsVC: CustomBaseViewVC {
         return v
     }()
     
+    var icuArray: [ICUFilterModel]?{
+        didSet{
+            guard let icu = icuArray else { return  }
+            
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

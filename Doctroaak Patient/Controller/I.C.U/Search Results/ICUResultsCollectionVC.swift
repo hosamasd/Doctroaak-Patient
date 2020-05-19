@@ -11,14 +11,17 @@ import UIKit
 class ICUResultsCollectionVC: BaseCollectionVC {
     
     fileprivate let cellId = "cellId"
+     var icuArray =  [ICUFilterModel]()
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return icuArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ICUResultsCell
+        let icu = icuArray[indexPath.item]
         
+        cell.icu=icu
         return cell
     }
     

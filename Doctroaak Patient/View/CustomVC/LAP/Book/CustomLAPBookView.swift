@@ -254,6 +254,8 @@ class CustomLAPBookView: CustomBaseView {
             
         }
         self.dateTextField.resignFirstResponder() // 2.5
+        self.secondDateTextField.resignFirstResponder() // 2.5
+
     }
     
     

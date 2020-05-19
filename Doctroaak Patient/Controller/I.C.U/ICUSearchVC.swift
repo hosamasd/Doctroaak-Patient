@@ -103,8 +103,9 @@ class ICUSearchVC: CustomBaseViewVC {
         
     }
     
-    func goToNext()  {
+    func goToNext(_ users:[ICUFilterModel])  {
         let details = ICUSearchResultsVC()
+        details.icuArray=users
         navigationController?.pushViewController(details, animated: true)
     }
     
@@ -121,10 +122,10 @@ class ICUSearchVC: CustomBaseViewVC {
             }
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
-            guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            guard let users = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
             DispatchQueue.main.async {
-                self.goToNext()
+                self.goToNext(users)
             }
             
             

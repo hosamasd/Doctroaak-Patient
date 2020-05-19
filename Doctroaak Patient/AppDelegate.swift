@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: LAPOrderVC(index: 0))//PharmacyOrderVC(latt: 00.0, lon: 0.0, insurance: 0, delivery: 0))//PharmacyOrderVC(latt: 0.0, lon: 0.0, insurance: 0, delivery: 0))//DoctorBookVC(clinic_id: 16, patient_id: 50, api_token: "BrieOhmeR8CqML2RqBQDtXZWETE")//UINavigationController(rootViewController:ForgetPasswordVC())//VerificationVC(user_id: 47, isFromForget: false))//LAPOrderVC(index: 0))//PharmacyOrderVC())
+        window?.rootViewController = UINavigationController(rootViewController: LapSearchVC(index: 0))//PharmacyOrderVC(latt: 00.0, lon: 0.0, insurance: 0, delivery: 0))//PharmacyOrderVC(latt: 0.0, lon: 0.0, insurance: 0, delivery: 0))//DoctorBookVC(clinic_id: 16, patient_id: 50, api_token: "BrieOhmeR8CqML2RqBQDtXZWETE")//UINavigationController(rootViewController:ForgetPasswordVC())//VerificationVC(user_id: 47, isFromForget: false))//LAPOrderVC(index: 0))//PharmacyOrderVC())
         return true
     }
 
