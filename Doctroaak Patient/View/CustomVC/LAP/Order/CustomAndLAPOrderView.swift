@@ -44,21 +44,21 @@ class CustomAndLAPOrderView: CustomBaseView {
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
-//        view.selectItemAt(index: 2)
+        //        view.selectItemAt(index: 2)
         return view
     }()
     
-//    func hideOrUndie(index:Int)  {
-//        self.laPOrderViewModel.isFirstOpetion = index == 0 ? true : false
-//        self.laPOrderViewModel.isSecondOpetion = index == 1 ? true : false
-//        self.laPOrderViewModel.isThirdOpetion = index == 2 ? true : false
-//        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {[unowned self] in
-//            self.secondStack.isHide(index == 0 ? true : false)
-//            self.orLabel.isHide(index == 2 ? false :  true)
-//            self.firstStack.isHide(index == 1 ? true : false)
-//
-//        })
-//    }
+    //    func hideOrUndie(index:Int)  {
+    //        self.laPOrderViewModel.isFirstOpetion = index == 0 ? true : false
+    //        self.laPOrderViewModel.isSecondOpetion = index == 1 ? true : false
+    //        self.laPOrderViewModel.isThirdOpetion = index == 2 ? true : false
+    //        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {[unowned self] in
+    //            self.secondStack.isHide(index == 0 ? true : false)
+    //            self.orLabel.isHide(index == 2 ? false :  true)
+    //            self.firstStack.isHide(index == 1 ? true : false)
+    //
+    //        })
+    //    }
     
     lazy var rosetaImageView:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
@@ -72,21 +72,21 @@ class CustomAndLAPOrderView: CustomBaseView {
     lazy var uploadView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [uploadLabel,uploadImage])
         v.constrainHeight(constant: 60)
-        v.hstack(uploadImage,uploadLabel)
+        v.hstack(uploadImage,uploadLabel).padLeft(-80)
         
         return v
     }()
     lazy var uploadLabel = UILabel(text: "Upload prescription", font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
     
     lazy var uploadImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-        i.constrainWidth(constant: 80)
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4174-1"))
+        i.contentMode = .scaleAspectFit
+        //        i.constrainWidth(constant: 60)
         return i
     }()
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        //        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
@@ -100,13 +100,18 @@ class CustomAndLAPOrderView: CustomBaseView {
         
         return i
     }()
-    lazy var addLapCollectionVC:AddLapCollectionVC = {
+    lazy var addssLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
+        vc.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handles)))
+//        vc.collectionView.backgroundColor = .red
+//        vc.collectionView.isHide(false)
+//                vc.collectionView.constrainHeight(constant: 150)
+//        vc.collectionView.reloadData()
         return vc
     }()
     lazy var orLabel:UILabel = {
         let l = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
-        l.isHide(true)
+//        l.isHide(true)
         return l
     }()
     
@@ -121,9 +126,10 @@ class CustomAndLAPOrderView: CustomBaseView {
     }()
     lazy var secondStack :UIStackView = {
         let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
+        //        let s = getStack(views: mainDropView,addLapCollectionVC.view, spacing: 16, distribution: .fillProportionally, axis: .vertical)
         
-        let s = getStack(views: mainDropView,dd,addLapCollectionVC.view, spacing: 16, distribution: .fill, axis: .vertical)
-        s.isHide(true)
+        let s = getStack(views: mainDropView,dd,addssLapCollectionVC.view,UIView(backgroundColor: .yellow), spacing: 16, distribution: .fillEqually, axis: .vertical)
+        //        s.isHide(true)
         return s
     }()
     lazy var firstStack :UIStackView = {
@@ -153,8 +159,9 @@ class CustomAndLAPOrderView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        orderSegmentedView.selectItemAt(index: 0)
-
+        addssLapCollectionVC.collectionView.constrainHeight(constant: 100)
+        //        orderSegmentedView.selectItemAt(index: 0)
+        
     }
     
     override init(frame: CGRect) {
@@ -189,7 +196,7 @@ class CustomAndLAPOrderView: CustomBaseView {
             }
         }
         self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
-
+        
         //        self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
         DispatchQueue.main.async {
             self.layoutIfNeeded()
@@ -198,10 +205,13 @@ class CustomAndLAPOrderView: CustomBaseView {
     
     override func setupViews() {
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
+        let dd = getStack(views: UIView(),addMoreImage, spacing: 16, distribution: .fill, axis: .horizontal)
+
+        let mainStacxk = getStack(views: firstStack,orLabel,secondStack, spacing: 16, distribution: .fill, axis: .vertical)
         
-        let mainStacxk = getStack(views: firstStack,orLabel,secondStack,UIView(), spacing: 16, distribution: .fillProportionally, axis: .vertical)
-        
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
+//        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,addssLapCollectionVC.view,nextButton)
+
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
@@ -212,7 +222,15 @@ class CustomAndLAPOrderView: CustomBaseView {
         
         
         orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
-        mainStacxk.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 24, left: 46, bottom: 32, right: 32))
+        addssLapCollectionVC.view.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 24, left: 46, bottom: 32, right: 32))
+//        orLabel.anchor(top: firstStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 46, bottom: 32, right: 32))
+//        addssLapCollectionVC.view.anchor(top: firstStack.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 8, left: 46, bottom: 32, right: 32))
+
+//        mainDropView.anchor(top: addssLapCollectionVC.view.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 46, bottom: 32, right: 32))
+//        addssLapCollectionVC.view.anchor(top: mainDropView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 46, bottom: 32, right: 32))
+
+
+        //        addssLapCollectionVC.view.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 24, left: 46, bottom: 32, right: 32),size: .init(width: 0, height: 200))
         
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
@@ -228,12 +246,19 @@ class CustomAndLAPOrderView: CustomBaseView {
     @objc  func handleAddMore()  {
         guard let name = laPOrderViewModel.name else {print("all fields required"); return  }
         let order = RadiologyOrderModel(raysID: name)
-        addLapCollectionVC.medicineArray.append(order)
+        addssLapCollectionVC.medicineArray.append(order)
+        
+        
         DispatchQueue.main.async {
-            self.addLapCollectionVC.collectionView.reloadData()
+            self.addssLapCollectionVC.collectionView.reloadData()
+            self.laPOrderViewModel.orderDetails = self.addssLapCollectionVC.medicineArray
         }
         
         
         print(name)
+    }
+    
+   @objc func handles()  {
+        print(96545)
     }
 }

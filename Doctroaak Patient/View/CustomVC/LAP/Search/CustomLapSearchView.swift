@@ -94,9 +94,7 @@ class CustomLapSearchView: CustomBaseView {
         i.placeholder = "City".localized
         i.didSelect { (txt, indexx, _) in
             self.lAPSearchViewModel.index = self.index
-
-            self.getAreaAccordingToCityId(index: indexx)
-            
+  self.getAreaAccordingToCityId(index: indexx)
             self.lAPSearchViewModel.city = self.cityIDSArray[indexx]//index+1
         }
         

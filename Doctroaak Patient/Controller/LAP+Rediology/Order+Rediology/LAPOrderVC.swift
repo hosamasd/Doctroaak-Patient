@@ -26,13 +26,15 @@ class LAPOrderVC: CustomBaseViewVC {
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
-    lazy var customLAPOrderView:CustomAndLAPOrderView = {
+    lazy var customAndLAPOrderView:CustomAndLAPOrderView = {
         let v = CustomAndLAPOrderView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
             self.hideOrUndie(index: index)
         }
+        v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
+        
         return v
     }()
     
@@ -72,18 +74,18 @@ class LAPOrderVC: CustomBaseViewVC {
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
         bubleViewHeightConstraint = mainView.heightAnchor.constraint(equalToConstant: 900)
         bubleViewHeightConstraint.isActive = true
-        mainView.addSubViews(views: customLAPOrderView)
-        customLAPOrderView.fillSuperview()
+        mainView.addSubViews(views: customAndLAPOrderView)
+        customAndLAPOrderView.fillSuperview()
     }
     
     func hideOrUndie(index:Int)  {
-        self.customLAPOrderView.laPOrderViewModel.isFirstOpetion = index == 0 ? true : false
-        self.customLAPOrderView.laPOrderViewModel.isSecondOpetion = index == 1 ? true : false
-        self.customLAPOrderView.laPOrderViewModel.isThirdOpetion = index == 2 ? true : false
+        self.customAndLAPOrderView.laPOrderViewModel.isFirstOpetion = index == 0 ? true : false
+        self.customAndLAPOrderView.laPOrderViewModel.isSecondOpetion = index == 1 ? true : false
+        self.customAndLAPOrderView.laPOrderViewModel.isThirdOpetion = index == 2 ? true : false
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {[unowned self] in
-            self.customLAPOrderView.secondStack.isHide(index == 0 ? true : false)
-            self.customLAPOrderView.orLabel.isHide(index == 2 ? false :  true)
-            self.customLAPOrderView.firstStack.isHide(index == 1 ? true : false)
+            self.customAndLAPOrderView.secondStack.isHide(index == 0 ? true : false)
+            self.customAndLAPOrderView.orLabel.isHide(index == 2 ? false :  true)
+            self.customAndLAPOrderView.firstStack.isHide(index == 1 ? true : false)
             self.bubleViewHeightConstraint.constant = index == 0 ? 900 : index == 1 ? 900 : 1100
             
         })
@@ -91,23 +93,30 @@ class LAPOrderVC: CustomBaseViewVC {
     
     fileprivate  func setupViewModelObserver()  {
         
-        customLAPOrderView.laPOrderViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        customAndLAPOrderView.laPOrderViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
             
-            self.changeButtonState(enable: isValid, vv: self.customLAPOrderView.nextButton)
+            self.changeButtonState(enable: isValid, vv: self.customAndLAPOrderView.nextButton)
         }
         
-        customLAPOrderView.laPOrderViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
+        customAndLAPOrderView.laPOrderViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
             if isValid == true {
-//                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                                SVProgressHUD.show(withStatus: "Ordering...".localized)
                 
             }else {
-//                                SVProgressHUD.dismiss()
-//                                self.activeViewsIfNoData()
             }
         })
+    }
+    
+    func putData(_ img:UIImage? = nil,_ orders:[RadiologyOrderModel]? = nil)  {
+        let book = LAPBookVC(index: index)
+        if img != nil {
+            book.img = img
+        }
+        if orders != nil {
+            book.orders = orders
+        }
+        navigationController?.pushViewController(book, animated: true)
     }
     
     //TODO:-Handle methods
@@ -124,10 +133,12 @@ class LAPOrderVC: CustomBaseViewVC {
     }
     
     @objc func handleNext()  {
-        customLAPOrderView.laPOrderViewModel.performOrdering { (img, order) in
-            
+        customAndLAPOrderView.laPOrderViewModel.performOrdering {[unowned self] (img, order) in
+            print(img,order)
+            self.putData(img,order)
         }
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -142,12 +153,12 @@ extension LAPOrderVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let img = info[.originalImage]  as? UIImage   {
-            customLAPOrderView.laPOrderViewModel.image = img
-            //            customLAPOrderView.rosetaImageView.image = img
+            customAndLAPOrderView.laPOrderViewModel.image = img
+            customAndLAPOrderView.rosetaImageView.image = img
         }
         if let img = info[.editedImage]  as? UIImage   {
-            customLAPOrderView.laPOrderViewModel.image = img
-            //            customLAPOrderView.rosetaImageView.image = img
+            customAndLAPOrderView.laPOrderViewModel.image = img
+            customAndLAPOrderView.rosetaImageView.image = img
         }
         
         //        hideOtherData()
@@ -155,7 +166,7 @@ extension LAPOrderVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        customLAPOrderView.laPOrderViewModel.image = nil
+        customAndLAPOrderView.laPOrderViewModel.image = nil
         dismiss(animated: true)
     }
     

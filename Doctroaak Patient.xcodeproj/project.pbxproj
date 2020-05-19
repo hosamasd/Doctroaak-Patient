@@ -448,8 +448,8 @@
 			isa = PBXGroup;
 			children = (
 				4EBF9E15243B04B4004F2A1D /* LAPSearchViewModel.swift */,
-				4E0536B72438A08A00ECFF0D /* LAPBookViewModel.swift */,
 				4ED7CEDC243B1C5200317342 /* LAPOrderViewModel.swift */,
+				4E0536B72438A08A00ECFF0D /* LAPBookViewModel.swift */,
 			);
 			path = LAP;
 			sourceTree = "<group>";
@@ -632,8 +632,8 @@
 			children = (
 				4EBF9E18243B0A1A004F2A1D /* Search */,
 				4ED7CEDB243B196B00317342 /* Details */,
-				4ED7CEDE243B1CBF00317342 /* Book */,
 				4EC3CD522433893E00732D96 /* Order */,
+				4ED7CEDE243B1CBF00317342 /* Book */,
 			);
 			path = LAP;
 			sourceTree = "<group>";
@@ -1285,8 +1285,8 @@
 			children = (
 				4EFE85B22431E1AF00E44DD1 /* List */,
 				4ED135B82439A18E008BE002 /* Search */,
-				4EBBCD9124320305005C8DF7 /* Book */,
 				4EBBCD8124320104005C8DF7 /* Details */,
+				4EBBCD9124320305005C8DF7 /* Book */,
 			);
 			path = "Doctor + Medical Center";
 			sourceTree = "<group>";

@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import MOLH
 
 class AddLAPCell: BaseCollectionCell {
     
     var med:RadiologyOrderModel!{
         didSet{
-            nameLabel.text = getNameFromIndex(med.raysID)
+            DispatchQueue.main.async {
+                self.nameLabel.text = self.getNameFromIndex(self.med.raysID)
+
+            }
         }
     }
     
@@ -48,6 +52,35 @@ class AddLAPCell: BaseCollectionCell {
     }
     
     func getNameFromIndex(_ index:Int) -> String {
-        return "\(index)"
+        var citName = [String]()
+        var cityId = [Int]()
+        
+        if index == 0 {
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labNameARArray :  UserDefaultsConstants.labNameArray
+            let ff = UserDefaultsConstants.labIdArray
+            
+            checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
+            
+        }else {
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radiologyNameARArray :  UserDefaultsConstants.radiologyNameArray
+                       let ff = UserDefaultsConstants.radiologyIdArray
+                       
+                       checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
+        }
+        let ss = cityId.filter{$0 == index}
+        let ff = ss.first ?? 1
+        
+        return citName[ff - 1 ]
+    }
+    
+    func checkLanguage(citName: inout [String], cityId:inout [Int],nameEn:String,nameId:String)  {
+        
+        
+        if let  cityArray = userDefaults.value(forKey: nameEn) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int]{
+            
+            citName = cityArray
+            cityId = cityIds
+         }
+        
     }
 }

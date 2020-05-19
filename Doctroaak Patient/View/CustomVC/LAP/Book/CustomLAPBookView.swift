@@ -127,7 +127,8 @@ class CustomLAPBookView: CustomBaseView {
     let lapBookViewModel = LAPBookViewModel()
     
     var index:Int = 0
-    
+    var  api_token:String?
+    var  patient_id:Int?
     var isActive = true
     
     override func layoutSubviews() {
@@ -198,10 +199,10 @@ class CustomLAPBookView: CustomBaseView {
     
     fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
         if sender.backgroundColor == nil {
-            lapBookViewModel.isMale = isMale ?  "male" : "female";return
+            lapBookViewModel.male = isMale ?  "male" : "female";return
         }else {
             addGradientInSenderAndRemoveOther(sender: sender, vv: secondBtn)
-            lapBookViewModel.isMale = isMale ?  "male" : "female"
+            lapBookViewModel.male = isMale ?  "male" : "female"
         }
     }
     
@@ -230,11 +231,11 @@ class CustomLAPBookView: CustomBaseView {
             } else {
                 if  !texts.isValidPhoneNumber    {
                     floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                    lapBookViewModel.mobileNumber = nil
+                    lapBookViewModel.mobile = nil
                 }
                 else {
                     floatingLabelTextField.errorMessage = ""
-                    lapBookViewModel.mobileNumber = texts
+                    lapBookViewModel.mobile = texts
                 }
             }
         }
@@ -250,8 +251,8 @@ class CustomLAPBookView: CustomBaseView {
     }
     
     @objc func tapDone(sender: UITextField) {
-        //       doctorBookViewModel.api_token=api_token
-        //               doctorBookViewModel.patient_id=patient_id
+        lapBookViewModel.api_token=api_token
+        lapBookViewModel.patient_id=patient_id
         //               doctorBookViewModel.clinic_id=clinic_id
         if let datePicker = self.dateTextField.inputView as? UIDatePicker { // 2.1
             

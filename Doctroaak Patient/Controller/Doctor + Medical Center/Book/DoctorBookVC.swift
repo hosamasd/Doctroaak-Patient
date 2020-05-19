@@ -27,8 +27,8 @@ class DoctorBookVC: CustomBaseViewVC {
     }()
     lazy var cusomDoctorBookView:CusomDoctorBookView = {
         let v = CusomDoctorBookView()
-        v.patient_id = patient_id
-        v.api_token = api_token
+        v.patient_id = patient_id ?? 0
+        v.api_token = api_token ?? ""
         v.clinic_id = clinic_id
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         //        v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
@@ -38,14 +38,16 @@ class DoctorBookVC: CustomBaseViewVC {
         return v
     }()
     
-    fileprivate let api_token:String!
-    fileprivate let patient_id:Int!
+    var  api_token:String?
+    var  patient_id:Int?
+//    fileprivate let api_token:String!
+//    fileprivate let patient_id:Int!
     fileprivate let clinic_id:Int!
     
-    init(clinic_id:Int,patient_id:Int,api_token:String) {
-        self.api_token=api_token
+    init(clinic_id:Int) {
+//        self.api_token=api_token
         self.clinic_id=clinic_id
-        self.patient_id=patient_id
+//        self.patient_id=patient_id
         super.init(nibName: nil, bundle: nil)
     }
     

@@ -113,7 +113,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         return v
     } ()
     
-    lazy var addLapCollectionVC:AddMedicineCollectionVC = {
+    lazy var addMedicineCollectionVC:AddMedicineCollectionVC = {
         let vc = AddMedicineCollectionVC()
         //        vc.view.constrainHeight(constant: 300)
         //        vc.view.isHide(true)
@@ -178,7 +178,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         textView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 0))
         placeHolderLabel.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 0))
         
-        let mainStack =  getStack(views: rosetaImageView,centerImage,uploadView,orLabel,mainDropView,main2DropView,ff,dd,mainView,addLapCollectionVC.view,UIView(), spacing: 16, distribution: .fill, axis: .vertical)
+        let mainStack =  getStack(views: rosetaImageView,centerImage,uploadView,orLabel,mainDropView,main2DropView,ff,dd,mainView,addMedicineCollectionVC.view,UIView(), spacing: 16, distribution: .fill, axis: .vertical)
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         main2DropView.hstack(typeDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         
@@ -246,8 +246,8 @@ class CustomPharmacyOrderView: CustomBaseView {
 //        let model = MedicineAddModel(name: name, type: type, count: count)
 //        addLapCollectionVC.medicineArray.append(model)
         DispatchQueue.main.async {
-            self.addLapCollectionVC.view.isHide(false)
-            self.addLapCollectionVC.collectionView.reloadData()
+            self.addMedicineCollectionVC.view.isHide(false)
+            self.addMedicineCollectionVC.collectionView.reloadData()
         }
         
         

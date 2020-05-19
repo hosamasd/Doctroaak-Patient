@@ -16,14 +16,15 @@ class AddLapCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return medicineArray.count
+        return 20//medicineArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AddLAPCell
-                let med = medicineArray[indexPath.item]
-        //
-                cell.med = med
+        cell.backgroundColor = .orange
+//                let med = medicineArray[indexPath.item]
+//        //
+//                cell.med = med
         return cell
     }
     
@@ -33,9 +34,11 @@ class AddLapCollectionVC: BaseCollectionVC {
     
     //MARK:-User methods
 
+  
     
     override func setupCollection() {
-        collectionView.backgroundColor = .white
+//        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .red
         collectionView.register(AddLAPCell.self, forCellWithReuseIdentifier: cellID)
     }
 }

@@ -29,7 +29,7 @@ class WelcomeVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         saveData()
-        //        anyAfterCached()
+        anyAfterCached()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,8 +94,8 @@ class WelcomeVC: CustomBaseViewVC {
     }
     
     func anyAfterCached()  {
-        var groupL :[GetLabModel]?
-        var groupR :[GetRadiologyModel]?
+        var groupL :[MedicineModel]?
+        var groupR :[MedicineTypeModel]?
         
         SVProgressHUD.show(withStatus: "Looding....".localized)
         let semaphore = DispatchSemaphore(value: 0)
@@ -104,13 +104,13 @@ class WelcomeVC: CustomBaseViewVC {
         
         
         dispatchQueue.async {
-            MainServices.shared.getRadiologys { (base, err) in
+            MainServices.shared.getMedicineTypes { (base, err) in
                 groupR = base?.data
                 semaphore.signal()
             }
             semaphore.wait()
             
-            MainServices.shared.getLabs { (base, err) in
+            MainServices.shared.getMedicines { (base, err) in
                 groupL = base?.data
                 semaphore.signal()
             }
@@ -122,40 +122,51 @@ class WelcomeVC: CustomBaseViewVC {
         }
     }
     
-    func reloadMainDatas(_ gl:[GetLabModel]?,_ gr:[GetRadiologyModel]?)  {
-        var labNameArray = [String]()
-        var labNameARData = [String]()
-        var labNameFR = [String]()
-        var labIdData = [Int]()
+    func reloadMainDatas(_ gl:[MedicineModel]?,_ gr:[MedicineTypeModel]?)  {
+        var mmNNameArray = [String]()
+        var mNNameFR = [String]()
+        var mNNameARData = [String]()
+        var mNIdData = [Int]()
         
-        var radNameArray = [String]()
-        var radNameARData = [String]()
-        var radNameFR = [String]()
-        var radIdData = [Int]()
+        var mTYNameArray = [String]()
+        var mTYNameFR = [String]()
+        var mTYNameARData = [String]()
+        var mTYIdData = [Int]()
         
         gl?.forEach({ (city) in
-            labNameArray.append(city.name)
-            labNameARData.append(city.nameAr ?? "")
-            labNameFR.append(city.nameFr ?? "")
-            labIdData.append(city.id)
+            mmNNameArray.append(city.name)
+            mNNameARData.append(city.nameAr)
+            mNNameFR.append(city.nameFr )
+            mNIdData.append(city.id)
         })
         
         gr?.forEach({ (city) in
-            radNameArray.append(city.name)
-            radNameARData.append(city.nameAr ?? "")
-            radNameFR.append(city.nameFr ?? "")
-            radIdData.append(city.id)
+            mTYNameArray.append(city.name)
+            mTYNameARData.append(city.nameAr)
+            mTYNameFR.append(city.nameFr )
+            mTYIdData.append(city.id)
         })
         
-        userDefaults.set(radNameArray, forKey: UserDefaultsConstants.radiologyNameArray)
-        userDefaults.set(radNameFR, forKey: UserDefaultsConstants.radiologyNameFRArray)
-        userDefaults.set(radNameARData, forKey: UserDefaultsConstants.radiologyNameARArray)
-        userDefaults.set(radIdData, forKey: UserDefaultsConstants.radiologyIdArray)
+        //        userDefaults.set(radNameArray, forKey: UserDefaultsConstants.radiologyNameArray)
+        //        userDefaults.set(radNameFR, forKey: UserDefaultsConstants.radiologyNameFRArray)
+        //        userDefaults.set(radNameARData, forKey: UserDefaultsConstants.radiologyNameARArray)
+        //        userDefaults.set(radIdData, forKey: UserDefaultsConstants.radiologyIdArray)
+        //
+        //        userDefaults.set(labNameArray, forKey: UserDefaultsConstants.labNameArray)
+        //        userDefaults.set(labNameFR, forKey: UserDefaultsConstants.labNameFRArray)
+        //        userDefaults.set(labNameARData, forKey: UserDefaultsConstants.labNameARArray)
+        //        userDefaults.set(labIdData, forKey: UserDefaultsConstants.labIdArray)
+        userDefaults.set(mmNNameArray, forKey: UserDefaultsConstants.medicineNameArray)
+        userDefaults.set(mNNameFR, forKey: UserDefaultsConstants.medicineNameFTArray)
+        userDefaults.set(mNNameARData, forKey: UserDefaultsConstants.medicineNameARArray)
+        userDefaults.set(mNIdData, forKey: UserDefaultsConstants.medicineNameIDSArray)
         
-        userDefaults.set(labNameArray, forKey: UserDefaultsConstants.labNameArray)
-        userDefaults.set(labNameFR, forKey: UserDefaultsConstants.labNameFRArray)
-        userDefaults.set(labNameARData, forKey: UserDefaultsConstants.labNameARArray)
-        userDefaults.set(labIdData, forKey: UserDefaultsConstants.labIdArray)
+        userDefaults.set(mTYNameArray, forKey: UserDefaultsConstants.medicineTypeArray)
+        
+        userDefaults.set(mTYNameFR, forKey: UserDefaultsConstants.medicineTypeFRArray)
+        userDefaults.set(mTYNameARData, forKey: UserDefaultsConstants.medicineTypeARArray)
+        userDefaults.set(mTYIdData, forKey: UserDefaultsConstants.medicineTypeIDSArray)
+        
         userDefaults.synchronize()
     }
     
@@ -170,6 +181,8 @@ class WelcomeVC: CustomBaseViewVC {
         
         var groupL :[GetLabModel]?
         var groupR :[GetRadiologyModel]?
+        var groupMN :[MedicineModel]?
+        var groupMTY :[MedicineTypeModel]?
         
         SVProgressHUD.show(withStatus: "Looding....".localized)
         let semaphore = DispatchSemaphore(value: 0)
@@ -216,13 +229,25 @@ class WelcomeVC: CustomBaseViewVC {
             }
             semaphore.wait()
             
+            MainServices.shared.getMedicineTypes { (base, err) in
+                groupMTY = base?.data
+                semaphore.signal()
+            }
+            semaphore.wait()
+            
+            MainServices.shared.getMedicines { (base, err) in
+                groupMN = base?.data
+                semaphore.signal()
+            }
+            semaphore.wait()
+            
             semaphore.signal()
-            self.reloadMainData(group1, group11, group0,group01,groupL,groupR)
+            self.reloadMainData(group1, group11, group0,group01,groupL,groupR,groupMN,groupMTY)
             semaphore.wait()
         }
     }
     
-    fileprivate func reloadMainData(_ group:[CityModel]?,_ group2:[AreaModel]?,_ grou:[DegreeModel]?,_ group5:[InsurcaneCompanyModel]?,_ gl:[GetLabModel]?,_ gr:[GetRadiologyModel]?)  {
+    fileprivate func reloadMainData(_ group:[CityModel]?,_ group2:[AreaModel]?,_ grou:[DegreeModel]?,_ group5:[InsurcaneCompanyModel]?,_ gl:[GetLabModel]?,_ gr:[GetRadiologyModel]?,_ mN:[MedicineModel]?,_ mTY:[MedicineTypeModel]?)  {
         
         var cityNameArray = [String]()
         var cityNameARData = [String]()
@@ -254,6 +279,16 @@ class WelcomeVC: CustomBaseViewVC {
         var iNameARData = [String]()
         var iNameFR = [String]()
         var iIdData = [Int]()
+        
+        var mTYNameArray = [String]()
+        var mTYNameARData = [String]()
+        var mTYNameFR = [String]()
+        var mTYIdData = [Int]()
+        
+        var mmNNameArray = [String]()
+        var mNNameARData = [String]()
+        var mNNameFR = [String]()
+        var mNIdData = [Int]()
         
         
         DispatchQueue.main.sync {
@@ -297,12 +332,19 @@ class WelcomeVC: CustomBaseViewVC {
                 dIdData.append(city.id)
             })
             
-            //               group4?.forEach({ (city) in
-            //                   spyNameArray.append(city.name)
-            //                   spyNameARData.append(city.nameAr)
-            //                   spyNameFR.append(city.nameFr )
-            //                   spyIdData.append(city.id)
-            //               })
+            mN?.forEach({ (city) in
+                mmNNameArray.append(city.name)
+                mmNNameArray.append(city.nameAr)
+                mNNameFR.append(city.nameFr )
+                mNIdData.append(city.id)
+            })
+            
+            mTY?.forEach({ (city) in
+                mmNNameArray.append(city.name)
+                mTYNameArray.append(city.nameAr)
+                mTYNameFR.append(city.nameFr )
+                mTYIdData.append(city.id)
+            })
             
             group5?.forEach({ (city) in
                 iNameArray.append(city.name)
@@ -332,10 +374,16 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(areaCityIdData, forKey: UserDefaultsConstants.areaCityIdsArrays)
             userDefaults.set(areaIdData, forKey: UserDefaultsConstants.areaIdArray)
             
-            //               userDefaults.set(spyNameArray, forKey: UserDefaultsConstants.specificationNameArray)
-            //               userDefaults.set(spyNameFR, forKey: UserDefaultsConstants.specificationNameFRArray)
-            //               userDefaults.set(spyNameARData, forKey: UserDefaultsConstants.specificationNameARArray)
-            //               userDefaults.set(spyIdData, forKey: UserDefaultsConstants.specificationIdArray)
+            userDefaults.set(mmNNameArray, forKey: UserDefaultsConstants.medicineNameArray)
+            userDefaults.set(mNNameFR, forKey: UserDefaultsConstants.medicineNameFTArray)
+            userDefaults.set(mNNameARData, forKey: UserDefaultsConstants.medicineNameARArray)
+            userDefaults.set(mNIdData, forKey: UserDefaultsConstants.medicineNameIDSArray)
+            
+            userDefaults.set(mmNNameArray, forKey: UserDefaultsConstants.medicineTypeArray)
+            userDefaults.set(mNNameFR, forKey: UserDefaultsConstants.medicineTypeFRArray)
+            userDefaults.set(mNNameARData, forKey: UserDefaultsConstants.medicineTypeARArray)
+            userDefaults.set(mNIdData, forKey: UserDefaultsConstants.medicineTypeIDSArray)
+            
             
             userDefaults.set(dNameArray, forKey: UserDefaultsConstants.degreeNameArray)
             userDefaults.set(dNameFR, forKey: UserDefaultsConstants.degreeNameFRArray)
@@ -354,6 +402,8 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(true, forKey: UserDefaultsConstants.isSpecificationsCached)
             userDefaults.set(true, forKey: UserDefaultsConstants.isLabCached)
             userDefaults.set(true, forKey: UserDefaultsConstants.isRadiologyCached)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isMedicineNameCached)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isMedicineTypeCached)
             
             
             userDefaults.set(true, forKey: UserDefaultsConstants.isCachedDriopLists)

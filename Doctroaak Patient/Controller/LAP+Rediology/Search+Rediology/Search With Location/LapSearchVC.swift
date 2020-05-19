@@ -167,6 +167,7 @@ class LapSearchVC: CustomBaseViewVC {
         }
     }
     
+    
     @objc func handleSearch()  {
         
         index == 0 ? makeLabSearch() : makeRadiologySearch()

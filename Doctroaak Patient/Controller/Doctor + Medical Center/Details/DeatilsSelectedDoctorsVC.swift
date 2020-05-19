@@ -77,7 +77,9 @@ class DeatilsSelectedDoctorsVC: UIViewController {
        
         
         guard let apiTpken = patientApiToken,let patientId=patient_id, let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
-        let book = DoctorBookVC(clinic_id: clinic_id, patient_id: patientId, api_token: apiTpken)
+//        let book = DoctorBookVC(clinic_id: clinic_id, patient_id: patientId, api_token: apiTpken)
+        let book = DoctorBookVC(clinic_id: clinic_id)
+
         navigationController?.pushViewController(book, animated: true)
         
     }
