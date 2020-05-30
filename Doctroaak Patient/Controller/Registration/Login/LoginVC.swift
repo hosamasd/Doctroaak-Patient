@@ -14,6 +14,8 @@ protocol LoginVCPrototcol {
     func useApiAndPatienId(api:String,patient:Int)
 }
 
+let reposStore: LocalJSONStore<PatienModel> = LocalJSONStore(storageType: .cache, filename: "repos.json")
+
 class LoginVC: CustomBaseViewVC {
     
     lazy var customLoginsView:CustomLoginsView = {
@@ -87,12 +89,23 @@ class LoginVC: CustomBaseViewVC {
         userDefaults.set(use.name, forKey: UserDefaultsConstants.patientName)
         userDefaults.set(use.url, forKey: UserDefaultsConstants.patientPhotoUrl)
         userDefaults.synchronize()
+        
+        cachePatient(use)
         dismiss(animated: true) {
             self.delgate?.useApiAndPatienId(api: use.apiToken, patient: use.id)
         }
     }
     
-    
+    func cachePatient(_ patient:PatienModel)  {
+        reposStore.save(patient)
+        print(reposStore.storedValue)
+//        let personManager = PersonManager(cacheKey: "myPatient")
+//        try? personManager.set(person: patient)
+//
+//        if let person = personManager.getPerson(){
+//            print(person.name)
+//        }
+    }
     
     
     @objc  func handleRegister()  {

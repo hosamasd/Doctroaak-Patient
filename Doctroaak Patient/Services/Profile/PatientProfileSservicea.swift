@@ -7,25 +7,79 @@
 //
 
 import UIKit
+import Alamofire
 
 class PatientProfileSservicea {
     static let shared=PatientProfileSservicea()
     
     func getNotifications(api_token:String,user_id:Int,completion: @escaping (MainPatientNotificationModel?, Error?) ->Void)  {
-           let urlString =  "\(baseUrl)get/notification?api_token=\(api_token)&user_id=\(user_id)&user_type=PATIENT".toSecrueHttps()
-           
-           MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
-        }
+        let urlString =  "\(baseUrl)get/notification?api_token=\(api_token)&user_id=\(user_id)&user_type=PATIENT".toSecrueHttps()
+        
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+    }
     
     func removeNotification(notification_id:Int,completion: @escaping (MainPatientRemoveNotificationModel?, Error?) ->Void)  {
         
         let nnn = "notification/remove"
-                  
-                  let urlString = baseUrl+nnn
-                  guard  let url = URL(string: urlString.toSecrueHttps()) else { return  }
-                  
-                  let postString = "notification_id=\(notification_id)"
-                  MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+        
+        let urlString = baseUrl+nnn
+        guard  let url = URL(string: urlString.toSecrueHttps()) else { return  }
+        
+        let postString = "notification_id=\(notification_id)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
+    func updateProfileInfo(isPhotoUpdate:Bool,name:String,gender:String,user_id:Int,api_token:String,address:String,photo:UIImage? = nil,birthdate:String,completion: @escaping (MainLoginModel?, Error?) ->Void)  {
+        
+        let nnn = "patient_update_profile"
+        let urlString = "\(baseUrl)\(nnn)".toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "user_id=\(user_id)&api_token=\(api_token)&address=\(address)&name=\(name)&gender=\(gender)&birthdate=\(birthdate)" // old_password is smscode
+        
+        if isPhotoUpdate {
+            Alamofire.upload(multipartFormData: { (multipartFormData) in
+                
+                if let data = photo?.pngData() {
+                    multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
+                }
+                
+                
+                
+            }, to:postString)
+            { (result) in
+                switch result {
+                case .success(let upload, _, _):
+                    
+                    upload.uploadProgress(closure: { (progress) in
+                        //Print progress
+                        print(progress)
+                    })
+                    
+                    upload.responseJSON { response in
+                        //print response.result
+                        print(response.result)
+                        guard let data = response.data else {return}
+                        
+                        do {
+                            let objects = try JSONDecoder().decode(MainLoginModel.self, from: data)
+                            // success
+                            completion(objects,nil)
+                        } catch let error {
+                            completion(nil,error)
+                        }
+                    }
+                    
+                case .failure( let encodingError):
+                    completion(nil,encodingError)
+                    break
+                }
+            }
+            
+        }else {
+            MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+            
+        }
+        
+        
+    }
 }

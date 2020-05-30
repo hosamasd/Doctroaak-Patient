@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CodableCache
 
 struct MainVerificationSMScODEModel:Codable {
     let status: Int
@@ -29,7 +30,7 @@ struct PatienModel:Codable {
        let email, gender, password: String
        let active: Int
        var insuranceID: Int?
-       let birthdate: String
+       var birthdate: String?
        let photo: String
        var insuranceCode: String?
        let address: String
@@ -61,4 +62,23 @@ struct PatienModel:Codable {
            case blockDate = "block_date"
            case url, insurance
        }
+}
+
+final class PersonManager {
+
+    let cache: CodableCache<PatienModel>
+
+    init(cacheKey: AnyHashable) {
+        cache = CodableCache<PatienModel>(key: cacheKey)
+    }
+
+    func getPerson() -> PatienModel? {
+        return cache.get()
+    }
+
+    func set(person: PatienModel) throws {
+        try cache.set(value: person)
+    }
+
+
 }

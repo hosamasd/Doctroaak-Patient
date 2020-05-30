@@ -43,19 +43,22 @@ class CustomForgetPassView: CustomBaseView {
     }()
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Next", for: .normal)
+        button.setTitle("Save", for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         
         button.clipsToBounds = true
-        button.isEnabled = false
+//        button.isEnabled = false
         return button
     }()
     
     let forgetPassViewModel = ForgetPassViewModel()
 
+    override func layoutSubviews() {
+        addGradientInSenderAndRemoveOther(sender: nextButton)
+    }
     
     override func setupViews() {
         

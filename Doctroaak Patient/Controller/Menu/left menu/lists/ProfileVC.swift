@@ -8,6 +8,11 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import CodableCache
+import SVProgressHUD
+import MOLH
+
+//let personManager = PersonManager(cacheKey: "myPatient")
 
 class ProfileVC: CustomBaseViewVC {
     
@@ -26,40 +31,55 @@ class ProfileVC: CustomBaseViewVC {
     
     lazy var customProfileView:CustomProfileView = {
         let v = CustomProfileView()
-        v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
-        
-        v.phoneTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.emailTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.addressTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doctorEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
+        v.nextButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
         return v
     }()
     
-    let edirProfileViewModel = EdirProfileViewModel()
+    var patient:PatienModel?{
+        didSet{
+            guard let patient = patient else { return  }
+            customProfileView.patient=patient
+        }
+    }
+    
+    
+    //    let edirProfileViewModel = EdirProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let pat =   reposStore.storedValue else { return  }
+        self.patient=pat
+        //        if let person = personManager.getPerson(){
+        //            patient = person
+        //        }
+    }
+    
     //MARK:-User methods
     
     func setupViewModelObserver()  {
-        edirProfileViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-            guard let isValid = isValidForm else {return}
-            //            self.customLoginView.loginButton.isEnabled = isValid
-            
-            self.changeButtonState(enable: isValid, vv: self.customProfileView.nextButton)
-        }
+        //        edirProfileViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        //            guard let isValid = isValidForm else {return}
+        //            //            self.customLoginView.loginButton.isEnabled = isValid
+        //
+        //            self.changeButtonState(enable: isValid, vv: self.customProfileView.nextButton)
+        //        }
         
-        edirProfileViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
+        customProfileView.edirProfileViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Updating...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -88,6 +108,12 @@ class ProfileVC: CustomBaseViewVC {
         present(imagePicker, animated: true)
     }
     
+    func cachedATA(_ patient:PatienModel)  {
+        reposStore.save(patient)
+        
+        //       try? personManager.set(person: patient)
+    }
+    
     //TODO: -handle methods
     
     @objc func createAlertForChoposingImage()  {
@@ -109,49 +135,26 @@ class ProfileVC: CustomBaseViewVC {
         present(alert, animated: true)
     }
     
-    @objc func textFieldDidChange(text: UITextField)  {
-        guard let texts = text.text else { return  }
-        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-            if text == customProfileView.phoneTextField {
-                if  !texts.isValidPhoneNumber    {
-                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                    edirProfileViewModel.phone = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    edirProfileViewModel.phone = texts
-                }
-                
-            }else if text == customProfileView.emailTextField {
-                if  !texts.isValidEmail    {
-                    floatingLabelTextField.errorMessage = "Invalid   Email".localized
-                    edirProfileViewModel.email = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    edirProfileViewModel.email = texts
-                }
-                
-            }else   {
-                if (texts.count < 3 ) {
-                    floatingLabelTextField.errorMessage = "Invalid Address".localized
-                    edirProfileViewModel.address = nil
-                }
-                else {
-                    
-                    edirProfileViewModel.address = texts
-                    floatingLabelTextField.errorMessage = ""
-                }
-                
+    
+    @objc func handleSave()  {
+        customProfileView.edirProfileViewModel.performUpdateProfile { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
             }
-            
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            self.cachedATA(user)
+            DispatchQueue.main.async {
+                self.showToast(context: self, msg: "your information updated...")
+            }
         }
     }
     
-    
-    @objc func handleOpenMenu()  {
-        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
-        
+    @objc func handleBack()  {
+        dismiss(animated: true)
+        //        navigationController?.popViewController(animated: true)
     }
     
 }
@@ -163,12 +166,15 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let img = info[.originalImage]  as? UIImage   {
-            edirProfileViewModel.image = img
+            customProfileView.edirProfileViewModel.image = img
             customProfileView.doctorProfileImage.image = img
+            customProfileView.edirProfileViewModel.isPhotoEdit=true
         }
         if let img = info[.editedImage]  as? UIImage   {
-            edirProfileViewModel.image = img
+            customProfileView.edirProfileViewModel.image = img
             customProfileView.doctorProfileImage.image = img
+            customProfileView.edirProfileViewModel.isPhotoEdit=true
+            
         }
         
         
@@ -176,7 +182,9 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        edirProfileViewModel.image = nil
+        customProfileView.edirProfileViewModel.image = nil
+        customProfileView.edirProfileViewModel.isPhotoEdit=false
+        
         dismiss(animated: true)
     }
     
