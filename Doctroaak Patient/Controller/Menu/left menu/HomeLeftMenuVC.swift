@@ -61,6 +61,9 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                     profile.modalPresentationStyle = .fullScreen
                     present(profile, animated: true)
     //                navigationController?.pushViewController(profile, animated: true)
+                }else if indexPath.item == 3 {
+                    baseSlid.closeMenu()
+showAlertForContacting()
                 }
                 
                 //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) &&  indexPath.item==0 {
@@ -98,6 +101,13 @@ class HomeLeftMenuVC: CustomBaseViewVC {
             baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
             baseSlid.present(baseSlid.customMainAlertVC, animated: true)
         }
+    func showAlertForContacting()  {
+        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+        
+        baseSlid.closeMenu()
+        baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customContactUsView, height: 120)
+        baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+    }
         
         func showAlertForLogin()  {
             guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}

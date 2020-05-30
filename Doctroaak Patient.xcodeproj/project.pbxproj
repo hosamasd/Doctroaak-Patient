@@ -123,6 +123,7 @@
 		4EBBCD9324320310005C8DF7 /* DoctorBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD9224320310005C8DF7 /* DoctorBookVC.swift */; };
 		4EBBCD9524320330005C8DF7 /* CusomDoctorBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBCD9424320330005C8DF7 /* CusomDoctorBookView.swift */; };
 		4EBF9E16243B04B4004F2A1D /* LAPSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBF9E15243B04B4004F2A1D /* LAPSearchViewModel.swift */; };
+		4EC21B3A24827D4200C746C1 /* CustomContactUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC21B3924827D4200C746C1 /* CustomContactUsView.swift */; };
 		4EC38C6F2439F9F2005DE994 /* PharamacyLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC38C6E2439F9F2005DE994 /* PharamacyLocationViewModel.swift */; };
 		4EC38C732439FCA0005DE994 /* PharamacyOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC38C722439FCA0005DE994 /* PharamacyOrderViewModel.swift */; };
 		4EC3CD4E243387E200732D96 /* LAPOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3CD4D243387E200732D96 /* LAPOrderVC.swift */; };
@@ -310,6 +311,7 @@
 		4EBBCD9224320310005C8DF7 /* DoctorBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBookVC.swift; sourceTree = "<group>"; };
 		4EBBCD9424320330005C8DF7 /* CusomDoctorBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusomDoctorBookView.swift; sourceTree = "<group>"; };
 		4EBF9E15243B04B4004F2A1D /* LAPSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPSearchViewModel.swift; sourceTree = "<group>"; };
+		4EC21B3924827D4200C746C1 /* CustomContactUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContactUsView.swift; sourceTree = "<group>"; };
 		4EC38C6E2439F9F2005DE994 /* PharamacyLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyLocationViewModel.swift; sourceTree = "<group>"; };
 		4EC38C722439FCA0005DE994 /* PharamacyOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyOrderViewModel.swift; sourceTree = "<group>"; };
 		4EC3CD4D243387E200732D96 /* LAPOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOrderVC.swift; sourceTree = "<group>"; };
@@ -1290,6 +1292,7 @@
 				4EDF1AC52462C8FB003DA449 /* CustomAlertLoginView.swift */,
 				4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */,
 				4EA37B9024700CBB0059EC4C /* OpenLocationUsingLatAndLongView.swift */,
+				4EC21B3924827D4200C746C1 /* CustomContactUsView.swift */,
 			);
 			path = "Custom Alerts";
 			sourceTree = "<group>";
@@ -1668,6 +1671,7 @@
 				4EDE9240246001D600205C64 /* MainAreaModel.swift in Sources */,
 				4E347CE52430BAE100333C07 /* BaseCollectionCell.swift in Sources */,
 				4E728B63248264B6005D2046 /* LocalJSONStore.swift in Sources */,
+				4EC21B3A24827D4200C746C1 /* CustomContactUsView.swift in Sources */,
 				4EA21A132439D84B000F2EB0 /* DoctorBookViewModel.swift in Sources */,
 				4EDE924E2460032B00205C64 /* RegistrationServices.swift in Sources */,
 				4EC3CD4E243387E200732D96 /* LAPOrderVC.swift in Sources */,

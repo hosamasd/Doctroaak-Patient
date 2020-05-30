@@ -53,6 +53,13 @@ class BaseSlidingVC: UIViewController {
         return v
     }()
     
+    lazy var customContactUsView:CustomContactUsView = {
+        let v = CustomContactUsView()
+        v.handleChoosedOption = {[unowned self] index in
+            self.takeSpecificAction(index)
+        }
+        return v
+    }()
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
     fileprivate let velocityThreshold: CGFloat = 500
@@ -60,6 +67,10 @@ class BaseSlidingVC: UIViewController {
     fileprivate var isMenuOpen:Bool = false
     var redViewTrailingConstraint: NSLayoutConstraint!
     var redViewLeadingConstarint:NSLayoutConstraint!
+    var links = [
+        "http://sphinxat.com/",
+        "https://www.facebook.com/",
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +94,42 @@ class BaseSlidingVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+    }
+    
+    func takeSpecificAction(_ index:Int)  {
+        if index == 2 {
+            self.callNumber(phoneNumber: "0123666")
+        }else if index == 3 {
+            self.sendUsingWhats()
+        }else {
+            guard let url = URL(string: self.links[index]) else { return  }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        removeViewWithAnimation(vvv: customContactUsView)
+        customMainAlertVC.dismiss(animated: true)
+    }
+    
+    func callNumber(phoneNumber:String) {
+        if let phoneCallURL:URL = URL(string:"tel://\(phoneNumber)") {
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:])
+            }
+        }
+    }
+    
+    func sendUsingWhats()  {
+        let urlWhats = "whatsapp://send?text=\("Hello World")"
+        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
+            if let whatsappURL = NSURL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL as URL) {
+                    UIApplication.shared.open(whatsappURL as URL)
+                }
+                else {
+                    print("please install whatsapp")
+                }
+            }
+        }
     }
     
     //    override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -173,6 +220,8 @@ class BaseSlidingVC: UIViewController {
         }
         
     }
+    
+    
     
     func didSelectItemAtIndex(index:IndexPath)  {
         
