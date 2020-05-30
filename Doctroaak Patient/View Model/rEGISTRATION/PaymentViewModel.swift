@@ -18,8 +18,9 @@ class PaymentViewModel {
     var vodafoneVode:String? {didSet {checkFormValidity()}}
     var fawryCode:String? {didSet {checkFormValidity()}}
     var visaCard:String? {didSet {checkFormValidity()}}
+    var visaMonthCard:String? {didSet {checkFormValidity()}}
+    var visaCVCCard:String? {didSet {checkFormValidity()}}
 
-//    var index:Int?  = -1 {didSet {checkFormValidity()}}
     var firstChosen:Bool?  = true {didSet {checkFormValidity()}}
     var secondChosen:Bool?  = false {didSet {checkFormValidity()}}
     var thirdChosen:Bool?  = false {didSet {checkFormValidity()}}
@@ -34,7 +35,9 @@ class PaymentViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = vodafoneVode?.isEmpty == false &&  fawryCode?.isEmpty == false && visaCard?.isEmpty == false
+        let isFormValid = vodafoneVode?.isEmpty == false && firstChosen == true && secondChosen == false && thirdChosen == false
+            || secondChosen == true &&  fawryCode?.isEmpty == false && thirdChosen == false
+            || firstChosen == false && secondChosen == false && thirdChosen == true && visaCard?.isEmpty == false && visaCVCCard?.isEmpty == false && visaMonthCard?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

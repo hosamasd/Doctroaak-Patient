@@ -11,6 +11,8 @@ import UIKit
 
 class MainPaymentVC: CustomBaseViewVC {
     
+    
+    
     lazy var customMainPaymentView:CustomMainPaymentView = {
         let v = CustomMainPaymentView()
         v.doneButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
