@@ -7,11 +7,30 @@
 //
 
 import UIKit
-
-
+import MOLH
+import SDWebImage
 
 
 class NotificationCell: BaseCollectionCell {
+    
+    var notify:PatientNotificationModel? {
+        didSet{
+            guard let notu = notify else { return  }
+            let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
+            let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
+            
+            notifyDetailsLabel.text = "\(title) \n \(order)"
+            
+            let urlString = notu.icon
+            
+            
+            guard let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
+            notifyProfileImage.sd_setImage(with: url)
+            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
+            notifyDateLabel.text = dateString
+        }
+    }
+    
     
     lazy var notifyProfileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)
@@ -23,11 +42,13 @@ class NotificationCell: BaseCollectionCell {
     }()
     lazy var notifyDateLabel = UILabel(text: "12:30 pm", font: .systemFont(ofSize: 16), textColor: .lightGray)
     
-    lazy var notifyDetailsLabel = UILabel(text: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 0)
+    lazy var notifyDetailsLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 0)
     
+   
     
     override func layoutSubviews() {
         super.layoutSubviews()
+      
         self.layer.cornerRadius = 5
         self.contentView.layer.cornerRadius = 5
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 16)
@@ -38,9 +59,9 @@ class NotificationCell: BaseCollectionCell {
         self.layer.shadowPath = shadowPath.cgPath
     }
     
-  
+   
     
-    override func setupViews() {
+  override  func setupViews() {
         backgroundColor = .white
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.gray.cgColor
@@ -50,9 +71,9 @@ class NotificationCell: BaseCollectionCell {
         let s = hstack(UIView(),notifyDateLabel)
         let ff = stack(notifyDetailsLabel,s,spacing:16)
         
-        let d = stack(notifyProfileImage,UIView())
+        let d = stack(notifyProfileImage,UIView()).padTop(16)
         
-     hstack(d,ff,spacing:16).withMargins(.init(top: 8, left: 16, bottom: 8, right: 8))
+        hstack(d,ff,spacing:16).withMargins(.init(top: 0, left: 16, bottom: 8, right: 8))
         
     }
 }

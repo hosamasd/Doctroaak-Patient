@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: LapSearchVC(index: 0))//PharmacyOrderVC(latt: 00.0, lon: 0.0, insurance: 0, delivery: 0))//PharmacyOrderVC(latt: 0.0, lon: 0.0, insurance: 0, delivery: 0))//DoctorBookVC(clinic_id: 16, patient_id: 50, api_token: "BrieOhmeR8CqML2RqBQDtXZWETE")//UINavigationController(rootViewController:ForgetPasswordVC())//VerificationVC(user_id: 47, isFromForget: false))//LAPOrderVC(index: 0))//PharmacyOrderVC())
+        window?.rootViewController = RegisterVC()//UINavigationController(rootViewController: NotificationVC(TOKEN: "vyAAbhTZXBRfB2tqo13GZCLHuzm8bsJz4ABFbf0YY3oxlkGiTj5uLrckGL6WvDUfBxmUJKIzoIUqwpXaSjxghnEn3h51", ID: 44))//LAPBookVC(index: 0, labId: 1))//LAPOrderVC(index: 0, lab: 1))//LapSearchVC(index: 0))//PharmacyOrderVC(latt: 00.0, lon: 0.0, insurance: 0, delivery: 0))//PharmacyOrderVC(latt: 0.0, lon: 0.0, insurance: 0, delivery: 0))//DoctorBookVC(clinic_id: 16, patient_id: 50, api_token: "BrieOhmeR8CqML2RqBQDtXZWETE")//UINavigationController(rootViewController:ForgetPasswordVC())//VerificationVC(user_id: 47, isFromForget: false))//LAPOrderVC(index: 0))//PharmacyOrderVC())
         return true
     }
 

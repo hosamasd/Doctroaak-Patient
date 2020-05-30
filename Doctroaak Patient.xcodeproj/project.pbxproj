@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E000D022461807A00083BD5 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D012461807A00083BD5 /* NotificationVC.swift */; };
 		4E000D052461812A00083BD5 /* CustomNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D042461812A00083BD5 /* CustomNotificationView.swift */; };
-		4E000D082461817600083BD5 /* NotificationsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D072461817600083BD5 /* NotificationsCollectionVC.swift */; };
+		4E000D082461817600083BD5 /* NotificationsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D072461817600083BD5 /* NotificationsTableVC.swift */; };
 		4E000D0B246181AB00083BD5 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D0A246181AB00083BD5 /* NotificationCell.swift */; };
 		4E006793243307C0004B1C3F /* PharmacyOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E006792243307C0004B1C3F /* PharmacyOrderVC.swift */; };
 		4E006795243307F1004B1C3F /* CustomPharmacyOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E006794243307F1004B1C3F /* CustomPharmacyOrderView.swift */; };
@@ -144,6 +144,9 @@
 		4ED7127724321C0B00074363 /* IncubationResultsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7127624321C0B00074363 /* IncubationResultsCollectionVC.swift */; };
 		4ED7127924321C3100074363 /* IncubationResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7127824321C3100074363 /* IncubationResultsCell.swift */; };
 		4ED7CEDD243B1C5200317342 /* LAPOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7CEDC243B1C5200317342 /* LAPOrderViewModel.swift */; };
+		4ED917E02474364700494FCE /* MainPatientNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED917DF2474364700494FCE /* MainPatientNotificationModel.swift */; };
+		4ED917E32474373100494FCE /* PatientProfileSservicea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED917E22474373100494FCE /* PatientProfileSservicea.swift */; };
+		4ED917E5247438E300494FCE /* MainPatientRemoveNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED917E4247438E300494FCE /* MainPatientRemoveNotificationModel.swift */; };
 		4EDDC5F02462DF4B005A9253 /* CustomAlertChooseLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */; };
 		4EDE9237246000FE00205C64 /* MainServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE9236246000FE00205C64 /* MainServices.swift */; };
 		4EDE923A2460019800205C64 /* MainDegreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE92392460019800205C64 /* MainDegreeModel.swift */; };
@@ -187,7 +190,7 @@
 		092DC45AA74FAA03F635BA9B /* Pods_Doctroaak_Patient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doctroaak_Patient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E000D012461807A00083BD5 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		4E000D042461812A00083BD5 /* CustomNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotificationView.swift; sourceTree = "<group>"; };
-		4E000D072461817600083BD5 /* NotificationsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCollectionVC.swift; sourceTree = "<group>"; };
+		4E000D072461817600083BD5 /* NotificationsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableVC.swift; sourceTree = "<group>"; };
 		4E000D0A246181AB00083BD5 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		4E006792243307C0004B1C3F /* PharmacyOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyOrderVC.swift; sourceTree = "<group>"; };
 		4E006794243307F1004B1C3F /* CustomPharmacyOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPharmacyOrderView.swift; sourceTree = "<group>"; };
@@ -324,6 +327,9 @@
 		4ED7127624321C0B00074363 /* IncubationResultsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncubationResultsCollectionVC.swift; sourceTree = "<group>"; };
 		4ED7127824321C3100074363 /* IncubationResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncubationResultsCell.swift; sourceTree = "<group>"; };
 		4ED7CEDC243B1C5200317342 /* LAPOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOrderViewModel.swift; sourceTree = "<group>"; };
+		4ED917DF2474364700494FCE /* MainPatientNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPatientNotificationModel.swift; sourceTree = "<group>"; };
+		4ED917E22474373100494FCE /* PatientProfileSservicea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfileSservicea.swift; sourceTree = "<group>"; };
+		4ED917E4247438E300494FCE /* MainPatientRemoveNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPatientRemoveNotificationModel.swift; sourceTree = "<group>"; };
 		4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertChooseLanguageView.swift; sourceTree = "<group>"; };
 		4EDE9236246000FE00205C64 /* MainServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainServices.swift; sourceTree = "<group>"; };
 		4EDE92392460019800205C64 /* MainDegreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDegreeModel.swift; sourceTree = "<group>"; };
@@ -405,7 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				4E000D012461807A00083BD5 /* NotificationVC.swift */,
-				4E000D072461817600083BD5 /* NotificationsCollectionVC.swift */,
+				4E000D072461817600083BD5 /* NotificationsTableVC.swift */,
 			);
 			path = notification;
 			sourceTree = "<group>";
@@ -819,6 +825,7 @@
 		4E6D5BC8243071B1000FC72D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4ED917DE2474362500494FCE /* Prodile */,
 				4E53689F2473FC60000B564E /* ICU */,
 				4EDFE771246D6EEA003AF02A /* LAB */,
 				4E60640A246C427400A93238 /* Pharamacy */,
@@ -834,6 +841,7 @@
 		4E6D5BC9243071B9000FC72D /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4ED917E12474371200494FCE /* Profile */,
 				4EDFE76C246D6BEB003AF02A /* Search */,
 				4EF799AA246AB8D9006160E3 /* Doctor */,
 				4EDE9236246000FE00205C64 /* MainServices.swift */,
@@ -1185,6 +1193,23 @@
 			path = Book;
 			sourceTree = "<group>";
 		};
+		4ED917DE2474362500494FCE /* Prodile */ = {
+			isa = PBXGroup;
+			children = (
+				4ED917DF2474364700494FCE /* MainPatientNotificationModel.swift */,
+				4ED917E4247438E300494FCE /* MainPatientRemoveNotificationModel.swift */,
+			);
+			path = Prodile;
+			sourceTree = "<group>";
+		};
+		4ED917E12474371200494FCE /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				4ED917E22474373100494FCE /* PatientProfileSservicea.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		4EDE92382460018F00205C64 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -1529,6 +1554,7 @@
 				4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */,
 				4EDE92462460020700205C64 /* MainMedicineModel.swift in Sources */,
 				4EF2BB6424703A4400C1EBF7 /* CustomSecondPharmacyOrderView.swift in Sources */,
+				4ED917E5247438E300494FCE /* MainPatientRemoveNotificationModel.swift in Sources */,
 				4EEE747B243324AC00FD94BA /* CustomAddMinusView.swift in Sources */,
 				4EC3CD58243389D700732D96 /* AddLAPCell.swift in Sources */,
 				4EDE9242246001E700205C64 /* MainInsurcaneModel.swift in Sources */,
@@ -1540,6 +1566,7 @@
 				4EB36AA524616AC300B67458 /* PaymentViewModel.swift in Sources */,
 				4EC3CD512433883600732D96 /* CustomLAPOrderView.swift in Sources */,
 				4E347CDE2430B8F200333C07 /* HomeMenuVC.swift in Sources */,
+				4ED917E32474373100494FCE /* PatientProfileSservicea.swift in Sources */,
 				4ED71264243214D100074363 /* ICUResultsCollectionVC.swift in Sources */,
 				4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */,
 				4ED135BB2439A1D0008BE002 /* DoctorSearchViewModel.swift in Sources */,
@@ -1584,7 +1611,7 @@
 				4ED7127324321BA900074363 /* IncubationSearchResultsVC.swift in Sources */,
 				4EDE923E246001C300205C64 /* MainCityModel.swift in Sources */,
 				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
-				4E000D082461817600083BD5 /* NotificationsCollectionVC.swift in Sources */,
+				4E000D082461817600083BD5 /* NotificationsTableVC.swift in Sources */,
 				4ED135BD2439A77F008BE002 /* ChooseLocationVC.swift in Sources */,
 				4E0421612462993C00584BF0 /* MainForgetPasswordModel.swift in Sources */,
 				4EDFE770246D6DD0003AF02A /* MainLapSearchModel.swift in Sources */,
@@ -1604,6 +1631,7 @@
 				4E13DDE124308F6300421737 /* VerificationVC.swift in Sources */,
 				4E13DDEB2430905C00421737 /* CustomNewPassView.swift in Sources */,
 				4EDE92482460021900205C64 /* MainRaysModel.swift in Sources */,
+				4ED917E02474364700494FCE /* MainPatientNotificationModel.swift in Sources */,
 				4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */,
 				4EBF9E16243B04B4004F2A1D /* LAPSearchViewModel.swift in Sources */,
 				4EDE9240246001D600205C64 /* MainAreaModel.swift in Sources */,

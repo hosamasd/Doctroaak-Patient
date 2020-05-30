@@ -125,20 +125,22 @@ class VerificationVC: CustomBaseViewVC {
         [customVerificationView.firstNumberTextField,customVerificationView.secondNumberTextField,customVerificationView.thirdNumberTextField,customVerificationView.forthNumberTextField,customVerificationView.fifthNumberTextField].forEach({$0.text = ""})
     }
     
-    func updateStates(api_token:String,_ user_id:Int)  {
-        
+    func updateStates(user:PatienModel)  {
+        userDefaults.set(true, forKey: UserDefaultsConstants.isRegisterDoneAfterBooking)
         userDefaults.set(true, forKey: UserDefaultsConstants.isPatientLogin)
         
-        userDefaults.set(api_token, forKey: UserDefaultsConstants.patientAPITOKEN)
-        userDefaults.set(user_id, forKey: UserDefaultsConstants.patientUserID)
-        
-        
+        userDefaults.set(user.apiToken, forKey: UserDefaultsConstants.patientAPITOKEN)
+        userDefaults.set(user.id, forKey: UserDefaultsConstants.patientUserID)
+        userDefaults.set(user.name, forKey: UserDefaultsConstants.patientName)
+        userDefaults.set(user.url, forKey: UserDefaultsConstants.patientPhotoUrl)
+
         userDefaults.synchronize()
     }
     
-    func goToNext(api_token:String,_ user_id:Int)  {
-        self.updateStates(api_token: api_token,user_id)
-        dismiss(animated: true, completion: nil)
+    func goToNext(user:PatienModel)  {
+        self.updateStates(user:user)
+        navigationController?.popToRootViewController(animated: true)
+//        dismiss(animated: true, completion: nil)
         
     }
     
@@ -179,7 +181,7 @@ class VerificationVC: CustomBaseViewVC {
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);self.setupTimer(); return}
             
             DispatchQueue.main.async {
-                self.goToNext(api_token: user.apiToken,user.id)
+                self.goToNext(user:user)
             }
         }      
     }

@@ -14,7 +14,9 @@ class UserDefaultsConstants {
     static let isDataFound = "isDataFound"
     static let isCachedDriopLists = "isCachedDriopLists"
     static let isWelcomeVCAppear="isWelcomeVCAppear"
-    
+    static let isRegisterDoneAfterBooking="isRegisterDoneAfterBooking"
+    static let patientPhotoUrl="patientPhotoUrl"
+    static let patientName="patientName"
     
     //welcome
     static let isCityCached="isCityCached"

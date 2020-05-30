@@ -37,6 +37,15 @@ class LoginVC: CustomBaseViewVC {
         setupLoginViewModelObserver()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if userDefaults.bool(forKey: UserDefaultsConstants.isRegisterDoneAfterBooking) {
+            dismiss(animated: true)
+            userDefaults.set(false, forKey: UserDefaultsConstants.isRegisterDoneAfterBooking)
+            userDefaults.synchronize()
+        }else {}
+    }
+    
     //MARK:-User methods
     
     fileprivate func setupLoginViewModelObserver(){
@@ -75,7 +84,8 @@ class LoginVC: CustomBaseViewVC {
         userDefaults.set(use.apiToken, forKey: UserDefaultsConstants.patientAPITOKEN)
         
         userDefaults.set(use.phone, forKey: UserDefaultsConstants.patienMobileNumber)
-        
+        userDefaults.set(use.name, forKey: UserDefaultsConstants.patientName)
+        userDefaults.set(use.url, forKey: UserDefaultsConstants.patientPhotoUrl)
         userDefaults.synchronize()
         dismiss(animated: true) {
             self.delgate?.useApiAndPatienId(api: use.apiToken, patient: use.id)

@@ -31,12 +31,17 @@ class CustomNotificationView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Notification", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
     
-    lazy var notificationsCollectionVC:NotificationsCollectionVC = {
-        let v = NotificationsCollectionVC()
-        
+    lazy var notificationsCollectionVC:NotificationsTableVC = {
+        let v = NotificationsTableVC()
+        v.handledisplayNotification = {[unowned self] index,ind in
+            self.handledisplayNotification?(index,ind)
+        }
+       
         return v
     }()
     
+      var handledisplayNotification:((PatientNotificationModel,IndexPath)->Void)?
+
     override func setupViews() {
         
         addSubViews(views: LogoImage,backImage,soonLabel,titleLabel,notificationsCollectionVC.view)

@@ -77,6 +77,16 @@ class LAPBookVC: CustomBaseViewVC {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
+        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
+        patient_id=id
+        api_token=api
+    }
+    
+    
+    
     //MARK:-User methods
     
     func setupViewModelObserver()  {
@@ -138,10 +148,12 @@ class LAPBookVC: CustomBaseViewVC {
     }
     
     func getNotes() ->String {
-        guard let name = customLAPBookView.fullNameTextField.text,let  mobile = customLAPBookView.mobileNumberTextField.text,let age = customLAPBookView.ageTextField.text  else { return "" }
+        guard let name = customLAPBookView.lapBookViewModel.fullName,let  mobile = customLAPBookView.lapBookViewModel.mobile,let age = customLAPBookView.lapBookViewModel.age  else { return "" }
         let ss = ","
+        let agee="\(age)"
         let isMale = customLAPBookView.lapBookViewModel.male
-        return name+ss+mobile+ss+age+ss+isMale
+        
+        return name+ss+mobile+ss+agee+ss+isMale
     }
     
     fileprivate func makeLabSearch() {

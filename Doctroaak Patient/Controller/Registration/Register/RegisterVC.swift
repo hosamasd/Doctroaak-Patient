@@ -29,7 +29,7 @@ class RegisterVC: CustomBaseViewVC {
     
     lazy var customRegisterView:CustomRegisterView = {
         let v = CustomRegisterView()
-        v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
+        v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.signUpButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
@@ -97,12 +97,31 @@ class RegisterVC: CustomBaseViewVC {
                   navigationController?.pushViewController(verify, animated: true)
          }
     
+   @objc func createAlertForChoposingImage()  {
+        let alert = UIAlertController(title: "Choose Image", message: "Choose image fROM ", preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera", style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .camera)
+
+        }
+        let gallery = UIAlertAction(title: "Open From Gallery", style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(camera)
+        alert.addAction(gallery)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+    
     //TODO:-Handle methods
     
-    @objc func handleOpenGallery()  {
+    func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
+        imagePicker.sourceType = sourceType
         present(imagePicker, animated: true)
     }
     

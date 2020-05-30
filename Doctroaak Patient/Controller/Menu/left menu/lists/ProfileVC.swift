@@ -23,18 +23,17 @@ class ProfileVC: CustomBaseViewVC {
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
-
-        lazy var customProfileView:CustomProfileView = {
-            let v = CustomProfileView()
-            v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
-
-            v.phoneTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-            v.emailTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-            v.addressTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-            v.doctorEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
-            return v
-        }()
+    
+    lazy var customProfileView:CustomProfileView = {
+        let v = CustomProfileView()
+        v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         
+        v.phoneTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        v.emailTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        v.addressTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        v.doctorEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
+        return v
+    }()
     
     let edirProfileViewModel = EdirProfileViewModel()
     
@@ -43,7 +42,7 @@ class ProfileVC: CustomBaseViewVC {
         setupViewModelObserver()
     }
     
-        //MARK:-User methods
+    //MARK:-User methods
     
     func setupViewModelObserver()  {
         edirProfileViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
@@ -65,24 +64,50 @@ class ProfileVC: CustomBaseViewVC {
         })
     }
     
-        override func setupNavigation()  {
-            navigationController?.navigationBar.isHide(true)
-        }
+    override func setupNavigation()  {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
+    override func setupViews()  {
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
         
-        override func setupViews()  {
-            view.addSubview(scrollView)
-            scrollView.fillSuperview()
-            scrollView.addSubview(mainView)
-            mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-
-            mainView.addSubViews(views: customProfileView)
-            customProfileView.fillSuperview()
-            
-            
-            
-        }
+        mainView.addSubViews(views: customProfileView)
+        customProfileView.fillSuperview()
+        
+        
+        
+    }
+    
+    func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true)
+    }
     
     //TODO: -handle methods
+    
+    @objc func createAlertForChoposingImage()  {
+        let alert = UIAlertController(title: "Choose Image", message: "Choose image fROM ", preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera", style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .camera)
+            
+        }
+        let gallery = UIAlertAction(title: "Open From Gallery", style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(camera)
+        alert.addAction(gallery)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
     
     @objc func textFieldDidChange(text: UITextField)  {
         guard let texts = text.text else { return  }
@@ -123,19 +148,12 @@ class ProfileVC: CustomBaseViewVC {
         }
     }
     
-    @objc func handleOpenGallery()  {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true)
-    }
-    
     
     @objc func handleOpenMenu()  {
         (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
         
     }
-
+    
 }
 
 

@@ -30,7 +30,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         v.api_token=self.api_token
         v.patient_id=self.patient_id
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
+        v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
             self.hideOrUndie(index: index)
@@ -79,6 +79,16 @@ class PharmacyOrderVC: CustomBaseViewVC {
         setupViewModelObserver()
         //        check()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
+        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
+        patient_id=id
+        api_token=api
+    }
+    
+    
     
     //MARK:-User methods
     
@@ -158,19 +168,39 @@ class PharmacyOrderVC: CustomBaseViewVC {
         present(nav, animated: true)
     }
     
+    func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true)
+    }
+    
     //TODO: -handle methods
     
+    @objc func createAlertForChoposingImage()  {
+        let alert = UIAlertController(title: "Choose Image", message: "Choose image fROM ", preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera", style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .camera)
+            
+        }
+        let gallery = UIAlertAction(title: "Open From Gallery", style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(camera)
+        alert.addAction(gallery)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func handleOpenGallery()  {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true)
-    }
+    
     
     
     @objc func handleBook()  {

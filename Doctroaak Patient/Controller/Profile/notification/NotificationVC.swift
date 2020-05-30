@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SVProgressHUD
+import MOLH
 
 class NotificationVC: CustomBaseViewVC {
     
     
- lazy var scrollView: UIScrollView = {
+    lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
         
@@ -26,20 +28,84 @@ class NotificationVC: CustomBaseViewVC {
     lazy var customNotificationView:CustomNotificationView = {
         let v = CustomNotificationView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
-
-//        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        
+        v.handledisplayNotification = {[unowned self] noty,index in
+            self.makeDeleteNotify(id: noty.id,index)
+        }
+        //        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
     
-   
+    fileprivate let api_token:String!
+    fileprivate let user_id:Int!
+    
+    init(TOKEN:String,ID:Int) {
+        self.api_token=TOKEN
+        self.user_id=ID
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getNotifications()
+    }
     
     //MARK:-User methods
+    
+    func getNotifications()  {
+        let s = "vyAAbhTZXBRfB2tqo13GZCLHuzm8bsJz4ABFbf0YY3oxlkGiTj5uLrckGL6WvDUfBxmUJKIzoIUqwpXaSjxghnEn3h51"
+        let d = 44
+        
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        SVProgressHUD.show(withStatus: "Looding...".localized)
+        PatientProfileSservicea.shared.getNotifications(api_token: api_token, user_id: user_id) { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.reloadData(user: user)
+            }
+        }
+    }
+    
+    func reloadData(user:[PatientNotificationModel])  {
+        self.customNotificationView.notificationsCollectionVC.notificationArray=user
+        DispatchQueue.main.async {
+            self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
+        }
+    }
+    
+    func makeDeleteNotify(id:Int,_ index:IndexPath)  {
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        SVProgressHUD.show(withStatus: "Looding...".localized)
+        PatientProfileSservicea.shared.removeNotification(notification_id: id) { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            DispatchQueue.main.async {
+                self.customNotificationView.notificationsCollectionVC.notificationArray.remove(at: index.item)
+                self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
+            }
+        }
+    }
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -60,8 +126,8 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     @objc func handleOpenMenu()  {
-           (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
-           
-       }
+        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
+        
+    }
 }
 

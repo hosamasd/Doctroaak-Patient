@@ -72,6 +72,16 @@ class DoctorBookVC: CustomBaseViewVC {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
+        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
+    patient_id=id
+        api_token=api
+    }
+    
+
+    
     //MARK:-User methods
     
     func setupViewModelObserver()  {

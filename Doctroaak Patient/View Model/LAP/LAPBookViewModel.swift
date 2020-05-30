@@ -40,7 +40,12 @@ class LAPBookViewModel {
     func performLabBooking(notess:String,completion:@escaping (MainPatientOrderModel?,Error?)->Void)  {
         
         if isFirstOpetion ?? true {
-            if image != nil {
+            
+            if image != nil && orderDetails != nil {
+                guard let dates = dates,let img=image,let order=orderDetails,let apiToken=api_token,let patientId=patient_id,let lab_id=lab_id else { return  }
+                bindableIsLogging.value = true
+                OrdserBookSerivce.shared.postBookLabsResults( img:img,orderDetails: order, patient_id: patientId, lab_id: lab_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
+            }else   if image != nil {
                 guard let dates = dates,let img=image,let apiToken=api_token,let patientId=patient_id,let lab_id=lab_id else { return  }
                 bindableIsLogging.value = true
                 OrdserBookSerivce.shared.postBookLabsResults( img:img, patient_id: patientId, lab_id: lab_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
@@ -51,7 +56,11 @@ class LAPBookViewModel {
             }
             
         }else {
-            if image != nil {
+            if image != nil && orderDetails != nil {
+                guard let dates = dates,let img=image,let order=orderDetails,let apiToken=api_token,let patientId=patient_id,let lab_id=lab_id else { return  }
+                bindableIsLogging.value = true
+                OrdserBookSerivce.shared.postBookLabsResults( img:img,orderDetails: order, patient_id: patientId, lab_id: lab_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
+            }else  if image != nil {
                 guard let img=image,let apiToken=api_token,let patientId=patient_id,let lab_id=lab_id else { return  }
                 bindableIsLogging.value = true
                 OrdserBookSerivce.shared.postBookLabsResults( img:img, patient_id: patientId, lab_id: lab_id, notes: notess, api_token: apiToken, completion: completion)
@@ -66,18 +75,26 @@ class LAPBookViewModel {
     func performRadiologyBooking(notess:String,completion:@escaping (MainPatientOrderModel?,Error?)->Void)  {
         
         if isFirstOpetion ?? true {
-            if image != nil {
-                guard let dates = dates,let img=image,let apiToken=api_token,let patientId=patient_id,let lab_id=lab_id else { return  }
+            if image != nil && orderDetails != nil {
+                guard let dates = dates,let img=image,let order=orderDetails,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id else { return  }
                 bindableIsLogging.value = true
-                OrdserBookSerivce.shared.postBookLabsResults( img:img, patient_id: patientId, lab_id: lab_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
+                OrdserBookSerivce.shared.postBookRadiologyResults( img:img,orderDetails: order, patient_id: patientId, radiology_id: rad_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
+            }else if image != nil {
+                guard let dates = dates,let img=image,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id else { return  }
+                bindableIsLogging.value = true
+                OrdserBookSerivce.shared.postBookRadiologyResults( img:img, patient_id: patientId, radiology_id: rad_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
             }else if orderDetails != nil{
-                guard let dates = dates,let orders=orderDetails,let apiToken=api_token,let patientId=patient_id,let lab_id=lab_id  else { return  }
+                guard let dates = dates,let orders=orderDetails,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id  else { return  }
                 bindableIsLogging.value = true
-                OrdserBookSerivce.shared.postBookLabsResults( orderDetails:orders, patient_id: patientId, lab_id: lab_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
+                OrdserBookSerivce.shared.postBookRadiologyResults( orderDetails:orders, patient_id: patientId, radiology_id: rad_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
             }
             
         }else {
-            if image != nil {
+            if image != nil && orderDetails != nil {
+                guard let dates = dates,let img=image,let order=orderDetails,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id else { return  }
+                bindableIsLogging.value = true
+                OrdserBookSerivce.shared.postBookRadiologyResults( img:img,orderDetails: order, patient_id: patientId, radiology_id: rad_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
+            }else if image != nil {
                 guard let img=image,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id else { return  }
                 bindableIsLogging.value = true
                 OrdserBookSerivce.shared.postBookRadiologyResults( img:img, patient_id: patientId, radiology_id: rad_id, notes: notess, api_token: apiToken, completion: completion)
@@ -92,20 +109,20 @@ class LAPBookViewModel {
     func checkFormValidity() {
         let isFormValid = dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != -1 && image != nil  ||
             dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != -1 && orderDetails != nil ||
-             dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != -1 && orderDetails != nil && image != nil  ||
+            dates?.isEmpty == false &&  index == 0 && isFirstOpetion==true && lab_id != -1 && orderDetails != nil && image != nil  ||
             
             isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && image  != nil  && age != -1 && lab_id != -1 &&  index == 0 ||
             isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && orderDetails  != nil  && age != -1 && lab_id != -1 &&  index == 0 ||
             isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && image  != nil  && age != -1 && orderDetails  != nil && lab_id != -1 &&  index == 0 ||
-
+            
             dates?.isEmpty == false &&  index == 1 && isFirstOpetion==true && rad_id != -1 && image != nil  ||
             dates?.isEmpty == false &&  index == 1 && isFirstOpetion==true && rad_id != -1 && orderDetails != nil ||
-             dates?.isEmpty == false &&  index == 1 && isFirstOpetion==true && rad_id != -1 && orderDetails != nil && image != nil  ||
+            dates?.isEmpty == false &&  index == 1 && isFirstOpetion==true && rad_id != -1 && orderDetails != nil && image != nil  ||
             
             isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && age != -1 && image  != nil && rad_id != -1  &&  index == 1 ||
             isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && age != -1 &&  orderDetails  != nil && rad_id != -1  &&  index == 1 ||
             isFirstOpetion == false && secondDates?.isEmpty == false && fullName?.isEmpty == false && mobile?.isEmpty == false && age  != -1 && image  != nil && orderDetails  != nil && rad_id != -1  &&  index == 1
-            
+        
         
         bindableIsFormValidate.value = isFormValid
         
