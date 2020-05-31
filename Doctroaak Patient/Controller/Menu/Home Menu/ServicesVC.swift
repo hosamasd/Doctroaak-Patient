@@ -40,9 +40,13 @@ class ServicesVC: CustomBaseViewVC {
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
-    var patient_id:Int?
-    var patientApiToken:String?
-    
+//    var patient_id:Int?
+//    var patientApiToken:String?
+    var patient:PatienModel?{
+                  didSet{
+                      guard let patient = patient else { return  }
+                  }
+              }
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,8 +95,9 @@ class ServicesVC: CustomBaseViewVC {
     
     @objc  func handleOpenVC()  {
         let doc = DoctorListsVC()
-        doc.patientApiToken=patientApiToken
-        doc.patient_id=patient_id
+        doc.patient=self.patient
+//        doc.patientApiToken=patientApiToken
+//        doc.patient_id=patient_id
         navigationController?.pushViewController(doc, animated: true)
         
     }

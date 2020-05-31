@@ -10,6 +10,7 @@ import UIKit
 
 class CustomDoctorListsView: CustomBaseView {
     
+ 
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116").withRenderingMode(.alwaysOriginal))
         i.contentMode = .scaleAspectFill

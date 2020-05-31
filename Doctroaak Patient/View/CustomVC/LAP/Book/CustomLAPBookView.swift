@@ -12,6 +12,13 @@ import TTSegmentedControl
 
 class CustomLAPBookView: CustomBaseView {
     
+    var patient:PatienModel?{
+                  didSet{
+                      guard let patient = patient else { return  }
+                    lapBookViewModel.patient_id=patient.id
+                    lapBookViewModel.api_token=patient.apiToken
+                  }
+              }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -116,8 +123,8 @@ class CustomLAPBookView: CustomBaseView {
     let lapBookViewModel = LAPBookViewModel()
     
     var index:Int = 0
-    var  api_token:String?{didSet{lapBookViewModel.api_token=api_token} }
-    var  patient_id:Int?{didSet{lapBookViewModel.patient_id=patient_id}}
+//    var  api_token:String?{didSet{lapBookViewModel.api_token=api_token} }
+//    var  patient_id:Int?{didSet{lapBookViewModel.patient_id=patient_id}}
     var isActive = true
     
     override func layoutSubviews() {
@@ -240,8 +247,9 @@ class CustomLAPBookView: CustomBaseView {
     }
     
     @objc func tapDone(sender: UITextField) {
-        lapBookViewModel.api_token=api_token
-        lapBookViewModel.patient_id=patient_id
+        
+//        lapBookViewModel.api_token=api_token
+//        lapBookViewModel.patient_id=patient_id
         //               doctorBookViewModel.clinic_id=clinic_id
         if let datePicker = self.dateTextField.inputView as? UIDatePicker { // 2.1
             

@@ -15,6 +15,14 @@ import TTSegmentedControl
 
 class CusomDoctorBookView: CustomBaseView {
     
+    var patient:PatienModel?{
+                  didSet{
+                      guard let patient = patient else { return  }
+                    doctorBookViewModel.patient_id=patient.id
+                    doctorBookViewModel.api_token=patient.apiToken
+                  }
+              }
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -104,8 +112,8 @@ class CusomDoctorBookView: CustomBaseView {
     }()
     let doctorBookViewModel = DoctorBookViewModel()
     
-    var  api_token:String?{didSet{doctorBookViewModel.api_token=api_token} }
-       var  patient_id:Int?{didSet{doctorBookViewModel.patient_id=patient_id}}
+//    var  api_token:String?{didSet{doctorBookViewModel.api_token=api_token} }
+//       var  patient_id:Int?{didSet{doctorBookViewModel.patient_id=patient_id}}
      var clinic_id:Int = 1
     var constainedLogoAnchor:AnchoredConstraints!
     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
@@ -311,8 +319,8 @@ class CusomDoctorBookView: CustomBaseView {
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
-        doctorBookViewModel.api_token=api_token
-        doctorBookViewModel.patient_id=patient_id
+//        doctorBookViewModel.api_token=api_token
+//        doctorBookViewModel.patient_id=patient_id
         doctorBookViewModel.clinic_id=clinic_id
         if let datePicker = self.dateTextField.inputView as? UIDatePicker { // 2.1
             

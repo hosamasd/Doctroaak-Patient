@@ -11,6 +11,7 @@ import UIKit
 import SVProgressHUD
 
 let userDefaults = UserDefaults.standard
+let cacheObjectCodabe: LocalJSONStore<PatienModel> = LocalJSONStore(storageType: .cache, filename: "repos.json")
 
 class WelcomeVC: CustomBaseViewVC {
     

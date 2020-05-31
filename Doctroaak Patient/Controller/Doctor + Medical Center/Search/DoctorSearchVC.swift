@@ -37,8 +37,14 @@ class DoctorSearchVC: CustomBaseViewVC {
         v.searchButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
         return v
     }()
-    var patient_id:Int?
-    var patientApiToken:String?
+    var patient:PatienModel?{
+        didSet{
+            guard let patient = patient else { return  }
+            //               customMainHomeView.patient=patient
+        }
+    }
+    //    var patient_id:Int?
+    //    var patientApiToken:String?
     fileprivate let specificationId:Int!
     init(spy:Int) {
         self.specificationId = spy
@@ -125,8 +131,9 @@ class DoctorSearchVC: CustomBaseViewVC {
     func goToNext(_ doctors:[PatientSearchDoctorsModel])  {
         
         let card = CardiologyDoctorsResultsVC(doctors:doctors)
-        card.patientApiToken=patientApiToken
-        card.patient_id=patient_id
+        card.patient=self.patient
+        //        card.patientApiToken=patientApiToken
+        //        card.patient_id=patient_id
         navigationController?.pushViewController(card, animated: true)
     }
     

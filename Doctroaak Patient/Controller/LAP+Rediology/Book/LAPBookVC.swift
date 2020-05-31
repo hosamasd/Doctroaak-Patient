@@ -30,10 +30,10 @@ class LAPBookVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.index = index
         v.lapBookViewModel.lab_id=self.labId
-        v.patient_id = patient_id ?? 0
+        //        v.patient_id = patient_id ?? 0
         v.lapBookViewModel.image = self.img
         v.lapBookViewModel.orderDetails = self.orders
-        v.api_token = api_token ?? ""
+        //        v.api_token = api_token ?? ""
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
     }()
@@ -56,9 +56,14 @@ class LAPBookVC: CustomBaseViewVC {
     
     var orders:[RadiologyOrderModel]?
     var img:UIImage?
-    
-    var  api_token:String?
-    var  patient_id:Int?
+    var patient:PatienModel?{
+        didSet{
+            guard let patient = patient else { return  }
+            customLAPBookView.patient=patient
+        }
+    }
+    //    var  api_token:String?
+    //    var  patient_id:Int?
     fileprivate let labId:Int!
     
     fileprivate let index:Int!
@@ -79,10 +84,11 @@ class LAPBookVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
-        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
-        patient_id=id
-        api_token=api
+        patient=cacheObjectCodabe.storedValue
+        //        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
+        //        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
+        //        patient_id=id
+        //        api_token=api
     }
     
     
@@ -204,10 +210,11 @@ class LAPBookVC: CustomBaseViewVC {
     
     @objc  func handleBack()  {
         
-        if api_token == nil && patient_id == nil  {
+        //        if api_token == nil && patient_id == nil  {
+        if patient == nil {
             presentAlert()
         }else {
-            guard let api = api_token,let patientId = patient_id else { return  }
+            guard let api = patient?.apiToken,let patientId = patient?.id else { return  }
             customLAPBookView.lapBookViewModel.api_token=api
             customLAPBookView.lapBookViewModel.patient_id=patientId
             index == 0 ? makeLabSearch() : makeRadiologySearch()
@@ -220,10 +227,13 @@ class LAPBookVC: CustomBaseViewVC {
     
     
     @objc func handleBook()  {
-        if api_token == nil && patient_id == nil  {
+//        if api_token == nil && patient_id == nil  {
+        if patient == nil {
             presentAlert()
         }else {
-            guard let api = api_token,let patientId = patient_id else { return  }
+//            guard let api = api_token,let patientId = patient_id else { return  }
+            guard let api = patient?.apiToken,let patientId = patient?.id else { return  }
+
             customLAPBookView.lapBookViewModel.api_token=api
             customLAPBookView.lapBookViewModel.patient_id=patientId
             index == 0 ? makeLabSearch() : makeRadiologySearch()
@@ -242,9 +252,14 @@ class LAPBookVC: CustomBaseViewVC {
 
 extension LAPBookVC:LoginVCPrototcol {
     
-    func useApiAndPatienId(api: String, patient: Int) {
-        api_token = api
-        patient_id=patient
-        handleBack()
+    func useApiAndPatienId(patient: PatienModel) {
+        self.patient = cacheObjectCodabe.storedValue
+        
     }
+    
+    //    func useApiAndPatienId(api: String, patient: Int) {
+    //        api_token = api
+    //        patient_id=patient
+    //        handleBack()
+    //    }
 }

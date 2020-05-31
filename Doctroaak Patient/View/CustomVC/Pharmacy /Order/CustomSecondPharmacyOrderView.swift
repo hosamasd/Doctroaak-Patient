@@ -13,6 +13,14 @@ import TTSegmentedControl
 
 class CustomSecondPharmacyOrderView: CustomBaseView {
     
+    var patient:PatienModel?{
+        didSet{
+            guard let patient = patient else { return  }
+            pharamacyOrderViewModel.api_token=patient.apiToken
+            pharamacyOrderViewModel.patient_id=patient.id
+        }
+    }
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -162,8 +170,8 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     var mdeicineTypeArray = [String]()
     var medicineNameChosen = 0
     var medicineTypeChosen = 0
-    var  api_token:String?{didSet{pharamacyOrderViewModel.api_token=api_token} }
-    var  patient_id:Int?{didSet{pharamacyOrderViewModel.patient_id=patient_id}}
+//    var  api_token:String?{didSet{pharamacyOrderViewModel.api_token=api_token} }
+//    var  patient_id:Int?{didSet{pharamacyOrderViewModel.patient_id=patient_id}}
     
     var medicineNameIDSArray = [Int]()
     var mdeicineTypeIDSArray = [Int]()

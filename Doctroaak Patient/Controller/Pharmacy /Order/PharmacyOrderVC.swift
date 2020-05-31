@@ -27,8 +27,8 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     lazy var customPharmacyOrderView:CustomSecondPharmacyOrderView = {
         let v = CustomSecondPharmacyOrderView()
-        v.api_token=self.api_token
-        v.patient_id=self.patient_id
+//        v.api_token=self.api_token
+//        v.patient_id=self.patient_id
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
@@ -53,6 +53,12 @@ class PharmacyOrderVC: CustomBaseViewVC {
         return v
     }()
     
+    var patient:PatienModel?{
+               didSet{
+                   guard let patient = patient else { return  }
+                   customPharmacyOrderView.patient=patient
+               }
+           }
     var  api_token:String?
     var  patient_id:Int?
     var bubleViewHeightConstraint:NSLayoutConstraint!
@@ -285,9 +291,12 @@ extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControll
 
 extension PharmacyOrderVC:LoginVCPrototcol {
     
-    func useApiAndPatienId(api: String, patient: Int) {
-        api_token = api
-        patient_id=patient
-        handleBook()
+    func useApiAndPatienId(patient: PatienModel) {
+        
     }
+//    func useApiAndPatienId(api: String, patient: Int) {
+//        api_token = api
+//        patient_id=patient
+//        handleBook()
+//    }
 }

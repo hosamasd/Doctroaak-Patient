@@ -55,7 +55,7 @@ class ProfileVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let pat =   reposStore.storedValue else { return  }
+        guard let pat =    cacheObjectCodabe.storedValue else { return  }
         self.patient=pat
         //        if let person = personManager.getPerson(){
         //            patient = person
@@ -109,7 +109,7 @@ class ProfileVC: CustomBaseViewVC {
     }
     
     func cachedATA(_ patient:PatienModel)  {
-        reposStore.save(patient)
+                cacheObjectCodabe.save(patient)
         
         //       try? personManager.set(person: patient)
     }

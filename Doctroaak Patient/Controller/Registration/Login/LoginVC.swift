@@ -11,10 +11,11 @@ import MOLH
 import UIKit
 
 protocol LoginVCPrototcol {
-    func useApiAndPatienId(api:String,patient:Int)
+//    func useApiAndPatienId(api:String,patient:Int)
+    func useApiAndPatienId(patient:PatienModel)
+
 }
 
-let reposStore: LocalJSONStore<PatienModel> = LocalJSONStore(storageType: .cache, filename: "repos.json")
 
 class LoginVC: CustomBaseViewVC {
     
@@ -91,14 +92,15 @@ class LoginVC: CustomBaseViewVC {
         userDefaults.synchronize()
         
         cachePatient(use)
-        dismiss(animated: true) {
-            self.delgate?.useApiAndPatienId(api: use.apiToken, patient: use.id)
+        dismiss(animated: true) {[unowned self] in
+//            self.delgate?.useApiAndPatienId(api: use.apiToken, patient: use.id)
+            self.delgate?.useApiAndPatienId(patient: use)
         }
     }
     
     func cachePatient(_ patient:PatienModel)  {
-        reposStore.save(patient)
-        print(reposStore.storedValue)
+        cacheObjectCodabe.save(patient)
+        print(cacheObjectCodabe.storedValue)
 //        let personManager = PersonManager(cacheKey: "myPatient")
 //        try? personManager.set(person: patient)
 //

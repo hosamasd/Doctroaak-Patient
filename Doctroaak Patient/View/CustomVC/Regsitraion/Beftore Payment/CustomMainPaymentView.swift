@@ -114,20 +114,20 @@ class CustomMainPaymentView: CustomBaseView {
         return t
     }()
     lazy var monthVisaTextField:SkyFloatingLabelTextField = {
-           let t = SkyFloatingLabelTextField()
-           t.placeholder = " 04/20 ".localized
-//           t.titleColor = .lightGray
-           t.title = " Expiration Date".localized
-           t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
-           
-//           t.placeholderColor = .lightGray
-           t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-           t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
+        let t = SkyFloatingLabelTextField()
+        t.placeholder = " 04/20 ".localized
+        //           t.titleColor = .lightGray
+        t.title = " Expiration Date".localized
+        t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
+        
+        //           t.placeholderColor = .lightGray
+        t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
+        t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
         t.textAlignment = .center
-           t.errorColor = UIColor.red
-           //           t.constrainHeight(constant: 50)
-           return t
-       }()
+        t.errorColor = UIColor.red
+        //           t.constrainHeight(constant: 50)
+        return t
+    }()
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
@@ -220,15 +220,15 @@ class CustomMainPaymentView: CustomBaseView {
     //TODO: -handle methods
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
-           if let datePicker = self.monthVisaTextField.inputView as? UIDatePicker { // 2.1
-               let dateformatter = DateFormatter() // 2.2
-               dateformatter.dateFormat = "MM/YY"
-               self.monthVisaTextField.text = dateformatter.string(from: datePicker.date) //2.4
-               paymentViewModel.visaMonthCard = dateformatter.string(from: datePicker.date) //2.4
-           }
-           self.monthVisaTextField.resignFirstResponder() // 2.5
-           
-       }
+        if let datePicker = self.monthVisaTextField.inputView as? UIDatePicker { // 2.1
+            let dateformatter = DateFormatter() // 2.2
+            dateformatter.dateFormat = "MM/YY"
+            self.monthVisaTextField.text = dateformatter.string(from: datePicker.date) //2.4
+            paymentViewModel.visaMonthCard = dateformatter.string(from: datePicker.date) //2.4
+        }
+        self.monthVisaTextField.resignFirstResponder() // 2.5
+        
+    }
     
     @objc func textFieldDidChange(text: UITextField)  {
         guard let texts = text.text else { return  }
@@ -263,7 +263,7 @@ class CustomMainPaymentView: CustomBaseView {
                     paymentViewModel.visaCVCCard = texts
                 }
                 
-            
+                
                 
             } else
                 if(texts.count < 6 ) {

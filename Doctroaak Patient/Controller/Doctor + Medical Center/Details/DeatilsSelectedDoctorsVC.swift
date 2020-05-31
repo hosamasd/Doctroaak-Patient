@@ -25,16 +25,22 @@ class DeatilsSelectedDoctorsVC: UIViewController {
     }()
     lazy var customDetailsView:CustomDetailsView = {
         let v = CustomDetailsView()
-        v.patientApiToken=patientApiToken
-        v.patient_id=patient_id
+//        v.patientApiToken=patientApiToken
+//        v.patient_id=patient_id
         v.selectedDoctor=selectedDoctor
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
     }()
     
-    var patient_id:Int?
-    var patientApiToken:String?
+    var patient:PatienModel?{
+        didSet{
+            guard let patient = patient else { return  }
+//            customDetailsView.patient=patient
+        }
+    }
+    //    var patient_id:Int?
+    //    var patientApiToken:String?
     fileprivate let selectedDoctor:PatientSearchDoctorsModel!
     init(doctors:PatientSearchDoctorsModel) {
         self.selectedDoctor=doctors
@@ -75,12 +81,14 @@ class DeatilsSelectedDoctorsVC: UIViewController {
     
     @objc func handleBook()  {
         
-        
-        guard let apiTpken = patientApiToken,let patientId=patient_id, let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
+        guard let apiTpken = patient?.apiToken,let patientId=patient?.id, let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
+
+//        guard let apiTpken = patientApiToken,let patientId=patient_id, let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
         //        let book = DoctorBookVC(clinic_id: clinic_id, patient_id: patientId, api_token: apiTpken)
         let book = DoctorBookVC(clinic_id: clinic_id)
-        book.api_token=apiTpken
-        book.patient_id=patientId
+        book.patient=patient
+        //        book.api_token=apiTpken
+        //        book.patient_id=patientId
         navigationController?.pushViewController(book, animated: true)
         
     }

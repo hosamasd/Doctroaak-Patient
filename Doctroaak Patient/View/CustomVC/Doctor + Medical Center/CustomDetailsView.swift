@@ -25,6 +25,12 @@ class CustomDetailsView: CustomBaseView {
         }
     }
     
+//    var patient:PatienModel?{
+//                     didSet{
+//                         guard let patient = patient else { return  }
+////                         .patient=patient
+//                     }
+//                 }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -79,8 +85,8 @@ class CustomDetailsView: CustomBaseView {
         return button
     }()
     
-    var patient_id:Int?
-       var patientApiToken:String?
+//    var patient_id:Int?
+//       var patientApiToken:String?
     
     override func layoutSubviews() {
         super.layoutSubviews()

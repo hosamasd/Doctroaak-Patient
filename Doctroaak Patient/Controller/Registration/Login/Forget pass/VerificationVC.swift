@@ -135,6 +135,8 @@ class VerificationVC: CustomBaseViewVC {
         userDefaults.set(user.url, forKey: UserDefaultsConstants.patientPhotoUrl)
 
         userDefaults.synchronize()
+        cacheObjectCodabe.save(user)
+
     }
     
     func goToNext(user:PatienModel)  {
