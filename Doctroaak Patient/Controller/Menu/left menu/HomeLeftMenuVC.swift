@@ -21,11 +21,11 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         return v
     }()
     var patient:PatienModel?{
-           didSet{
-               guard let patient = patient else { return  }
-                              customMainHomeLeftView.patient=patient
-           }
-       }
+        didSet{
+            guard let patient = patient else { return  }
+            customMainHomeLeftView.patient=patient
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +35,14 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           
-           guard let pat =    cacheObjectCodabe.storedValue else { return  }
-           self.patient=pat
-           //        if let person = personManager.getPerson(){
-           //            patient = person
-           //        }
-       }
+        super.viewWillAppear(animated)
+        
+        guard let pat =    cacheObjectCodabe.storedValue else { return  }
+        self.patient=pat
+        //        if let person = personManager.getPerson(){
+        //            patient = person
+        //        }
+    }
     
     //MARK: -user methods
     
@@ -59,52 +59,71 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     func checkIfLoggined(_ indexPath:IndexPath)  {
         guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin)  && indexPath.item == 4{
-            showAlertForLogin()
-            
-        }else if indexPath.item == 4 {
-            chooseLanguage()
-        }else {
-            if indexPath.item==0 {
-                baseSlid.closeMenu()
-                let profile = ProfileVC()
-                profile.modalPresentationStyle = .fullScreen
-                present(profile, animated: true)
-                //                navigationController?.pushViewController(profile, animated: true)
-            }else if indexPath.item == 1 {
-                baseSlid.closeMenu()
-                let profile = AnaylticsVC()
-                profile.modalPresentationStyle = .fullScreen
-                present(profile, animated: true)
-                //                navigationController?.pushViewController(profile, animated: true)
-            }else if indexPath.item == 3 {
+        if indexPath.item ==  3 || indexPath.item == 4{
+            if indexPath.item == 3 {
                 baseSlid.closeMenu()
                 showAlertForContacting()
+            }else if indexPath.item == 4 {
+                baseSlid.closeMenu()
+                chooseLanguage()
             }
+        }else if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin){
+            baseSlid.closeMenu()
+            showAlertForLogin()
+        }else {
+//            if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin)  && indexPath.item == 4{
+//                showAlertForLogin()
+//
+//            }else if indexPath.item == 4 {
+//                chooseLanguage()
+//            }else {
+                if indexPath.item==0 {
+                    baseSlid.closeMenu()
+                    let profile = ProfileVC()
+                    let nav = UINavigationController(rootViewController: profile)
+                    
+                    nav.modalPresentationStyle = .fullScreen
+                    present(nav, animated: true)
+                    //                navigationController?.pushViewController(profile, animated: true)
+                }else if indexPath.item == 1 {
+                    baseSlid.closeMenu()
+                    let profile = AnaylticsVC()
+                    let nav = UINavigationController(rootViewController: profile)
+                    
+                    nav.modalPresentationStyle = .fullScreen
+                    present(nav, animated: true)
+//                    profile.modalPresentationStyle = .fullScreen
+//                    present(profile, animated: true)
+                    //                navigationController?.pushViewController(profile, animated: true)
+                }else if indexPath.item == 3 {
+                    baseSlid.closeMenu()
+                    showAlertForContacting()
+                }
+                
+                //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) &&  indexPath.item==0 {
+                //            showAlertForLogin()
+                //        }else if indexPath.item==1{
+                //             baseSlid.closeMenu()
+                //
+                //          let ans =  AnaylticsVC()
+                //            navigationController?.pushViewController(ans, animated: true)
+                //        }
+                //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) && indexPath.item != 4 {
+                //            showAlertForLogin()
+                //            baseSlid.closeMenu()
+                ////            baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertLoginView, height: 200)
+                ////            baseSlid.customAlertLoginView.problemsView.loopMode = .loop
+                ////            baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+                //
+                //        }else if indexPath.item == 4  {
+                //            baseSlid.closeMenu()
+                //                       baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
+                //                       baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+                //        }else{
+                //            baseSlid.didSelectItemAtIndex(index: indexPath)
+                //
+                //        }
             
-            //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) &&  indexPath.item==0 {
-            //            showAlertForLogin()
-            //        }else if indexPath.item==1{
-            //             baseSlid.closeMenu()
-            //
-            //          let ans =  AnaylticsVC()
-            //            navigationController?.pushViewController(ans, animated: true)
-            //        }
-            //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) && indexPath.item != 4 {
-            //            showAlertForLogin()
-            //            baseSlid.closeMenu()
-            ////            baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertLoginView, height: 200)
-            ////            baseSlid.customAlertLoginView.problemsView.loopMode = .loop
-            ////            baseSlid.present(baseSlid.customMainAlertVC, animated: true)
-            //
-            //        }else if indexPath.item == 4  {
-            //            baseSlid.closeMenu()
-            //                       baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
-            //                       baseSlid.present(baseSlid.customMainAlertVC, animated: true)
-            //        }else{
-            //            baseSlid.didSelectItemAtIndex(index: indexPath)
-            //
-            //        }
         }
     }
     
@@ -140,13 +159,15 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         print(9999999)
     }
     
-   @objc func handleLogout()  {
-    guard let patient = patient else { return  }
-    cacheObjectCodabe.deleteFile(patient)
-    userDefaults.set(false, forKey: UserDefaultsConstants.isPatientLogin)
-    userDefaults.synchronize()
-    DispatchQueue.main.async {
-        self.customMainHomeLeftView.first8Stack.isHide(true)
-    }
+    @objc func handleLogout()  {
+        guard let patient = patient else { return  }
+        cacheObjectCodabe.deleteFile(patient)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isPatientLogin)
+        userDefaults.synchronize()
+        DispatchQueue.main.async {
+            self.customMainHomeLeftView.first8Stack.isHide(true)
+            self.customMainHomeLeftView.userNameLabel.text = ""
+            self.customMainHomeLeftView.userImage.image =  #imageLiteral(resourceName: "Group 4143")
+        }
     }
 }

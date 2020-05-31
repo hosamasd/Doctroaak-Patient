@@ -8,17 +8,22 @@
 
 
 import UIKit
-
+import SDWebImage
+import MOLH
 
 class CustomMainHomeLeftView: CustomBaseView {
     
     var patient:PatienModel?{
-              didSet{
-                  guard let patient = patient else { return  }
-//                                 customMainHomeLeftView.patient=patient
-                first8Stack.isHide(false)
-              }
-          }
+        didSet{
+            guard let patient = patient else { return  }
+            //                                 customMainHomeLeftView.patient=patient
+            first8Stack.isHide(false)
+            let urlString = patient.photo
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
+            userNameLabel.text = MOLHLanguage.isRTLLanguage() ? patient.nameAr : patient.name
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-5"))
@@ -34,7 +39,7 @@ class CustomMainHomeLeftView: CustomBaseView {
         i.clipsToBounds = true
         return i
     }()
-    lazy var userNameLabel = UILabel(text: "Bian Mohamed", font: .systemFont(ofSize: 20), textColor: .white)
+    lazy var userNameLabel = UILabel(text: "", font: .systemFont(ofSize: 20), textColor: .white)
     
     lazy var homeLeftMenuCollectionVC:HomeLeftMenuCollcetionVC  =  {
         let vc = HomeLeftMenuCollcetionVC()
@@ -67,7 +72,7 @@ class CustomMainHomeLeftView: CustomBaseView {
         userImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 20, left: 20, bottom: 0, right: 0))
         userNameLabel.anchor(top: userImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 24, bottom: 0, right: 0))
         
-        homeLeftMenuCollectionVC.view.anchor(top: userNameLabel.bottomAnchor, leading: leadingAnchor, bottom: first8Stack.topAnchor, trailing: trailingAnchor,padding: .init(top: 60, left: 20, bottom: 16, right: 0))
+        homeLeftMenuCollectionVC.view.anchor(top: userNameLabel.bottomAnchor, leading: leadingAnchor, bottom: first8Stack.topAnchor, trailing: trailingAnchor,padding: .init(top: 100, left: 20, bottom: 16, right: 0))
         first8Stack.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 20, bottom: 8, right: 0))
         
     }
