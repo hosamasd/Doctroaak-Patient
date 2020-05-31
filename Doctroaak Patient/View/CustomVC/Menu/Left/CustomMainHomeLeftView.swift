@@ -12,6 +12,14 @@ import UIKit
 
 class CustomMainHomeLeftView: CustomBaseView {
     
+    var patient:PatienModel?{
+              didSet{
+                  guard let patient = patient else { return  }
+//                                 customMainHomeLeftView.patient=patient
+                first8Stack.isHide(false)
+              }
+          }
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-5"))
         i.contentMode = .scaleAspectFill

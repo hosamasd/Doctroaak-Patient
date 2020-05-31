@@ -22,11 +22,21 @@ class LocalJSONStore<T> where T : Codable {
        func save(_ object: T) {
            do {
                let data = try JSONEncoder().encode(object)
+            
                try data.write(to: fileURL)
            } catch let e {
                print("ERROR: \(e)")
            }
        }
+    
+    func deleteFile(_ object: T) {
+             do {
+                    try FileManager.default.removeItem(at: fileURL)
+//                try data.
+             } catch let e {
+                 print("ERROR: \(e)")
+             }
+         }
        
        var storedValue: T? {
            guard FileManager.default.fileExists(atPath: fileURL.path) else {

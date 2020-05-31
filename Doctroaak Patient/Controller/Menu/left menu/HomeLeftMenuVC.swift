@@ -17,8 +17,15 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         v.handleCheckedIndex = {[unowned self] index in
             self.checkIfLoggined(index)
         }
+        v.first8Stack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLogout)))
         return v
     }()
+    var patient:PatienModel?{
+           didSet{
+               guard let patient = patient else { return  }
+                              customMainHomeLeftView.patient=patient
+           }
+       }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +34,20 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           
+           guard let pat =    cacheObjectCodabe.storedValue else { return  }
+           self.patient=pat
+           //        if let person = personManager.getPerson(){
+           //            patient = person
+           //        }
+       }
     
     //MARK: -user methods
     
     override func setupNavigation()  {
-//        navigationController?.navigationBar.isHide(true)
+        //        navigationController?.navigationBar.isHide(true)
     }
     
     override func setupViews()  {
@@ -41,66 +57,66 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         customMainHomeLeftView.fillSuperview()
     }
     
-     func checkIfLoggined(_ indexPath:IndexPath)  {
-            guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-            if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin)  && indexPath.item == 4{
-                showAlertForLogin()
-                
-            }else if indexPath.item == 4 {
-                chooseLanguage()
-            }else {
-                if indexPath.item==0 {
-                    baseSlid.closeMenu()
-                    let profile = ProfileVC()
-                    profile.modalPresentationStyle = .fullScreen
-                    present(profile, animated: true)
-    //                navigationController?.pushViewController(profile, animated: true)
-                }else if indexPath.item == 1 {
-                    baseSlid.closeMenu()
-                    let profile = AnaylticsVC()
-                    profile.modalPresentationStyle = .fullScreen
-                    present(profile, animated: true)
-    //                navigationController?.pushViewController(profile, animated: true)
-                }else if indexPath.item == 3 {
-                    baseSlid.closeMenu()
-showAlertForContacting()
-                }
-                
-                //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) &&  indexPath.item==0 {
-                //            showAlertForLogin()
-                //        }else if indexPath.item==1{
-                //             baseSlid.closeMenu()
-                //
-                //          let ans =  AnaylticsVC()
-                //            navigationController?.pushViewController(ans, animated: true)
-                //        }
-                //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) && indexPath.item != 4 {
-                //            showAlertForLogin()
-                //            baseSlid.closeMenu()
-                ////            baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertLoginView, height: 200)
-                ////            baseSlid.customAlertLoginView.problemsView.loopMode = .loop
-                ////            baseSlid.present(baseSlid.customMainAlertVC, animated: true)
-                //
-                //        }else if indexPath.item == 4  {
-                //            baseSlid.closeMenu()
-                //                       baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
-                //                       baseSlid.present(baseSlid.customMainAlertVC, animated: true)
-                //        }else{
-                //            baseSlid.didSelectItemAtIndex(index: indexPath)
-                //
-                //        }
-            }
-        }
-        
-        
-        
-        func chooseLanguage()  {
-            guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+    func checkIfLoggined(_ indexPath:IndexPath)  {
+        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin)  && indexPath.item == 4{
+            showAlertForLogin()
             
-            baseSlid.closeMenu()
-            baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
-            baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+        }else if indexPath.item == 4 {
+            chooseLanguage()
+        }else {
+            if indexPath.item==0 {
+                baseSlid.closeMenu()
+                let profile = ProfileVC()
+                profile.modalPresentationStyle = .fullScreen
+                present(profile, animated: true)
+                //                navigationController?.pushViewController(profile, animated: true)
+            }else if indexPath.item == 1 {
+                baseSlid.closeMenu()
+                let profile = AnaylticsVC()
+                profile.modalPresentationStyle = .fullScreen
+                present(profile, animated: true)
+                //                navigationController?.pushViewController(profile, animated: true)
+            }else if indexPath.item == 3 {
+                baseSlid.closeMenu()
+                showAlertForContacting()
+            }
+            
+            //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) &&  indexPath.item==0 {
+            //            showAlertForLogin()
+            //        }else if indexPath.item==1{
+            //             baseSlid.closeMenu()
+            //
+            //          let ans =  AnaylticsVC()
+            //            navigationController?.pushViewController(ans, animated: true)
+            //        }
+            //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) && indexPath.item != 4 {
+            //            showAlertForLogin()
+            //            baseSlid.closeMenu()
+            ////            baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertLoginView, height: 200)
+            ////            baseSlid.customAlertLoginView.problemsView.loopMode = .loop
+            ////            baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+            //
+            //        }else if indexPath.item == 4  {
+            //            baseSlid.closeMenu()
+            //                       baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
+            //                       baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+            //        }else{
+            //            baseSlid.didSelectItemAtIndex(index: indexPath)
+            //
+            //        }
         }
+    }
+    
+    
+    
+    func chooseLanguage()  {
+        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+        
+        baseSlid.closeMenu()
+        baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
+        baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+    }
     func showAlertForContacting()  {
         guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
         
@@ -108,19 +124,29 @@ showAlertForContacting()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customContactUsView, height: 120)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
+    
+    func showAlertForLogin()  {
+        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
         
-        func showAlertForLogin()  {
-            guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-            
-            baseSlid.closeMenu()
-            baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertLoginView, height: 200)
-            baseSlid.customAlertLoginView.problemsView.loopMode = .loop
-            baseSlid.present(baseSlid.customMainAlertVC, animated: true)
-        }
+        baseSlid.closeMenu()
+        baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertLoginView, height: 200)
+        baseSlid.customAlertLoginView.problemsView.loopMode = .loop
+        baseSlid.present(baseSlid.customMainAlertVC, animated: true)
+    }
     
     //TODO: -handle methods
     
     @objc func handleOne()  {
         print(9999999)
+    }
+    
+   @objc func handleLogout()  {
+    guard let patient = patient else { return  }
+    cacheObjectCodabe.deleteFile(patient)
+    userDefaults.set(false, forKey: UserDefaultsConstants.isPatientLogin)
+    userDefaults.synchronize()
+    DispatchQueue.main.async {
+        self.customMainHomeLeftView.first8Stack.isHide(true)
+    }
     }
 }

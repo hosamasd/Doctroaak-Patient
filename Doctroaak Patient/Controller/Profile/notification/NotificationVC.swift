@@ -27,7 +27,7 @@ class NotificationVC: CustomBaseViewVC {
     }()
     lazy var customNotificationView:CustomNotificationView = {
         let v = CustomNotificationView()
-        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         
         v.handledisplayNotification = {[unowned self] noty,index in
             self.makeDeleteNotify(id: noty.id,index)
@@ -36,12 +36,18 @@ class NotificationVC: CustomBaseViewVC {
         return v
     }()
     
-    fileprivate let api_token:String!
-    fileprivate let user_id:Int!
+    fileprivate let patients:PatienModel!
+    //    fileprivate let api_token:String!
+    //    fileprivate let user_id:Int!
+    //
+    //    init(TOKEN:String,ID:Int) {
+    //        self.api_token=TOKEN
+    //        self.user_id=ID
+    //        super.init(nibName: nil, bundle: nil)
+    //    }
     
-    init(TOKEN:String,ID:Int) {
-        self.api_token=TOKEN
-        self.user_id=ID
+    init(patient:PatienModel) {
+        self.patients=patient
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -67,7 +73,7 @@ class NotificationVC: CustomBaseViewVC {
         
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         SVProgressHUD.show(withStatus: "Looding...".localized)
-        PatientProfileSservicea.shared.getNotifications(api_token: api_token, user_id: user_id) { (base, err) in
+        PatientProfileSservicea.shared.getNotifications(api_token: patients.apiToken, user_id: patients.id) { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.activeViewsIfNoData();return
@@ -125,8 +131,9 @@ class NotificationVC: CustomBaseViewVC {
         
     }
     
-    @objc func handleOpenMenu()  {
-        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
+        //        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
         
     }
 }

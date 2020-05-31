@@ -11,7 +11,7 @@ import UIKit
 
 class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
-    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_notifications_active_24px").withRenderingMode(.alwaysTemplate),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
+    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "star-2"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
     var deatas = ["Profile","Anayltics","Notifications","Contact Us","Language"]
     
     

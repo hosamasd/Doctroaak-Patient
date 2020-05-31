@@ -38,7 +38,7 @@ class HomeMenuVC: CustomBaseViewVC {
         v.mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoServices)))
         v.main2View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoFavorites)))
         v.main3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoMyOrders)))
-        
+        v.notifyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenNotifications)))
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         return v
     }()
@@ -62,27 +62,27 @@ class HomeMenuVC: CustomBaseViewVC {
     var patient_Id:Int?
     var patientAPITOKEN:String?
     var patient:PatienModel?{
-           didSet{
-               guard let patient = patient else { return  }
-//               customMainHomeView.patient=patient
-           }
-       }
+        didSet{
+            guard let patient = patient else { return  }
+            //               customMainHomeView.patient=patient
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         putUserId()
-         setupAnimation()
+        setupAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-          super.viewWillAppear(animated)
-          
-          guard let pat =    cacheObjectCodabe.storedValue else { return  }
-          self.patient=pat
-          //        if let person = personManager.getPerson(){
-          //            patient = person
-          //        }
-      }
+        super.viewWillAppear(animated)
+        
+        guard let pat =    cacheObjectCodabe.storedValue else { return  }
+        self.patient=pat
+        //        if let person = personManager.getPerson(){
+        //            patient = person
+        //        }
+    }
     
     //MARK: -user methods
     
@@ -143,8 +143,8 @@ class HomeMenuVC: CustomBaseViewVC {
     @objc func handleGoServices()  {
         let services = ServicesVC()
         services.patient=self.patient
-//        services.patientApiToken=patientAPITOKEN
-//        services.patient_id=patient_Id
+        //        services.patientApiToken=patientAPITOKEN
+        //        services.patient_id=patient_Id
         let nav = UINavigationController(rootViewController: services)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
@@ -165,8 +165,20 @@ class HomeMenuVC: CustomBaseViewVC {
         let nav = UINavigationController(rootViewController: login)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
-//        removeViewWithAnimation(vvv: customAlertLoginView)
-//        customMainAlertVC.dismiss(animated: true)
+        //        removeViewWithAnimation(vvv: customAlertLoginView)
+        //        customMainAlertVC.dismiss(animated: true)
+    }
+    
+    @objc func handleOpenNotifications()  {
+        if patient==nil && !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin){
+            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
+            customAlertLoginView.problemsView.loopMode = .loop
+            present(customMainAlertVC, animated: true)
+        }else {
+            guard let patient = patient else { return  }
+            let notify = NotificationVC(patient: patient)
+            navigationController?.pushViewController(notify, animated: true)
+        }
     }
     
     @objc func handleGoFavorites()  {
@@ -174,8 +186,8 @@ class HomeMenuVC: CustomBaseViewVC {
             customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 120)
             present(customMainAlertVC, animated: true)
         }else {
-        let favorite = PatientFavoriteDoctorsVC()
-        navigationController?.pushViewController(favorite,animated:true)
+            let favorite = PatientFavoriteDoctorsVC()
+            navigationController?.pushViewController(favorite,animated:true)
         }
     }
     

@@ -27,6 +27,7 @@ class CustomMainHomeView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
+        i.isUserInteractionEnabled=true
         return i
     }()
     
