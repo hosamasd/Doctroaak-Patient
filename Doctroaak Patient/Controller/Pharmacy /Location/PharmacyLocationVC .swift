@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SVProgressHUD
 
 class PharmacyLocationVC: CustomBaseViewVC {
     
@@ -31,7 +32,7 @@ class PharmacyLocationVC: CustomBaseViewVC {
             self.navigationController?.pushViewController(loct, animated: true)
         }
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
+        v.searchButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
     }()
     
@@ -45,12 +46,20 @@ class PharmacyLocationVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
+    func checkDtatExists()  {
+//         if userDefaults.bool(forKey: UserDefaultsConstants.isPharamacyCached) {
+//            customPharmacyLocationView.fetchData()
+//               }else {
+//                   fetchDATASS()
+//               }
+    }
+    
     func setupViewModelObserver()  {
         customPharmacyLocationView.pharamacyLocationViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
             
-            self.changeButtonState(enable: isValid, vv: self.customPharmacyLocationView.nextButton)
+            self.changeButtonState(enable: isValid, vv: self.customPharmacyLocationView.searchButton)
         }
         
         customPharmacyLocationView.pharamacyLocationViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in

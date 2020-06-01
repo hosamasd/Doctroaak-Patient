@@ -56,6 +56,11 @@ class MainServices {
         MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
+    func getPharamacysName(completion: @escaping (MainPharamacyNameModel?, Error?) -> ())  {
+           let urlString = baseUrl+"show/pharmacy"
+           MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+       }
+    
     func getNotifications(completion: @escaping (MainNotificationsModel?, Error?) -> ())  {
         let urlString = baseUrl+"show_specialization"
         MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
@@ -70,6 +75,11 @@ class MainServices {
         let urlString = baseUrl+"show/radiology"
         MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
+    
+    func getPaymentDetails(completion: @escaping (MainPaymentDetailModel?, Error?) -> ())  {
+           let urlString = baseUrl+"show-cariense-details"
+           MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+       }
     
     static func mainGetMethodGenerics<T:Codable>(urlString:String,completion:@escaping (T?,Error?)->Void)  {
         

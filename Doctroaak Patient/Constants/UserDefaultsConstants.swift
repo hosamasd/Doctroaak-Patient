@@ -28,7 +28,9 @@ class UserDefaultsConstants {
     static let isRadiologyCached="isRadiologyCached"
     static let isMedicineNameCached="isMedicineNameCached"
     static let isMedicineTypeCached="isMedicineTypeCached"
-    
+    static let isPaymentDetailsInfo = "isPaymentDetailsInfo"
+    static let isPharamacyCached = "isPharamacyCached"
+
     //register
     static let patientID="patientID"
     
@@ -52,6 +54,7 @@ class UserDefaultsConstants {
     static let insuranceNameArray = "insuranceNameArray"
     static let medicineNameArray = "medicineNameArray"
     static let medicineTypeArray = "medicineTypeArray"
+    static let pharamacyNameArray = "pharamacyNameArray"
     
     
     //for arabic
@@ -63,6 +66,8 @@ class UserDefaultsConstants {
     static let cityNameARArray = "cityNameARArray"
     static let degreeNameARArray = "degreeNameARArray"
     static let insuranceNameARArray = "insuranceNameARArray"
+    static let pharamacyNameARArray = "pharamacyNameARArray"
+    
     
     //for French
     static let areaNameFRArray = "areaNameFRArray"
@@ -73,6 +78,8 @@ class UserDefaultsConstants {
     static let cityNameFRArray = "cityNameFRArray"
     static let degreeNameFRArray = "degreeNameFRArray"
     static let insuranceNameFRArray = "insuranceNameFRArray"
+    static let pharamacyNameFRArray = "pharamacyNameFRArray"
+    
     
     static let cityIdArray = "cityIdArray"
     static let labIdArray = "labIdArray"
@@ -83,6 +90,10 @@ class UserDefaultsConstants {
     static let radiologyIdArray = "radiologyIdArray"
     static let insuranceIdArray = "insuranceIdArray"
     static let degreeIdArray = "degreeIdArray"
+    static let pharamacyIdrray = "pharamacyIdrray"
+    
+    
+    static let paymentDetailsInfo = "paymentDetailsInfo"
     
     
     

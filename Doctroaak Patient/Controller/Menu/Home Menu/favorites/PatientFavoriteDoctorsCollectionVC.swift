@@ -14,7 +14,8 @@ class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
     var handleCheckedIndex:((PatientSearchDoctorsModel)->Void)?
     var doctorsArray:[PatientSearchDoctorsModel] = [PatientSearchDoctorsModel]()
     var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
-
+    var isFavorite:Bool = false
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return doctorsArray.count
@@ -24,16 +25,16 @@ class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PatientFavoriteDoctorsCell
         let doctor = doctorsArray[indexPath.item]
         cell.doctor=doctor
-        cell.handleBookmarkDoctor = {[unowned self] doctor in
-            self.handleBookmarkDoctor?(doctor)
+        cell.handleBookmarkDoctor = {[unowned self] doctors in
+            self.handleBookmarkDoctor?(doctors)
         }
-//        cell.doctor = doctor
-//        cell.isFavorite = true
+        //        cell.doctor = doctor
+        //        cell.isFavorite = true
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         let doctor = doctorsArray[indexPath.item]
+        let doctor = doctorsArray[indexPath.item]
         handleCheckedIndex?(doctor)
     }
     
@@ -49,6 +50,6 @@ class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
         collectionView.backgroundColor = .white
         collectionView.register(PatientFavoriteDoctorsCell.self, forCellWithReuseIdentifier: cellId)
     }
-
+    
     
 }

@@ -24,12 +24,17 @@ class CustomFirstSkipPaymentView: CustomBaseView {
            return i
        }()
        
-       lazy var titleLabel = UILabel(text: "Information", font: .systemFont(ofSize: 30), textColor: .white)
-       lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Information".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var mainBeforePaymentCollectionVC:MainBeforePaymentCollectionVC = {
        let vc = MainBeforePaymentCollectionVC()
-        
+        vc.handleNextOperation={[unowned self] in
+            self.handleNextOperation?()
+        }
+        vc.handleBackOperation={[unowned self] in
+                   self.handleBackOperation?()
+               }
         return vc
     }()
  lazy var seocndLogoImage:UIImageView = {
@@ -39,26 +44,29 @@ class CustomFirstSkipPaymentView: CustomBaseView {
     
            return i
        }()
-    lazy var discriptionLabel = UILabel(text: "When I was 5 years old, my mother always told me that happiness was the key to life. When I went to school, they asked me what I wanted to be when I grew up. I wrote down ‘happy’. They told me I didn’t understand the assignment, and I told them they didn’t understand life.", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left, numberOfLines: 0)
     
-    lazy var pageControl: UIPageControl = {
-           let pc = UIPageControl()
-           pc.translatesAutoresizingMaskIntoConstraints = false
-           pc.currentPage = 0
-           pc.numberOfPages = 5
-           pc.currentPageIndicatorTintColor = #colorLiteral(red: 0.1985675395, green: 0.6542165279, blue: 0.5319386125, alpha: 1)
-           pc.pageIndicatorTintColor = #colorLiteral(red: 0.8274509804, green: 0.8274509804, blue: 0.8274509804, alpha: 1)
-//                   pc.addTarget(self, action: #selector(pageControlSelectionAction(_:)), for: .touchUpInside)
-           return pc
-       }()
-    lazy var nextButton = createButtons(img: #imageLiteral(resourceName: "buttons-square-green"), tags: 0)
-    lazy var backButton = createButtons(img: #imageLiteral(resourceName: "buttons-square-gray"), tags: 1)
-    lazy var skipButton = UIButton(title: "Skip", titleColor: .lightGray, font: .systemFont(ofSize: 16), backgroundColor: .white, target: self, action: #selector(handleSkip))
+    var handleNextOperation:(()->Void)?
+       var handleBackOperation:(()->Void)?
+//    lazy var discriptionLabel = UILabel(text: "When I was 5 years old, my mother always told me that happiness was the key to life. When I went to school, they asked me what I wanted to be when I grew up. I wrote down ‘happy’. They told me I didn’t understand the assignment, and I told them they didn’t understand life.".localized, font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left, numberOfLines: 0)
+//    
+//    lazy var pageControl: UIPageControl = {
+//           let pc = UIPageControl()
+//           pc.translatesAutoresizingMaskIntoConstraints = false
+//           pc.currentPage = 0
+//           pc.numberOfPages = 5
+//           pc.currentPageIndicatorTintColor = #colorLiteral(red: 0.1985675395, green: 0.6542165279, blue: 0.5319386125, alpha: 1)
+//           pc.pageIndicatorTintColor = #colorLiteral(red: 0.8274509804, green: 0.8274509804, blue: 0.8274509804, alpha: 1)
+////                   pc.addTarget(self, action: #selector(pageControlSelectionAction(_:)), for: .touchUpInside)
+//           return pc
+//       }()
+//    lazy var nextButton = createButtons(img: #imageLiteral(resourceName: "buttons-square-green"), tags: 0)
+//    lazy var backButton = createButtons(img: #imageLiteral(resourceName: "buttons-square-gray"), tags: 1)
+//    lazy var skipButton = UIButton(title: "Skip".localized, titleColor: .lightGray, font: .systemFont(ofSize: 16), backgroundColor: .white, target: self, action: #selector(handleSkip))
     
     override func setupViews() {
-        let ss = getStack(views: backButton,nextButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        
-           let bottomStack = getStack(views: skipButton,UIView(),ss, spacing: 16, distribution: .fill, axis: .horizontal)
+//        let ss = getStack(views: backButton,nextButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+//
+//           let bottomStack = getStack(views: skipButton,UIView(),ss, spacing: 16, distribution: .fill, axis: .horizontal)
 //
 //           let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
 //

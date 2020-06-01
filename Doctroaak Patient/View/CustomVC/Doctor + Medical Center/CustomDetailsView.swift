@@ -44,12 +44,6 @@ class CustomDetailsView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var notifyImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px"))
-        i.constrainWidth(constant: 30)
-        i.constrainHeight(constant: 30)
-        return i
-    }()
     lazy var titleLabel = UILabel(text: "Details", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var suggestedLabel = UILabel(text: "Doctor free suggested days", font: .systemFont(ofSize: 18), textColor: .gray)
     lazy var workingDateLabel = UILabel(text: "Doctor's working date", font: .systemFont(ofSize: 18), textColor: .gray)
@@ -98,10 +92,9 @@ class CustomDetailsView: CustomBaseView {
     
     override func setupViews()  {
         
-        addSubViews(views: LogoImage,backImage,notifyImage,titleLabel,patientFavoriteDoctorsCell,suggestedLabel,workingDateLabel,doctorSuggestShiftHorizentalVC.view,doctorWorkingDateCollectionVC.view,bookButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,patientFavoriteDoctorsCell,suggestedLabel,workingDateLabel,doctorSuggestShiftHorizentalVC.view,doctorWorkingDateCollectionVC.view,bookButton)
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-        notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         patientFavoriteDoctorsCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         suggestedLabel.anchor(top: patientFavoriteDoctorsCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))

@@ -30,7 +30,7 @@ extension UIView {
        return l
     }
     
-    func createMainButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
+    func createMain2Buttons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1

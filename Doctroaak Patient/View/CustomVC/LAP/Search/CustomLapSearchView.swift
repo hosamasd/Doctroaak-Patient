@@ -89,7 +89,7 @@ class CustomLapSearchView: CustomBaseView {
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
+//        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
         i.didSelect { (txt, indexx, _) in
@@ -103,7 +103,7 @@ class CustomLapSearchView: CustomBaseView {
     lazy var mainDrop3View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
+//        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in

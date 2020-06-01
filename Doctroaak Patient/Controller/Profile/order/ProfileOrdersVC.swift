@@ -51,6 +51,13 @@ class ProfileOrdersVC: CustomBaseViewVC {
         return v
     } ()
     
+    var patient:PatienModel?{
+           didSet{
+               guard let patient = patient else { return  }
+               //               customMainHomeView.patient=patient
+           }
+       }
+    
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
     }

@@ -11,10 +11,11 @@ import UIKit
 class BeforePaymentCell: BaseCollectionCell {
     
     
-    var page:BeforPaymwentModel!{
+    var page:String?{
         didSet {
-            splashImageView.image = page.image
-            descriptionLabel.text = page.name
+//            splashImageView.image = page.image
+            guard let page = page else { return  }
+            descriptionLabel.text = page
     }
     }
     
@@ -29,7 +30,8 @@ class BeforePaymentCell: BaseCollectionCell {
     lazy var descriptionLabel: UILabel = {
         let la = UILabel()
 //        la.backgroundColor = .red
-        la.numberOfLines = 0
+        la.numberOfLines = 4
+        la.sizeToFit()
         return la
     }()
     

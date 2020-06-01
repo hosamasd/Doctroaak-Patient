@@ -49,6 +49,39 @@ class SearchServices {
         
     }
     
+    func pharamacyGetSearchResults(firstOption:Bool,pharmacy_id:Int? = -1,city:Int? = nil ,are:Int? = nil,insurance:Int,delivery:Int,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainPharamacySearchModel?, Error?) ->Void)  {
+        let urlString = "\(baseUrl)pharmacy/get".toSecrueHttps()
+        var checks = ""
+        
+        if firstOption {
+            
+            
+            if pharmacy_id != -1 && (city == nil && are == nil)  {
+                checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)"
+            }else if pharmacy_id != -1 && (city != nil && are == nil) {
+                checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)&city=\(city!)"
+            }else if pharmacy_id != -1 && (city == nil && are != nil) {
+                checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)&are=\(are!)"
+                
+            }else if   pharmacy_id != -1 && (city != nil && are != nil) {
+                checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
+                
+            }else if   pharmacy_id == -1 && (city != nil && are != nil) {
+                checks = "?insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
+                
+            }
+        }
+        else {
+            checks = "?insurance=\(insurance)&delivery=\(delivery)&lang=\(lang!)&latt=\(latt!)"
+            
+        }
+        let postString = urlString+checks
+        MainServices.mainGetMethodGenerics(urlString: postString, completion: completion)
+        
+    }
+    
+    
+    
     func labGetSearchResults(firstOption:Bool,lab_id:Int? = -1,city:Int? = -1 ,are:Int? = -1,insurance:Int,delivery:Int,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainLapSearchModel?, Error?) ->Void)  {
         let urlString = "\(baseUrl)lab/get".toSecrueHttps()
         var checks = ""

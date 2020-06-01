@@ -30,13 +30,6 @@ class CustomCardiologyDoctorsResultsView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var notifyImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px"))
-        i.constrainWidth(constant: 30)
-        i.constrainHeight(constant: 30)
-        i.isUserInteractionEnabled = true
-        return i
-    }()
     lazy var titleLabel = UILabel(text: "Doctors", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
     lazy var mainSecondView:UIView = {
@@ -65,10 +58,9 @@ class CustomCardiologyDoctorsResultsView: CustomBaseView {
     override func setupViews() {
         backgroundColor = .white
         
-        addSubViews(views: LogoImage,backImage,notifyImage,titleLabel,soonLabel,patientFavoriteDoctorsCollectionVC.view)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,patientFavoriteDoctorsCollectionVC.view)
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-        notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         

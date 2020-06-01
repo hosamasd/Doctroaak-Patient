@@ -184,6 +184,7 @@ class HomeMenuVC: CustomBaseViewVC {
     @objc func handleGoFavorites()  {
         if patient == nil {
             customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 120)
+            customAlertLoginView.problemsView.loopMode = .loop
             present(customMainAlertVC, animated: true)
         }else {
             let favorite = PatientFavoriteDoctorsVC()
@@ -192,6 +193,15 @@ class HomeMenuVC: CustomBaseViewVC {
     }
     
     @objc func handleGoMyOrders()  {
+        if patient==nil && !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 120)
+                       customAlertLoginView.problemsView.loopMode = .loop
+                       present(customMainAlertVC, animated: true)
+        }else {
+            let order = ProfileOrdersVC()
+            order.patient=patient
+            navigationController?.pushViewController(order, animated: true)
+        }
         print(666)
     }
     

@@ -79,7 +79,9 @@ class PatientProfileSservicea {
             MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
             
         }
-        
+     }
+    
+    func getOrdersDoctors()  {
         
     }
 }

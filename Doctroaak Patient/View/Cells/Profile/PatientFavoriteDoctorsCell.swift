@@ -15,9 +15,9 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     
     var doctor:PatientSearchDoctorsModel! {
         didSet{
-            guard let ss = doctor.photo.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
-            let dd = "http"+ss ?? ""
-            guard let url = URL(string: dd) else { return  }
+             let ss = doctor.doctor.photo//.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
+//            let dd = "http"+ss ?? ""
+            guard let url = URL(string: ss) else { return  }
             profileImage.sd_setImage(with: url)
             profileInfoLabel.text = MOLHLanguage.isRTLLanguage() ? doctor.nameAr : doctor.name
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
@@ -29,16 +29,9 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
                 let ratingInt = Int(doctor.reservationRate ?? "0" )
                 img.image = index >= ratingInt ?? 0 ? #imageLiteral(resourceName: "star-1") : #imageLiteral(resourceName: "star")
                 
-                //                bookmarkImage.image =   favorite.contains(aqar.id ) ? #imageLiteral(resourceName: "Group 3923-10") : #imageLiteral(resourceName: "Group 3923s")
+//                                bookmarkImage.image =   favorite.contains(aqar.id ) ? #imageLiteral(resourceName: "Group 3923-10") : #imageLiteral(resourceName: "Group 3923s")
                 
             }
-        }
-    }
-    
-    
-    var isFavorite:Bool!{
-        didSet{
-            bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
         }
     }
     
@@ -47,7 +40,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         let i = UIImageView(backgroundColor: .gray)
         i.constrainWidth(constant: 60)
         i.constrainHeight(constant: 60)
-        i.layer.cornerRadius = 8
+        i.layer.cornerRadius = 30
         i.clipsToBounds = true
         return i
     }()
@@ -111,7 +104,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         return i
     }()
     var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
-    var isBookmark:Bool = false
+    var isFavorite:Bool = false
     
     
     override init(frame: CGRect) {
@@ -204,8 +197,9 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     }
     
     @objc func handleBookmark()  {
-        isBookmark = !isBookmark
-        bookmarkImage.image = isBookmark ? #imageLiteral(resourceName: "Group 3923-10") : #imageLiteral(resourceName: "Group 3923s")
+        
+        isFavorite = !isFavorite
+        bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
         handleBookmarkDoctor?(doctor)
     }
 }

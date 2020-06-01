@@ -23,7 +23,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     
     lazy var nextButton = createButtons(img: #imageLiteral(resourceName: "buttons-square-green"), tags: 0, selector: #selector(handleNext))
     lazy var paymentButton:UIButton = {
-       let b =  UIButton(title: "Payment", titleColor: .white, font: .systemFont(ofSize: 16), backgroundColor: #colorLiteral(red: 0.4701498151, green: 0.200353235, blue: 0.998151958, alpha: 1), target: self, action: #selector(handlePayment))
+        let b =  UIButton(title: "Payment".localized, titleColor: .white, font: .systemFont(ofSize: 16), backgroundColor: #colorLiteral(red: 0.4701498151, green: 0.200353235, blue: 0.998151958, alpha: 1), target: self, action: #selector(handlePayment))
         b.layer.cornerRadius = 8
         b.clipsToBounds = true
         b.constrainHeight(constant: 60)
@@ -31,7 +31,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }()
     lazy var backButton = createButtons(img: #imageLiteral(resourceName: "buttons-square-gray"), tags: 1, selector: #selector(handlback))
     lazy var secondBackButton = createButtons(img: #imageLiteral(resourceName: "buttons-square-grayd"), tags: 1, selector: #selector(handlback))
-
+    
     lazy var bottomStack:UIStackView = {
         let ss = getStack(views: backButton,nextButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         let bottomStack = getStack(views: skipButton,UIView(),ss, spacing: 16, distribution: .fill, axis: .horizontal)
@@ -43,12 +43,11 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     lazy var skipButton = UIButton(title: "Skip", titleColor: .lightGray, font: .systemFont(ofSize: 16), backgroundColor: .white, target: self, action: #selector(handleSkip))
     
     fileprivate let cellID="cellID"
-    fileprivate let pages :[BeforPaymwentModel] = [
-        .init(name: "When I was 5 years old, my mother always told me that happiness was the key to life. When I went to school, they asked me what I wanted to be when I grew up. I wrote down ‘happy’. They told me I didn’t understand the assignment, and I told them they didn’t understand life.", image: #imageLiteral(resourceName: "2663530")),
-        .init(name: "When one door of happiness closes, another opens, but often we look so long at the closed door that we do not see the one that has been opened for us. ", image: #imageLiteral(resourceName: "2427280")),
-        .init(name: "When I was 5 years old, my mother always told me that happiness was the key to life. When I went to school, they asked me what I wanted to be when I grew up. I wrote down ‘happy’. They told me I didn’t understand the assignment, and I told them they didn’t understand life.", image: #imageLiteral(resourceName: "2663530")),
-        .init(name: "When one door of happiness closes, another opens, but often we look so long at the closed door that we do not see the one that has been opened for us. ", image: #imageLiteral(resourceName: "2427280"))
-    ]
+    fileprivate let pagesImages = [#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280"),#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280")]
+    var pages :[String] = [String]()
+    var handleNextOperation:(()->Void)?
+    var handleBackOperation:(()->Void)?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +59,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! BeforePaymentCell
         let page = pages[indexPath.item]
-        
+        cell.splashImageView.image = pagesImages[indexPath.item]
         cell.page = page
         return cell
     }
@@ -80,25 +79,23 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         pageControl.currentPage = Int(x / view.frame.width)
         backButton.image = pageControl.currentPage == 0 ? #imageLiteral(resourceName: "buttons-square-gray") : #imageLiteral(resourceName: "buttons-square-grayd")
         pageControl.currentPage == 3 ? hideOrUnhide(b: true, b2: false) : hideOrUnhide(b: false, b2: true)
-        //           if pageControl.currentPage == pages.count - 1 {
-        //               nextButton.setTitle("Got it", for: .normal)
-        //           }else {
-        //                 nextButton.setTitle("Next", for: .normal)
-        //
-        //           }
         
     }
     
     func setupViews()  {
         
         secondStack.isHide(true)
-//        bottomStack.isHide(true)
-
+        //        bottomStack.isHide(true)
+        
         view.addSubViews(views: pageControl,bottomStack,secondStack)
         
-        pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 32, bottom: 16, right: 0))
+//        pageControl.anchor(top: nil, leading: nil, bottom: nil, trailing: nil)
+//               pageControl.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200).isActive = true
+//               pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 32, bottom: 16, right: 0))
+//        pageControl.centerXInSuperview()
+        pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 0, bottom: 60, right: 0))
         pageControl.centerXInSuperview()
-        
         bottomStack.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 32, bottom: 16, right: 32))
         secondStack.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 32, bottom: 16, right: 32))
     }
@@ -107,7 +104,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .red
         collectionView.register(BeforePaymentCell.self, forCellWithReuseIdentifier: cellID)
         collectionView.isPagingEnabled = true
     }
@@ -123,7 +120,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         return bt
     }
     
-    fileprivate func hideOrUnhide(b:Bool,b2:Bool) {
+     func hideOrUnhide(b:Bool,b2:Bool) {
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.secondStack.isHide(b2)
             self.bottomStack.isHide(b)
@@ -132,28 +129,28 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     @objc  func handleNext() {
-        
+        self.handleNextOperation?()
         if pageControl.currentPage+1 < pages.count-1 {
             let nextIndex = min(pageControl.currentPage + 1, pages.count - 1)
-            
-            
+
+
             let indexPath = IndexPath(item: nextIndex, section: 0)
             pageControl.currentPage = nextIndex
             collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            
+
             backButton.image = pageControl.currentPage == 0 ? #imageLiteral(resourceName: "buttons-square-gray") : #imageLiteral(resourceName: "buttons-square-grayd")
-           
-            
+
+
             if nextIndex == pages.count - 1 {
-                
-                 hideOrUnhide(b: false, b2: true)
-//                return
+
+                hideOrUnhide(b: false, b2: true)
+                //                return
             }
         }else {
             let indexPath = IndexPath(item: 3, section: 0)
 
             pageControl.currentPage = 3
-                       collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             hideOrUnhide(b: true, b2: false)
         }
         
@@ -176,7 +173,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     @objc func handlePayment()  {
-//        let payment = 
+        //        let payment =
         
     }
     
