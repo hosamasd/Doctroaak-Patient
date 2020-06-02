@@ -36,8 +36,8 @@ class CustomPharmacyLocationView: CustomBaseView {
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
         view.didSelectItemWith = {[unowned self] (index, title) in
-                           index == 0 ?    self.openTheseViewsOrHide(isVale: false) : self.openTheseViewsOrHide(isVale: true)
-                           self.pharamacyLocationViewModel.isFirstOpetion = index == 0 ? true : false
+            index == 0 ?    self.openTheseViewsOrHide(isVale: false) : self.openTheseViewsOrHide(isVale: true)
+            self.pharamacyLocationViewModel.isFirstOpetion = index == 0 ? true : false
         }
         return view
     }()
@@ -56,13 +56,14 @@ class CustomPharmacyLocationView: CustomBaseView {
         v.isUserInteractionEnabled = true
         v.contentMode = .scaleAspectFill
         v.constrainWidth(constant: 60)
-        
+        v.isUserInteractionEnabled=true
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+
         return v
     }()
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        //        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
@@ -186,7 +187,6 @@ class CustomPharmacyLocationView: CustomBaseView {
         areaArray.removeAll()
         
         if let areaIdArra = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let areaIdArray = userDefaults.value(forKey: UserDefaultsConstants.areaCityIdsArrays) as? [Int],let areasStringArray =  MOLHLanguage.isRTLLanguage() ? userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] : userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String]  {
-            //            self.areaNumberArray = cityIdArra
             
             let areas = self.cityIDSArray[index]
             
@@ -209,9 +209,9 @@ class CustomPharmacyLocationView: CustomBaseView {
         }
     }
     
-     func fetchData()  {
+    func fetchData()  {
         fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
-       
+        
         
     }
     
@@ -234,7 +234,6 @@ class CustomPharmacyLocationView: CustomBaseView {
         self.cityDrop.optionArray = cityArray
         self.areaDrop.optionArray = areaArray
         self.nameDrop.optionArray=pharamacyNameArray
-        //        self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
         DispatchQueue.main.async {
             self.layoutIfNeeded()
         }
@@ -268,134 +267,3 @@ class CustomPharmacyLocationView: CustomBaseView {
     }
     
 }
-
-
-
-//    lazy var addressMainView:UIView = {
-//        let v = UIView(backgroundColor: .white)
-//        v.addSubViews(views: addressImage,addressLabel)
-//        v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
-//        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
-//
-//        return v
-//    }()
-//    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
-//    lazy var addressImage:UIImageView = {
-//        let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-//        v.isUserInteractionEnabled = true
-//        v.contentMode = .scaleAspectFill
-//        v.constrainWidth(constant: 60)
-//
-//        return v
-//    }()
-//
-//    //    lazy var addressTextField:UITextField = {
-//    //        let s = createMainTextFields(place: "Address", type: .default,secre: true)
-//    //        let img = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
-//    //        img.isUserInteractionEnabled = true
-//    ////        img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
-//    //        img.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(60))
-//    //        s.rightView = img
-//    //        s.rightViewMode = .always
-//    //        return s
-//    //    }()
-//    lazy var delvierySwitch:UISwitch = {
-//        let s = UISwitch()
-//        s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
-//        s.isOn = true
-//        s.tag = 1
-//        s.addTarget(self, action: #selector(handleOpenSwitch), for: .valueChanged)
-//
-//        return s
-//    }()
-//    lazy var deliveryView:UIView = {
-//        let v = UIView(backgroundColor: .white)
-//
-//        v.addSubViews(views: delvierySwitch,deliveryLabel)
-//
-//        return v
-//    }()
-//    lazy var deliveryLabel = UILabel(text: "Delivery", font: .systemFont(ofSize: 20), textColor: .lightGray)
-//    lazy var insuracneView:UIView = {
-//        let v = UIView(backgroundColor: .white)
-//
-//        v.addSubViews(views: insuranceSwitch,insuranceLabel)
-//        return v
-//    }()
-//    lazy var insuranceLabel = UILabel(text: "Insurance company", font: .systemFont(ofSize: 20), textColor: .lightGray)
-//    lazy var insuranceSwitch:UISwitch = {
-//        let s = UISwitch()
-//        s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
-//        s.isOn = true
-//        s.tag = 0
-//        s.addTarget(self, action: #selector(handleOpenSwitch), for: .valueChanged)
-//
-//        return s
-//    }()
-//    lazy var nextButton:UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Next", for: .normal)
-//        button.backgroundColor = ColorConstants.disabledButtonsGray
-//        button.setTitleColor(.black, for: .normal)
-//        button.layer.cornerRadius = 16
-//        button.constrainHeight(constant: 50)
-//        button.clipsToBounds = true
-//        button.isEnabled = false
-//        return button
-//    }()
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        if nextButton.backgroundColor == nil {
-//            addGradientInSenderAndRemoveOther(sender: nextButton)
-//            nextButton.setTitleColor(.white, for: .normal)
-//        }
-//
-//    }
-//
-//    var handlerChooseLocation:(()->Void)?
-//
-//
-//
-//    override func setupViews() {
-//        [addressMainView,insuracneView,deliveryView].forEach { (v) in
-//            v.layer.cornerRadius = 8
-//            v.clipsToBounds = true
-//            v.layer.borderColor = UIColor.gray.cgColor
-//            v.layer.borderWidth = 1
-//            v.constrainHeight(constant: 60)
-//        }
-//        let textStack = getStack(views: addressMainView,insuracneView,deliveryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
-//
-//        insuracneView.hstack(insuranceLabel,insuranceSwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
-//        deliveryView.hstack(deliveryLabel,delvierySwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
-//        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,textStack,nextButton)
-//
-//        NSLayoutConstraint.activate([
-//            textStack.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            textStack.centerYAnchor.constraint(equalTo: centerYAnchor)
-//        ])
-//
-//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-//        backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-//        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-//        soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-//
-//        textStack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
-//        nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-//    }
-//
-//
-//    @objc  func handleOpenLocation()  {
-//           handlerChooseLocation?()
-//       }
-//
-//   @objc func handleOpenSwitch(sender:UISwitch)  {
-//    switch sender.tag {
-//    case 0:
-//        pharamacyLocationViewModel.insuranceCompany = sender.isOn ? 0 : 1
-//    default:
-//        pharamacyLocationViewModel.delivery = sender.isOn ? 0 : 1
-//    }
-//    }
-//}

@@ -1,22 +1,24 @@
 //
-//  CustomCardiologyView.swift
+//  CustomPharamacyResultsView.swift
 //  Doctroaak Patient
 //
-//  Created by hosam on 3/30/20.
+//  Created by hosam on 6/1/20.
 //  Copyright © 2020 hosam. All rights reserved.
 //
 
-
 import UIKit
-class CustomCardiologyDoctorsResultsView: CustomBaseView {
+
+class CustomPharamacyResultsView: CustomBaseView {
     
-        var doctorsArray:[PatientSearchDoctorsModel]! {
+    var pharamacyArrayResults:[PharamacySearchModel]?{
         didSet{
-//            patientFavoriteDoctorsCollectionVC.doctorsArray=doctorsArray
-//                   patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
+            guard let pharamacyArrayResults = pharamacyArrayResults else { return  }
+            self.pharamacyResultsCollectionVC.pharamacyArrayResults=pharamacyArrayResults
+            DispatchQueue.main.async {
+                self.pharamacyResultsCollectionVC.collectionView.reloadData()
+            }
         }
     }
-    
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -30,7 +32,7 @@ class CustomCardiologyDoctorsResultsView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Doctors", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Pharamacy", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)
@@ -39,31 +41,27 @@ class CustomCardiologyDoctorsResultsView: CustomBaseView {
         return v
     }()
     
-    var handleCheckedIndex:((PatientSearchDoctorsModel)->Void)?
-    var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
-
-    lazy var patientFavoriteDoctorsCollectionVC:PatientFavoriteDoctorsCollectionVC = {
-        let vc = PatientFavoriteDoctorsCollectionVC()
-       
-        vc.handleCheckedIndex = {[unowned self] indexPath in
-//            self.handleCheckedIndex?(indexPath)
+    lazy var pharamacyResultsCollectionVC:PharamacyResultsCollectionVC = {
+        let vc = PharamacyResultsCollectionVC()
+        vc.handlePharamacyCheckedIndex = {  [unowned self] index in
+            self.handlePharamacyCheckedIndex?(index)
         }
-        vc.handleBookmarkDoctor = {[unowned self] doctor in
-//            self.handleBookmarkDoctor?(doctor)
-        }
+        
         return vc
     }()
     
+    var handlePharamacyCheckedIndex:((PharamacySearchModel)->Void)?
     
     override func setupViews() {
-        backgroundColor = .white
         
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,patientFavoriteDoctorsCollectionVC.view)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,pharamacyResultsCollectionVC.view)
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         
-        patientFavoriteDoctorsCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 16, right: 32))
+        pharamacyResultsCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 16, right: 32))
     }
+    
+    
 }

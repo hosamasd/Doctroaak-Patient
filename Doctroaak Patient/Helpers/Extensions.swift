@@ -10,12 +10,12 @@
 import UIKit
 extension UIView {
     
-       func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-            let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-            let mask = CAShapeLayer()
-            mask.path = path.cgPath
-            layer.mask = mask
-        }
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
     
     
     func makeMainSubViewWithAppendView(vv:[UIView]) ->UIView {
@@ -25,9 +25,9 @@ extension UIView {
         l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
         l.constrainHeight(constant: 60)
         vv.forEach { (v) in
-             l.addSubViews(views: v)
+            l.addSubViews(views: v)
         }
-       return l
+        return l
     }
     
     func createMain2Buttons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
@@ -65,7 +65,7 @@ extension UIView {
         
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
-
+    
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,index:Int? = 0,lef:UIColor? = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1),right:UIColor? = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1))  {
         
@@ -143,15 +143,15 @@ extension UIView {
     }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
-           
-           let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
-           let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
-           sender.applyGradient(colors: [leftColor,rightColor], index: 0)
-           
-           vv.setTitleColor(.black, for: .normal)
-           removeSublayer(vv, layerIndex:  0)
-           vv.backgroundColor = ColorConstants.disabledButtonsGray
-       }
+        
+        let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
+        let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
+        sender.applyGradient(colors: [leftColor,rightColor], index: 0)
+        
+        vv.setTitleColor(.black, for: .normal)
+        removeSublayer(vv, layerIndex:  0)
+        vv.backgroundColor = ColorConstants.disabledButtonsGray
+    }
     
     // SWIFT 4 update
     func removeSublayer(_ view: UIView, layerIndex index: Int) {

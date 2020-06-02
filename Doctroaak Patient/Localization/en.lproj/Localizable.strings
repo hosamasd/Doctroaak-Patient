@@ -17,3 +17,44 @@
 
 //MainBeforePaymentCollectionVC
 "Payment"="Payment";
+"Skip"="Skip";
+
+//MainPaymentVC
+"Payment"="Payment";
+"Select the payment method"="Select the payment method";
+"You will pay 200 pounds for the/n subscription card"="You will pay 200 pounds for the/n subscription card";
+"Visa card"="Visa card";"Fawry"="Fawry";"Vodafone cash"="Vodafone cash";
+"Enter your phone number :"="Enter your phone number :";
+" Expiration Date"=" Expiration Date";
+"Done"="Done";"Eneter the code :"="Eneter the code :";"Visa number :"="Visa number :";
+"Invalid   Phone"="Invalid   Phone";"Invalid   visa number"="Invalid   visa number";
+"Invalid CVC  visa number"="Invalid CVC  visa number";
+"code must have 6 character"="code must have 6 character";
+
+//WelcomeVC
+"Looding..."="Looding...";"Copyright @"="Copyright @";"Doctoraak "="Doctoraak ";
+
+//SecondWelcomeVC
+"LOGIN"="LOGIN";"SIGN UP"="SIGN UP";
+
+//LoginVC
+"Login..."="Login...";"Hello"="Hello";
+"Sign in to your account"="Sign in to your account";"Phone Number"="Phone Number";"Password"="Password";
+"Forget Password ?"="Forget Password ?";"Don't have an account ? "="Don't have an account ? ";
+"Sign up"="Sign up";
+"Invalid   Phone"="Invalid   Phone";
+"password must have 8 character"="password must have 8 character";
+
+//ForgetPasswordVC
+"Resending password..."="Resending password...";"Please login first"="Please login first";"OK"="OK";
+"Forget"="Forget";"Save"="Save";
+
+//VerificationVC
+"SMS Code is sent again...."="SMS Code is sent again....";"Verification"="Verification";
+"Check your mobile for verification Code"="Check your mobile for verification Code";
+"Please, enter the verification code \n we send to your mobile "="Please, enter the verification code \n we send to your mobile ";
+"Resend again "="Resend again ";"Confirm"="Confirm";
+
+//NewPassVC
+"Saving password..."="Saving password...";"New"="New";"Please Enter your new password"="Please Enter your new password";
+"confirm Password"="confirm Password";

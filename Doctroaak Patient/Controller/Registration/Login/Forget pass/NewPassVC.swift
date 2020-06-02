@@ -15,7 +15,7 @@ class NewPassVC: CustomBaseViewVC {
     
     lazy var customNewPassView:CustomNewPassView = {
         let v = CustomNewPassView()
-       
+        
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         
         v.doneButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
@@ -42,12 +42,12 @@ class NewPassVC: CustomBaseViewVC {
         
         customNewPassView.newPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                                SVProgressHUD.show(withStatus: "Saving password...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Saving password...".localized)
                 
             }else {
-                                SVProgressHUD.dismiss()
-                                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -64,11 +64,10 @@ class NewPassVC: CustomBaseViewVC {
     
     //TODO: -handle methods
     
-   
+    
     
     @objc func handleNext()  {
         
-//        customNewPassView.newPassViewModel.performLogging(completion: <#T##(Error?) -> Void#>)
         
         let login = LoginVC()
         navigationController?.pushViewController(login, animated: true)

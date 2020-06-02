@@ -109,7 +109,7 @@ class ProfileVC: CustomBaseViewVC {
     }
     
     func cachedATA(_ patient:PatienModel)  {
-                cacheObjectCodabe.save(patient)
+        cacheObjectCodabe.save(patient)
         
         //       try? personManager.set(person: patient)
     }
@@ -165,18 +165,25 @@ class ProfileVC: CustomBaseViewVC {
 extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        if let img = info[.originalImage]  as? UIImage   {
+        if var img = info[.originalImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customProfileView.edirProfileViewModel.image = img
             customProfileView.doctorProfileImage.image = img
             customProfileView.edirProfileViewModel.isPhotoEdit=true
         }
-        if let img = info[.editedImage]  as? UIImage   {
+        if var img = info[.editedImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customProfileView.edirProfileViewModel.image = img
             customProfileView.doctorProfileImage.image = img
             customProfileView.edirProfileViewModel.isPhotoEdit=true
             
         }
         
+       
         
         dismiss(animated: true)
     }

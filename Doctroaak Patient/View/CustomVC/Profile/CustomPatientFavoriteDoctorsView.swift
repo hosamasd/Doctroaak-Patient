@@ -29,8 +29,8 @@ class CustomPatientFavoriteDoctorsView: CustomBaseView {
        }()
     lazy var titleLabel = UILabel(text: "Favorite\nDoctor", font: .systemFont(ofSize: 30), textColor: .white,numberOfLines:2)
        
-       lazy var patientFavoriteDoctorsCollectionVC:PatientFavoriteDoctorsCollectionVC = {
-           let v = PatientFavoriteDoctorsCollectionVC()
+       lazy var patientFavoriteDoctorsCollectionVC:PatientFavoritessDoctorsCollectionVC = {
+           let v = PatientFavoritessDoctorsCollectionVC()
            
            return v
        }()

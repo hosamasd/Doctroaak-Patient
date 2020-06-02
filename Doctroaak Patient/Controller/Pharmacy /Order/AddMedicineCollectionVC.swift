@@ -12,8 +12,9 @@ import UIKit
 class AddMedicineCollectionVC: BaseCollectionVC {
     
     fileprivate let cellID = "cellID"
-    var medicineArray = [MedicineAddModel]()
-    
+    var medicineArray = [PharamcyOrderModel]()
+    var handleRemovePharamcay:((PharamcyOrderModel,Int)->Void)?
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return medicineArray.count
@@ -24,6 +25,9 @@ class AddMedicineCollectionVC: BaseCollectionVC {
         let med = medicineArray[indexPath.item]
 //        
         cell.med = med
+        cell.handleRemovePharamcay={[unowned self] (m) in
+            self.handleRemovePharamcay?(m,indexPath.item)
+        }
         return cell
     }
     
@@ -39,4 +43,5 @@ class AddMedicineCollectionVC: BaseCollectionVC {
         collectionView.register(AddMedicineCell.self, forCellWithReuseIdentifier: cellID)
     }
     
+  
 }

@@ -43,12 +43,12 @@ class CustomAlertLoginView: CustomBaseView {
         im.addSubview(problemsView)
            return im
        }()
-    lazy var discriptionInfoLabel = UILabel(text: "Please login first", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center)
+    lazy var discriptionInfoLabel = UILabel(text: "Please login first".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center)
    
        
        
        lazy var okButton:UIButton = {
-        let bt = UIButton(title: "OK", titleColor: .white, font: .systemFont(ofSize: 16), backgroundColor: #colorLiteral(red: 0.7090973854, green: 0.5211717486, blue: 0.9973145127, alpha: 1), target: self, action: #selector(handleOk))
+        let bt = UIButton(title: "OK".localized, titleColor: .white, font: .systemFont(ofSize: 16), backgroundColor: #colorLiteral(red: 0.7090973854, green: 0.5211717486, blue: 0.9973145127, alpha: 1), target: self, action: #selector(handleOk))
            bt.constrainHeight(constant: 40)
            return bt
        }()

@@ -27,13 +27,17 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     lazy var customPharmacyOrderView:CustomSecondPharmacyOrderView = {
         let v = CustomSecondPharmacyOrderView()
-//        v.api_token=self.api_token
-//        v.patient_id=self.patient_id
+        //        v.api_token=self.api_token
+        //        v.patient_id=self.patient_id
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
             self.hideOrUndie(index: index)
+        }
+        v.handleRemovePharamcay={[unowned self] pharamacy,index in
+            
+            self.removePharamacy(pharamacy,index)
         }
         return v
     }()
@@ -54,32 +58,32 @@ class PharmacyOrderVC: CustomBaseViewVC {
     }()
     
     var patient:PatienModel?{
-               didSet{
-                   guard let patient = patient else { return  }
-                   customPharmacyOrderView.patient=patient
-               }
-           }
+        didSet{
+            guard let patient = patient else { return  }
+            customPharmacyOrderView.patient=patient
+        }
+    }
     var  api_token:String?
     var  patient_id:Int?
     var bubleViewHeightConstraint:NSLayoutConstraint!
-    fileprivate let latt:Double!
-    fileprivate let long:Double!
     
-    fileprivate let insurance:Int!
-    fileprivate let delivery:Int!
+    var latt:Double!
+    var long:Double!
     
-    init(latt:Double,lon:Double,insurance:Int,delivery:Int) {
-        self.delivery=delivery
-        self.insurance=insurance
-        self.latt=latt
-        self.long=lon
-        super.init(nibName: nil, bundle: nil)
+    var insurance:Int!
+    var delivery:Int!
+    
+    //    fileprivate let latt:Double!
+    //    fileprivate let long:Double!
+    //
+    //    fileprivate let insurance:Int!
+    var pharmacy_id:Int?{
+        didSet{
+            guard let pharmacy_id = pharmacy_id else { return  }
+
+            customPharmacyOrderView.pharmacy_id=pharmacy_id
+        }
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
@@ -92,21 +96,23 @@ class PharmacyOrderVC: CustomBaseViewVC {
         guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
         patient_id=id
         api_token=api
+//        customPharmacyOrderView.orderSegmentedView.selectItemAt(index: 0)
+//        self.view.layoutSubviews()
     }
     
     
     
     //MARK:-User methods
     
-    func check()  {
-        let order:[PharamcyOrderModel] = [PharamcyOrderModel(medicineID: 1, medicineTypeID: 1, amount: 1),
-                                          .init(medicineID: 1, medicineTypeID: 1, amount: 1)
-        ]
-        
-        OrdserBookSerivce.shared.postBookPharamacyResults(photo: #imageLiteral(resourceName: "star-1"), patient_id: 50, insurance: 0, delivery: 0,latt: 29.970245729247,lang: 29.970245729247,orderDetails: order, notes: "", api_token: "BrieOhmeR8CqML2RqBQDtXZWETE") { (base, err) in
-            print(err)
-        }
-    }
+//    func check()  {
+//        let order:[PharamcyOrderModel] = [PharamcyOrderModel(medicineID: 1, medicineTypeID: 1, amount: 1),
+//                                          .init(medicineID: 1, medicineTypeID: 1, amount: 1)
+//        ]
+//
+//        OrdserBookSerivce.shared.postBookPharamacyResults(photo: #imageLiteral(resourceName: "star-1"), patient_id: 50, insurance: 0, delivery: 0,latt: 29.970245729247,lang: 29.970245729247,orderDetails: order, notes: "", api_token: "BrieOhmeR8CqML2RqBQDtXZWETE") { (base, err) in
+//            print(err)
+//        }
+//    }
     
     func hideOrUndie(index:Int)  {
         self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = index == 0 ? true : false
@@ -116,8 +122,9 @@ class PharmacyOrderVC: CustomBaseViewVC {
             self.customPharmacyOrderView.secondStack.isHide(index == 0 ? true : false)
             self.customPharmacyOrderView.orLabel.isHide(index == 2 ? false :  true)
             self.customPharmacyOrderView.firstStack.isHide(index == 1 ? true : false)
-            self.bubleViewHeightConstraint.constant = index == 0 ? 900 : index == 1 ? 900 : 1300
-            
+            self.bubleViewHeightConstraint.constant = index == 0 ? 900 : index == 1 ? 900 : 1500
+            self.customPharmacyOrderView.textView.isHide(index == 2 ? false : true)
+
         })
     }
     
@@ -243,6 +250,17 @@ class PharmacyOrderVC: CustomBaseViewVC {
         dismiss(animated: true, completion: nil)
     }
     
+    func removePharamacy(_ ph:PharamcyOrderModel,_ index:Int) {
+        customPharmacyOrderView.addMedicineCollectionVC.medicineArray.remove(at: index)
+        customPharmacyOrderView.pharamacyOrderViewModel.orderDetails?.remove(at: index)
+        let indexxx = IndexPath(item: index, section: 0)
+        
+        customPharmacyOrderView.addMedicineCollectionVC.collectionView.deleteItems(at: [indexxx])
+        DispatchQueue.main.async {
+            self.customPharmacyOrderView.addMedicineCollectionVC.collectionView.reloadData()
+        }
+    }
+    
     func handleremoveLoginAlert()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
         customMainAlertVC.dismiss(animated: true)
@@ -265,17 +283,28 @@ extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControll
     }
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        if let img = info[.originalImage]  as? UIImage   {
+        if var img = info[.originalImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
+
             customPharmacyOrderView.pharamacyOrderViewModel.image = img
             customPharmacyOrderView.rosetaImageView.image = img
         }
-        if let img = info[.editedImage]  as? UIImage   {
+        if var img = info[.editedImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             
             customPharmacyOrderView.rosetaImageView.image = img
             customPharmacyOrderView.pharamacyOrderViewModel.image = img
             
             //            putDefaultViewModel(img)
         }
+        if let url = info[.imageURL] as? URL {
+                          let fileName = url.lastPathComponent
+            customPharmacyOrderView.uploadLabel.text = fileName
+                      }
         
         //        hideOtherData()
         dismiss(animated: true)
@@ -294,9 +323,9 @@ extension PharmacyOrderVC:LoginVCPrototcol {
     func useApiAndPatienId(patient: PatienModel) {
         
     }
-//    func useApiAndPatienId(api: String, patient: Int) {
-//        api_token = api
-//        patient_id=patient
-//        handleBook()
-//    }
+    //    func useApiAndPatienId(api: String, patient: Int) {
+    //        api_token = api
+    //        patient_id=patient
+    //        handleBook()
+    //    }
 }

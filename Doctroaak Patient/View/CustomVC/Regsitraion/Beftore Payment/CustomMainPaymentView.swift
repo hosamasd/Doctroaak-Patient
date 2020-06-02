@@ -26,8 +26,8 @@ class CustomMainPaymentView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Payment", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Select the payment method", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Payment".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Select the payment method".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var vodafoneImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Vodafone_Sim_Card"))
@@ -64,10 +64,10 @@ class CustomMainPaymentView: CustomBaseView {
         return i
     }()
     
-    lazy var chooseTitleLabel = UILabel(text: "You will pay 250 pounds for the/n subscription card", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 2)
+    lazy var chooseTitleLabel = UILabel(text: "You will pay 200 pounds for the/n subscription card".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 2)
     lazy var bookSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
-        view.itemTitles = ["Vodafone cash","Fawry","Visa card"]
+        view.itemTitles = ["Vodafone cash".localized,"Fawry".localized,"Visa card".localized]
         view.allowChangeThumbWidth = false
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
@@ -83,7 +83,7 @@ class CustomMainPaymentView: CustomBaseView {
         }
         return view
     }()
-    lazy var choosePayLabel = UILabel(text: "Enter your phone number :", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
+    lazy var choosePayLabel = UILabel(text: "Enter your phone number :".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var numberTextField:UITextField = {
         let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .default,secre: true)
@@ -130,7 +130,7 @@ class CustomMainPaymentView: CustomBaseView {
     }()
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Done", for: .normal)
+        button.setTitle("Done".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
@@ -200,7 +200,7 @@ class CustomMainPaymentView: CustomBaseView {
         rightImage.image = tag == 0 ? #imageLiteral(resourceName: "Rectangle 1724_22") : #imageLiteral(resourceName: "Rectangle 1724-1")
         leftImage.image = tag == 2 ? #imageLiteral(resourceName: "Rectangle 1724_22") : #imageLiteral(resourceName: "Rectangle 1724")
         
-        choosePayLabel.text = tag == 0 ? "Enter your phone number :" : tag == 1 ? "Eneter the code :" : "Visa number :"
+        choosePayLabel.text = tag == 0 ? "Enter your phone number :".localized : tag == 1 ? "Eneter the code :".localized : "Visa number :".localized
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.rightImage.alpha = tag == 0 ? 1 :  tag == 1 ?  1 : 0
             self.leftImage.alpha = tag == 0 ? 0 : 1

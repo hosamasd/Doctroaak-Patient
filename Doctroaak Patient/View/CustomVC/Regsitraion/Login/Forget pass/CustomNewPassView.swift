@@ -25,12 +25,12 @@ class CustomNewPassView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "New", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Password", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var choosePayLabel = UILabel(text: "Please Enter your new password", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
+    lazy var titleLabel = UILabel(text: "New".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Password".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var choosePayLabel = UILabel(text: "Please Enter your new password".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var passwordTextField:UITextField = {
-        let s = createMainTextFields(place: "Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -41,7 +41,7 @@ class CustomNewPassView: CustomBaseView {
         return s
     }()
     lazy var confirmPasswordTextField:UITextField = {
-        let s = createMainTextFields(place: "confirm Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -53,7 +53,7 @@ class CustomNewPassView: CustomBaseView {
     }()
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Done", for: .normal)
+        button.setTitle("Done".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16

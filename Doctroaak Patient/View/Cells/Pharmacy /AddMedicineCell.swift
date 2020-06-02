@@ -10,13 +10,14 @@ import UIKit
 
 class AddMedicineCell: BaseCollectionCell {
     
-    var med:MedicineAddModel!{
+    var med:PharamcyOrderModel!{
         didSet{
-            nameLabel.text = med.name
-            typeLabel.text = med.type
-            countLabel.text = "\(med.count)"
+            nameLabel.text = getNameFromIndex(med.medicineID)
+            typeLabel.text = getTypeFromIndex(med.medicineTypeID)
+            countLabel.text = "\(med.amount)"
         }
     }
+    
     
     
     lazy var nameLabel = UILabel(text: "Name", font: .systemFont(ofSize: 20), textColor: .black,textAlignment: .left)
@@ -36,6 +37,8 @@ class AddMedicineCell: BaseCollectionCell {
         //        i.constrainWidth(constant: 80)
         i.constrainWidth(constant: 30)
         i.isUserInteractionEnabled = true
+        i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemove)))
+
         return i
     }()
     lazy var seperatorView:UIView = {
@@ -43,6 +46,8 @@ class AddMedicineCell: BaseCollectionCell {
         v.constrainHeight(constant: 1)
         return v
     }()
+    var handleRemovePharamcay:((PharamcyOrderModel)->Void)?
+
     
     override func setupViews() {
         backgroundColor = .white
@@ -51,4 +56,54 @@ class AddMedicineCell: BaseCollectionCell {
         addSubview(seperatorView)
         seperatorView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 8, bottom: 0, right: 0))
     }
+    
+    func getNameFromIndex(_ index:Int) -> String {
+           var citName = [String]()
+           var cityId = [Int]()
+           
+           if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.medicineNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.medicineNameIDSArray) as? [Int]{
+               
+               citName = cityArray
+               cityId = cityIds
+               
+               
+               
+           }else {
+               if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.medicineNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.medicineNameIDSArray) as? [Int] {
+                   citName = cityArray
+                   cityId = cityIds
+               }
+           }
+           let ss = cityId.filter{$0 == index}
+           let ff = ss.first ?? 1
+           
+           return citName[ff - 1 ]
+       }
+    
+    func getTypeFromIndex(_ index:Int) -> String {
+        var citName = [String]()
+        var cityId = [Int]()
+        
+        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.medicineTypeArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.medicineTypeIDSArray) as? [Int]{
+            
+            citName = cityArray
+            cityId = cityIds
+            
+            
+            
+        }else {
+            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.medicineTypeArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.medicineTypeIDSArray) as? [Int] {
+                citName = cityArray
+                cityId = cityIds
+            }
+        }
+        let ss = cityId.filter{$0 == index}
+        let ff = ss.first ?? 1
+        
+        return citName[ff - 1 ]
+    }
+    
+    @objc func handleRemove()  {
+             handleRemovePharamcay?(med)
+         }
 }

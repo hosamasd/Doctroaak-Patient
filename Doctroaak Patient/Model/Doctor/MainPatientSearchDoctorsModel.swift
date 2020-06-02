@@ -29,9 +29,9 @@ struct PatientSearchDoctorsModel:Codable {
     let availableDays: Int
     let createdAt, updatedAt: String
     var availabilityDate: String?
-    let name: String
+    let name,gender: String
     var nameAr, nameFr: String?
-    let gender, smsCode, apiToken: String
+    let  smsCode, apiToken: String
     let firebaseToken: String?
     let email, password: String
     let specializationID: Int
@@ -115,8 +115,8 @@ struct DoctorModel:Codable {
     
     let id: Int
     let name: String
-    var nameAr, nameFr: String?
-    let gender, phone, smsCode, apiToken: String
+    var gender,nameAr, nameFr: String?
+    let  phone, smsCode, apiToken: String
     let firebaseToken: String?
     let email, password: String
     let active, specializationID: Int
@@ -125,7 +125,7 @@ struct DoctorModel:Codable {
     let cv: String
     let cv2: String
     let photo: String
-    var reservationRate, degreeRate: Int?
+    var reservationRate, degreeRate: String?
     let createdAt, updatedAt: String
     let isHospital: Int
     var doctorDescription: String?

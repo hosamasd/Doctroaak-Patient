@@ -13,13 +13,16 @@ class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
     fileprivate let cellId = "cellId"
     var handleCheckedIndex:((PatientSearchDoctorsModel)->Void)?
     var doctorsArray:[PatientSearchDoctorsModel] = [PatientSearchDoctorsModel]()
+//    var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
     var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
+
     var isFavorite:Bool = false
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return doctorsArray.count
-    }
+        collectionView.noDataFound(doctorsArray.count, text: "No Favorite Doctor Added Yet".localized)
+           return doctorsArray.count
+       }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PatientFavoriteDoctorsCell

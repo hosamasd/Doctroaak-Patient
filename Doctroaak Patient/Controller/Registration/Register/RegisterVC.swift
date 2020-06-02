@@ -91,17 +91,17 @@ class RegisterVC: CustomBaseViewVC {
         userDefaults.synchronize()
         goToNext(user_id)
     }
-
+    
     func goToNext(_ user_id:Int)  {
         let verify = VerificationVC(user_id: user_id, isFromForget: false)
-                  navigationController?.pushViewController(verify, animated: true)
-         }
+        navigationController?.pushViewController(verify, animated: true)
+    }
     
-   @objc func createAlertForChoposingImage()  {
+    @objc func createAlertForChoposingImage()  {
         let alert = UIAlertController(title: "Choose Image", message: "Choose image fROM ", preferredStyle: .alert)
         let camera = UIAlertAction(title: "Camera", style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .camera)
-
+            
         }
         let gallery = UIAlertAction(title: "Open From Gallery", style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
@@ -145,7 +145,7 @@ class RegisterVC: CustomBaseViewVC {
             }
         }
         
-       
+        
     }
     
 }
@@ -157,11 +157,17 @@ class RegisterVC: CustomBaseViewVC {
 extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        if let img = info[.originalImage]  as? UIImage   {
+        if var img = info[.originalImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customRegisterView.registerViewModel.image = img
             customRegisterView.userProfileImage.image = img
         }
-        if let img = info[.editedImage]  as? UIImage   {
+        if var img = info[.editedImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customRegisterView.registerViewModel.image = img
             customRegisterView.userProfileImage.image = img
         }

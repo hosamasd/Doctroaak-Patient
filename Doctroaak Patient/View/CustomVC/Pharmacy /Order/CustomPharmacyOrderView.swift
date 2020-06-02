@@ -64,10 +64,11 @@ class CustomPharmacyOrderView: CustomBaseView {
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
+//        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, index, _) in
+//            self.selectedName=self.pha
 //            self.pharamacyOrderViewModel.name = txt
         }
         return i
@@ -147,7 +148,10 @@ class CustomPharmacyOrderView: CustomBaseView {
     var  patient_id:Int?
     var  insurance:Int?
     var  delivery:Int?
-    
+    var selectedName:Int = 1
+    var selectedTypee:String = ""
+    var selectedCount:Int = 1
+
     var constainedLogoAnchor:AnchoredConstraints!
     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
     var bubleViewCenterImgHeightConstraint:NSLayoutConstraint!
@@ -240,6 +244,19 @@ class CustomPharmacyOrderView: CustomBaseView {
     }
     
     @objc  func handleAddMore()  {
+        
+//        guard let name = pharamacyOrderViewModel. else {print("all fields required"); return  }
+//               let order = RadiologyOrderModel(raysID: name)
+//               addLapCollectionVC.medicineArray.append(order)
+//
+//
+//               DispatchQueue.main.async {
+//                   self.addLapCollectionVC.collectionView.reloadData()
+//                   self.laPOrderViewModel.orderDetails = self.addLapCollectionVC.medicineArray
+//               }    }
+//
+//    let type = PharamcyOrderModel(medicineID: <#T##Int#>, medicineTypeID: <#T##Int#>, amount: <#T##Int#>)
+    
         let type = PharamcyOrderModel(medicineID: 1, medicineTypeID: 1, amount: 1)
         
 //        guard let type = pharamacyOrderViewModel.api_token,let name = pharamacyOrderViewModel.name,let count = pharamacyOrderViewModel.quantity?.toInt() else {print("all fields required"); return  }

@@ -21,6 +21,14 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         }
     }
     
+    var pharmacy_id:Int?{
+        didSet{
+            guard let pharmacy_id = pharmacy_id else { return  }
+            pharamacyOrderViewModel.pharmacy_id=pharmacy_id
+        }
+    }
+    
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -39,7 +47,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     lazy var orderSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
         view.itemTitles = ["prescription","Request a medicine","All"]
-        
+//        view.selectItemAt(index: 2)
         view.allowChangeThumbWidth = true
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
@@ -100,7 +108,6 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     }()
     lazy var typeDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Type".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
@@ -112,16 +119,18 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     lazy var customAddMinusView:CustomAddMinusView = {
         let v = CustomAddMinusView()
         v.handleAddClousre = {[unowned self] count in
-            //            self.pharamacyOrderViewModel.quantity = "\(count)"
+            self.medicineCount += 1
         }
         v.handleMinusClousre = {[unowned self] count in
-            //            self.pharamacyOrderViewModel.quantity = "\(count)"
+            self.medicineCount = max(0, self.medicineCount-1)
         }
         return v
     } ()
     lazy var addMedicineCollectionVC:AddMedicineCollectionVC = {
         let vc = AddMedicineCollectionVC()
-        //        vc.view.constrainHeight(constant: 300)
+        vc.handleRemovePharamcay={[unowned self] m,index in
+            self.handleRemovePharamcay?(m,index)
+        }        //        vc.view.constrainHeight(constant: 300)
         //        vc.view.isHide(true)
         return vc
     }()
@@ -164,21 +173,57 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
+    var handleRemovePharamcay:((PharamcyOrderModel,Int)->Void)?
     
     let pharamacyOrderViewModel = PharamacyOrderViewModel()
     var medicineNameArray = [String]()
     var mdeicineTypeArray = [String]()
     var medicineNameChosen = 0
     var medicineTypeChosen = 0
-//    var  api_token:String?{didSet{pharamacyOrderViewModel.api_token=api_token} }
-//    var  patient_id:Int?{didSet{pharamacyOrderViewModel.patient_id=patient_id}}
+    var medicineCount = 0
+    lazy var textView:UITextView = {
+           let tx = UITextView()
+           tx.backgroundColor = #colorLiteral(red: 0.9180622697, green: 0.918194294, blue: 0.918033421, alpha: 1)
+           tx.isScrollEnabled = false
+           tx.font = UIFont.systemFont(ofSize: 16)
+           tx.delegate = self
+           tx.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        tx.isHide(true)
+        tx.constrainHeight(constant: 150)
+           return tx
+       }()
+       lazy var placeHolderLabel = UILabel(text: "Enter Notes (OPTIONAL)".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
+    //    var  api_token:String?{didSet{pharamacyOrderViewModel.api_token=api_token} }
+    //    var  patient_id:Int?{didSet{pharamacyOrderViewModel.patient_id=patient_id}}
     
     var medicineNameIDSArray = [Int]()
     var mdeicineTypeIDSArray = [Int]()
     override init(frame: CGRect) {
         super.init(frame: frame)
         fetchData()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTextChanged), name: UITextView.textDidChangeNotification, object: nil)
+
     }
+    
+    override func layoutSubviews() {
+           super.layoutSubviews()
+           setup()
+       }
+       func setup() {
+        textView.textContainerInset = .init(top: 16, left: 16, bottom: 0, right: 0)
+       }
+    
+    @objc  func handleTextChanged()  {
+           placeHolderLabel.isHidden = textView.text.count != 0
+           
+       }
+       
+       deinit {
+           NotificationCenter.default.removeObserver(self) //for avoiding retain cycle
+       }
+    override var intrinsicContentSize: CGSize{
+           return .zero
+       }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -226,39 +271,50 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         main2DropView.hstack(typeDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         
-        let mainStacxk = getStack(views: firstStack,orLabel,secondStack,UIView(), spacing: 16, distribution: .fillProportionally, axis: .vertical)
+        let mainStacxk = getStack(views: firstStack,orLabel,secondStack,textView, spacing: 16, distribution: .fill, axis: .vertical)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
         
+        textView.hstack(placeHolderLabel).withMargins(.init(top: 16, left: 16, bottom: 0, right: 0))
+                
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -80, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        
-        
-        
-        
         orderSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
-        mainStacxk.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 24, left: 46, bottom: 32, right: 32))
-        
+        mainStacxk.anchor(top: orderSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nextButton.topAnchor, trailing: trailingAnchor,padding: .init(top: 24, left: 46, bottom: 32, right: 32))
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
     
     @objc  func handleAddMore()  {
-        let type = PharamcyOrderModel(medicineID: 1, medicineTypeID: 1, amount: 1)
+        let type = PharamcyOrderModel(medicineID: medicineNameChosen, medicineTypeID: medicineTypeChosen, amount: medicineCount)
+        self.addMedicineCollectionVC.medicineArray.append(type)
         DispatchQueue.main.async {
-            self.addMedicineCollectionVC.view.isHide(false)
+            
+            //            self.addMedicineCollectionVC.view.isHide(false)
+            //            self.addMedicineCollectionVC.medicineArray.append(type)
+            
             self.addMedicineCollectionVC.collectionView.reloadData()
+            self.pharamacyOrderViewModel.orderDetails = self.addMedicineCollectionVC.medicineArray
+            
         }
-        //            guard let name = pharamacyOrderViewModel.name else {print("all fields required"); return  }
-        //            //       let model = MedicineModel(name: name, type: type, count: count)
-        //            addLapCollectionVC.medicineArray.append(name)
-        //            DispatchQueue.main.async {
-        //                self.addLapCollectionVC.collectionView.reloadData()
-        //            }
-        
         
     }
+    
+}
+
+extension CustomSecondPharmacyOrderView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let spacing = CharacterSet.whitespacesAndNewlines
+        if !textView.text.trimmingCharacters(in: spacing).isEmpty {
+            
+            
+        }else {
+            pharamacyOrderViewModel.notes = textView.text
+        }
+    }
+    
     
 }

@@ -25,12 +25,12 @@ class CustomLoginsView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Hello", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Sign in to your account", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Hello".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Sign in to your account".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
-    lazy var phoneNumberTextField = createMainTextFields(place: "Phone Number", type: .numberPad)
+    lazy var phoneNumberTextField = createMainTextFields(place: "Phone Number".localized, type: .numberPad)
     lazy var passwordTextField:UITextField = {
-        let s = createMainTextFields(place: "Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -43,7 +43,7 @@ class CustomLoginsView: CustomBaseView {
     lazy var forgetPasswordButton:UIButton = {
         let b = UIButton()
         b.setTitle("Forget Password ?".localized, for: .normal)
-//        let c:UIColor = #colorLiteral(red: 0.7632597089, green: 0.6074588299, blue: 0.9954382777, alpha: 1)
+        //        let c:UIColor = #colorLiteral(red: 0.7632597089, green: 0.6074588299, blue: 0.9954382777, alpha: 1)
         b.setTitleColor(#colorLiteral(red: 0.7632597089, green: 0.6074588299, blue: 0.9954382777, alpha: 1), for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         b.backgroundColor = .clear
@@ -54,7 +54,7 @@ class CustomLoginsView: CustomBaseView {
     
     lazy var loginButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("LOGIN", for: .normal)
+        button.setTitle("LOGIN".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
@@ -62,7 +62,7 @@ class CustomLoginsView: CustomBaseView {
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
         button.isEnabled = false
-
+        
         return button
     }()
     lazy var createAccountLabel = UILabel(text: "Don't have an account ? ".localized, font: .systemFont(ofSize: 16), textColor: .black)
@@ -75,7 +75,7 @@ class CustomLoginsView: CustomBaseView {
         return b
     }()
     let loginViewModel = LoginViewModel()
-
+    
     
     
     override func setupViews() {
@@ -92,7 +92,7 @@ class CustomLoginsView: CustomBaseView {
             subStack.centerYAnchor.constraint(equalTo: centerYAnchor,constant: 60),
             createStack.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0)
             
-            ])
+        ])
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 20, left: 16, bottom: 0, right: 0))
@@ -108,30 +108,30 @@ class CustomLoginsView: CustomBaseView {
     }
     
     @objc func textFieldDidChange(text: UITextField)  {
-           guard let texts = text.text else { return  }
-           if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-               if text == phoneNumberTextField {
-                   if  !texts.isValidPhoneNumber    {
-                       floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                       loginViewModel.phone = nil
-                   }
-                   else {
-                       floatingLabelTextField.errorMessage = ""
-                       loginViewModel.phone = texts
-                   }
-                   
-               }else
-                   if(texts.count < 8 ) {
-                       floatingLabelTextField.errorMessage = "password must have 8 character".localized
-                       loginViewModel.password = nil
-                   }
-                   else {
-                       floatingLabelTextField.errorMessage = ""
-                       loginViewModel.password = texts
-                       
-               }
-           }
-       }
+        guard let texts = text.text else { return  }
+        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+            if text == phoneNumberTextField {
+                if  !texts.isValidPhoneNumber    {
+                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                    loginViewModel.phone = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    loginViewModel.phone = texts
+                }
+                
+            }else
+                if(texts.count < 8 ) {
+                    floatingLabelTextField.errorMessage = "password must have 8 character".localized
+                    loginViewModel.password = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    loginViewModel.password = texts
+                    
+            }
+        }
+    }
     
     @objc func handleASD()  {
         passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry

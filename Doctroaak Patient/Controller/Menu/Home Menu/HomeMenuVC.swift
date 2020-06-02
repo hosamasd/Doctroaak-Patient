@@ -187,7 +187,8 @@ class HomeMenuVC: CustomBaseViewVC {
             customAlertLoginView.problemsView.loopMode = .loop
             present(customMainAlertVC, animated: true)
         }else {
-            let favorite = PatientFavoriteDoctorsVC()
+            guard let token = patient?.apiToken,let id=patient?.id else { return  }
+            let favorite = PatientFavoriteDoctorsVC(token: token, id: id)
             navigationController?.pushViewController(favorite,animated:true)
         }
     }

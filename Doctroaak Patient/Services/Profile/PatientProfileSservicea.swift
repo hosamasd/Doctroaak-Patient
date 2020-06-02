@@ -79,7 +79,22 @@ class PatientProfileSservicea {
             MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
             
         }
-     }
+    }
+    
+    func favoriteDoctors(patient_id:Int,doctor_id:Int,api_token:String,completion: @escaping (MainAddFavoriteModel?, Error?) ->Void)  {
+        let nnn = "patient/favourite_doctor"
+        let urlString = "\(baseUrl)\(nnn)".toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "patient_id=\(patient_id)&doctor_id=\(doctor_id)&api_token=\(api_token)" // old_password is smscode
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
+    func getPatientFavoriteDocotrs(patient_id:Int,api_token:String,completion: @escaping (MainPatientFavoriteModel?, Error?) ->Void)  {
+        let urlString =  "\(baseUrl)patient/favourite/list?api_token=\(api_token)&patient_id=\(patient_id)".toSecrueHttps()
+
+        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+        
+    }
     
     func getOrdersDoctors()  {
         

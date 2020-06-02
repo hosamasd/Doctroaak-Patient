@@ -8,6 +8,7 @@
 
 
 import UIKit
+import SVProgressHUD
 
 class MainPaymentVC: CustomBaseViewVC {
     

@@ -20,8 +20,8 @@ class CustomSecondWelcomeView: CustomBaseView {
         i.contentMode = .scaleAspectFill
         return i
     }()
-    lazy var loginButton = createButtons(texzt: "LOGIN")
-    lazy var registerButton = createButtons(texzt: "SIGN UP")
+    lazy var loginButton = createButtons(texzt: "LOGIN".localized)
+    lazy var registerButton = createButtons(texzt: "SIGN UP".localized)
     
     override func setupViews() {
         let ss = getStack(views: loginButton,registerButton, spacing: 8, distribution: .fillEqually, axis: .vertical)

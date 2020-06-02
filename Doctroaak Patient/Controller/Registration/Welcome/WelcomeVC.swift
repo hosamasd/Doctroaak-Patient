@@ -99,7 +99,7 @@ class WelcomeVC: CustomBaseViewVC {
 //        var groupL :[MedicineModel]?
         var groupPY :[PharamacyNameModel]?
         
-        SVProgressHUD.show(withStatus: "Looding....".localized)
+        SVProgressHUD.show(withStatus: "Looding...".localized)
         let semaphore = DispatchSemaphore(value: 0)
         
         let dispatchQueue = DispatchQueue.global(qos: .background)
@@ -191,7 +191,7 @@ class WelcomeVC: CustomBaseViewVC {
         var groupPayment :[[String]]?
         
         
-        SVProgressHUD.show(withStatus: "Looding....".localized)
+        SVProgressHUD.show(withStatus: "Looding...".localized)
         let semaphore = DispatchSemaphore(value: 0)
         
         let dispatchQueue = DispatchQueue.global(qos: .background)

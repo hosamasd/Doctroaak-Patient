@@ -36,6 +36,7 @@ class AddLAPCell: BaseCollectionCell {
         //        i.constrainWidth(constant: 80)
         i.constrainWidth(constant: 30)
         i.isUserInteractionEnabled = true
+        i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemove)))
         return i
     }()
     lazy var seperatorView:UIView = {
@@ -43,6 +44,8 @@ class AddLAPCell: BaseCollectionCell {
         v.constrainHeight(constant: 1)
         return v
     }()
+    var handleRemoveItem:((RadiologyOrderModel)->Void)?
+    
     
     override func setupViews() {
         backgroundColor = .white
@@ -83,4 +86,8 @@ class AddLAPCell: BaseCollectionCell {
          }
         
     }
+    
+    @objc func handleRemove()  {
+           handleRemoveItem?(med)
+       }
 }

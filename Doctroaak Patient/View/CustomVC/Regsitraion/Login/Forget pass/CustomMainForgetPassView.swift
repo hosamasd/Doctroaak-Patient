@@ -26,9 +26,9 @@ class CustomForgetPassView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Forget", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Password", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var choosePayLabel = UILabel(text: "Enter your phone number :", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
+    lazy var titleLabel = UILabel(text: "Forget".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Password".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var choosePayLabel = UILabel(text: "Enter your phone number :".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var numberTextField:UITextField = {
         let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .phonePad)
@@ -43,7 +43,7 @@ class CustomForgetPassView: CustomBaseView {
     }()
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Save", for: .normal)
+        button.setTitle("Save".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16

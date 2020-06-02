@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import SVProgressHUD
+import MOLH
 
 class PharmacyLocationVC: CustomBaseViewVC {
     
@@ -64,12 +65,12 @@ class PharmacyLocationVC: CustomBaseViewVC {
         
         customPharmacyLocationView.pharamacyLocationViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Searching...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                                SVProgressHUD.dismiss()
+                                self.activeViewsIfNoData()
             }
         })
     }
@@ -108,6 +109,14 @@ class PharmacyLocationVC: CustomBaseViewVC {
         
     }
     
+    func goToNext(_ patient:[PharamacySearchModel])  {
+           let details = PharamacySearchResultsVC()
+           details.apiToken=apiToken
+           details.patientId=patientId
+        details.pharamacyArrayResults=patient
+           navigationController?.pushViewController(details, animated: true)
+       }
+    
     //TODO: -handle methods
     
     
@@ -116,12 +125,27 @@ class PharmacyLocationVC: CustomBaseViewVC {
     }
     
     @objc  func handleNext()  {
-        customPharmacyLocationView.pharamacyLocationViewModel.performLogging {[unowned self] (la, lng, delivery, insurance) in
-            let order = PharmacyOrderVC(latt: la, lon: lng, insurance: insurance, delivery: delivery)
-            order.api_token=self.apiToken
-            order.patient_id=self.patientId
-            self.navigationController?.pushViewController(order, animated: true)
+        
+        customPharmacyLocationView.pharamacyLocationViewModel.performSearching { (base, err) in
+            
+        if let err = err {
+                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+                       self.activeViewsIfNoData();return
+                   }
+                   SVProgressHUD.dismiss()
+                   self.activeViewsIfNoData()
+                   guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+                   
+                   DispatchQueue.main.async {
+                       self.goToNext(user)
+                   }
         }
+//        customPharmacyLocationView.pharamacyLocationViewModel.performLogging {[unowned self] (la, lng, delivery, insurance) in
+//            let order = PharmacyOrderVC(latt: la, lon: lng, insurance: insurance, delivery: delivery)
+//            order.api_token=self.apiToken
+//            order.patient_id=self.patientId
+//            self.navigationController?.pushViewController(order, animated: true)
+//        }
         
     }
     

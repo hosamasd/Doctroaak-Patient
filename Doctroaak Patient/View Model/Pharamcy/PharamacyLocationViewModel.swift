@@ -20,8 +20,8 @@ class PharamacyLocationViewModel {
     var area:Int? = -1 {didSet {checkFormValidity()}}
     var insuranceCompany:Int? = 0 {didSet {checkFormValidity()}}
     var delivery:Int? = 0 {didSet {checkFormValidity()}}
-    var lat:Double? {didSet {checkFormValidity()}}
-    var lng:Double?  {didSet {checkFormValidity()}}
+    var lat:Double? = -1 {didSet {checkFormValidity()}}
+    var lng:Double? = -1 {didSet {checkFormValidity()}}
     var pharmacy_id:Int? = -1 {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
     
@@ -62,19 +62,11 @@ class PharamacyLocationViewModel {
         }
     }
     
-    
-    
-    func performLogging(completion:@escaping (Double,Double,Int,Int)->Void)  {
-        guard let lat = lat,let lng = lng,let delivery=delivery,let insuranceCompany=insuranceCompany else { return  }
-        bindableIsLogging.value = true
-        completion(lat,lng,delivery,insuranceCompany)
-        //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
-    }
-    
     func checkFormValidity() {
-        let isFormValid = lat != -1.0 &&  lng != -1.0
         
+        let isFormValid =   pharmacy_id != -1 && isFirstOpetion == true || city != -1 && area  != -1 && isFirstOpetion == true ||  city != -1 && area  != -1 && isFirstOpetion == true && pharmacy_id != -1 ||  lat != -1.0 &&  lng != -1.0  && isFirstOpetion == false
         bindableIsFormValidate.value = isFormValid
+        
         
     }
 }

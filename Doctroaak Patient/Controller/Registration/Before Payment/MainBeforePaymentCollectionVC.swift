@@ -40,7 +40,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }()
     lazy var secondStack:UIStackView =  getStack(views: secondBackButton,paymentButton, spacing: 16, distribution: .fill, axis: .horizontal)
     
-    lazy var skipButton = UIButton(title: "Skip", titleColor: .lightGray, font: .systemFont(ofSize: 16), backgroundColor: .white, target: self, action: #selector(handleSkip))
+    lazy var skipButton = UIButton(title: "Skip".localized, titleColor: .lightGray, font: .systemFont(ofSize: 16), backgroundColor: .white, target: self, action: #selector(handleSkip))
     
     fileprivate let cellID="cellID"
     fileprivate let pagesImages = [#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280"),#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280")]

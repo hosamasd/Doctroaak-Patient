@@ -167,7 +167,7 @@ class VerificationVC: CustomBaseViewVC {
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
-            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....")
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....".localized)
             self.activeViewsIfNoData()
         }    }
     

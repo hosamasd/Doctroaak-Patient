@@ -1034,7 +1034,7 @@ extension Double {
 
 extension UICollectionView{
     
-    func noDataFound(_ dataCount:Int){
+    func noDataFound(_ dataCount:Int,text:String){
         if dataCount <=  0 {
             
             let label = UILabel()
@@ -1042,7 +1042,7 @@ extension UICollectionView{
             label.frame.origin.x = 0
             label.frame.origin.y = 0
             label.textAlignment = .center
-            label.text =  "No Posts Was Found".localized
+            label.text =  text
             self.backgroundView = label
         }else{
             self.backgroundView = nil
