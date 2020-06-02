@@ -13,8 +13,10 @@ import MOLH
 
 class CustomDetailsView: CustomBaseView {
     
-    var selectedDoctor:PatientSearchDoctorsModel! {
+    var selectedDoctor:PatientSearchDoctorsModel? {
         didSet{
+            guard let selectedDoctor = selectedDoctor else { return  }
+
             patientFavoriteDoctorsCell.doctor=selectedDoctor
             doctorSuggestShiftHorizentalVC.suggestedDaysArray = selectedDoctor.freeDays
             doctorWorkingDateCollectionVC.workingDaysArray = selectedDoctor.workingHours

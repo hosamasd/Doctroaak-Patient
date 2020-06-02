@@ -30,6 +30,10 @@ class LAPBookVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.index = index
         v.lapBookViewModel.lab_id=self.labId
+        v.lapBookViewModel.rad_id=self.labId
+
+//        v.lapBookViewModel.rad_id=self.radId
+
         //        v.patient_id = patient_id ?? 0
         v.lapBookViewModel.image = self.img
         v.lapBookViewModel.orderDetails = self.orders
@@ -65,7 +69,8 @@ class LAPBookVC: CustomBaseViewVC {
     //    var  api_token:String?
     //    var  patient_id:Int?
     fileprivate let labId:Int!
-    
+//    fileprivate let radId:Int!
+
     fileprivate let index:Int!
     init(index:Int,labId:Int) {
         self.labId=labId

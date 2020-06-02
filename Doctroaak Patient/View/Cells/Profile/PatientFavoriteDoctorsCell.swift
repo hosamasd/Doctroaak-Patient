@@ -13,22 +13,25 @@ import MOLH
 
 class PatientFavoriteDoctorsCell: BaseCollectionCell {
     
-    var doctor:PatientSearchDoctorsModel! {
+    var doctor:PatientSearchDoctorsModel? {
         didSet{
-             let ss = doctor.doctor.photo//.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
-//            let dd = "http"+ss ?? ""
-            guard let url = URL(string: ss) else { return  }
-            profileImage.sd_setImage(with: url)
-            profileInfoLabel.text = MOLHLanguage.isRTLLanguage() ? doctor.nameAr : doctor.name
+            guard let doctor = doctor else { return  }
+            let x = MOLHLanguage.isRTLLanguage() ? doctor.nameAr ?? doctor.name : doctor.name
+            let d = MOLHLanguage.isRTLLanguage() ?  doctor.degree?.name ?? "" :  doctor.degree?.name ?? ""
+            
+             putAttributedText(la: profileInfoLabel, ft: x+"\n", st: d+"\n\n")
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
-            profileInfoReservationLabel.text = "Reservation: \(doctor.fees)"
-            profileInfoConsultaionLabel.text = "Consultation: \(doctor.fees2)"
+            profileInfoReservationLabel.text = "Reservation: \(doctor.fees) EGY"
+            profileInfoConsultaionLabel.text = "Consultation: \(doctor.fees2) EGY"
             for(index,view) in starsStackView.arrangedSubviews.enumerated(){
                 guard let img = view as? UIImageView else {return}
                 
                 let ratingInt = Int(doctor.reservationRate ?? "0" )
                 img.image = index >= ratingInt ?? 0 ? #imageLiteral(resourceName: "star-1") : #imageLiteral(resourceName: "star")
-                
+                 let ss = doctor.doctor.photo//.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
+                //            let dd = "http"+ss ?? ""
+                            guard let url = URL(string: ss) else { return  }
+                            profileImage.sd_setImage(with: url)
 //                                bookmarkImage.image =   favorite.contains(aqar.id ) ? #imageLiteral(resourceName: "Group 3923-10") : #imageLiteral(resourceName: "Group 3923s")
                 
             }
@@ -46,9 +49,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     }()
     lazy var profileInfoLabel:UILabel = {
         let l = UILabel()
-        let attributeText = NSMutableAttributedString(string: "Dr. Hagar Mohamed \n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-        attributeText.append(NSAttributedString(string: "Degree brief here \n\n", attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
-        l.attributedText = attributeText
+      
         l.numberOfLines = 2
         return l
     }()
@@ -104,7 +105,8 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         return i
     }()
     var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
-    var isFavorite:Bool = false
+    var handleCheckedDoctor:((PatientSearchDoctorsModel)->Void)?
+
     
     
     override init(frame: CGRect) {
@@ -120,6 +122,8 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         //        dropShadow(color: .red, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
         //        setupShadow(opacity: 0.2, radius: 16, offset: .init(width: 0, height: 50), color: .red)
         setupViewss()
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -197,9 +201,15 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     }
     
     @objc func handleBookmark()  {
-        
-        isFavorite = !isFavorite
-        bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
-        handleBookmarkDoctor?(doctor)
+        guard let docotr = doctor else { return  }
+//        isFavorite = !isFavorite
+//        bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
+        handleBookmarkDoctor?(docotr)
+    }
+    
+    func putAttributedText(la:UILabel,ft:String,st:String)  {
+          let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+              attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+              la.attributedText = attributeText
     }
 }

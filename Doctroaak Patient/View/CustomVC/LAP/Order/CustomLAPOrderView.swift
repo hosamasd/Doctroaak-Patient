@@ -126,8 +126,15 @@ class CustomLAPOrderView: CustomBaseView {
     var bubleViewCenterImgHeightConstraint:NSLayoutConstraint!
     var bubleViewTopSegConstraint:NSLayoutConstraint!
     var index = 0
-    var labId = 0
-    
+    var labId:Int? {
+        didSet{
+            guard let labId = labId else { return  }
+            if index == 0 {
+//                laPOrderViewModel.
+            }
+        }
+    }
+
     
     var isDataFound = false
     var isSecondIndex = false

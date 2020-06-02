@@ -95,13 +95,13 @@ class LAPBookViewModel {
                 bindableIsLogging.value = true
                 OrdserBookSerivce.shared.postBookRadiologyResults( img:img,orderDetails: order, patient_id: patientId, radiology_id: rad_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
             }else if image != nil {
-                guard let img=image,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id else { return  }
+                guard let dates=dates, let img=image,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id else { return  }
                 bindableIsLogging.value = true
-                OrdserBookSerivce.shared.postBookRadiologyResults( img:img, patient_id: patientId, radiology_id: rad_id, notes: notess, api_token: apiToken, completion: completion)
+                OrdserBookSerivce.shared.postBookRadiologyResults( img:img, patient_id: patientId, radiology_id: rad_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
             }else if orderDetails != nil{
-                guard let orders=orderDetails,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id  else { return  }
+                guard let dates=dates, let orders=orderDetails,let apiToken=api_token,let patientId=patient_id,let rad_id=rad_id  else { return  }
                 bindableIsLogging.value = true
-                OrdserBookSerivce.shared.postBookRadiologyResults( orderDetails:orders, patient_id: patientId, radiology_id: rad_id, notes: notess, api_token: apiToken, completion: completion)
+                OrdserBookSerivce.shared.postBookRadiologyResults( orderDetails:orders, patient_id: patientId, radiology_id: rad_id, date: dates, notes: notess, api_token: apiToken, completion: completion)
             }
         }
     }

@@ -27,25 +27,47 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
         }
     }
     
-    fileprivate func getLabTotalDays(_ ss: inout Int) {
-        workingDaysArray.forEach { (w) in
-            let d = w.active == 0 ? 0 : 1
-            ss += d
-        }
-    }
+    fileprivate func getLabTotalDays() ->Int {
+        var ss:Int = 0
+        
+           workingDaysArray.forEach { (w) in
+               let d = w.active == 0 ? 0 : 1
+               ss += d
+           }
+        return ss
+       }
+       
+       fileprivate func getRadTotalDays()->Int {
+        var ss:Int = 0
+
+           radWorkingDaysArray.forEach { (w) in
+               let d = w.active == 0 ? 0 : 1
+               ss += d
+           }
+        return ss
+
+       }
     
-    fileprivate func getRadTotalDays(_ ss: inout Int) {
-        radWorkingDaysArray.forEach { (w) in
-            let d = w.active == 0 ? 0 : 1
-            ss += d
-        }
-    }
+//    fileprivate func getLabTotalDays(_ ss: inout Int) {
+//        workingDaysArray.forEach { (w) in
+//            let d = w.active == 0 ? 0 : 1
+//            ss += d
+//        }
+//    }
+//
+//    fileprivate func getRadTotalDays(_ ss: inout Int) {
+//        radWorkingDaysArray.forEach { (w) in
+//            let d = w.active == 0 ? 0 : 1
+//            ss += d
+//        }
+//    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var ss = 0
-        index == 0 ? getLabTotalDays(&ss) : index == 1 ?  getRadTotalDays(&ss) :  getTotalDays(&ss)
-        //        getTotalDays(&ss)
-        return  ss//workingDaysArray.count
+        return index == 0 ? getLabTotalDays() : getRadTotalDays()
+//        var ss = 0
+//         index == 0 ? getLabTotalDays(&ss) : index == 1 ?  getRadTotalDays(&ss) :  getTotalDays(&ss)
+//        //        getTotalDays(&ss)
+//        return  ss//workingDaysArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

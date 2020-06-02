@@ -37,7 +37,7 @@ struct RadiologySearchModel:Codable {
     var radiologyDoctorID: Int?
     let photo: String
     let reservationRate, degreeRate, createdAt, updatedAt: String
-    let distance: Double
+    var distance: Double?
     let radiologyInsurances: [RadiologyInsuranceModel]
     let workingHours: [RadiologyWorkingHourModel]
     let insuranceCompany: [InsurcaneCompanyModel]

@@ -15,6 +15,7 @@ class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
     var doctorsArray:[PatientSearchDoctorsModel] = [PatientSearchDoctorsModel]()
 //    var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
     var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
+    var handleCheckedDoctor:((PatientSearchDoctorsModel)->Void)?
 
     var isFavorite:Bool = false
     
@@ -35,6 +36,7 @@ class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
         //        cell.isFavorite = true
         return cell
     }
+    
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let doctor = doctorsArray[indexPath.item]

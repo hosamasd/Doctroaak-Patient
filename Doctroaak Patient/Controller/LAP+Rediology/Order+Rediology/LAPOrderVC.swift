@@ -46,11 +46,13 @@ class LAPOrderVC: CustomBaseViewVC {
     var apiToken:String?
     var patientId:Int? 
     fileprivate let labId:Int!
-    
+//    fileprivate let radId:Int!
+
     
     fileprivate let index:Int!
     init(index:Int,lab:Int) {
         self.labId=lab
+//        self.radId=rad
         self.index = index
         super.init(nibName: nil, bundle: nil)
     }
@@ -117,7 +119,7 @@ class LAPOrderVC: CustomBaseViewVC {
     }
     
     func putData(_ img:UIImage? = nil,_ orders:[RadiologyOrderModel]? = nil)  {
-        let book = LAPBookVC(index: index,labId: labId)
+        let book = LAPBookVC(index: index,labId: labId )
         if img != nil {
             book.img = img
         }

@@ -14,7 +14,11 @@ import MOLH
 
 class CustomDoctorSearchView: CustomBaseView {
     
-    var index:Int = 0
+    var index:Int! {
+        didSet {
+            doctorSearchViewModel.Index = index
+        }
+    }
     
     
     lazy var LogoImage:UIImageView = {

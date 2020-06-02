@@ -11,10 +11,10 @@ import UIKit
 class SearchServices {
     static let shared=SearchServices()
     
-    func getSearchDoctorsResults(firstOption:Bool,specialization_id:Int,area:Int,city:Int,insurance:Int,latt:Double,lang:Double,completion: @escaping (MainPatientSearchDoctorsModel?, Error?) ->Void)  {
-        let urlString = firstOption == false ? "\(baseUrl)clinic/get?specialization_id=\(specialization_id)&latt=\(latt)&lang=\(lang)&insurance=\(insurance)".toSecrueHttps() :   "\(baseUrl)clinic/get?specialization_id=\(specialization_id)&area=\(area)&city=\(city)&insurance=\(insurance)".toSecrueHttps()
+    func getSearchDoctorsResults(firstOption:Bool,specialization_id:Int,area:Int,city:Int,insurance:Int,latt:Double,lang:Double,is_medical_center:Int,completion: @escaping (MainPatientSearchDoctorsModel?, Error?) ->Void)  {
+        let urlString = firstOption == false ? "\(baseUrl)clinic/get?specialization_id=\(specialization_id)&latt=\(latt)&lang=\(lang)&insurance=\(insurance)&is_medical_center=\(is_medical_center)".toSecrueHttps() :   "\(baseUrl)clinic/get?specialization_id=\(specialization_id)&area=\(area)&city=\(city)&insurance=\(insurance)&is_medical_center=\(is_medical_center)".toSecrueHttps()
         
-        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
         
     }
     

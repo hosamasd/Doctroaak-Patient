@@ -146,7 +146,7 @@ class DoctorSearchVC: CustomBaseViewVC {
     }
     
     @objc func handleSearch()  {
-        customDoctorSearchView.doctorSearchViewModel.performLogging { (base, err) in
+        customDoctorSearchView.doctorSearchViewModel.performDoctorSearching { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.activeViewsIfNoData();return

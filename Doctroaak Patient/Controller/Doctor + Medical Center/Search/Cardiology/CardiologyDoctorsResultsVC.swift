@@ -49,7 +49,7 @@ class CardiologyDoctorsResultsVC: UIViewController {
     var patient:PatienModel?{
         didSet{
             guard let patient = patient else { return  }
-            //            customDetailsView.patient=patient
+            customCardiologyDoctorsResultsView.patient=patient
         }
     }
     var isBookmarked:Bool = false
@@ -84,32 +84,32 @@ class CardiologyDoctorsResultsVC: UIViewController {
     
     func handleBookmarkOrNot(doctor:PatientSearchDoctorsModel)  {
         
-//        if var favoriteee=FavoriteStorage.retrieve(reteriveAllFavorteStorage, from: .documents, as: PatientSearchDoctorsModel.self)  {
-//            if customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite {
-//                           favoriteee.removeAll(where: {$0.name==doctor.name})
-//                       }else {
-//                           favoriteee.append(doctor)
-//                       }
-//                       FavoriteStorage.storesss(favoriteee, to: .documents, as: reteriveAllFavorteStorage)
-//
-//
-////        if var favorites = FavoriteStorage.retrievess(reteriveAllFavorteStorage, from: .documents, as: PatientSearchDoctorsModel.self){
-////            if customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite {
-////                favorites.removeAll(where: {$0.name==doctor.name})
-////            }else {
-////                favorites.append(doctor)
-////            }
-////            FavoriteStorage.storesss(favorites, to: .documents, as: reteriveAllFavorteStorage)
-//
-//        }else {
-//
-//            FavoriteStorage.storesss([doctor], to: .documents, as: reteriveAllFavorteStorage)
-//
-////            customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite = !customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite
-//
-//        }
+        //        if var favoriteee=FavoriteStorage.retrieve(reteriveAllFavorteStorage, from: .documents, as: PatientSearchDoctorsModel.self)  {
+        //            if customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite {
+        //                           favoriteee.removeAll(where: {$0.name==doctor.name})
+        //                       }else {
+        //                           favoriteee.append(doctor)
+        //                       }
+        //                       FavoriteStorage.storesss(favoriteee, to: .documents, as: reteriveAllFavorteStorage)
+        //
+        //
+        ////        if var favorites = FavoriteStorage.retrievess(reteriveAllFavorteStorage, from: .documents, as: PatientSearchDoctorsModel.self){
+        ////            if customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite {
+        ////                favorites.removeAll(where: {$0.name==doctor.name})
+        ////            }else {
+        ////                favorites.append(doctor)
+        ////            }
+        ////            FavoriteStorage.storesss(favorites, to: .documents, as: reteriveAllFavorteStorage)
+        //
+        //        }else {
+        //
+        //            FavoriteStorage.storesss([doctor], to: .documents, as: reteriveAllFavorteStorage)
+        //
+        ////            customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite = !customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite
+        //
+        //        }
         DispatchQueue.main.async {
-//            self.customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
+            //            self.customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
         }
         
         //        FavoriteStorage.store(doctor, to: .documents, as: "favorites")

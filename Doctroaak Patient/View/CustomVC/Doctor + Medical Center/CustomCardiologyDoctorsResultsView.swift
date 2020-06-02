@@ -10,10 +10,16 @@
 import UIKit
 class CustomCardiologyDoctorsResultsView: CustomBaseView {
     
+    var patient:PatienModel?{
+          didSet{
+              guard let patient = patient else { return  }
+          }
+      }
+    
         var doctorsArray:[PatientSearchDoctorsModel]! {
         didSet{
-//            patientFavoriteDoctorsCollectionVC.doctorsArray=doctorsArray
-//                   patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
+            patientFavoriteDoctorsCollectionVC.doctorsArray=doctorsArray
+                   patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
         }
     }
     
@@ -46,10 +52,10 @@ class CustomCardiologyDoctorsResultsView: CustomBaseView {
         let vc = PatientFavoriteDoctorsCollectionVC()
        
         vc.handleCheckedIndex = {[unowned self] indexPath in
-//            self.handleCheckedIndex?(indexPath)
+            self.handleCheckedIndex?(indexPath)
         }
         vc.handleBookmarkDoctor = {[unowned self] doctor in
-//            self.handleBookmarkDoctor?(doctor)
+            self.handleBookmarkDoctor?(doctor)
         }
         return vc
     }()
