@@ -31,21 +31,12 @@ class CustomProfileOrdersView: CustomBaseView {
         v.clipsToBounds = true
         return v
     }()
-    //    lazy var mainBottomView:UIView = {
-    //        let v = UIView(backgroundColor: .green)
-    //        v.backgroundColor = .red
-    //        v.layer.cornerRadius = 8
-    //        v.clipsToBounds = true
-    //        v.addSubview(customBottomOrdersView)
-    //        return v
-    //    }()
-    //    lazy var customBottomOrdersView = CustomBottomOrdersView()
-    var handleCheckedIndex:((IndexPath)->Void)?
+    
     
     lazy var doctorProfileOrderCollectionVC:DoctorProfileOrderCollectionVC = {
         let vc = DoctorProfileOrderCollectionVC()
         vc.handleCheckedIndex = {[unowned self] indexPath in
-//            self.handleCheckedIndex?(indexPath)
+            self.handleDoctorCheckedIndex?(indexPath)
         }
         return vc
     }()
@@ -54,7 +45,7 @@ class CustomProfileOrdersView: CustomBaseView {
         vc.collectionView.isHide(true)
         
         vc.handleCheckedIndex = {[unowned self] indexPath in
-            //               self.handleCheckedIndex?(indexPath)
+            self.handleRadCheckedIndex?(indexPath)
         }
         return vc
     }()
@@ -63,7 +54,7 @@ class CustomProfileOrdersView: CustomBaseView {
         vc.collectionView.isHide(true)
         
         vc.handleCheckedIndex = {[unowned self] indexPath in
-            //               self.handleCheckedIndex?(indexPath)
+            self.handlePharmacyCheckedIndex?(indexPath)
         }
         return vc
     }()
@@ -71,14 +62,18 @@ class CustomProfileOrdersView: CustomBaseView {
         let vc = LABProfileOrderCollectionVC()
         vc.collectionView.isHide(true)
         vc.handleCheckedIndex = {[unowned self] indexPath in
-            //               self.handleCheckedIndex?(indexPath)
+            self.handleLABCheckedIndex?(indexPath)
         }
         return vc
     }()
     
+    var handleRadCheckedIndex:((RadiologyOrderPatientModel)->Void)?
+    var handleLABCheckedIndex:((LABOrderPatientModel)->Void)?
+    var handlePharmacyCheckedIndex:((PharamacyOrderPatientModel)->Void)?
+    var handleDoctorCheckedIndex:((DoctorsOrderPatientModel)->Void)?
+    
     override func setupViews() {
         backgroundColor = .white
-//        let ss = getStack(views: doctorProfileOrderCollectionVC.view,pharamacyProfileOrderCollectionVC.view,labProfileOrderCollectionVC.view,radiologyProfileOrderCollectionVC.view, spacing: 0, distribution: .fill, axis: .horizontal)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doctorProfileOrderCollectionVC.view,pharamacyProfileOrderCollectionVC.view,labProfileOrderCollectionVC.view,radiologyProfileOrderCollectionVC.view)
         
@@ -92,10 +87,6 @@ class CustomProfileOrdersView: CustomBaseView {
         radiologyProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
         labProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
         pharamacyProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
-
-        
-        //        doctorProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 0, right: 32))
-        //        customBottomOrdersView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 32, bottom: 60, right: 32))
     }
 }
 

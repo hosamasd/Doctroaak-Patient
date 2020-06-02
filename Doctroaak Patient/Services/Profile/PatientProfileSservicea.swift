@@ -91,12 +91,29 @@ class PatientProfileSservicea {
     
     func getPatientFavoriteDocotrs(patient_id:Int,api_token:String,completion: @escaping (MainPatientFavoriteModel?, Error?) ->Void)  {
         let urlString =  "\(baseUrl)patient/favourite/list?api_token=\(api_token)&patient_id=\(patient_id)".toSecrueHttps()
-
+        
         MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
         
     }
     
-    func getOrdersDoctors()  {
-        
+    func getDoctorsOrders (patient_id:Int,api_token:String,completion: @escaping (MainDoctorsOrderPatientModel?, Error?) ->Void) {
+        let urlString = "\(baseUrl)get/resrevation?api_token=\(api_token)&patient_id=\(patient_id)".toSecrueHttps()
+        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
+    
+    func getRadiologyOrders (patient_id:Int,api_token:String,completion: @escaping (MainRadiologyOrderPatientModel?, Error?) ->Void) {
+        let urlString = "\(baseUrl)get-orders?api_token=\(api_token)&patient_id=\(patient_id)&user_type=RADIOLOGY".toSecrueHttps()
+        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+    }
+    
+    func getPharamacyOrders (patient_id:Int,api_token:String,completion: @escaping (MainPharamacyOrderPatientModel?, Error?) ->Void) {
+        let urlString = "\(baseUrl)get-orders?api_token=\(api_token)&patient_id=\(patient_id)&user_type=PHARMACY".toSecrueHttps()
+        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+    }
+    
+    func getLABOrders (patient_id:Int,api_token:String,completion: @escaping (MainLABOrderPatientModel?, Error?) ->Void) {
+        let urlString = "\(baseUrl)get-orders?api_token=\(api_token)&patient_id=\(patient_id)&user_type=LAB".toSecrueHttps()
+        MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+    }
+    
 }
