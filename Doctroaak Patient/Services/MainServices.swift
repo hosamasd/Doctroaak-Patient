@@ -123,7 +123,10 @@ class MainServices {
     
     func makeMainPostGenericUsingAlmofire<T:Codable>(urlString:String,postStrings:String,photo:UIImage? = nil,orderDetails:[PharamcyOrderModel]? = nil ,radiologyorderDetails:[RadiologyOrderModel]? = nil,completion:@escaping (T?,Error?)->Void)  {
         
-        let urlsString = postStrings.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        guard let urlsString = postStrings.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return  }
+        let ddd = urlString+"?"+urlsString
+        
         //
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             if let photo = photo {
@@ -142,7 +145,7 @@ class MainServices {
             if radiologyorderDetails?.isEmpty != nil {
                 multipartFormData.append(jsonData ?? Data(), withName: "orderDetails")
             }
-        }, to:urlsString!)
+        }, to:ddd)//urlsString)
         { (result) in
             switch result {
             case .success(let upload, _, _):

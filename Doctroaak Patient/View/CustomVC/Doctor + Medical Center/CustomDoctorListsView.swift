@@ -9,6 +9,13 @@
 import UIKit
 
 class CustomDoctorListsView: CustomBaseView {
+ 
+    var index:Int! {
+        didSet {
+            titleLabel.text = index == 0 ? "Doctor" : "Medical Center"
+            userSpecificationLabel.text = index == 0 ? "Find the best rated doctors" : "Find the best rated Medical Center"
+        }
+    }
     
  
     lazy var LogoImage:UIImageView = {
@@ -24,7 +31,7 @@ class CustomDoctorListsView: CustomBaseView {
         return i
     }()
     lazy var titleLabel = UILabel(text: "Doctor", font: .systemFont(ofSize: 35), textColor: .white)
-    lazy var userSpecificationLabel = UILabel(text: "Find the best rated doctors!", font: .systemFont(ofSize: 16), textColor: .white)
+    lazy var userSpecificationLabel = UILabel(text: "Find the best rated doctors", font: .systemFont(ofSize: 16), textColor: .white)
     
     lazy var doctorListCollectionVC:DoctorListCollectionVC = {
         let vc = DoctorListCollectionVC()

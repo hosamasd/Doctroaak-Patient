@@ -245,5 +245,3 @@ class CustomLAPOrderView: CustomBaseView {
         }    }
     
 }
-
-

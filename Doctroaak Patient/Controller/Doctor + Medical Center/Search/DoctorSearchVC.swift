@@ -27,6 +27,7 @@ class DoctorSearchVC: CustomBaseViewVC {
     }()
     lazy var customDoctorSearchView:CustomDoctorSearchView = {
         let v = CustomDoctorSearchView()
+        v.index=self.index
         v.specificationId=specificationId
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.handlerChooseLocation = {[unowned self] in
@@ -46,8 +47,11 @@ class DoctorSearchVC: CustomBaseViewVC {
     //    var patient_id:Int?
     //    var patientApiToken:String?
     fileprivate let specificationId:Int!
-    init(spy:Int) {
+    fileprivate let index:Int!
+    
+    init(spy:Int,index:Int) {
         self.specificationId = spy
+        self.index=index
         super.init(nibName: nil, bundle: nil)
     }
     

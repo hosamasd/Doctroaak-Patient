@@ -14,6 +14,9 @@ import MOLH
 
 class CustomDoctorSearchView: CustomBaseView {
     
+    var index:Int = 0
+    
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116").withRenderingMode(.alwaysOriginal))
         i.contentMode = .scaleAspectFill

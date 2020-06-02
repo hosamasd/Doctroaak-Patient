@@ -87,6 +87,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        showToast(context: self, msg: "sdgsdg dfgdfsg fdgdfsgdfsg dfsgfdsg \n dfgdfgdf")
         //        check()
     }
     

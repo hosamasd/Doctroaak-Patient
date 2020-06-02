@@ -13,26 +13,26 @@ import Alamofire
 extension UIViewController {
     
     func  checkDayIsExistIn(year:Int,month:Int,day:Int) -> Bool {
-
-       let dateComponents = DateComponents(year: year, month: month)
-       let calendar = Calendar.current
-       let date = calendar.date(from: dateComponents)!
-
-       let numberOfDays = calendar.range(of: .day, in: .month, for: date)!
-       return numberOfDays.count >= day
+        
+        let dateComponents = DateComponents(year: year, month: month)
+        let calendar = Calendar.current
+        let date = calendar.date(from: dateComponents)!
+        
+        let numberOfDays = calendar.range(of: .day, in: .month, for: date)!
+        return numberOfDays.count >= day
     }
     
     func removeViewWithAnimation(vvv:UIView) {
-           DispatchQueue.main.async {
-               UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-                   vvv.transform = .init(translationX: 10000, y: 0)
-               }) { (_) in
-                   
-                   vvv.removeFromSuperview()
-               }
-           }
-          
-       }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                vvv.transform = .init(translationX: 10000, y: 0)
+            }) { (_) in
+                
+                vvv.removeFromSuperview()
+            }
+        }
+        
+    }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
         
@@ -97,76 +97,47 @@ extension UIViewController {
     }
     
     func addCustomViewInCenter(views:UIView,height:CGFloat)  {
-           
-           view.addSubview(views)
-           views.centerInSuperview(size: .init(width: view.frame.width-64, height: height))
-           views.transform = .init(translationX: -1000, y: 0)
-           UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-               views.transform = .identity
-           })
-       }
+        
+        view.addSubview(views)
+        views.centerInSuperview(size: .init(width: view.frame.width-64, height: height))
+        views.transform = .init(translationX: -1000, y: 0)
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            views.transform = .identity
+        })
+    }
     
     func activeViewsIfNoData()  {
-              DispatchQueue.main.async {
-                  UIApplication.shared.endIgnoringInteractionEvents()
-              }
-          }
+        DispatchQueue.main.async {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+    }
     
     func createAlert(title:String,message:String,style:UIAlertController.Style)  {
-           let alert = UIAlertController(title: title, message: message, preferredStyle: style)
-           let action = UIAlertAction(title: "Ok", style: .default) { (_) in
-               alert.dismiss(animated: true)
-           }
-           alert.addAction(action)
-           present(alert, animated: true)
-       }
-//    func showToast(message : String, font: UIFont) {
-//
-//        let toastLabel = UILabel(frame: CGRect(x: 0 , y: self.view.frame.size.height-100, width: view.frame.width-32, height: 35))
-//        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-//        toastLabel.textColor = UIColor.white
-//        toastLabel.font = font
-//        toastLabel.textAlignment = .center;
-//        toastLabel.text = message
-//        toastLabel.alpha = 1.0
-//        toastLabel.layer.cornerRadius = 10;
-//        toastLabel.clipsToBounds  =  true
-//        self.view.addSubview(toastLabel)
-//        UIView.animate(withDuration: 360, delay: 0.1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-//                         toastLabel.alpha = 0.0
-//
-//        }) { (_) in
-//                        toastLabel.removeFromSuperview()
-//
-//        }
-//    }
-        
-         func showToast(context ctx: UIViewController, msg: String) {
-            let toast = UILabel(frame: CGRect(x: 0 , y: self.view.frame.size.height-100, width: view.frame.width, height: 35))
-
-//               let toast = UILabel(frame:
-//                   CGRect(x: 16, y: ctx.view.frame.size.height / 2,
-//                          width: ctx.view.frame.size.width - 32, height: 100))
-
-               toast.backgroundColor = UIColor.lightGray
-               toast.textColor = UIColor.white
-               toast.textAlignment = .center;
-               toast.numberOfLines = 3
-               toast.font = UIFont.systemFont(ofSize: 20)
-               toast.layer.cornerRadius = 12;
-               toast.clipsToBounds  =  true
-
-               toast.text = msg
-
-               ctx.view.addSubview(toast)
-
-            UIView.animate(withDuration: 10.0, delay: 0.2,
-                   options: .curveEaseOut, animations: {
-                   toast.alpha = 0.0
-                   }, completion: {(isCompleted) in
-                       toast.removeFromSuperview()
-               })
-           }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        let action = UIAlertAction(title: "Ok", style: .default) { (_) in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+    
+    func showToast(context ctx: UIViewController, msg: String) {
+        let la = UILabel(text: msg, font: .systemFont(ofSize: 16), textColor: .white, textAlignment: .center, numberOfLines: 0)
+        let height = msg.getFrameForText(text: msg)
+        la.constrainHeight(constant: height.height)
+        la.constrainWidth(constant: view.frame.width)
+        la.layer.cornerRadius=12
+        la.clipsToBounds=true
+        la.backgroundColor = UIColor.black
+        ctx.view.addSubview(la)
+        la.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 0, bottom: 16, right: 0))
+        UIView.animate(withDuration: 10.0, delay: 0.2,
+                       options: .curveEaseOut, animations: {
+                        la.alpha = 0.0
+        }, completion: {(isCompleted) in
+            la.removeFromSuperview()
+        })
+    }
     
     struct ConnectivityInternet {
         static let sharedInstance = NetworkReachabilityManager()!
@@ -174,5 +145,5 @@ extension UIViewController {
             return self.sharedInstance.isReachable
         }
     }
-
+    
 }

@@ -18,14 +18,14 @@ class LAPResultsCell: BaseCollectionCell {
             let city = getCityFromIndex(lab.city)
             let area = getAreaFromIndex(lab.area)
             //            let avaible = lab.active == 0 ? "Available" : "UnAvailable"
-            //            let delivery = lab.delivery.toInt() == 0 ? "
+            let delivery = lab.delivery.toInt() == 0 ? "Delivery" : "Not Delivery"
             
             let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
             attributeText.append(NSAttributedString(string: "\n \(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
             profileInfoLabel.attributedText = attributeText
             profileInfoLabel.numberOfLines = 0
             
-            profileInfoDeliveryyLabel.text = lab.delivery
+            profileInfoDeliveryyLabel.text = delivery
             let urlString = lab.photo
             guard let url = URL(string: urlString) else { return  }
             profileImage.sd_setImage(with: url)

@@ -14,7 +14,7 @@ class ServicesVC: CustomBaseViewVC {
         let v = CustomMainServicesView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.main1View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenVC)))
-        v.main2View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenVC)))
+        v.main2View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMedicalVC)))
         v.main3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpen2VC)))
         v.main4View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpen3VC)))
         v.main5View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpen4VC)))
@@ -95,12 +95,23 @@ class ServicesVC: CustomBaseViewVC {
     
     @objc  func handleOpenVC()  {
         let doc = DoctorListsVC()
+        doc.index = 0
         doc.patient=self.patient
 //        doc.patientApiToken=patientApiToken
 //        doc.patient_id=patient_id
         navigationController?.pushViewController(doc, animated: true)
         
     }
+    
+    @objc  func handleOpenMedicalVC()  {
+            let doc = DoctorListsVC()
+            doc.index = 1
+            doc.patient=self.patient
+    //        doc.patientApiToken=patientApiToken
+    //        doc.patient_id=patient_id
+            navigationController?.pushViewController(doc, animated: true)
+            
+        }
     
     
     @objc  func handleOpen2VC()  {
