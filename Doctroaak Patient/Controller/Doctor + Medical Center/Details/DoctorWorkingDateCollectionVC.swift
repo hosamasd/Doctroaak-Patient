@@ -20,17 +20,27 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
     var radWorkingDaysArray = [RadiologyWorkingHourModel]()
     
     
-    fileprivate func getTotalDays(_ ss: inout Int) {
-        labWorkingDaysArray.forEach { (w) in
-            let d = w.active == 0 ? 0 : 1
-            ss += d
-        }
-    }
+//    fileprivate func getTotalDays(_ ss: inout Int) {
+//        workingDaysArray.forEach { (w) in
+//            let d = w.active == 0 ? 0 : 1
+//            ss += d
+//        }
+//    }
+    
+    fileprivate func getTotalDays() ->Int {
+           var ss:Int = 0
+           
+              workingDaysArray.forEach { (w) in
+                  let d = w.active == 0 ? 0 : 1
+                  ss += d
+              }
+           return ss
+          }
     
     fileprivate func getLabTotalDays() ->Int {
         var ss:Int = 0
         
-           workingDaysArray.forEach { (w) in
+           labWorkingDaysArray.forEach { (w) in
                let d = w.active == 0 ? 0 : 1
                ss += d
            }
@@ -63,7 +73,7 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
 //    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return index == 0 ? getLabTotalDays() : getRadTotalDays()
+        return index == 0 ? getLabTotalDays() : index == 1 ?  getRadTotalDays() : getTotalDays()
 //        var ss = 0
 //         index == 0 ? getLabTotalDays(&ss) : index == 1 ?  getRadTotalDays(&ss) :  getTotalDays(&ss)
 //        //        getTotalDays(&ss)

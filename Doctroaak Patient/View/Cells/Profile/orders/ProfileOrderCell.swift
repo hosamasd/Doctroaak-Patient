@@ -10,6 +10,13 @@ import UIKit
 import MOLH
 class ProfileOrderCell: BaseCollectionCell {
     
+    var doctor:DoctorsOrderPatientModel? {
+        didSet{
+            guard let doctor = doctor else { return  }
+        }
+    }
+    
+    
     lazy var profileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)
         i.constrainWidth(constant: 60)

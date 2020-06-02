@@ -31,10 +31,7 @@ class LAPBookVC: CustomBaseViewVC {
         v.index = index
         v.lapBookViewModel.lab_id=self.labId
         v.lapBookViewModel.rad_id=self.labId
-
-//        v.lapBookViewModel.rad_id=self.radId
-
-        //        v.patient_id = patient_id ?? 0
+        
         v.lapBookViewModel.image = self.img
         v.lapBookViewModel.orderDetails = self.orders
         //        v.api_token = api_token ?? ""
@@ -56,7 +53,14 @@ class LAPBookVC: CustomBaseViewVC {
         }
         return v
     }()
-    
+    lazy var customAlertSuccessView:CustomAlertSuccessView = {
+        let v = CustomAlertSuccessView(txt: "asd")
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleOkSuccess()
+        }
+        return v
+    }()
     
     var orders:[RadiologyOrderModel]?
     var img:UIImage?
@@ -69,8 +73,8 @@ class LAPBookVC: CustomBaseViewVC {
     //    var  api_token:String?
     //    var  patient_id:Int?
     fileprivate let labId:Int!
-//    fileprivate let radId:Int!
-
+    //    fileprivate let radId:Int!
+    
     fileprivate let index:Int!
     init(index:Int,labId:Int) {
         self.labId=labId
@@ -176,13 +180,24 @@ class LAPBookVC: CustomBaseViewVC {
             }
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
-            guard let message = base else {return }
+            guard let message = base?.message else {return }
             
             DispatchQueue.main.async {
-                self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
+                
+                self.showMessage(message)
+//                self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
             }
             
         }
+    }
+    
+    func showMessage(_ mess:String)  {
+        let height = "".getFrameForText(text: mess)
+        
+        customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: height.height+80)
+        customAlertSuccessView.discriptionInfoLabel.text = mess
+        customAlertSuccessView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
     }
     
     fileprivate func makeRadiologySearch() {
@@ -232,13 +247,13 @@ class LAPBookVC: CustomBaseViewVC {
     
     
     @objc func handleBook()  {
-//        if api_token == nil && patient_id == nil  {
+        //        if api_token == nil && patient_id == nil  {
         if patient == nil {
             presentAlert()
         }else {
-//            guard let api = api_token,let patientId = patient_id else { return  }
+            //            guard let api = api_token,let patientId = patient_id else { return  }
             guard let api = patient?.apiToken,let patientId = patient?.id else { return  }
-
+            
             customLAPBookView.lapBookViewModel.api_token=api
             customLAPBookView.lapBookViewModel.patient_id=patientId
             index == 0 ? makeLabSearch() : makeRadiologySearch()
@@ -247,6 +262,14 @@ class LAPBookVC: CustomBaseViewVC {
     
     @objc func handleDismiss()  {
         dismiss(animated: true, completion: nil)
+    }
+    
+   @objc func handleOkSuccess()  {
+       removeViewWithAnimation(vvv: customAlertLoginView)
+               customMainAlertVC.dismiss(animated: true)
+    let orders = ProfileOrdersVC()
+    navigationController?.pushViewController(orders, animated: true)
+    
     }
     
     required init?(coder aDecoder: NSCoder) {

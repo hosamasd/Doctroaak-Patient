@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import MOLH
 
 class CustomAnaylticsView: CustomBaseView {
     
@@ -29,7 +30,9 @@ class CustomAnaylticsView: CustomBaseView {
     lazy var mainWebView:WKWebView = {
         let v = WKWebView()
         v.uiDelegate = self
-        if  let myURL = URL(string:"https://app.quicktype.io/".toSecrueHttps()) {
+        let en = "http://doctoraak.com/public/mobile/patient?patient=1&lang=en".toSecrueHttps()
+        let ar = "http://doctoraak.com/public/mobile/patient?patient=1&lang=ar".toSecrueHttps()
+        if  let myURL =   URL(string:MOLHLanguage.isRTLLanguage()  ? ar : en) {
             let myRequest = URLRequest(url: myURL )
             v.load(myRequest)
         }
