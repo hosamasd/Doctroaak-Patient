@@ -40,11 +40,16 @@ class ProfileOrderCell: BaseCollectionCell {
         i.constrainHeight(constant: 20)
         return i
     }()
+    lazy var profileInfoReservationNumberLabel = UILabel(text: "reservation number: 2", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var profileInfoWaitingTimeLabel = UILabel(text: "waiting time : 30 mintues", font: .systemFont(ofSize: 16), textColor: .black)
+
     lazy var profileInfoAddressLabel = UILabel(text: "Fifth Settlement, New Cairo", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var profileInfoReservationLabel = UILabel(text: "Reservation : 200.0 EGP", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var profileInfoConsultaionLabel = UILabel(text: "Consultation : 50.0 EGP", font: .systemFont(ofSize: 16), textColor: .black)
     
-    lazy var profileInfoAddressButton = createImagess(image: #imageLiteral(resourceName: "ic_room_24px"))
+    lazy var profileInfoReservationNumberButton = createImagess(image: #imageLiteral(resourceName: "ic_date_range_24px"))
+    lazy var profileInfoWaitingTimeButton = createImagess(image: #imageLiteral(resourceName: "available"))
+ lazy var profileInfoAddressButton = createImagess(image: #imageLiteral(resourceName: "ic_room_24px"))
     lazy var profileInfoReservationButton = createImagess(image: #imageLiteral(resourceName: "ic_date_range_24px"))
     lazy var profileInfoConsultaionButton = createImagess(image: #imageLiteral(resourceName: "avatar"))
     
@@ -60,9 +65,17 @@ class ProfileOrderCell: BaseCollectionCell {
         let b = hstack(profileInfoConsultaionButton,profileInfoConsultaionLabel,spacing:8)
         return b
     }()
+    lazy var forthStack:UIStackView = {
+           let b = hstack(profileInfoReservationNumberButton,profileInfoReservationNumberLabel,spacing:8)
+           return b
+       }()
+       lazy var fifthStack:UIStackView = {
+           let b = hstack(profileInfoWaitingTimeButton,profileInfoWaitingTimeLabel,spacing:8)
+           return b
+       }()
     //
     lazy var totalStackFinished:UIStackView = {
-        let b = stack(firstStack,secondStack,thirdStack,spacing:8)
+        let b = stack(forthStack,fifthStack,firstStack,secondStack,thirdStack,spacing:8)
         return b
     }()
     

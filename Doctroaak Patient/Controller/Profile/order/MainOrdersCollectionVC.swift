@@ -25,13 +25,9 @@ class MainOrdersCollectionVC: BaseCollectionVC {
     var handleLABCheckedIndex:((LABOrderPatientModel)->Void)?
     var handleRADCheckedIndex:((RadiologyOrderPatientModel)->Void)?
     var handleCheckedIndexForButtons:((Int)->Void)?
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
-    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 60//pharamacyArray.count
+        return 4//pharamacyArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -67,15 +63,12 @@ class MainOrdersCollectionVC: BaseCollectionVC {
         let index = IndexPath(item: indexNumber, section: 0)
         
         collectionView.scrollToItem(at: index, at: .right, animated: true)
-        if let titleLabel = navigationItem.titleView as? UILabel {
-            //            titleLabel.text = "     \(titlesName[indexNumber])"
-        }
     }
     
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let item = targetContentOffset.pointee.x / view.frame.width
         handleCheckedIndexForButtons?(Int(item))
-//        let index = IndexPath(item: Int(item), section: 0)
+        //        let index = IndexPath(item: Int(item), section: 0)
         //        menuBar.collectionView.selectItem(at: index, animated: true, scrollPosition: .right)
         //
         //        if let titleLabel = navigationItem.titleView as? UILabel {
