@@ -123,15 +123,17 @@ struct DoctorModel:Codable {
     var degreeID:Int? 
     
     let cv: String
-    let cv2: String
+    var cv2: String?
     let photo: String
     var reservationRate, degreeRate: String?
     let createdAt, updatedAt: String
     let isHospital: Int
     var doctorDescription: String?
-    let isMedicalCenter, rate: Int
+    let isMedicalCenter: Int
+    var rate:Int? 
+    
     let insuranceCompany: [DegreeSearchModel]
-    let  specialization: DegreeSearchModel
+    var  specialization: DegreeSearchModel?
     var degree:DegreeSearchModel?
     
     

@@ -29,8 +29,8 @@ class CustomRegisterView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Welcome", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Create account", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Welcome".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Create account".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var userProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
@@ -51,11 +51,11 @@ class CustomRegisterView: CustomBaseView {
         return i
     }()
     
-    lazy var fullNameTextField = createMainTextFields(place: " Name")
-    lazy var mobileNumberTextField = createMainTextFields(place: " phone",type: .numberPad)
-    lazy var emailTextField = createMainTextFields(place: "enter email",type: .emailAddress)
+    lazy var fullNameTextField = createMainTextFields(place: " Name".localized)
+    lazy var mobileNumberTextField = createMainTextFields(place: " phone".localized,type: .numberPad)
+    lazy var emailTextField = createMainTextFields(place: "enter email".localized,type: .emailAddress)
     lazy var passwordTextField:UITextField = {
-        let s = createMainTextFields(place: "Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -66,7 +66,7 @@ class CustomRegisterView: CustomBaseView {
         return s
     }()
     lazy var confirmPasswordTextField:UITextField = {
-        let s = createMainTextFields(place: "confirm Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -79,7 +79,7 @@ class CustomRegisterView: CustomBaseView {
     lazy var boyButton:UIButton = {
         
         let button = UIButton(type: .system)
-        button.setTitle("Male", for: .normal)
+        button.setTitle("Male".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
@@ -90,7 +90,7 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var girlButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Female", for: .normal)
+        button.setTitle("Female".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 8
@@ -105,16 +105,16 @@ class CustomRegisterView: CustomBaseView {
         
         t.layer.cornerRadius = 8
         t.clipsToBounds = true
-        t.placeholder = "   Birthday"
+        t.placeholder = "   Birthday".localized
         t.textAlignment = .center
         t.layer.borderWidth = 1
         t.layer.borderColor = UIColor.lightGray.cgColor
         return t
     }()
-    lazy var addressTextField = createMainTextFields(place: "Address")
+    lazy var addressTextField = createMainTextFields(place: "Address".localized)
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [insuranceDrop])
-
-  lazy var insuranceDrop:DropDown = {
+    
+    lazy var insuranceDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.arrowSize = 20
         i.placeholder = "Insurance company".localized
@@ -123,7 +123,7 @@ class CustomRegisterView: CustomBaseView {
         }
         return i
     }()
-    lazy var insuranceCodeTextField = createMainTextFields(place: "Insurance code")
+    lazy var insuranceCodeTextField = createMainTextFields(place: "Insurance code".localized)
     
     lazy var acceptButton:UIButton = {
         let b = UIButton()
@@ -144,7 +144,7 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var signUpButton:UIButton = {
         let button = UIButton()
-        button.setTitle("SignUp", for: .normal)
+        button.setTitle("SignUp".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
@@ -156,7 +156,7 @@ class CustomRegisterView: CustomBaseView {
     
     let registerViewModel = RegisterViewModel()
     var insuracneArray = [String]()
-      var insuracneIDSArray = [Int]()
+    var insuracneIDSArray = [Int]()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -175,7 +175,7 @@ class CustomRegisterView: CustomBaseView {
         acceptButton.addTarget(self, action: #selector(handleAgree), for: .touchUpInside)
     }
     
-  
+    
     
     override func setupViews() {
         addViewsTargets()
@@ -219,33 +219,33 @@ class CustomRegisterView: CustomBaseView {
     
     func getInsuraces()  {
         fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
-
+        
     }
     
     func putDataInDrops(ir:[String],iid:[Int])  {
-           self.insuracneArray = ir
-           self.insuracneIDSArray = iid
-
-       }
+        self.insuracneArray = ir
+        self.insuracneIDSArray = iid
+        
+    }
     
     fileprivate func fetchEnglishData(isArabic:Bool) {
-           if isArabic {
-               
-               
-               if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int]{
-                   putDataInDrops( ir: specificationsArray, iid: specificationIds)
-
-               }
-           }else {
-               if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
-                   putDataInDrops( ir: specificationsArray, iid: specificationIds)
-               }
-           }
+        if isArabic {
+            
+            
+            if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int]{
+                putDataInDrops( ir: specificationsArray, iid: specificationIds)
+                
+            }
+        }else {
+            if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
+                putDataInDrops( ir: specificationsArray, iid: specificationIds)
+            }
+        }
         self.insuranceDrop.optionArray = self.insuracneArray
-           DispatchQueue.main.async {
-               self.layoutIfNeeded()
-           }
-       }
+        DispatchQueue.main.async {
+            self.layoutIfNeeded()
+        }
+    }
     
     fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
         if sender.backgroundColor == nil {
@@ -258,7 +258,7 @@ class CustomRegisterView: CustomBaseView {
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
         if let datePicker = self.birthdayTextField.inputView as? UIDatePicker { // 2.1
             let dateformatter = DateFormatter() // 2.2
-            dateformatter.dateFormat = "yyyy-MM-dd"
+            dateformatter.dateFormat = "yyyy-MM-dd".localized
             self.birthdayTextField.text = dateformatter.string(from: datePicker.date) //2.4
             registerViewModel.birthday = dateformatter.string(from: datePicker.date) //2.4
         }
@@ -353,8 +353,8 @@ class CustomRegisterView: CustomBaseView {
         confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
     }
     
-   
-   
+    
+    
     
     @objc func handleAgree(sender:UIButton)  {
         

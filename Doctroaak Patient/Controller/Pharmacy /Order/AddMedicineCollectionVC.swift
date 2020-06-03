@@ -14,7 +14,8 @@ class AddMedicineCollectionVC: BaseCollectionVC {
     fileprivate let cellID = "cellID"
     var medicineArray = [PharamcyOrderModel]()
     var handleRemovePharamcay:((PharamcyOrderModel,Int)->Void)?
-
+    var showOrderOnly:Bool = false
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return medicineArray.count
@@ -28,6 +29,7 @@ class AddMedicineCollectionVC: BaseCollectionVC {
         cell.handleRemovePharamcay={[unowned self] (m) in
             self.handleRemovePharamcay?(m,indexPath.item)
         }
+        [cell.typeLabel,cell.closeImage].forEach({$0.isHide(showOrderOnly ? true : false)})
         return cell
     }
     

@@ -13,25 +13,31 @@ class DoctorProfileOrderCollectionVC: BaseCollectionVC {
     fileprivate let cellId = "cellId"
     var pharamacyArray = [DoctorsOrderPatientModel]()
     
-    var handleCheckedIndex:((DoctorsOrderPatientModel)->Void)?
-    
+//    var handleCheckedIndex:((DoctorsOrderPatientModel)->Void)?
+    var handleCheckedIndex:((DoctorsOrderPatientModel,IndexPath)->Void)?
+
+    var handleCheckedIOpenImage:((UIImage)->Void)?
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 60//pharamacyArray.count
+        return pharamacyArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProfileOrderCell
-        //        let doctor = pharamacyArray[indexPath.item]
-        //
-        //        cell.doctor=doctor
+                let doctor = pharamacyArray[indexPath.item]
+        
+                cell.doctor=doctor
+        cell.handleCheckedIndex = {[unowned self] doctor in
+            self.handleCheckedIndex?(doctor,indexPath)
+        }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let doctor = pharamacyArray[indexPath.item]
         
-        handleCheckedIndex?(doctor)
+//        handleCheckedIndex?(doctor)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

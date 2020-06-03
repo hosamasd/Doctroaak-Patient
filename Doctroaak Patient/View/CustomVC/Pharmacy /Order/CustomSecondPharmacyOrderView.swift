@@ -164,7 +164,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     
     lazy var nextButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Next", for: .normal)
+        button.setTitle("Book", for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16

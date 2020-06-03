@@ -175,6 +175,10 @@
 		4ED917E02474364700494FCE /* MainPatientNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED917DF2474364700494FCE /* MainPatientNotificationModel.swift */; };
 		4ED917E32474373100494FCE /* PatientProfileSservicea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED917E22474373100494FCE /* PatientProfileSservicea.swift */; };
 		4ED917E5247438E300494FCE /* MainPatientRemoveNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED917E4247438E300494FCE /* MainPatientRemoveNotificationModel.swift */; };
+		4EDB5B122487C48F00817257 /* CanceOrdersServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB5B112487C48F00817257 /* CanceOrdersServices.swift */; };
+		4EDB5B142487C69100817257 /* ShowAlertMessageForCancelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB5B132487C69100817257 /* ShowAlertMessageForCancelView.swift */; };
+		4EDB5B162487C7B300817257 /* secondalertvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB5B152487C7B300817257 /* secondalertvc.swift */; };
+		4EDBED882487BBB3007FFE03 /* ZoomUserImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBED872487BBB3007FFE03 /* ZoomUserImageVC.swift */; };
 		4EDDC5F02462DF4B005A9253 /* CustomAlertChooseLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */; };
 		4EDE77532484FF79005DFCF6 /* PharamacyResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE77522484FF79005DFCF6 /* PharamacyResultsCell.swift */; };
 		4EDE77552485019B005DFCF6 /* PharamacySelectedSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE77542485019B005DFCF6 /* PharamacySelectedSearchResultsVC.swift */; };
@@ -396,6 +400,10 @@
 		4ED917DF2474364700494FCE /* MainPatientNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPatientNotificationModel.swift; sourceTree = "<group>"; };
 		4ED917E22474373100494FCE /* PatientProfileSservicea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfileSservicea.swift; sourceTree = "<group>"; };
 		4ED917E4247438E300494FCE /* MainPatientRemoveNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPatientRemoveNotificationModel.swift; sourceTree = "<group>"; };
+		4EDB5B112487C48F00817257 /* CanceOrdersServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanceOrdersServices.swift; sourceTree = "<group>"; };
+		4EDB5B132487C69100817257 /* ShowAlertMessageForCancelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertMessageForCancelView.swift; sourceTree = "<group>"; };
+		4EDB5B152487C7B300817257 /* secondalertvc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondalertvc.swift; sourceTree = "<group>"; };
+		4EDBED872487BBB3007FFE03 /* ZoomUserImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomUserImageVC.swift; sourceTree = "<group>"; };
 		4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertChooseLanguageView.swift; sourceTree = "<group>"; };
 		4EDE77522484FF79005DFCF6 /* PharamacyResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyResultsCell.swift; sourceTree = "<group>"; };
 		4EDE77542485019B005DFCF6 /* PharamacySelectedSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacySelectedSearchResultsVC.swift; sourceTree = "<group>"; };
@@ -780,6 +788,7 @@
 			children = (
 				4E6D5BB424307183000FC72D /* ViewController.swift */,
 				4E1ED39524345667004F134D /* CustomTestView.swift */,
+				4EDB5B152487C7B300817257 /* secondalertvc.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -831,6 +840,7 @@
 			children = (
 				4E48368C24668E83006073F5 /* ProfileOrdersVC.swift */,
 				4E10E82024877E6800388025 /* MainOrdersCollectionVC.swift */,
+				4EDBED872487BBB3007FFE03 /* ZoomUserImageVC.swift */,
 				4EAF735E24867E3600A19ADB /* under orders */,
 			);
 			path = order;
@@ -968,7 +978,7 @@
 				4EF799AA246AB8D9006160E3 /* Doctor */,
 				4EDE9236246000FE00205C64 /* MainServices.swift */,
 				4EDE924D2460032B00205C64 /* RegistrationServices.swift */,
-				4E025A7C246FC22800E0071D /* OrdserBookSerivce.swift */,
+				4EDB5B102487C47800817257 /* Orders */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1379,6 +1389,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		4EDB5B102487C47800817257 /* Orders */ = {
+			isa = PBXGroup;
+			children = (
+				4E025A7C246FC22800E0071D /* OrdserBookSerivce.swift */,
+				4EDB5B112487C48F00817257 /* CanceOrdersServices.swift */,
+			);
+			path = Orders;
+			sourceTree = "<group>";
+		};
 		4EDE92382460018F00205C64 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -1444,6 +1463,7 @@
 				4EA37B9024700CBB0059EC4C /* OpenLocationUsingLatAndLongView.swift */,
 				4EC21B3924827D4200C746C1 /* CustomContactUsView.swift */,
 				4EDF901C24866C4B00F142E8 /* CustomAlertSuccessView.swift */,
+				4EDB5B132487C69100817257 /* ShowAlertMessageForCancelView.swift */,
 			);
 			path = "Custom Alerts";
 			sourceTree = "<group>";
@@ -1782,6 +1802,7 @@
 				4ED71264243214D100074363 /* ICUResultsCollectionVC.swift in Sources */,
 				4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */,
 				4ED135BB2439A1D0008BE002 /* DoctorSearchViewModel.swift in Sources */,
+				4EDB5B122487C48F00817257 /* CanceOrdersServices.swift in Sources */,
 				4EA8B11F2430E543008473D3 /* CustomProfileView.swift in Sources */,
 				4E04215D2462968600584BF0 /* MainVerificationSMScODEModel.swift in Sources */,
 				4EA8B1192430E373008473D3 /* BaseSlidingVC.swift in Sources */,
@@ -1835,6 +1856,7 @@
 				4E000D082461817600083BD5 /* NotificationsTableVC.swift in Sources */,
 				4ED135BD2439A77F008BE002 /* ChooseLocationVC.swift in Sources */,
 				4E0421612462993C00584BF0 /* MainForgetPasswordModel.swift in Sources */,
+				4EDB5B162487C7B300817257 /* secondalertvc.swift in Sources */,
 				4EAF736724867FA500A19ADB /* PharamacyProfileOrderCell.swift in Sources */,
 				4EBFE88424851A1E00512689 /* MainPatientFavoriteModel.swift in Sources */,
 				4EDFE770246D6DD0003AF02A /* MainLapSearchModel.swift in Sources */,
@@ -1871,6 +1893,7 @@
 				4EC21B3A24827D4200C746C1 /* CustomContactUsView.swift in Sources */,
 				4EA21A132439D84B000F2EB0 /* DoctorBookViewModel.swift in Sources */,
 				4EDE924E2460032B00205C64 /* RegistrationServices.swift in Sources */,
+				4EDB5B142487C69100817257 /* ShowAlertMessageForCancelView.swift in Sources */,
 				4EC3CD4E243387E200732D96 /* LAPOrderVC.swift in Sources */,
 				4E04C87C243230F800D1AD1C /* PharmacyLocationVC .swift in Sources */,
 				4E203B022430921B002144FF /* RegisterViewModel.swift in Sources */,
@@ -1894,6 +1917,7 @@
 				4ED7CEDD243B1C5200317342 /* LAPOrderViewModel.swift in Sources */,
 				4E10E82124877E6800388025 /* MainOrdersCollectionVC.swift in Sources */,
 				4E2FE341246196B7003ACF4E /* CustomICUSelectedSearchView.swift in Sources */,
+				4EDBED882487BBB3007FFE03 /* ZoomUserImageVC.swift in Sources */,
 				4EEE747D243331E600FD94BA /* UserDefaultsConstants.swift in Sources */,
 				4EBBCD9324320310005C8DF7 /* DoctorBookVC.swift in Sources */,
 				4EFDA72C2431D5840010AA7D /* DoctorListCollectionVC.swift in Sources */,

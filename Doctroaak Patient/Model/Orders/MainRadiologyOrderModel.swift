@@ -28,7 +28,7 @@ struct RadiologyOrderPatientModel:Codable {
     let insuranceAccept, createdAt, updatedAt: String
     let accept: Int
     let patient: PatienModel
-    var details: [String]?
+    var details: [RADDetailsModel]?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -41,4 +41,19 @@ struct RadiologyOrderPatientModel:Codable {
         case updatedAt = "updated_at"
         case accept, patient, details
     }
+}
+
+struct RADDetailsModel:Codable {
+    let id, radiologyOrder, raysID: Int
+       let createdAt, updatedAt: String
+       let rays: RaysModel
+
+       enum CodingKeys: String, CodingKey {
+           case id
+           case radiologyOrder = "radiology_order"
+           case raysID = "rays_id"
+           case createdAt = "created_at"
+           case updatedAt = "updated_at"
+           case rays
+       }
 }

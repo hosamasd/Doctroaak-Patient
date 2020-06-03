@@ -58,3 +58,9 @@
 //NewPassVC
 "Saving password..."="Saving password...";"New"="New";"Please Enter your new password"="Please Enter your new password";
 "confirm Password"="confirm Password";
+
+//RegisterVC
+"Cancel"="Cancel";"Camera"="Camera";"enter email"="enter email";
+"Open From Gallery"="Open From Gallery";"Choose Image"="Choose Image";"Choose image fROM "="Choose image fROM ";
+"Create account"="Create account";"Welcome"="Welcome";" Name"=" Name";" phone"=" phone";
+"Male"="Male";"Female"="Female";"   Birthday"="   Birthday";

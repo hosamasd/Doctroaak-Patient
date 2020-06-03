@@ -28,7 +28,7 @@ struct PharamacyOrderPatientModel:Codable {
        let insuranceAccept, createdAt, updatedAt: String
 //       let accept: Int
        let patient: PatienModel
-       var details: [String]?
+       var details: [DetailsModel]?
 
        enum CodingKeys: String, CodingKey {
            case id
@@ -41,4 +41,23 @@ struct PharamacyOrderPatientModel:Codable {
            case updatedAt = "updated_at"
            case  patient, details//,accept
        }
+}
+
+struct DetailsModel:Codable {
+    let id, pharmacyOrder, medicineID, amount: Int
+    let medicineTypeID: Int
+    let createdAt, updatedAt: String
+    let medicine, medicineType: MedicineModel
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case pharmacyOrder = "pharmacy_order"
+        case medicineID = "medicine_id"
+        case amount
+        case medicineTypeID = "medicine_type_id"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case medicine
+        case medicineType = "medicine_type"
+    }
 }

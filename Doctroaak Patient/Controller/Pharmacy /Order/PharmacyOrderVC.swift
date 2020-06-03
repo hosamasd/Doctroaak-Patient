@@ -80,14 +80,13 @@ class PharmacyOrderVC: CustomBaseViewVC {
     var pharmacy_id:Int?{
         didSet{
             guard let pharmacy_id = pharmacy_id else { return  }
-
+            
             customPharmacyOrderView.pharmacy_id=pharmacy_id
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        showToast(context: self, msg: "sdgsdg dfgdfsg fdgdfsgdfsg dfsgfdsg \n dfgdfgdf")
         //        check()
     }
     
@@ -97,23 +96,14 @@ class PharmacyOrderVC: CustomBaseViewVC {
         guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
         patient_id=id
         api_token=api
-//        customPharmacyOrderView.orderSegmentedView.selectItemAt(index: 0)
-//        self.view.layoutSubviews()
+        //        customPharmacyOrderView.orderSegmentedView.selectItemAt(index: 0)
+        //        self.view.layoutSubviews()
     }
     
     
     
     //MARK:-User methods
     
-//    func check()  {
-//        let order:[PharamcyOrderModel] = [PharamcyOrderModel(medicineID: 1, medicineTypeID: 1, amount: 1),
-//                                          .init(medicineID: 1, medicineTypeID: 1, amount: 1)
-//        ]
-//
-//        OrdserBookSerivce.shared.postBookPharamacyResults(photo: #imageLiteral(resourceName: "star-1"), patient_id: 50, insurance: 0, delivery: 0,latt: 29.970245729247,lang: 29.970245729247,orderDetails: order, notes: "", api_token: "BrieOhmeR8CqML2RqBQDtXZWETE") { (base, err) in
-//            print(err)
-//        }
-//    }
     
     func hideOrUndie(index:Int)  {
         self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = index == 0 ? true : false
@@ -125,7 +115,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
             self.customPharmacyOrderView.firstStack.isHide(index == 1 ? true : false)
             self.bubleViewHeightConstraint.constant = index == 0 ? 900 : index == 1 ? 900 : 1500
             self.customPharmacyOrderView.textView.isHide(index == 2 ? false : true)
-
+            
         })
     }
     
@@ -288,7 +278,7 @@ extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControll
             let jpegData = img.jpegData(compressionQuality: 1.0)
             let jpegSize: Int = jpegData?.count ?? 0
             img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
-
+            
             customPharmacyOrderView.pharamacyOrderViewModel.image = img
             customPharmacyOrderView.rosetaImageView.image = img
         }
@@ -303,9 +293,9 @@ extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControll
             //            putDefaultViewModel(img)
         }
         if let url = info[.imageURL] as? URL {
-                          let fileName = url.lastPathComponent
+            let fileName = url.lastPathComponent
             customPharmacyOrderView.uploadLabel.text = fileName
-                      }
+        }
         
         //        hideOtherData()
         dismiss(animated: true)

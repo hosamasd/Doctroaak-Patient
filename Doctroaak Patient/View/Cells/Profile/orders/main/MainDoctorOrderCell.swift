@@ -12,16 +12,17 @@ class MainDoctorOrderCell: BaseCollectionCell {
     
     lazy var doctorProfileOrderCollectionVC:DoctorProfileOrderCollectionVC = {
         let vc = DoctorProfileOrderCollectionVC()
-        vc.handleCheckedIndex = {[unowned self] indexPath in
-            self.handleDoctorCheckedIndex?(indexPath)
+        vc.handleCheckedIndex = {[unowned self] indexPath,index in
+            self.handleDoctorCheckedIndex?(indexPath,index)
         }
         return vc
     }()
     
     
    
-    
-    var handleDoctorCheckedIndex:((DoctorsOrderPatientModel)->Void)?
+    var handleDoctorCheckedIndex:((DoctorsOrderPatientModel,IndexPath)->Void)?
+
+//    var handleDoctorCheckedIndex:((DoctorsOrderPatientModel)->Void)?
     
     override func setupViews() {
         stack(doctorProfileOrderCollectionVC.view)

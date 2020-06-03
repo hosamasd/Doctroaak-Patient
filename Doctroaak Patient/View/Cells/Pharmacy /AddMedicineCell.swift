@@ -10,8 +10,9 @@ import UIKit
 
 class AddMedicineCell: BaseCollectionCell {
     
-    var med:PharamcyOrderModel!{
+    var med:PharamcyOrderModel?{
         didSet{
+            guard let med = med else { return  }
             nameLabel.text = getNameFromIndex(med.medicineID)
             typeLabel.text = getTypeFromIndex(med.medicineTypeID)
             countLabel.text = "\(med.amount)"
@@ -104,6 +105,7 @@ class AddMedicineCell: BaseCollectionCell {
     }
     
     @objc func handleRemove()  {
+        guard let med = med else { return  }
              handleRemovePharamcay?(med)
          }
 }

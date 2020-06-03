@@ -15,12 +15,16 @@ class MainLABOrderCell: BaseCollectionCell {
     lazy var labProfileOrderCollectionVC:LABProfileOrderCollectionVC = {
            let vc = LABProfileOrderCollectionVC()
 //           vc.collectionView.isHide(true)
-           vc.handleCheckedIndex = {[unowned self] indexPath in
-               self.handleLABCheckedIndex?(indexPath)
+           vc.handleCheckedIndex = {[unowned self] indexPath,ind in
+               self.handleLABCheckedIndex?(indexPath,ind)
            }
+        vc.handleCheckedIOpenImage={[unowned self] img in
+                   self.handleCheckedIOpenImage?(img)
+               }
            return vc
        }()
-    var handleLABCheckedIndex:((LABOrderPatientModel)->Void)?
+    var handleLABCheckedIndex:((LABOrderPatientModel,IndexPath)->Void)?
+    var handleCheckedIOpenImage:((UIImage)->Void)?
 
     override func setupViews() {
         stack(labProfileOrderCollectionVC.view)

@@ -8,11 +8,30 @@
 
 import UIKit
 import MOLH
+import SVProgressHUD
+
 class ProfileOrderCell: BaseCollectionCell {
     
     var doctor:DoctorsOrderPatientModel? {
         didSet{
             guard let doctor = doctor else { return  }
+            profileOrderDatesLabel.text = doctor.createdAt
+            let name = MOLHLanguage.isRTLLanguage() ? doctor.clinic.doctor.nameAr ??  doctor.clinic.doctor.name : doctor.clinic.doctor.name
+            let checks = getCityFromIndex(doctor.type.toInt())
+            let waits = doctor.clinic.waitingTime
+            let reserve = doctor.clinic.fees
+            let consultaion = doctor.clinic.fees2
+
+            putAttributedText(la: profileInfoLabel, ft: "\(name)\n", st: "\(checks)")
+
+            profileInfoReservationNumberLabel.text = "reservation number : \(doctor.reservationNumber)"
+            profileInfoWaitingTimeLabel.text = "waiting time : \(waits) mintues"
+            profileInfoReservationLabel.text = "Reservation :"+reserve
+            profileInfoConsultaionLabel.text = "Consultation :"+consultaion
+            let urlString = doctor.clinic.doctor.photo
+            guard let url = URL(string: urlString) else { return  }
+            
+            profileImage.sd_setImage(with: url)
         }
     }
     
@@ -27,9 +46,7 @@ class ProfileOrderCell: BaseCollectionCell {
     }()
     lazy var profileInfoLabel:UILabel = {
         let l = UILabel()
-        let attributeText = NSMutableAttributedString(string: "Dr. Hagar Mohamed \n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-        attributeText.append(NSAttributedString(string: "Degree brief here \n\n", attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
-        l.attributedText = attributeText
+       
         l.numberOfLines = 2
         return l
     }()
@@ -92,8 +109,12 @@ class ProfileOrderCell: BaseCollectionCell {
         b.constrainHeight(constant: 50)
         b.layer.cornerRadius = 8
         b.clipsToBounds = true
+        b.addTarget(self, action: #selector(handleCacnel), for: .touchUpInside)
         return b
     }()
+    
+    var handleCheckedIndex:((DoctorsOrderPatientModel)->Void)?
+
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -142,5 +163,21 @@ class ProfileOrderCell: BaseCollectionCell {
         b.constrainWidth(constant: 20)
         b.constrainHeight(constant: 20)
         return b
+    }
+    
+   func putAttributedText(la:UILabel,ft:String,st:String)  {
+          let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+              attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+              la.attributedText = attributeText
+    }
+    
+    func getCityFromIndex(_ index:Int?) -> String {
+        guard let index = index else { return "Reservation" }
+        return index ==  1 ? "Reservation"  : index == 2 ?  "Consultaion" : "Continue"
+    }
+    
+ @objc   func handleCacnel()  {
+    guard let doctor = doctor else { return  }
+        handleCheckedIndex?(doctor)
     }
 }

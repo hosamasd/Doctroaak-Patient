@@ -41,18 +41,19 @@ class LAPOrderVC: CustomBaseViewVC {
         
         return v
     }()
+//    var meidicneArray:[RadiologyOrderModel]?
     
     var bubleViewHeightConstraint:NSLayoutConstraint!
     var apiToken:String?
     var patientId:Int? 
     fileprivate let labId:Int!
-//    fileprivate let radId:Int!
-
+    //    fileprivate let radId:Int!
+    
     
     fileprivate let index:Int!
     init(index:Int,lab:Int) {
         self.labId=lab
-//        self.radId=rad
+        //        self.radId=rad
         self.index = index
         super.init(nibName: nil, bundle: nil)
     }

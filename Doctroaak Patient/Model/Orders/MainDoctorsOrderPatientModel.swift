@@ -21,24 +21,49 @@ struct MainDoctorsOrderPatientModel:Codable {
 }
 
 struct DoctorsOrderPatientModel:Codable {
-    let id, doctorID, patientID: Int
-    var notes: String?
-    let photo: String
-    var insuranceCode: String?
-    let insuranceAccept, createdAt, updatedAt: String
-    let accept: Int
-    let patient: PatienModel
-    var details: [String]?
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case doctorID = "doctor_id"
-        case patientID = "patient_id"
-        case notes, photo
-        case insuranceCode = "insurance_code"
-        case insuranceAccept = "insurance_accept"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case accept, patient, details
-    }
+    let id, clinicID, patientID, partID: Int
+       let active, reservationNumber: Int
+       let type: String
+       var notes: String?
+       let date, createdAt, updatedAt: String
+       let patient: PatienModel
+       let clinic: ClinicModel
+
+       enum CodingKeys: String, CodingKey {
+           case id
+           case clinicID = "clinic_id"
+           case patientID = "patient_id"
+           case partID = "part_id"
+           case active
+           case reservationNumber = "reservation_number"
+           case type, notes, date
+           case createdAt = "created_at"
+           case updatedAt = "updated_at"
+           case patient, clinic
+       }
+}
+
+struct ClinicModel:Codable {
+     let id: Int
+       let photo, phone, fees, fees2: String
+       let city, area, lang, latt: String
+       let waitingTime, active, availability, doctorID: Int
+       let availableDays: Int
+       let createdAt, updatedAt: String
+       var availabilityDate: String?
+       let doctor: DoctorModel
+       let freeDays: [FreeDayModel]
+
+       enum CodingKeys: String, CodingKey {
+           case id, photo, phone, fees, fees2, city, area, lang, latt
+           case waitingTime = "waiting_time"
+           case active, availability
+           case doctorID = "doctor_id"
+           case availableDays = "available_days"
+           case createdAt = "created_at"
+           case updatedAt = "updated_at"
+           case availabilityDate = "availability_date"
+           case doctor
+           case freeDays = "free_days"
+       }
 }

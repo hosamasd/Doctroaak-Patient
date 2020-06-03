@@ -33,69 +33,46 @@ class CustomProfileOrdersView: CustomBaseView {
     }()
     
     lazy var mainOrdersCollectionVC:MainOrdersCollectionVC = {
-       let vc = MainOrdersCollectionVC()
+        let vc = MainOrdersCollectionVC()
         vc.handleCheckedIndexForButtons = {[unowned self] index in
             self.handleCheckedIndexForButtons?(index)
         }
-        return vc
-    }()
-    
-    lazy var doctorProfileOrderCollectionVC:DoctorProfileOrderCollectionVC = {
-        let vc = DoctorProfileOrderCollectionVC()
-        vc.handleCheckedIndex = {[unowned self] indexPath in
-            self.handleDoctorCheckedIndex?(indexPath)
+        vc.handleCheckedIOpenImage = {[unowned self] index in
+            self.handleCheckedIOpenImage?(index)
         }
-        return vc
-    }()
-    lazy var radiologyProfileOrderCollectionVC:RadiologyProfileOrderCollectionVC = {
-        let vc = RadiologyProfileOrderCollectionVC()
-        vc.collectionView.isHide(true)
         
-        vc.handleCheckedIndex = {[unowned self] indexPath in
-            self.handleRadCheckedIndex?(indexPath)
+        vc.handleRADCheckedIndex = {[unowned self] index,ind in
+            self.handleRadCheckedIndex?(index,ind)
         }
-        return vc
-    }()
-    lazy var pharamacyProfileOrderCollectionVC:PharamacyProfileOrderCollectionVC = {
-        let vc = PharamacyProfileOrderCollectionVC()
-        vc.collectionView.isHide(true)
-        
-        vc.handleCheckedIndex = {[unowned self] indexPath in
-            self.handlePharmacyCheckedIndex?(indexPath)
+        vc.handleLABCheckedIndex = {[unowned self] index,ind in
+            self.handleLABCheckedIndex?(index,ind)
         }
-        return vc
-    }()
-    lazy var labProfileOrderCollectionVC:LABProfileOrderCollectionVC = {
-        let vc = LABProfileOrderCollectionVC()
-        vc.collectionView.isHide(true)
-        vc.handleCheckedIndex = {[unowned self] indexPath in
-            self.handleLABCheckedIndex?(indexPath)
+        vc.handleDCheckedIndex = {[unowned self] index,ind in
+            self.handleDoctorCheckedIndex?(index,ind)
+        }
+        vc.handlePYCheckedIndex = {[unowned self] index,ind in
+            self.handlePharmacyCheckedIndex?(index,ind)
         }
         return vc
     }()
     var handleCheckedIndexForButtons:((Int)->Void)?
-
-    var handleRadCheckedIndex:((RadiologyOrderPatientModel)->Void)?
-    var handleLABCheckedIndex:((LABOrderPatientModel)->Void)?
-    var handlePharmacyCheckedIndex:((PharamacyOrderPatientModel)->Void)?
-    var handleDoctorCheckedIndex:((DoctorsOrderPatientModel)->Void)?
+    
+    var handleRadCheckedIndex:((RadiologyOrderPatientModel,IndexPath)->Void)?
+    var handleLABCheckedIndex:((LABOrderPatientModel,IndexPath)->Void)?
+    var handlePharmacyCheckedIndex:((PharamacyOrderPatientModel,IndexPath)->Void)?
+    var handleDoctorCheckedIndex:((DoctorsOrderPatientModel,IndexPath)->Void)?
+    var handleCheckedIOpenImage:((UIImage)->Void)?
     
     override func setupViews() {
         backgroundColor = .white
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,mainOrdersCollectionVC.view)//,radiologyProfileOrderCollectionVC.view)
-
-//        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doctorProfileOrderCollectionVC.view,pharamacyProfileOrderCollectionVC.view,labProfileOrderCollectionVC.view,radiologyProfileOrderCollectionVC.view)
         
-        //        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doctorProfileOrderCollectionVC.view)
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         
         mainOrdersCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
-//        radiologyProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
-//        labProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
-//        pharamacyProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
     }
 }
 

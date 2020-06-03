@@ -22,6 +22,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     var lab:LapSearchModel? {
         didSet{
             guard let lab = lab else { return  }
+            lapDoctorWorkingDataCollectionVC.index=index
             lapDoctorWorkingDataCollectionVC.labWorkingDaysArray =  lab.workingHours
             lapDoctorWorkingDataCollectionVC.collectionView.reloadData()
              DispatchQueue.main.async {
@@ -33,6 +34,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     var rad:RadiologySearchModel? {
            didSet{
             guard let rad = rad else { return  }
+            lapDoctorWorkingDataCollectionVC.index=index
 
                lapDoctorWorkingDataCollectionVC.radWorkingDaysArray = rad.workingHours
             lapDoctorWorkingDataCollectionVC.collectionView.reloadData()

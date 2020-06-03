@@ -13,27 +13,34 @@ class PharamacyProfileOrderCollectionVC: BaseCollectionVC {
     fileprivate let cellId = "cellId"
     var pharamacyArray = [PharamacyOrderPatientModel]()
     
-    var handleCheckedIndex:((PharamacyOrderPatientModel)->Void)?
+    var handleCheckedIndex:((PharamacyOrderPatientModel,IndexPath)->Void)?
+
+//    var handleCheckedIndex:((PharamacyOrderPatientModel)->Void)?
+    var handleCheckedIOpenImage:((UIImage)->Void)?
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 60//pharamacyArray.count
+        return pharamacyArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PharamacyProfileOrderCell
-        //          let pharamacy = pharamacyArray[indexPath.item]
-        //
-        //        cell.pharamacy=pharamacy
-        cell.backgroundColor = .blue
+        let pharamacy = pharamacyArray[indexPath.item]
         
+        cell.pharamacy=pharamacy
+        cell.handleCheckedIOpenImage = {[unowned self] index in
+            self.handleCheckedIOpenImage?(index)
+        }
+        cell.handleCheckedIndex = {[unowned self] doctor in
+            self.handleCheckedIndex?(doctor,indexPath)
+        }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let pharamacy = pharamacyArray[indexPath.item]
         
-        handleCheckedIndex?(pharamacy)
+//        handleCheckedIndex?(pharamacy)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -44,7 +51,7 @@ class PharamacyProfileOrderCollectionVC: BaseCollectionVC {
     override func setupCollection() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInset.top = 16
-        collectionView.backgroundColor = .orange
+        collectionView.backgroundColor = .white
         collectionView.register(PharamacyProfileOrderCell.self, forCellWithReuseIdentifier: cellId)
     }
 }

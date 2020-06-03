@@ -14,6 +14,7 @@ import MOLH
 class CustomLAPOrderView: CustomBaseView {
     
     
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -130,10 +131,11 @@ class CustomLAPOrderView: CustomBaseView {
         didSet{
             guard let labId = labId else { return  }
             if index == 0 {
-//                laPOrderViewModel.
+                //                laPOrderViewModel.
             }
         }
     }
+    
 
     
     var isDataFound = false
@@ -171,18 +173,20 @@ class CustomLAPOrderView: CustomBaseView {
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds )
                 
                 
-            }
+            
         }else {
             if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.labNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: degreeNames, did:degreeIds )
                 
             }
         }
+        
         self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
         
         DispatchQueue.main.async {
             self.layoutIfNeeded()
         }
+    }
     }
     
     

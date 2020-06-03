@@ -98,15 +98,15 @@ class RegisterVC: CustomBaseViewVC {
     }
     
     @objc func createAlertForChoposingImage()  {
-        let alert = UIAlertController(title: "Choose Image", message: "Choose image fROM ", preferredStyle: .alert)
-        let camera = UIAlertAction(title: "Camera", style: .default) {[unowned self] (_) in
+        let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .camera)
             
         }
-        let gallery = UIAlertAction(title: "Open From Gallery", style: .default) {[unowned self] (_) in
+        let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
         }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
             alert.dismiss(animated: true)
         }
         

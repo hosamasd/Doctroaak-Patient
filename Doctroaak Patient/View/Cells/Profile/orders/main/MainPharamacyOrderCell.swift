@@ -16,12 +16,19 @@ class MainPharamacyOrderCell: BaseCollectionCell {
         let vc = PharamacyProfileOrderCollectionVC()
 //        vc.collectionView.isHide(true)
         
-        vc.handleCheckedIndex = {[unowned self] indexPath in
-            self.handlePharmacyCheckedIndex?(indexPath)
+        vc.handleCheckedIndex = {[unowned self] indexPath,ind in
+            self.handlePharmacyCheckedIndex?(indexPath,ind)
+        }
+        vc.handleCheckedIOpenImage={[unowned self] img in
+            self.handleCheckedIOpenImage?(img)
         }
         return vc
     }()
-    var handlePharmacyCheckedIndex:((PharamacyOrderPatientModel)->Void)?
+    
+    var handlePharmacyCheckedIndex:((PharamacyOrderPatientModel,IndexPath)->Void)?
+
+//    var handlePharmacyCheckedIndex:((PharamacyOrderPatientModel)->Void)?
+    var handleCheckedIOpenImage:((UIImage)->Void)?
 
     override func setupViews() {
         stack(pharamacyProfileOrderCollectionVC.view)
