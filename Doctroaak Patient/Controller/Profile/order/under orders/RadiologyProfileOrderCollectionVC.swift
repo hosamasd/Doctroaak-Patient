@@ -17,14 +17,16 @@ class RadiologyProfileOrderCollectionVC: BaseCollectionVC {
             
             
             override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-                return pharamacyArray.count
+                return 60//pharamacyArray.count
             }
             
             override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! RadiologyProfileOrderCell
-                let pharamacy = pharamacyArray[indexPath.item]
+//                let pharamacy = pharamacyArray[indexPath.item]
+//
+//              cell.pharamacy=pharamacy
+                cell.backgroundColor = .gray
 
-              cell.pharamacy=pharamacy
                 return cell
             }
             

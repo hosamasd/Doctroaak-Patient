@@ -12,18 +12,6 @@ import MOLH
 
 class ProfileOrdersVC: CustomBaseViewVC {
     
-    //    lazy var scrollView: UIScrollView = {
-    //        let v = UIScrollView()
-    //        v.backgroundColor = .clear
-    //        
-    //        return v
-    //    }()
-    //    lazy var mainView:UIView = {
-    //        let v = UIView(backgroundColor: .white)
-    //        v.constrainHeight(constant: 900)
-    //        v.constrainWidth(constant: view.frame.width)
-    //        return v
-    //    }()
     lazy var customProfileOrdersView:CustomProfileOrdersView = {
         let v = CustomProfileOrdersView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -40,13 +28,10 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
         v.handleDoctorCheckedIndex = {[unowned self] lab in
             
-            
         }
-        
-        //        v.handleCheckedIndex = {[unowned self] indexPath in
-        //            let cDetails = DeatilsSelectedDoctorsVC()
-        //            self.navigationController?.pushViewController(cDetails, animated: true)
-        //        }
+        v.handleCheckedIndexForButtons = {[unowned self] index in
+            self.goToSpecificButton(index)
+        }
         return v
     }()
     lazy var mainBottomView:UIView = {
@@ -79,88 +64,11 @@ class ProfileOrdersVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchAllOrders()
+//        fetchAllOrders()
     }
     
     
-    func fetchAllOrders()  {
-        guard let patient = patient else { return  }
-
-        var groupR :[LABOrderPatientModel]?
-               var groupMN :[RadiologyOrderPatientModel]?
-               var groupMTY :[PharamacyOrderPatientModel]?
-               var groupPY :[DoctorsOrderPatientModel]?
-               
-               
-               
-               SVProgressHUD.show(withStatus: "Looding...".localized)
-               let semaphore = DispatchSemaphore(value: 0)
-               
-               let dispatchQueue = DispatchQueue.global(qos: .background)
-               
-               
-               dispatchQueue.async {
-                   // uget citites
-                
-                PatientProfileSservicea.shared.getDoctorsOrders(patient_id: patient.id, api_token: patient.apiToken, completion:  { (base, err) in
-                    groupPY = base?.data
-                       semaphore.signal()
-                   })
-                   semaphore.wait()
-                   
-                   PatientProfileSservicea.shared.getRadiologyOrders(patient_id: patient.id, api_token: patient.apiToken, completion: { (base, err) in
-                       groupMN = base?.data
-                       semaphore.signal()
-                   })
-                   semaphore.wait()
-                   
-                   PatientProfileSservicea.shared.getPharamacyOrders (patient_id: patient.id, api_token: patient.apiToken, completion: { (base, err) in
-                       groupMTY = base?.data
-                       semaphore.signal()
-                   })
-                   semaphore.wait()
-                   
-                   //get areas
-                   PatientProfileSservicea.shared.getLABOrders (patient_id: patient.id, api_token: patient.apiToken, completion: { (base, err) in
-                       groupR = base?.data
-                       semaphore.signal()
-                   })
-                   semaphore.wait()
-                   
-                  
-                   
-                   
-                   semaphore.signal()
-                   self.reloadMainData(groupR,groupMN,groupMTY,groupPY)
-                   semaphore.wait()
-               }
-           
-    }
-    
-    func reloadMainData(_ lab:[LABOrderPatientModel]?,_ rad:[RadiologyOrderPatientModel]?,_ phara:[PharamacyOrderPatientModel]?,_ doctor:[DoctorsOrderPatientModel]? )  {
-        SVProgressHUD.dismiss()
-
-        if let lab = lab {
-                    self.customProfileOrdersView.labProfileOrderCollectionVC.pharamacyArray=lab
-        }
-        if let rad = rad {
-                    self.customProfileOrdersView.radiologyProfileOrderCollectionVC.pharamacyArray=rad
-        }
-        if let pha = phara {
-                    self.customProfileOrdersView.pharamacyProfileOrderCollectionVC.pharamacyArray=pha
-        }
-        if let doc = doctor {
-                    self.customProfileOrdersView.doctorProfileOrderCollectionVC.pharamacyArray=doc
-        }
-        
-        DispatchQueue.main.async {
-            self.customProfileOrdersView.labProfileOrderCollectionVC.collectionView.reloadData()
-            self.customProfileOrdersView.radiologyProfileOrderCollectionVC.collectionView.reloadData()
-            self.customProfileOrdersView.pharamacyProfileOrderCollectionVC.collectionView.reloadData()
-            self.customProfileOrdersView.doctorProfileOrderCollectionVC.collectionView.reloadData()
-
-        }
-    }
+   
     
     
     override func setupNavigation() {
@@ -173,6 +81,86 @@ class ProfileOrdersVC: CustomBaseViewVC {
         customProfileOrdersView.fillSuperview(padding: .init(top: 0, left: 0, bottom: 50, right: 0))
         customBottomOrdersView.anchor(top: customProfileOrdersView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
+    
+     func fetchAllOrders()  {
+            patient=cacheObjectCodabe.storedValue
+            guard let patient = patient else { return  }
+
+            var groupR :[LABOrderPatientModel]?
+                   var groupMN :[RadiologyOrderPatientModel]?
+                   var groupMTY :[PharamacyOrderPatientModel]?
+                   var groupPY :[DoctorsOrderPatientModel]?
+                   
+                   
+                   
+                   SVProgressHUD.show(withStatus: "Looding...".localized)
+                   let semaphore = DispatchSemaphore(value: 0)
+                   
+                   let dispatchQueue = DispatchQueue.global(qos: .background)
+                   
+                   
+                   dispatchQueue.async {
+                       // uget citites
+                    
+    //                PatientProfileSservicea.shared.getDoctorsOrders(patient_id: patient.id, api_token: patient.apiToken, completion:  { (base, err) in
+    //                    groupPY = base?.data
+    //                       semaphore.signal()
+    //                   })
+    //                   semaphore.wait()
+                       
+                       PatientProfileSservicea.shared.getRadiologyOrders(patient_id: patient.id, api_token: patient.apiToken, completion: { (base, err) in
+                           groupMN = base?.data
+                           semaphore.signal()
+                       })
+                       semaphore.wait()
+                       
+                       PatientProfileSservicea.shared.getPharamacyOrders (patient_id: patient.id, api_token: patient.apiToken, completion: { (base, err) in
+                           groupMTY = base?.data
+                           semaphore.signal()
+                       })
+                       semaphore.wait()
+                       
+                       //get areas
+                       PatientProfileSservicea.shared.getLABOrders (patient_id: patient.id, api_token: patient.apiToken, completion: { (base, err) in
+                           groupR = base?.data
+                           semaphore.signal()
+                       })
+                       semaphore.wait()
+                       
+                      
+                       
+                       
+                       semaphore.signal()
+                       self.reloadMainData(groupR,groupMN,groupMTY,groupPY)
+                       semaphore.wait()
+                   }
+               
+        }
+        
+        func reloadMainData(_ lab:[LABOrderPatientModel]?,_ rad:[RadiologyOrderPatientModel]?,_ phara:[PharamacyOrderPatientModel]?,_ doctor:[DoctorsOrderPatientModel]? )  {
+            SVProgressHUD.dismiss()
+
+            if let lab = lab {
+                        self.customProfileOrdersView.labProfileOrderCollectionVC.pharamacyArray=lab
+            }
+            if let rad = rad {
+                        self.customProfileOrdersView.radiologyProfileOrderCollectionVC.pharamacyArray=rad
+            }
+            if let pha = phara {
+                        self.customProfileOrdersView.pharamacyProfileOrderCollectionVC.pharamacyArray=pha
+            }
+            if let doc = doctor {
+                        self.customProfileOrdersView.doctorProfileOrderCollectionVC.pharamacyArray=doc
+            }
+            
+            DispatchQueue.main.async {
+                self.customProfileOrdersView.labProfileOrderCollectionVC.collectionView.reloadData()
+                self.customProfileOrdersView.radiologyProfileOrderCollectionVC.collectionView.reloadData()
+                self.customProfileOrdersView.pharamacyProfileOrderCollectionVC.collectionView.reloadData()
+                self.customProfileOrdersView.doctorProfileOrderCollectionVC.collectionView.reloadData()
+
+            }
+        }
     
     func hideAndUnhide(FIRv:UIView,TTv:[UIView],v:UILabel,vv:[UILabel],img:UIImageView,otherImage:[UIImageView],vcss:[UIView],singleVC:UIView)  {
         
@@ -190,6 +178,17 @@ class ProfileOrdersVC: CustomBaseViewVC {
     }
     
     
+    func goToSpecificButton(_ index:Int)  {
+        if index == 0 {
+            handleDoctors()
+        }else if index == 1{
+            handlePharamcys()
+        }else if index == 2 {
+            handleLabs()
+        }else {
+            handleRadiologys()
+        }
+    }
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
@@ -209,17 +208,21 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
         hideAndUnhide(FIRv:customBottomOrdersView.secondView,TTv:[customBottomOrdersView.firstView,customBottomOrdersView.thirdView,customBottomOrdersView.forthView],v: customBottomOrdersView.pharamacyLabel, vv: [customBottomOrdersView.labLabel,customBottomOrdersView.radiologyLabel,customBottomOrdersView.doctorLabel], img: customBottomOrdersView.secondImage, otherImage: [customBottomOrdersView.firstImage,customBottomOrdersView.thirdImage,customBottomOrdersView.forthImage],vcss: sss,singleVC: zxc)
     }
+    
     @objc func handleLabs()  {
         let sss = [customProfileOrdersView.radiologyProfileOrderCollectionVC.collectionView!,customProfileOrdersView.doctorProfileOrderCollectionVC.collectionView!,customProfileOrdersView.pharamacyProfileOrderCollectionVC.collectionView!]
         let zxc = customProfileOrdersView.labProfileOrderCollectionVC.collectionView!
         
         hideAndUnhide(FIRv:customBottomOrdersView.thirdView,TTv:[customBottomOrdersView.secondView,customBottomOrdersView.firstView,customBottomOrdersView.forthView],v: customBottomOrdersView.labLabel, vv: [customBottomOrdersView.doctorLabel,customBottomOrdersView.radiologyLabel,customBottomOrdersView.pharamacyLabel], img: customBottomOrdersView.thirdImage, otherImage: [customBottomOrdersView.secondImage,customBottomOrdersView.firstImage,customBottomOrdersView.forthImage],vcss: sss,singleVC: zxc)
     }
+    
     @objc func handleRadiologys()  {
         let sss = [customProfileOrdersView.doctorProfileOrderCollectionVC.collectionView!,customProfileOrdersView.labProfileOrderCollectionVC.collectionView!,customProfileOrdersView.pharamacyProfileOrderCollectionVC.collectionView!]
         let zxc = customProfileOrdersView.radiologyProfileOrderCollectionVC.collectionView!
         
         hideAndUnhide(FIRv:customBottomOrdersView.forthView,TTv:[customBottomOrdersView.secondView,customBottomOrdersView.thirdView,customBottomOrdersView.firstView],v: customBottomOrdersView.radiologyLabel, vv: [customBottomOrdersView.labLabel,customBottomOrdersView.doctorLabel,customBottomOrdersView.pharamacyLabel], img: customBottomOrdersView.forthImage, otherImage: [customBottomOrdersView.secondImage,customBottomOrdersView.thirdImage,customBottomOrdersView.firstImage],vcss: sss,singleVC: zxc)
     }
+    
+    
     
 }

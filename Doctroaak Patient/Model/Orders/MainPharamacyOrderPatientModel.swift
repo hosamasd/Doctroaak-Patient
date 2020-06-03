@@ -26,7 +26,7 @@ struct PharamacyOrderPatientModel:Codable {
        let photo: String
        var insuranceCode: String?
        let insuranceAccept, createdAt, updatedAt: String
-       let accept: Int
+//       let accept: Int
        let patient: PatienModel
        var details: [String]?
 
@@ -39,6 +39,6 @@ struct PharamacyOrderPatientModel:Codable {
            case insuranceAccept = "insurance_accept"
            case createdAt = "created_at"
            case updatedAt = "updated_at"
-           case accept, patient, details
+           case  patient, details//,accept
        }
 }

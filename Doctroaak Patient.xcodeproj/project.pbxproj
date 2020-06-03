@@ -24,6 +24,11 @@
 		4E04C8802432315300D1AD1C /* CustomPharmacyLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04C87F2432315300D1AD1C /* CustomPharmacyLocationView.swift */; };
 		4E04C882243235BE00D1AD1C /* CustomPaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */; };
 		4E0536B82438A08A00ECFF0D /* LAPBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0536B72438A08A00ECFF0D /* LAPBookViewModel.swift */; };
+		4E10E82124877E6800388025 /* MainOrdersCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10E82024877E6800388025 /* MainOrdersCollectionVC.swift */; };
+		4E10E8242487805100388025 /* MainDoctorOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10E8232487805100388025 /* MainDoctorOrderCell.swift */; };
+		4E10E827248780D900388025 /* MainRadOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10E826248780D900388025 /* MainRadOrderCell.swift */; };
+		4E10E829248780F600388025 /* MainLABOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10E828248780F600388025 /* MainLABOrderCell.swift */; };
+		4E10E82B2487811A00388025 /* MainPharamacyOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10E82A2487811A00388025 /* MainPharamacyOrderCell.swift */; };
 		4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDAF243087E500421737 /* WelcomeVC.swift */; };
 		4E13DDB32430880F00421737 /* CustomWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB22430880F00421737 /* CustomWelcomeView.swift */; };
 		4E13DDB62430884300421737 /* CustomBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDB52430884300421737 /* CustomBaseView.swift */; };
@@ -237,6 +242,11 @@
 		4E04C87F2432315300D1AD1C /* CustomPharmacyLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPharmacyLocationView.swift; sourceTree = "<group>"; };
 		4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPaddingTextField.swift; sourceTree = "<group>"; };
 		4E0536B72438A08A00ECFF0D /* LAPBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPBookViewModel.swift; sourceTree = "<group>"; };
+		4E10E82024877E6800388025 /* MainOrdersCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainOrdersCollectionVC.swift; sourceTree = "<group>"; };
+		4E10E8232487805100388025 /* MainDoctorOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDoctorOrderCell.swift; sourceTree = "<group>"; };
+		4E10E826248780D900388025 /* MainRadOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRadOrderCell.swift; sourceTree = "<group>"; };
+		4E10E828248780F600388025 /* MainLABOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLABOrderCell.swift; sourceTree = "<group>"; };
+		4E10E82A2487811A00388025 /* MainPharamacyOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPharamacyOrderCell.swift; sourceTree = "<group>"; };
 		4E13DDAF243087E500421737 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		4E13DDB22430880F00421737 /* CustomWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWelcomeView.swift; sourceTree = "<group>"; };
 		4E13DDB52430884300421737 /* CustomBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBaseView.swift; sourceTree = "<group>"; };
@@ -489,7 +499,6 @@
 				4E000D0A246181AB00083BD5 /* NotificationCell.swift */,
 				4EFE85C02431ED8A00E44DD1 /* PatientFavoriteDoctorsCell.swift */,
 				4EAF736124867F4C00A19ADB /* orders */,
-				4EBFE887248523A200512689 /* PatientFavoritessDoctorsCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -531,6 +540,27 @@
 			path = LAP;
 			sourceTree = "<group>";
 		};
+		4E10E82224877FB500388025 /* Orders Group */ = {
+			isa = PBXGroup;
+			children = (
+				4EAF736224867F6800A19ADB /* RadiologyProfileOrderCell.swift */,
+				4EAF736424867F8900A19ADB /* LABProfileOrderCell.swift */,
+				4EAF736624867FA500A19ADB /* PharamacyProfileOrderCell.swift */,
+			);
+			path = "Orders Group";
+			sourceTree = "<group>";
+		};
+		4E10E8252487805400388025 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				4E10E8232487805100388025 /* MainDoctorOrderCell.swift */,
+				4E10E826248780D900388025 /* MainRadOrderCell.swift */,
+				4E10E828248780F600388025 /* MainLABOrderCell.swift */,
+				4E10E82A2487811A00388025 /* MainPharamacyOrderCell.swift */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
 		4E13DDAB2430879200421737 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,6 +592,7 @@
 			isa = PBXGroup;
 			children = (
 				4E000D09246181A400083BD5 /* Profile */,
+				4EBFE887248523A200512689 /* PatientFavoritessDoctorsCell.swift */,
 				4E6E04EA24615029008DE228 /* Registration */,
 				4E1E529F2433583A005E5695 /* LAP */,
 				4E04C87E2432311D00D1AD1C /* Pharmacy  */,
@@ -798,6 +829,7 @@
 			isa = PBXGroup;
 			children = (
 				4E48368C24668E83006073F5 /* ProfileOrdersVC.swift */,
+				4E10E82024877E6800388025 /* MainOrdersCollectionVC.swift */,
 				4EAF735E24867E3600A19ADB /* under orders */,
 			);
 			path = order;
@@ -1115,9 +1147,8 @@
 			isa = PBXGroup;
 			children = (
 				4E4836922466907F006073F5 /* ProfileOrderCell.swift */,
-				4EAF736224867F6800A19ADB /* RadiologyProfileOrderCell.swift */,
-				4EAF736424867F8900A19ADB /* LABProfileOrderCell.swift */,
-				4EAF736624867FA500A19ADB /* PharamacyProfileOrderCell.swift */,
+				4E10E8252487805400388025 /* main */,
+				4E10E82224877FB500388025 /* Orders Group */,
 			);
 			path = orders;
 			sourceTree = "<group>";
@@ -1792,6 +1823,7 @@
 				4E13DDE724308FF400421737 /* SMSCodeViewModel.swift in Sources */,
 				4ECC5E5624702D0E001478EA /* CustomAndLAPOrderView.swift in Sources */,
 				4EDE924C2460029100205C64 /* MedicineAddModel.swift in Sources */,
+				4E10E8242487805100388025 /* MainDoctorOrderCell.swift in Sources */,
 				4E31D52224336A30001E02B6 /* LAPResultsCell.swift in Sources */,
 				4EA8B1132430E111008473D3 /* CustomMainHomeLeftView.swift in Sources */,
 				4E2FE34324619A43003ACF4E /* ICUSelectedResultsCell.swift in Sources */,
@@ -1814,6 +1846,7 @@
 				4EFE85B62431E21200E44DD1 /* CustomDoctorSearchView.swift in Sources */,
 				4EBFE8862485233C00512689 /* PatientFavoritessDoctorsCollectionVC.swift in Sources */,
 				4E00679924331315004B1C3F /* AddMedicineCollectionVC.swift in Sources */,
+				4E10E829248780F600388025 /* MainLABOrderCell.swift in Sources */,
 				4E48368D24668E83006073F5 /* ProfileOrdersVC.swift in Sources */,
 				4E6E04E2246144EC008DE228 /* FirstSkipPaymentVC.swift in Sources */,
 				4EDE923A2460019800205C64 /* MainDegreeModel.swift in Sources */,
@@ -1830,6 +1863,7 @@
 				4EDE92482460021900205C64 /* MainRaysModel.swift in Sources */,
 				4ED917E02474364700494FCE /* MainPatientNotificationModel.swift in Sources */,
 				4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */,
+				4E10E82B2487811A00388025 /* MainPharamacyOrderCell.swift in Sources */,
 				4EBF9E16243B04B4004F2A1D /* LAPSearchViewModel.swift in Sources */,
 				4EDE9240246001D600205C64 /* MainAreaModel.swift in Sources */,
 				4E347CE52430BAE100333C07 /* BaseCollectionCell.swift in Sources */,
@@ -1858,6 +1892,7 @@
 				4EBFE8822485193000512689 /* MainAddFavoriteModel.swift in Sources */,
 				4EF799A9246AB547006160E3 /* MainPatientSearchDoctorsModel.swift in Sources */,
 				4ED7CEDD243B1C5200317342 /* LAPOrderViewModel.swift in Sources */,
+				4E10E82124877E6800388025 /* MainOrdersCollectionVC.swift in Sources */,
 				4E2FE341246196B7003ACF4E /* CustomICUSelectedSearchView.swift in Sources */,
 				4EEE747D243331E600FD94BA /* UserDefaultsConstants.swift in Sources */,
 				4EBBCD9324320310005C8DF7 /* DoctorBookVC.swift in Sources */,
@@ -1869,6 +1904,7 @@
 				4E48369124669047006073F5 /* DoctorProfileOrderCollectionVC.swift in Sources */,
 				4ED712672432151300074363 /* ICUResultsCell.swift in Sources */,
 				4E04C8802432315300D1AD1C /* CustomPharmacyLocationView.swift in Sources */,
+				4E10E827248780D900388025 /* MainRadOrderCell.swift in Sources */,
 				4EB36AA124616A7F00B67458 /* MainPaymentVC.swift in Sources */,
 				4E347CE32430BAB200333C07 /* BaseAdsCell.swift in Sources */,
 			);

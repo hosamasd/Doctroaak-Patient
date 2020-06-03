@@ -23,7 +23,7 @@ class CustomProfileOrdersView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Cardiology", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Orders", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)
@@ -32,6 +32,13 @@ class CustomProfileOrdersView: CustomBaseView {
         return v
     }()
     
+    lazy var mainOrdersCollectionVC:MainOrdersCollectionVC = {
+       let vc = MainOrdersCollectionVC()
+        vc.handleCheckedIndexForButtons = {[unowned self] index in
+            self.handleCheckedIndexForButtons?(index)
+        }
+        return vc
+    }()
     
     lazy var doctorProfileOrderCollectionVC:DoctorProfileOrderCollectionVC = {
         let vc = DoctorProfileOrderCollectionVC()
@@ -66,7 +73,8 @@ class CustomProfileOrdersView: CustomBaseView {
         }
         return vc
     }()
-    
+    var handleCheckedIndexForButtons:((Int)->Void)?
+
     var handleRadCheckedIndex:((RadiologyOrderPatientModel)->Void)?
     var handleLABCheckedIndex:((LABOrderPatientModel)->Void)?
     var handlePharmacyCheckedIndex:((PharamacyOrderPatientModel)->Void)?
@@ -74,8 +82,9 @@ class CustomProfileOrdersView: CustomBaseView {
     
     override func setupViews() {
         backgroundColor = .white
-        
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doctorProfileOrderCollectionVC.view,pharamacyProfileOrderCollectionVC.view,labProfileOrderCollectionVC.view,radiologyProfileOrderCollectionVC.view)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,mainOrdersCollectionVC.view)//,radiologyProfileOrderCollectionVC.view)
+
+//        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doctorProfileOrderCollectionVC.view,pharamacyProfileOrderCollectionVC.view,labProfileOrderCollectionVC.view,radiologyProfileOrderCollectionVC.view)
         
         //        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doctorProfileOrderCollectionVC.view)
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
@@ -83,10 +92,10 @@ class CustomProfileOrdersView: CustomBaseView {
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         
-        doctorProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
-        radiologyProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
-        labProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
-        pharamacyProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
+        mainOrdersCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
+//        radiologyProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
+//        labProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
+//        pharamacyProfileOrderCollectionVC.view.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 64, left: 8, bottom: 0, right: 8))
     }
 }
 
