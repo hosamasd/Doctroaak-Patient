@@ -15,19 +15,26 @@ class ProfileOrdersVC: CustomBaseViewVC {
     lazy var customProfileOrdersView:CustomProfileOrdersView = {
         let v = CustomProfileOrdersView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        v.handleLABCheckedIndex = {[unowned self] lab in
-            self.createAlert(order_id: lab.id, message: "LAB")
+        v.handleLABCheckedIndex = {[unowned self] lab,ind in
+            print(ind.item)
+            
+            self.createAlert(indexx:ind,ind:2,order_id: lab.id, message: "LAB")
         }
-        v.handlePharmacyCheckedIndex = {[unowned self] lab in
-            self.createAlert(order_id: lab.id, message: "PHARMACY")
+        v.handlePharmacyCheckedIndex = {[unowned self] lab,ind in
+            print(ind.item)
+            
+            self.createAlert(indexx:ind,ind:1,order_id: lab.id, message: "PHARMACY")
         }
         
-        v.handleRadCheckedIndex = {[unowned self] lab in
-            self.createAlert(order_id: lab.id, message: "RADIOLOGY")
+        v.handleRadCheckedIndex = {[unowned self] lab,ind in
+            print(ind.item)
+            
+            self.createAlert(indexx:ind,ind:3,order_id: lab.id, message: "RADIOLOGY")
         }
         
-        v.handleDoctorCheckedIndex = {[unowned self] lab in
-            self.createAlert(order_id: lab.id, message: "DOCTOR")
+        v.handleDoctorCheckedIndex = {[unowned self] lab,ind in
+            print(ind.item)
+            self.createAlert(indexx:ind,ind:0,order_id: lab.id, message: "DOCTOR")
         }
         v.handleCheckedIndexForButtons = {[unowned self] index in
             self.goToSpecificButton(index)
@@ -203,7 +210,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
         customProfileOrdersView.mainOrdersCollectionVC.collectionView.scrollToItem(at: index, at: .right, animated: true)
     }
     
-    func createAlert(order_id:Int,message:String)  {
+    func createAlert(indexx:IndexPath,ind:Int,order_id:Int,message:String)  {
         let alertController = UIAlertController(title: "Feedback \n\n\n\n\n", message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
@@ -213,7 +220,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
         let saveAction = UIAlertAction(title: "Submit", style: .default) { (action) in
             let enteredText = self.textView.text
-            self.makeActionForCancel(order_id:order_id,message:enteredText ?? "",type: message)
+            self.makeActionForCancel(indexx:indexx,ind:ind,order_id:order_id,message:enteredText ?? "",type: message)
             alertController.view.removeObserver(self, forKeyPath: "bounds")
         }
         alertController.addAction(saveAction)
@@ -226,7 +233,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func makeActionForCancel(order_id:Int,message:String,type:String)  {
+    func makeActionForCancel(indexx:IndexPath,ind:Int,order_id:Int,message:String,type:String)  {
         guard let patient = patient else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents()
         
@@ -238,11 +245,27 @@ class ProfileOrdersVC: CustomBaseViewVC {
             }
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
-            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            guard let user = base else {return}
+            let mess = MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn
+            
             
             DispatchQueue.main.async {
-                self.showToast(context: self, msg: user)
+                self.removeItem(ind: ind, indexx: indexx)
+                self.showToast(context: self, msg: mess)
             }        }
+    }
+    
+    func removeItem(ind:Int,indexx:IndexPath)  {
+        if ind == 0 {
+            customProfileOrdersView.mainOrdersCollectionVC.doctorArray.remove(at: indexx.item)
+        }else if ind == 1 {
+            customProfileOrdersView.mainOrdersCollectionVC.pharamacyArray.remove(at: indexx.item)
+        }else if ind == 2 {
+            customProfileOrdersView.mainOrdersCollectionVC.labArray.remove(at: indexx.item)
+        }else {
+            customProfileOrdersView.mainOrdersCollectionVC.radArray.remove(at: indexx.item)
+        }
+        customProfileOrdersView.mainOrdersCollectionVC.collectionView.reloadData()
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
