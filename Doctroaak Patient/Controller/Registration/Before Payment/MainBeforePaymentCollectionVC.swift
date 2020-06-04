@@ -44,10 +44,17 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     
     fileprivate let cellID="cellID"
     fileprivate let pagesImages = [#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280"),#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280")]
+    //    var pages :[String] = ["Users/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift \nUsers/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift\nUsers/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift",
+    //      "Users/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift",
+    //          "Users/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift",
+    //        "Users/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift\nUsers/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift"
+    //    ]
+    
+    
     var pages :[String] = [String]()
     var handleNextOperation:(()->Void)?
     var handleBackOperation:(()->Void)?
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +76,10 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let pa = pages[indexPath.item]
+        
+        let height = "".getFrameForText(text: pa)
+        
         return .init(width: view.frame.width, height: view.frame.height)
     }
     
@@ -89,13 +100,16 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         
         view.addSubViews(views: pageControl,bottomStack,secondStack)
         
-//        pageControl.anchor(top: nil, leading: nil, bottom: nil, trailing: nil)
-//               pageControl.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200).isActive = true
-//               pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 32, bottom: 16, right: 0))
-//        pageControl.centerXInSuperview()
+        //        pageControl.anchor(top: nil, leading: nil, bottom: nil, trailing: nil)
+        //               pageControl.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200).isActive = true
+        //               pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //        pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 32, bottom: 16, right: 0))
+        //        pageControl.centerXInSuperview()
         pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 0, bottom: 60, right: 0))
         pageControl.centerXInSuperview()
+        //        pageControl.anchor(top: nil, leading: nil, bottom: nil, trailing: nil)
+        //               pageControl.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 120).isActive = true
+        //               pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         bottomStack.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 32, bottom: 16, right: 32))
         secondStack.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 32, bottom: 16, right: 32))
     }
@@ -104,7 +118,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .white
         collectionView.register(BeforePaymentCell.self, forCellWithReuseIdentifier: cellID)
         collectionView.isPagingEnabled = true
     }
@@ -120,7 +134,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         return bt
     }
     
-     func hideOrUnhide(b:Bool,b2:Bool) {
+    func hideOrUnhide(b:Bool,b2:Bool) {
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.secondStack.isHide(b2)
             self.bottomStack.isHide(b)
@@ -132,23 +146,23 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         self.handleNextOperation?()
         if pageControl.currentPage+1 < pages.count-1 {
             let nextIndex = min(pageControl.currentPage + 1, pages.count - 1)
-
-
+            
+            
             let indexPath = IndexPath(item: nextIndex, section: 0)
             pageControl.currentPage = nextIndex
             collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-
+            
             backButton.image = pageControl.currentPage == 0 ? #imageLiteral(resourceName: "buttons-square-gray") : #imageLiteral(resourceName: "buttons-square-grayd")
-
-
+            
+            
             if nextIndex == pages.count - 1 {
-
+                
                 hideOrUnhide(b: false, b2: true)
                 //                return
             }
         }else {
             let indexPath = IndexPath(item: 3, section: 0)
-
+            
             pageControl.currentPage = 3
             collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             hideOrUnhide(b: true, b2: false)

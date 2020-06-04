@@ -22,6 +22,10 @@ class BeforePaymentCell: BaseCollectionCell {
     
      lazy var splashImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.constrainHeight(constant: 150)
+
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
 //        imageView.contentMode = .scaleAspectFill
 //        imageView.constrainHeight(constant: 150)
         return imageView
@@ -30,16 +34,13 @@ class BeforePaymentCell: BaseCollectionCell {
     lazy var descriptionLabel: UILabel = {
         let la = UILabel()
 //        la.backgroundColor = .red
-        la.numberOfLines = 4
+        la.numberOfLines = 6
         la.sizeToFit()
         return la
     }()
     
     override func setupViews() {
         backgroundColor = .white
-        
-//        addSubViews(views: splashImageView,descriptionLabel)
-        
-        stack(splashImageView,descriptionLabel,UIView(),spacing:16)
+        stack(splashImageView,descriptionLabel,UIView(),spacing:16).withMargins(.init(top: 16, left: 16, bottom: 16, right: 16))
     }
 }
