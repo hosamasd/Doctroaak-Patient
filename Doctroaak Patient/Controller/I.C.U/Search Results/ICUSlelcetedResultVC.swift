@@ -11,15 +11,15 @@ import UIKit
 class ICUSlelcetedResultVC: CustomBaseViewVC {
     
     lazy var customICUSelectedSearchView:CustomICUSelectedSearchView = {
-         let v = CustomICUSelectedSearchView()
-         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-         return v
-     }()
+        let v = CustomICUSelectedSearchView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        return v
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        showToast(message: "hksjfbnkjsdnf sdl,fnsldkfn", font: .systemFont(ofSize: 20))
-//        popUp(context: self, msg: "sdgsdvdsgv dsgvdsgvds")
+        //        showToast(message: "hksjfbnkjsdnf sdl,fnsldkfn", font: .systemFont(ofSize: 20))
+        //        popUp(context: self, msg: "sdgsdvdsgv dsgvdsgvds")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,8 +27,8 @@ class ICUSlelcetedResultVC: CustomBaseViewVC {
     }
     
     override func setupViews() {
-//        showToast(message: "hksjfbnkjsdnf sdl,fnsldkfn", font: .systemFont(ofSize: 20))
-
+        //        showToast(message: "hksjfbnkjsdnf sdl,fnsldkfn", font: .systemFont(ofSize: 20))
+        
         view.addSubview(customICUSelectedSearchView)
         customICUSelectedSearchView.fillSuperview()
     }
@@ -36,10 +36,10 @@ class ICUSlelcetedResultVC: CustomBaseViewVC {
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
     }
-
-  @objc  func handleBack()  {
+    
+    @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
-
-   
+    
+    
 }

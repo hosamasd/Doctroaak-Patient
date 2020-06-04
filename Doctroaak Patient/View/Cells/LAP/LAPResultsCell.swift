@@ -18,7 +18,7 @@ class LAPResultsCell: BaseCollectionCell {
             let city = getCityFromIndex(lab.city)
             let area = getAreaFromIndex(lab.area)
             //            let avaible = lab.active == 0 ? "Available" : "UnAvailable"
-            let delivery = lab.delivery.toInt() == 0 ? "Delivery" : "Not Delivery"
+            let delivery = lab.delivery.toInt() == 0 ? "Delivery".localized : "Not Delivery"
             
             let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
             attributeText.append(NSAttributedString(string: "\n \(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))

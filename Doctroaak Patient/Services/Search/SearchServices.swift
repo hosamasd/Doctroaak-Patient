@@ -114,21 +114,21 @@ class SearchServices {
         
     }
     
-    func iCUGetSearchResults(city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainICUFilterModel?, Error?) ->Void)  {
+    func iCUGetSearchResults(isFirst:Bool,city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainICUFilterModel?, Error?) ->Void)  {
         let urlString = "\(baseUrl)icu/get".toSecrueHttps()
-        var checks = ""
-        
-        if   lang != nil && latt != nil {
-            checks = "?latt=\(latt!)&lang=\(lang!)"
-        }else {
-            checks = "?city=\(city!)&are=\(are!)"
-        }
+        let checks = isFirst ? "?city=\(city!)&are=\(are!)" : "?latt=\(latt!)&lang=\(lang!)"
+
+//        if   !isFirst {
+//            checks = "?latt=\(latt!)&lang=\(lang!)"
+//        }else {
+//            checks = "?city=\(city!)&are=\(are!)"
+//        }
         let postString = urlString+checks
         
         MainServices.mainGetMethodGenerics(urlString: postString, completion: completion)
     }
     
-    func incubationGetSearchResults(isFirst:Bool,city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainLapSearchModel?, Error?) ->Void)  {
+    func incubationGetSearchResults(isFirst:Bool,city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainIncubtionSearchModel?, Error?) ->Void)  {
         let urlString = "\(baseUrl)incubation/get".toSecrueHttps()
         let checks = isFirst ? "?city=\(city!)&are=\(are!)" : "?latt=\(latt!)&lang=\(lang!)"
         

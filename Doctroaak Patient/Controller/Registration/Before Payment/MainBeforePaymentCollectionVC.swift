@@ -44,17 +44,9 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     
     fileprivate let cellID="cellID"
     fileprivate let pagesImages = [#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280"),#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280")]
-    //    var pages :[String] = ["Users/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift \nUsers/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift\nUsers/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift",
-    //      "Users/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift",
-    //          "Users/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift",
-    //        "Users/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift\nUsers/hosam/Documents/xcode projects/syphinx/Doctroaak Patient/Doctroaak Patient/Controller/Registration/Before Payment/MainBeforePaymentCollectionVC.swift"
-    //    ]
-    
-    
     var pages :[String] = [String]()
-    var handleNextOperation:(()->Void)?
-    var handleBackOperation:(()->Void)?
-    
+    var handlePaymentAction:(()->Void)?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,17 +91,8 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         //        bottomStack.isHide(true)
         
         view.addSubViews(views: pageControl,bottomStack,secondStack)
-        
-        //        pageControl.anchor(top: nil, leading: nil, bottom: nil, trailing: nil)
-        //               pageControl.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200).isActive = true
-        //               pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        //        pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 32, bottom: 16, right: 0))
-        //        pageControl.centerXInSuperview()
         pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 0, bottom: 60, right: 0))
         pageControl.centerXInSuperview()
-        //        pageControl.anchor(top: nil, leading: nil, bottom: nil, trailing: nil)
-        //               pageControl.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 120).isActive = true
-        //               pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         bottomStack.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 32, bottom: 16, right: 32))
         secondStack.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 32, bottom: 16, right: 32))
     }
@@ -143,7 +126,6 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     @objc  func handleNext() {
-        self.handleNextOperation?()
         if pageControl.currentPage+1 < pages.count-1 {
             let nextIndex = min(pageControl.currentPage + 1, pages.count - 1)
             
@@ -192,6 +174,6 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     @objc func handleSkip()  {
-        print(0123)
+        handlePaymentAction?()
     }
 }

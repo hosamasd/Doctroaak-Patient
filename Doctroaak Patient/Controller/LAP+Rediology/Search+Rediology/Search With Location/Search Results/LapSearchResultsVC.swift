@@ -38,7 +38,7 @@ class LapSearchResultsVC: CustomBaseViewVC {
         v.handleRdiologyCheckedIndex = {[unowned self] indexx in
             let selected = LAPSelectedSearchResultsVC(index: self.index)
             selected.apiToken=self.apiToken
-                       selected.patientId=self.patientId
+            selected.patientId=self.patientId
             selected.radiologyArrayResults=indexx
             self.navigationController?.pushViewController(selected, animated: true)
         }

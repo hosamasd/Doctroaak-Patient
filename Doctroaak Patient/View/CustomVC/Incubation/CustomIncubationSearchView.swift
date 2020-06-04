@@ -25,15 +25,14 @@ class CustomIncubationSearchView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Search", font: .systemFont(ofSize: 35), textColor: .white)
-    lazy var userSpecificationLabel = UILabel(text: "Select Your Location", font: .systemFont(ofSize: 16), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Incubation".localized, font: .systemFont(ofSize: 35), textColor: .white)
+    lazy var userSpecificationLabel = UILabel(text: "Select Your Location".localized, font: .systemFont(ofSize: 16), textColor: .white)
     
     
     
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
         i.didSelect { (txt, index, _) in
@@ -46,7 +45,6 @@ class CustomIncubationSearchView: CustomBaseView {
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in
@@ -58,7 +56,7 @@ class CustomIncubationSearchView: CustomBaseView {
     
     lazy var searchSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
-        view.itemTitles = ["Search by city and area","Search by address"]
+        view.itemTitles = ["Search by city and area".localized,"Search by address".localized]
         view.allowChangeThumbWidth = false
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
@@ -80,7 +78,7 @@ class CustomIncubationSearchView: CustomBaseView {
         
         return v
     }()
-    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
+    lazy var addressLabel = UILabel(text: "Address".localized, font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
     lazy var addressImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
         v.isUserInteractionEnabled = true
@@ -91,7 +89,7 @@ class CustomIncubationSearchView: CustomBaseView {
     }()
     lazy var searchButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Search", for: .normal)
+        button.setTitle("Search".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16

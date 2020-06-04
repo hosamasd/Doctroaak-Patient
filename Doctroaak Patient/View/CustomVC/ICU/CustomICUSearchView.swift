@@ -9,6 +9,7 @@
 import UIKit
 import MOLH
 import iOSDropDown
+import TTSegmentedControl
 
 class CustomICUSearchView: CustomBaseView {
     
@@ -24,15 +25,27 @@ class CustomICUSearchView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Search", font: .systemFont(ofSize: 35), textColor: .white)
-    lazy var userSpecificationLabel = UILabel(text: "Select Your Location", font: .systemFont(ofSize: 16), textColor: .white)
+    lazy var titleLabel = UILabel(text: "I.C.U".localized, font: .systemFont(ofSize: 35), textColor: .white)
+    lazy var userSpecificationLabel = UILabel(text: "Select Your Location".localized, font: .systemFont(ofSize: 16), textColor: .white)
     
     
     
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [cityDrop])
+    lazy var searchSegmentedView:TTSegmentedControl = {
+           let view = TTSegmentedControl()
+           view.itemTitles = ["Search by city and area".localized,"Search by address".localized]
+           view.allowChangeThumbWidth = false
+           view.constrainHeight(constant: 50)
+           view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
+           view.useShadow = true
+           view.didSelectItemWith = {[unowned self] (index, title) in
+               index == 0 ?    self.openTheseViewsOrHide(isVale: false) : self.openTheseViewsOrHide(isVale: true)
+               self.icuViewModel.isFirstOpetion = index == 0 ? true : false
+           }
+           return view
+       }()
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
         
@@ -46,7 +59,6 @@ class CustomICUSearchView: CustomBaseView {
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         //        i.arrowColor = .white
         i.placeholder = "Area".localized
@@ -61,10 +73,10 @@ class CustomICUSearchView: CustomBaseView {
         let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
         v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
-        
+        v.isHide(true)
         return v
     }()
-    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
+    lazy var addressLabel = UILabel(text: "Address".localized, font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
     lazy var addressImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
         v.isUserInteractionEnabled = true
@@ -75,7 +87,7 @@ class CustomICUSearchView: CustomBaseView {
     }()
     lazy var searchButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Search", for: .normal)
+        button.setTitle("Search".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
@@ -105,7 +117,7 @@ class CustomICUSearchView: CustomBaseView {
         
         
         [cityDrop,areaDrop].forEach({$0.fillSuperview(padding: .init(top: 8, left: 16, bottom: 8, right: 16))})
-        addSubViews(views: LogoImage,backImage,titleLabel,userSpecificationLabel,textStack,searchButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,userSpecificationLabel,searchSegmentedView,textStack,searchButton)
         
         NSLayoutConstraint.activate([
             textStack.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -118,6 +130,8 @@ class CustomICUSearchView: CustomBaseView {
         //        notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         userSpecificationLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+        searchSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 108, left: 46, bottom: 0, right: 32))
+
         textStack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
         //        text2Stack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
         
@@ -189,6 +203,11 @@ class CustomICUSearchView: CustomBaseView {
             self.layoutIfNeeded()
         }
     }
+    
+    func openTheseViewsOrHide(isVale:Bool)  {
+           [mainDropView,mainDrop2View].forEach({$0.isHide(isVale)})
+           addressMainView.isHide(!isVale)
+       }
     
     func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int])  {
         self.cityArray = sr

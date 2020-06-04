@@ -89,7 +89,7 @@ class DoctorWorkingDateCell: BaseCollectionCell {
     }
     
     func getDayFromIndex (_ index:Int) ->String {
-        return index == 1 ? "Saturday" : index == 2 ? "Sunday" : index == 3 ? "Monday"  : index == 4 ? "Tuesday" : index == 5 ? "Wednsday" : index == 6 ? "Thursday" : "Friday"
+        return index == 1 ? "Saturday".localized : index == 2 ? "Sunday".localized : index == 3 ? "Monday".localized  : index == 4 ? "Tuesday".localized : index == 5 ? "Wednsday".localized : index == 6 ? "Thursday".localized : "Friday".localized
     }
     
     func changeTimeForButtonTitle(values:String)->String  {

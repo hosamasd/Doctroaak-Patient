@@ -64,3 +64,33 @@
 "Open From Gallery"="Open From Gallery";"Choose Image"="Choose Image";"Choose image fROM "="Choose image fROM ";
 "Create account"="Create account";"Welcome"="Welcome";" Name"=" Name";" phone"=" phone";
 "Male"="Male";"Female"="Female";"   Birthday"="   Birthday";
+
+//ICUSearchVC
+"Search"="Search";"Select Your Location"="Select Your Location";"Area"="Area";"City"="City";
+ 
+//ChooseLocationVC
+"Done"="Done";
+
+//ICUSearchResultsVC
+"Get well soon!"="Get well soon!";"I.C.U"="I.C.U";"Avaible Seat"="Avaible Seat";
+
+//ICUSlelcetedResultVC
+"Map"="Map";
+
+//IncubationSearchVC
+"Search by city and area"="Search by city and area";"Search by address"="Search by address";"Address"="Address";
+
+//IncubationSearchResultsVC
+"Incubation"="Incubation";
+
+//LapSearchVC
+"Searching..."="Searching..."; "Lab"= "Lab";"Radiology"="Radiology";"Insurance company"="Insurance company";
+"Delivery ?"="Delivery ?";
+
+//LapSearchResultsVC
+
+//LAPSelectedSearchResultsVC
+"Rediology  working hours"="Rediology  working hours";"Lab  working hours"="Lab  working hours";"Book"="Book";
+"Saturday"="Saturday";"Sunday"="Sunday";"Monday"="Monday";"Tuesday"="Tuesday";"Wednsday"="Wednsday";"Thursday"="Thursday";"Friday"="Friday";
+
+

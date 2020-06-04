@@ -40,7 +40,7 @@ class LapSearchVC: CustomBaseViewVC {
     }()
     
     var apiToken:String?
-       var patientId:Int? 
+    var patientId:Int?
     fileprivate let index:Int!
     
     init(index:Int) {
@@ -55,7 +55,7 @@ class LapSearchVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-//                check()
+        //                check()
     }
     
     //MARK:-User methods
@@ -187,7 +187,7 @@ extension LapSearchVC : ChooseLocationVCProtocol{
         self.customLapSearchView.lAPSearchViewModel.lat = lat
         self.customLapSearchView.lAPSearchViewModel.lng = long
         self.customLapSearchView.lAPSearchViewModel.index = index
-
+        
     }
     
 }

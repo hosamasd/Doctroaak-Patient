@@ -205,6 +205,7 @@
 		4EDFE773246D6F0C003AF02A /* MainRadiologySearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFE772246D6F0C003AF02A /* MainRadiologySearchModel.swift */; };
 		4EEE747B243324AC00FD94BA /* CustomAddMinusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */; };
 		4EEE747D243331E600FD94BA /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE747C243331E600FD94BA /* UserDefaultsConstants.swift */; };
+		4EF0FA0E248948FC00E4DBD0 /* MainIncubtionSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF0FA0D248948FC00E4DBD0 /* MainIncubtionSearchModel.swift */; };
 		4EF2BB6424703A4400C1EBF7 /* CustomSecondPharmacyOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2BB6324703A4400C1EBF7 /* CustomSecondPharmacyOrderView.swift */; };
 		4EF423EF248270290050BFC3 /* AnaylticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF423EE248270290050BFC3 /* AnaylticsVC.swift */; };
 		4EF423F2248270BE0050BFC3 /* CustomAnaylticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF423F1248270BE0050BFC3 /* CustomAnaylticsView.swift */; };
@@ -430,6 +431,7 @@
 		4EDFE772246D6F0C003AF02A /* MainRadiologySearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRadiologySearchModel.swift; sourceTree = "<group>"; };
 		4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddMinusView.swift; sourceTree = "<group>"; };
 		4EEE747C243331E600FD94BA /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
+		4EF0FA0D248948FC00E4DBD0 /* MainIncubtionSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainIncubtionSearchModel.swift; sourceTree = "<group>"; };
 		4EF2BB6324703A4400C1EBF7 /* CustomSecondPharmacyOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecondPharmacyOrderView.swift; sourceTree = "<group>"; };
 		4EF423EE248270290050BFC3 /* AnaylticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnaylticsVC.swift; sourceTree = "<group>"; };
 		4EF423F1248270BE0050BFC3 /* CustomAnaylticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnaylticsView.swift; sourceTree = "<group>"; };
@@ -955,6 +957,7 @@
 		4E6D5BC8243071B1000FC72D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4EF0FA0C248948E300E4DBD0 /* Incubtion */,
 				4EAF7351248677F700A19ADB /* Orders */,
 				4E2C20A02484EFB600BDD09E /* Search */,
 				4ED917DE2474362500494FCE /* Prodile */,
@@ -1493,6 +1496,14 @@
 			path = LAB;
 			sourceTree = "<group>";
 		};
+		4EF0FA0C248948E300E4DBD0 /* Incubtion */ = {
+			isa = PBXGroup;
+			children = (
+				4EF0FA0D248948FC00E4DBD0 /* MainIncubtionSearchModel.swift */,
+			);
+			path = Incubtion;
+			sourceTree = "<group>";
+		};
 		4EF423F0248270B70050BFC3 /* List */ = {
 			isa = PBXGroup;
 			children = (
@@ -1882,6 +1893,7 @@
 				4E13DDE124308F6300421737 /* VerificationVC.swift in Sources */,
 				4E13DDEB2430905C00421737 /* CustomNewPassView.swift in Sources */,
 				4EF423F2248270BE0050BFC3 /* CustomAnaylticsView.swift in Sources */,
+				4EF0FA0E248948FC00E4DBD0 /* MainIncubtionSearchModel.swift in Sources */,
 				4EDE92482460021900205C64 /* MainRaysModel.swift in Sources */,
 				4ED917E02474364700494FCE /* MainPatientNotificationModel.swift in Sources */,
 				4E13DDB0243087E500421737 /* WelcomeVC.swift in Sources */,

@@ -16,8 +16,8 @@ class IncubationSearchViewModel {
     //variables
     var city:Int? = -1 {didSet {checkFormValidity()}}
     var area:Int? = -1 {didSet {checkFormValidity()}}
-    var lat:String? {didSet {checkFormValidity()}}
-    var lng:String? {didSet {checkFormValidity()}}
+    var lat:Double? = -1 {didSet {checkFormValidity()}}
+    var lng:Double? = -1 {didSet {checkFormValidity()}}
 
     var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
 
@@ -25,19 +25,20 @@ class IncubationSearchViewModel {
     
     
     
-    func performLogging(completion:@escaping (Error?)->Void)  {
-        if isFirstOpetion ?? true {
-            guard let city = city,let area = area else { return  }
-        }else {
-            guard let lat = lat,let lng = lng else { return  }
-        }
-        bindableIsLogging.value = true
-        
-        //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
+    func performSearching(completion:@escaping (MainIncubtionSearchModel?,Error?)->Void)  {
+          if isFirstOpetion ?? true {
+                 guard let city = city,let area = area else { return  }
+                 bindableIsLogging.value = true
+                 SearchServices.shared.incubationGetSearchResults(isFirst:true,city: city, are: area, completion: completion)
+             }else {
+                 guard   let lat = lat,let lng = lng else { return  }
+                 bindableIsLogging.value = true
+                 SearchServices.shared.incubationGetSearchResults( isFirst:false,latt: lat, lang: lng, completion: completion);return
+             }
     }
     
     func checkFormValidity() {
-        let isFormValid = city != -1 &&  area != -1 && isFirstOpetion == true || isFirstOpetion == false &&   lat?.isEmpty == false && lng?.isEmpty == false
+      let isFormValid = city != -1 &&  area != -1  && isFirstOpetion == true ||  isFirstOpetion == false &&  lat != -1  && lng != -1
         
         bindableIsFormValidate.value = isFormValid
         

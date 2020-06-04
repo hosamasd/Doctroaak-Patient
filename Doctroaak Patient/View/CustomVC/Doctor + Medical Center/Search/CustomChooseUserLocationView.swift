@@ -13,18 +13,18 @@ import CoreLocation
 class CustomChooseUserLocationView: CustomBaseView {
     
     
- lazy var infoImageView:UIImageView = {
-    let i = UIImageView(image: #imageLiteral(resourceName: "Group 3928-1").withRenderingMode(.alwaysOriginal))
-    i.constrainWidth(constant: 40)
-    i.constrainHeight(constant: 40)
-    i.contentMode = .scaleToFill
+    lazy var infoImageView:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3928-1").withRenderingMode(.alwaysOriginal))
+        i.constrainWidth(constant: 40)
+        i.constrainHeight(constant: 40)
+        i.contentMode = .scaleToFill
         i.isUserInteractionEnabled = true
         return i
     }()
     lazy var mapView:MKMapView  = {
         let i = MKMapView()
         i.showsUserLocation = true
-//        i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
+        //        i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
         return i
     }()
     lazy var doneButton:UIButton = {

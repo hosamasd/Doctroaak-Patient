@@ -25,13 +25,18 @@ class ICUSearchResultsVC: CustomBaseViewVC {
     lazy var customICUResultsView:CustomICUResultsView = {
         let v = CustomICUResultsView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-
+        
         return v
     }()
     
     var icuArray: [ICUFilterModel]?{
         didSet{
             guard let icu = icuArray else { return  }
+            customICUResultsView.icuResultsCollectionVC.icuArray=icu
+            DispatchQueue.main.async {
+                self.customICUResultsView.icuResultsCollectionVC.collectionView.reloadData()
+            }
+            
             
         }
     }
@@ -58,7 +63,7 @@ class ICUSearchResultsVC: CustomBaseViewVC {
     
     
     @objc  func handleBack()  {
-           navigationController?.popViewController(animated: true)
-       }
+        navigationController?.popViewController(animated: true)
+    }
     
 }

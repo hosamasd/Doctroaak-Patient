@@ -12,7 +12,7 @@ class CustomLapResultsView: CustomBaseView {
     
     var index:Int!{
         didSet{
-            titleLabel.text = index == 1 ? "Rediology" : "Lap"
+            titleLabel.text = index == 1 ? "Rediology".localized : "Lap".localized
             lapResultsCollectionVC.index = index
             
             if index == 0 {
@@ -40,7 +40,7 @@ class CustomLapResultsView: CustomBaseView {
         return i
     }()
     lazy var titleLabel = UILabel(text: "Lap", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)
         v.layer.cornerRadius = 8

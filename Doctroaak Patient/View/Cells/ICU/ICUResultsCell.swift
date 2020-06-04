@@ -13,59 +13,44 @@ class ICUResultsCell: BaseCollectionCell {
     
     var icu:ICUFilterModel? {
         didSet{
-            guard let ic = icu else { return  }
-            profileInfoLabel.text = ic.name
-            profileInfoDescriptiomnLabel.text = ic.descriptionAr
-            profileInfoReservationLabel.text = "Avaible Seat \(ic.bedNumber)"
+            guard let inc = icu else { return  }
+                       let name = MOLHLanguage.isRTLLanguage() ? inc.nameAr : inc.name
+                       let des = MOLHLanguage.isRTLLanguage() ? inc.descriptionAr : inc.datumDescription
+                       
+                       putAttributedText(la: profileInfoLabel, ft: name+"\n", st: des)
+                       profileInfoAvalibalityLabel.text = "Avilabilty seats".localized + " : \(inc.bedNumber)"
         }
     }
     
-    
     lazy var profileImage:UIImageView = {
-        let i = UIImageView(backgroundColor: .gray)
+
+      let i = UIImageView(backgroundColor: .gray)
         i.constrainWidth(constant: 60)
         i.constrainHeight(constant: 60)
         i.layer.cornerRadius = 8
         i.clipsToBounds = true
         return i
     }()
-    lazy var profileInfoLabel = UILabel(text: "", font: .systemFont(ofSize: 18), textColor: .black)
-    lazy var profileInfoDescriptiomnLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .lightGray)
-    lazy var profileInfoReservationLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .lightGray)
-//    lazy var profileInfoConsultaionLabel = UILabel(text: "Consultation : 50.0 EGP", font: .systemFont(ofSize: 16), textColor: .black)
-//    lazy var profileInfoTelephoneLabel = UILabel(text: "0109-552-5115", font: .systemFont(ofSize: 16), textColor: .black)
-//
-//    lazy var profileInfoAddressButton = createImagess(image: #imageLiteral(resourceName: "ic_room_24px"))
-//    lazy var profileInfoReservationButton = createImagess(image: #imageLiteral(resourceName: "ic_date_range_24px"))
-//    lazy var profileInfoConsultaionButton = createImagess(image: #imageLiteral(resourceName: "avatar"))
-//     lazy var profileInfoTelephoneButton = createImagess(image: #imageLiteral(resourceName: "smartphone (2)"))
-//
-//    lazy var firstStack:UIStackView = {
-//        let b =  hstack(profileInfoAddressButton,profileInfoAddressLabel,spacing:8)
-//        return b
-//    }()
-//    lazy var secondStack:UIStackView = {
-//        let b = hstack(profileInfoReservationButton,profileInfoReservationLabel,spacing:8)
-//        return b
-//    }()
-//    lazy var thirdStack:UIStackView = {
-//        let b = hstack(profileInfoConsultaionButton,profileInfoConsultaionLabel,spacing:8)
-//        return b
-//    }()
-//    lazy var forthStack:UIStackView = {
-//        let b = hstack(profileInfoTelephoneButton,profileInfoTelephoneLabel,spacing:8)
-//        return b
-//    }()
-//    //
-//    lazy var totalStackFinished:UIStackView = {
-//        let b = stack(firstStack,secondStack,thirdStack,forthStack,spacing:8)
-//        return b
-//    }()
+    lazy var profileInfoLabel:UILabel = {
+        let l = UILabel()
+        l.numberOfLines = 2
+        return l
+    }()
+    lazy var profileInfoAvalibalityLabel = UILabel(text: "Avilabilty seats :  12", font: .systemFont(ofSize: 16), textColor: .black)
     
-
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    lazy var profileInfoAvailbilityButton = createImagess(image: #imageLiteral(resourceName: "available"))
+    
+    
+    lazy var firstStack:UIStackView = {
+        let b =  hstack(profileInfoAvailbilityButton,profileInfoAvalibalityLabel,spacing:8)
+        return b
+    }()
+    
+    
+    
+    
+    fileprivate func setupShadowss() {
         layer.masksToBounds = false
         layer.cornerRadius = 5
         layer.shadowColor = UIColor.red.cgColor
@@ -73,9 +58,13 @@ class ICUResultsCell: BaseCollectionCell {
         layer.shadowRadius = 20
         layer.opacity = 1
         layer.borderColor = UIColor.lightGray.cgColor
-        layer.borderWidth = 1//(except for this nothing else is woking)
-        //        dropShadow(color: .red, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
-        //        setupShadow(opacity: 0.2, radius: 16, offset: .init(width: 0, height: 50), color: .red)
+        layer.borderWidth = 1
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupShadowss()
+        //        setupShadow(opacity: 1, radius: 20, offset: .init(width: 0, height: 20), color: .red)
         setupViewss()
     }
     
@@ -87,15 +76,11 @@ class ICUResultsCell: BaseCollectionCell {
         backgroundColor = .white
         layer.cornerRadius = 8
         clipsToBounds = true
-        
-        //        setupShadow(opacity: 0.8, radius: 10, offset: .init(width: 0, height: 10), color: .red)
-        //        addSubview(totalStackFinished)
-        //        totalStackFinished.fillSuperview()
         let ss = stack(profileImage,UIView())
-        let dd = stack(profileInfoLabel,profileInfoDescriptiomnLabel,profileInfoReservationLabel).withMargins(.init(top: -16, left: 0, bottom: 0, right: 0))
+        let dd = stack(profileInfoLabel,firstStack).withMargins(.init(top: -16, left: 0, bottom: 0, right: 0))
         
         hstack(ss,dd,spacing:16).withMargins(.init(top: 16, left: 16, bottom: 16, right: 16))
-//        stack(total,seperatorView,bottom,spacing:8).withMargins(.init(top: 16, left: 16, bottom: 16, right: 16))
+        //        stack(total,seperatorView,bottom,spacing:8).withMargins(.init(top: 16, left: 16, bottom: 16, right: 16))
         
         
     }
@@ -108,4 +93,10 @@ class ICUResultsCell: BaseCollectionCell {
         return b
     }
     
+    func putAttributedText(la:UILabel,ft:String,st:String)  {
+        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+        la.attributedText = attributeText
+    }
+
 }

@@ -11,14 +11,19 @@ import UIKit
 class IncubationResultsCollectionVC: BaseCollectionVC {
  
     fileprivate let cellId = "cellId"
+    var incubationArray = [IncubtionSearchModel]()
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return incubationArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! IncubationResultsCell
+        let inc = incubationArray[indexPath.item]
         
+        cell.incu = inc
+        cell.profileImage.backgroundColor = indexPath.item % 2 == 0 ? .gray : .yellow
         return cell
     }
     

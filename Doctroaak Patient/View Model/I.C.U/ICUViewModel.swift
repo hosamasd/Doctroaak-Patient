@@ -16,28 +16,29 @@ class ICUViewModel {
     //variables
     var city:Int? = -1 {didSet {checkFormValidity()}}
     var area:Int? = -1  {didSet {checkFormValidity()}}
-    var lat:Double?  {didSet {checkFormValidity()}}
-    var lng:Double? {didSet {checkFormValidity()}}
+    var lat:Double? = -1 {didSet {checkFormValidity()}}
+    var lng:Double? = -1 {didSet {checkFormValidity()}}
     
     
+    var isFirstOpetion:Bool?  = true {didSet {checkFormValidity()}}
     
     
     
     
     func performSearchinging(completion:@escaping (MainICUFilterModel?,Error?)->Void)  {
-        if lat != nil && lng != nil {
-            guard   let lat = lat,let lng = lng else { return  }
-            bindableIsLogging.value = true
-            SearchServices.shared.iCUGetSearchResults( latt: lat, lang: lng, completion: completion);return
-        }else if city != -1 && area != -1 {
+        if isFirstOpetion ?? true {
             guard let city = city,let area = area else { return  }
             bindableIsLogging.value = true
-            SearchServices.shared.iCUGetSearchResults(city: city, are: area, completion: completion)
+            SearchServices.shared.iCUGetSearchResults(isFirst:true,city: city, are: area, completion: completion)
+        }else {
+            guard   let lat = lat,let lng = lng else { return  }
+            bindableIsLogging.value = true
+            SearchServices.shared.iCUGetSearchResults(isFirst:false, latt: lat, lang: lng, completion: completion);return
         }
     }
     
     func checkFormValidity() {
-        let isFormValid = city != -1 &&  area != -1 ||    lat != -1  && lng != -1
+        let isFormValid = city != -1 &&  area != -1  && isFirstOpetion == true ||  isFirstOpetion == false &&  lat != -1  && lng != -1
         
         bindableIsFormValidate.value = isFormValid
         

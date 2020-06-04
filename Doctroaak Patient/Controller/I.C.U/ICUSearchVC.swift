@@ -41,16 +41,9 @@ class ICUSearchVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        put()
     }
     
     //MARK:-User methods
-    
-    func put()  {
-        SearchServices.shared.iCUGetSearchResults(city: 0, are: 0, latt: 10.0, lang: 10.0) { (base, err) in
-            
-        }
-    }
     
     func setupViewModelObserver()  {
         customICUSearchView.icuViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
@@ -134,17 +127,17 @@ class ICUSearchVC: CustomBaseViewVC {
     }
     
 }
+
+
+
+//MARK:-extension
+
+
+extension ICUSearchVC : ChooseLocationVCProtocol{
     
-    
-    
-    //MARK:-extension
-    
-    
-    extension ICUSearchVC : ChooseLocationVCProtocol{
-        
-        func getLatAndLong(lat: Double, long: Double) {
-            convertLatLongToAddress(latitude: lat, longitude: long)
-            self.customICUSearchView.icuViewModel.lat = lat
-            self.customICUSearchView.icuViewModel.lng = long
-        }
+    func getLatAndLong(lat: Double, long: Double) {
+        convertLatLongToAddress(latitude: lat, longitude: long)
+        self.customICUSearchView.icuViewModel.lat = lat
+        self.customICUSearchView.icuViewModel.lng = long
+    }
 }

@@ -33,8 +33,8 @@ class ICUSelectedResultsCell: BaseCollectionCell {
            let stack = UIStackView(arrangedSubviews: arrangedViews)
            return stack
        }()
-        lazy var profileInfoAvilabiltyLabel = UILabel(text: "Avilabilty seats :  12", font: .systemFont(ofSize: 16), textColor: .black)
-        lazy var profileInfoCityLabel = UILabel(text: "City : Cairo", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var profileInfoAvilabiltyLabel = UILabel(text: "Avilabilty seats".localized + " :  12", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var profileInfoCityLabel = UILabel(text: "City ".localized + " : Cairo", font: .systemFont(ofSize: 16), textColor: .black)
         lazy var profileInfoAreaLabel = UILabel(text: "Area : Eltahrer", font: .systemFont(ofSize: 16), textColor: .black)
 
         lazy var profileInfoAddressButton = createImagess(image: #imageLiteral(resourceName: "ic_room_24px"))

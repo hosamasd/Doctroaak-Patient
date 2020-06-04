@@ -34,7 +34,6 @@ class MainPaymentVC: CustomBaseViewVC {
         return v
     }()
     
-    //    let paymentViewModel = PaymentViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()

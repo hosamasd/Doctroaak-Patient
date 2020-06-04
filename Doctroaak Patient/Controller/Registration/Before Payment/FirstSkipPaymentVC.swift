@@ -28,8 +28,9 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     lazy var customFirstSkipPaymentView:CustomFirstSkipPaymentView = {
         let v = CustomFirstSkipPaymentView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-        v.handleNextOperation = {[unowned self] in
-            //            self.handlessNext()
+        v.handlePaymentAction = {[unowned self] in
+            let payment = MainPaymentVC()
+            self.navigationController?.pushViewController(payment, animated: true)
         }
         return v
     }()
@@ -49,32 +50,6 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     
     //MARK: -user methods
     
-    func handlessNext()  {
-        
-        if customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.currentPage+1 < customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pages.count-1 {
-            let nextIndex = min(customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.currentPage + 1, customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pages.count - 1)
-            
-            
-            let indexPath = IndexPath(item: nextIndex, section: 0)
-            customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.currentPage = nextIndex
-            customFirstSkipPaymentView.mainBeforePaymentCollectionVC.collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            
-            customFirstSkipPaymentView.mainBeforePaymentCollectionVC.backButton.image = customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.currentPage == 0 ? #imageLiteral(resourceName: "buttons-square-gray") : #imageLiteral(resourceName: "buttons-square-grayd")
-            
-            
-            if nextIndex == customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pages.count - 1 {
-                
-                customFirstSkipPaymentView.mainBeforePaymentCollectionVC.hideOrUnhide(b: false, b2: true)
-                //                return
-            }
-        }else {
-            let indexPath = IndexPath(item: 3, section: 0)
-            
-            customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.currentPage = 3
-            customFirstSkipPaymentView.mainBeforePaymentCollectionVC.collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            customFirstSkipPaymentView.mainBeforePaymentCollectionVC.hideOrUnhide(b: true, b2: false)
-        }
-    }
     
     func fetchData()  {
         userDefaults.bool(forKey: UserDefaultsConstants.isPaymentDetailsInfo) ? () : getStaticData()
@@ -100,6 +75,7 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
             
             DispatchQueue.main.async {
                 self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pages = MOLHLanguage.isRTLLanguage() ? arabicPages : englishPages
+                self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.numberOfPages = arabicPages.count
                 self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.collectionView.reloadData()
             }
         }
@@ -109,40 +85,10 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
         
         view.addSubview(customFirstSkipPaymentView)
         customFirstSkipPaymentView.fillSuperview()
-        //                  scrollView.addSubview(mainView)
-        //                  mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        //                  mainView.addSubViews(views: customFirstSkipPaymentView)
-        //                  customFirstSkipPaymentView.fillSuperview()
     }
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
-    }
-    
-    func handleNext()  {
-        //        if customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.currentPage+1 < pages.count-1 {
-        //                   let nextIndex = min(pageControl.currentPage + 1, pages.count - 1)
-        //
-        //
-        //                   let indexPath = IndexPath(item: nextIndex, section: 0)
-        //                   pageControl.currentPage = nextIndex
-        //                   collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        //
-        //                   backButton.image = pageControl.currentPage == 0 ? #imageLiteral(resourceName: "buttons-square-gray") : #imageLiteral(resourceName: "buttons-square-grayd")
-        //
-        //
-        //                   if nextIndex == pages.count - 1 {
-        //
-        //                       hideOrUnhide(b: false, b2: true)
-        //                       //                return
-        //                   }
-        //               }else {
-        //                   let indexPath = IndexPath(item: 3, section: 0)
-        //
-        //                   pageControl.currentPage = 3
-        //                   collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        //                   hideOrUnhide(b: true, b2: false)
-        //               }
     }
     
     @objc func handleDismiss()  {

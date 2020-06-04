@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SVProgressHUD
+import MOLH
 
 class IncubationSearchResultsVC: CustomBaseViewVC {
     
@@ -24,8 +26,19 @@ class IncubationSearchResultsVC: CustomBaseViewVC {
     }()
     lazy var customIncubationResultsView:CustomIncubationResultsView = {
         let v = CustomIncubationResultsView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
+    
+    var incubationArray:[IncubtionSearchModel]? {
+        didSet {
+            guard let incubationArray = incubationArray else { return  }
+            customIncubationResultsView.incubationResultsCollectionVC.incubationArray=incubationArray
+            DispatchQueue.main.async {
+                self.customIncubationResultsView.incubationResultsCollectionVC.collectionView.reloadData()
+            }
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -46,6 +59,10 @@ class IncubationSearchResultsVC: CustomBaseViewVC {
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
         mainView.addSubViews(views: customIncubationResultsView)
         customIncubationResultsView.fillSuperview()
+    }
+    
+  @objc  func handleBack()  {
+        navigationController?.popViewController(animated: true)
     }
     
 }

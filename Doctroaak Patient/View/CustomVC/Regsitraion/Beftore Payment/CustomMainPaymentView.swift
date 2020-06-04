@@ -113,18 +113,20 @@ class CustomMainPaymentView: CustomBaseView {
         //              t.isHide(true)
         return t
     }()
-    lazy var monthVisaTextField:SkyFloatingLabelTextField = {
-        let t = SkyFloatingLabelTextField()
-        t.placeholder = " 04/20 ".localized
-        //           t.titleColor = .lightGray
-        t.title = " Expiration Date".localized
+    lazy var monthVisaTextField:UITextField = {
+        let t = createMainTextFields(place: " Expiration Date".localized)
+        t.textAlignment = .center
+        
+        //        t.placeholder = " 04/20 ".localized
+        //        //           t.titleColor = .lightGray
+        //        t.title = " Expiration Date".localized
         t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
         
         //           t.placeholderColor = .lightGray
-        t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        t.textAlignment = .center
-        t.errorColor = UIColor.red
+        //        t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
+        //        t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
+        //        t.textAlignment = .center
+        //        t.errorColor = UIColor.red
         //           t.constrainHeight(constant: 50)
         return t
     }()

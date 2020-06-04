@@ -22,16 +22,24 @@ class CustomIncubationResultsView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Incubation", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Incubation".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)
         v.layer.cornerRadius = 8
         v.clipsToBounds = true
         return v
     }()
-    
-    lazy var incubationResultsCollectionVC = IncubationResultsCollectionVC()
+//    var incubationArray:[IncubtionSearchModel]? {
+//           didSet {
+//               guard let incubationArray = incubationArray else { return  }
+//           }
+//       }
+    lazy var incubationResultsCollectionVC:IncubationResultsCollectionVC = {
+        let vc = IncubationResultsCollectionVC()
+        
+        return vc
+    }()
     
     override func setupViews() {
         

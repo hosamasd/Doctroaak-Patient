@@ -7,8 +7,22 @@
 //
 
 import UIKit
+import SVProgressHUD
+import MOLH
 
 class IncubationResultsCell: BaseCollectionCell {
+    
+    var incu:IncubtionSearchModel? {
+        didSet {
+            guard let inc = incu else { return  }
+            let name = MOLHLanguage.isRTLLanguage() ? inc.nameAr : inc.name
+            let des = MOLHLanguage.isRTLLanguage() ? inc.descriptionAr : inc.datumDescription
+            
+            putAttributedText(la: profileInfoLabel, ft: name+"\n", st: des)
+            profileInfoAvalibalityLabel.text = "Avilabilty seats".localized + " : \(inc.bedNumber)"
+        }
+    }
+    
     
     lazy var profileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)
@@ -20,23 +34,20 @@ class IncubationResultsCell: BaseCollectionCell {
     }()
     lazy var profileInfoLabel:UILabel = {
         let l = UILabel()
-        let attributeText = NSMutableAttributedString(string: "Dr. Hagar Mohamed \n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-        attributeText.append(NSAttributedString(string: "Mokattam, Giza \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
-        l.attributedText = attributeText
         l.numberOfLines = 2
         return l
     }()
     lazy var profileInfoAvalibalityLabel = UILabel(text: "Avilabilty seats :  12", font: .systemFont(ofSize: 16), textColor: .black)
-  
+    
     
     lazy var profileInfoAvailbilityButton = createImagess(image: #imageLiteral(resourceName: "available"))
-   
+    
     
     lazy var firstStack:UIStackView = {
         let b =  hstack(profileInfoAvailbilityButton,profileInfoAvalibalityLabel,spacing:8)
         return b
     }()
-   
+    
     
     
     
@@ -54,7 +65,7 @@ class IncubationResultsCell: BaseCollectionCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupShadowss()
-//        setupShadow(opacity: 1, radius: 20, offset: .init(width: 0, height: 20), color: .red)
+        //        setupShadow(opacity: 1, radius: 20, offset: .init(width: 0, height: 20), color: .red)
         setupViewss()
     }
     
@@ -66,10 +77,6 @@ class IncubationResultsCell: BaseCollectionCell {
         backgroundColor = .white
         layer.cornerRadius = 8
         clipsToBounds = true
-        
-        //        setupShadow(opacity: 0.8, radius: 10, offset: .init(width: 0, height: 10), color: .red)
-        //        addSubview(totalStackFinished)
-        //        totalStackFinished.fillSuperview()
         let ss = stack(profileImage,UIView())
         let dd = stack(profileInfoLabel,firstStack).withMargins(.init(top: -16, left: 0, bottom: 0, right: 0))
         
@@ -87,4 +94,9 @@ class IncubationResultsCell: BaseCollectionCell {
         return b
     }
     
+    func putAttributedText(la:UILabel,ft:String,st:String)  {
+        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+        la.attributedText = attributeText
+    }
 }

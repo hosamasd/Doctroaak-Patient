@@ -23,9 +23,9 @@ class CustomICUSelectedSearchView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "I.C.U", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
-    lazy var mapLabel = UILabel(text: "Map", font: .systemFont(ofSize: 20), textColor: .black)
+    lazy var titleLabel = UILabel(text: "I.C.U".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var mapLabel = UILabel(text: "Map".localized, font: .systemFont(ofSize: 20), textColor: .black)
     
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)

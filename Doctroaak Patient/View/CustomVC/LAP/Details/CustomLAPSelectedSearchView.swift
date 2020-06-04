@@ -15,8 +15,8 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     
     var index:Int!{
         didSet{
-            titleLabel.text = index == 1 ? "Rediology" : "Lap"
-            doctorWorkingDataLabel.text = index == 0 ? "Lab  working hours" : "Rediology  working hours"
+            titleLabel.text = index == 1 ? "Rediology".localized : "Lap".localized
+            doctorWorkingDataLabel.text = index == 0 ? "Lab  working hours".localized : "Rediology  working hours".localized
         }
     }
     var lab:LapSearchModel? {
@@ -25,25 +25,25 @@ class CustomLAPSelectedSearchView: CustomBaseView {
             lapDoctorWorkingDataCollectionVC.index=index
             lapDoctorWorkingDataCollectionVC.labWorkingDaysArray =  lab.workingHours
             lapDoctorWorkingDataCollectionVC.collectionView.reloadData()
-             DispatchQueue.main.async {
+            DispatchQueue.main.async {
                 self.lapResultsCelllll.lab =  self.lab
             }
         }
     }
     
     var rad:RadiologySearchModel? {
-           didSet{
+        didSet{
             guard let rad = rad else { return  }
             lapDoctorWorkingDataCollectionVC.index=index
-
-               lapDoctorWorkingDataCollectionVC.radWorkingDaysArray = rad.workingHours
+            
+            lapDoctorWorkingDataCollectionVC.radWorkingDaysArray = rad.workingHours
             lapDoctorWorkingDataCollectionVC.collectionView.reloadData()
-
-                DispatchQueue.main.async {
-                    self.lapResultsCelllll.rad = self.rad
-               }
-           }
-       }
+            
+            DispatchQueue.main.async {
+                self.lapResultsCelllll.rad = self.rad
+            }
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -58,7 +58,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         return i
     }()
     lazy var titleLabel = UILabel(text: "Lap", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)
         v.layer.cornerRadius = 8
@@ -67,23 +67,23 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     }()
     
     lazy var lapResultsCelllll:LAPResultsCelllll = {
-       let v = LAPResultsCelllll()
+        let v = LAPResultsCelllll()
         v.locationImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
-//        v.handleGetLocation = {[unowned self] (la,ln) in
-//            self.handleGetLocation?(la,ln)
-//    }
+        //        v.handleGetLocation = {[unowned self] (la,ln) in
+        //            self.handleGetLocation?(la,ln)
+        //    }
         return v
     }()
     
     lazy var doctorWorkingDataLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var lapDoctorWorkingDataCollectionVC:DoctorWorkingDateCollectionVC = {
         let vc = DoctorWorkingDateCollectionVC()
-//        vc.view.constrainHeight(constant: 300)
+        //        vc.view.constrainHeight(constant: 300)
         return vc
     }()
     lazy var bookButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Book", for: .normal)
+        button.setTitle("Book".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
@@ -93,9 +93,9 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     }()
     
     var handleGetLocation:((Double,Double) ->Void)?
-
-//    var labArrayResults: LapSearchModel?
-//    var radiologyArrayResults :RadiologySearchModel?
+    
+    //    var labArrayResults: LapSearchModel?
+    //    var radiologyArrayResults :RadiologySearchModel?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -124,24 +124,24 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     }
     
     @objc func handleLocation()  {
-//        guard let lat = lab?.latt.toDouble(),let lng=lab?.lang.toDouble() else {  handleGetLocation?(lat,lng); return }
+        //        guard let lat = lab?.latt.toDouble(),let lng=lab?.lang.toDouble() else {  handleGetLocation?(lat,lng); return }
         var lat:Double = 0.0
         var lng:Double = 0.0
-           if rad != nil {
+        if rad != nil {
             guard let lat = rad?.latt.toDouble(),let lng=rad?.lang.toDouble() else {  handleGetLocation?(0.0,0.0); return }
             handleGetLocation?(lat,lng);return
-//            lat = rad?.latt.toDouble() ?? 0.0
-//               lng=rad.lang.toDouble() ?? 0.0
-           }else if lab != nil {
+            //            lat = rad?.latt.toDouble() ?? 0.0
+            //               lng=rad.lang.toDouble() ?? 0.0
+        }else if lab != nil {
             guard let lat = lab?.latt.toDouble(),let lng=lab?.lang.toDouble() else {  handleGetLocation?(0.0,0.0); return }
             handleGetLocation?(lat,lng);return
-//               lat = lab.latt.toDouble() ?? 0.0
-//               lng=lab.lang.toDouble() ?? 0.0
-           }else {
-               lat = 0.0
-               lng = 0.0
-           }
-           
-           handleGetLocation?(lat,lng)
-       }
+            //               lat = lab.latt.toDouble() ?? 0.0
+            //               lng=lab.lang.toDouble() ?? 0.0
+        }else {
+            lat = 0.0
+            lng = 0.0
+        }
+        
+        handleGetLocation?(lat,lng)
+    }
 }

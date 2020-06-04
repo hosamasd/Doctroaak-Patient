@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import SVProgressHUD
+import MOLH
 
 class IncubationSearchVC: CustomBaseViewVC {
     
@@ -52,12 +54,12 @@ class IncubationSearchVC: CustomBaseViewVC {
         
         customIncubationSearchView.incubationSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Searching...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -76,34 +78,52 @@ class IncubationSearchVC: CustomBaseViewVC {
     }
     
     fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
-               
-               let geoCoder = CLGeocoder()
-               let location = CLLocation(latitude: latitude, longitude: longitude)
-               geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
-                   
-                   // Place details
-       //            var placeMark: CLPlacemark?
-                   guard let   placeMark = placemarks?[0] else {return}
-                   
-                   // Location name
-                   guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
-                   self.customIncubationSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
-                   self.customIncubationSearchView.incubationSearchViewModel.lat = "\(latitude)"
-                   self.customIncubationSearchView.incubationSearchViewModel.lng = "\(longitude)"
-               })
-               
-               
-           }
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+            
+            // Place details
+            //            var placeMark: CLPlacemark?
+            guard let   placeMark = placemarks?[0] else {return}
+            
+            // Location name
+            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+            self.customIncubationSearchView.addressLabel.text =  " \(street) - \(city) - \(country)"
+        })
+        
+        
+    }
+    
+    func goToNext(_ user:[IncubtionSearchModel])  {
+        let details = IncubationSearchResultsVC()
+        details.incubationArray = user
+        navigationController?.pushViewController(details, animated: true)
+    }
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     
     @objc func handleSearch()  {
-        let details = IncubationSearchResultsVC()
-        navigationController?.pushViewController(details, animated: true)
+        
+        customIncubationSearchView.incubationSearchViewModel.performSearching { (base, err) in
+            
+        if let err = err {
+                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+                       self.activeViewsIfNoData();return
+                   }
+                   SVProgressHUD.dismiss()
+                   self.activeViewsIfNoData()
+                   guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+                   
+                   DispatchQueue.main.async {
+                       self.goToNext(user)
+                   }
+        
+        
     }
-    
+    }
 }
 
 
@@ -114,7 +134,9 @@ class IncubationSearchVC: CustomBaseViewVC {
 extension IncubationSearchVC : ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
-           convertLatLongToAddress(latitude: lat, longitude: long)
+        convertLatLongToAddress(latitude: lat, longitude: long)
+        self.customIncubationSearchView.incubationSearchViewModel.lat=lat
+        self.customIncubationSearchView.incubationSearchViewModel.lng=long
     }
     
 }

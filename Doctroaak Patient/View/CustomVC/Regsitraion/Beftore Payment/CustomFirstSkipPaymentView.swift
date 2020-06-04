@@ -29,16 +29,14 @@ class CustomFirstSkipPaymentView: CustomBaseView {
     
     lazy var mainBeforePaymentCollectionVC:MainBeforePaymentCollectionVC = {
        let vc = MainBeforePaymentCollectionVC()
-        vc.handleNextOperation={[unowned self] in
-            self.handleNextOperation?()
+        vc.handlePaymentAction = {[unowned self] in
+            self.handlePaymentAction?()
         }
-        vc.handleBackOperation={[unowned self] in
-                   self.handleBackOperation?()
-               }
         return vc
     }()
-    var handleNextOperation:(()->Void)?
-       var handleBackOperation:(()->Void)?
+    
+    var handlePaymentAction:(()->Void)?
+    
     
     override func setupViews() {
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,mainBeforePaymentCollectionVC.view)//bottomStack,seocndLogoImage,discriptionLabel,pageControl)//,subView,textStack,insuranceCodeTextField,bottomStack,insuranceDrop,signUpButton)
