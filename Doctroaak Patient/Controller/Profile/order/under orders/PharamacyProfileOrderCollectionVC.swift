@@ -14,8 +14,8 @@ class PharamacyProfileOrderCollectionVC: BaseCollectionVC {
     var pharamacyArray = [PharamacyOrderPatientModel]()
     
     var handleCheckedIndex:((PharamacyOrderPatientModel,IndexPath)->Void)?
-
-//    var handleCheckedIndex:((PharamacyOrderPatientModel)->Void)?
+    
+    //    var handleCheckedIndex:((PharamacyOrderPatientModel)->Void)?
     var handleCheckedIOpenImage:((UIImage)->Void)?
     
     
@@ -25,6 +25,7 @@ class PharamacyProfileOrderCollectionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PharamacyProfileOrderCell
+        
         let pharamacy = pharamacyArray[indexPath.item]
         
         cell.pharamacy=pharamacy
@@ -34,13 +35,28 @@ class PharamacyProfileOrderCollectionVC: BaseCollectionVC {
         cell.handleCheckedIndex = {[unowned self] doctor in
             self.handleCheckedIndex?(doctor,indexPath)
         }
+        cell.addMedicineCollectionVC.medicineArray = getPharamacy()
+        cell.addMedicineCollectionVC.collectionView.reloadData()
+        
         return cell
+    }
+    
+    func getPharamacy() -> [PharamcyOrderModel] {
+        var medicine = [PharamcyOrderModel]()
+        
+        pharamacyArray.forEach { (ph) in
+            ph.details?.forEach({ (p) in
+                let d = PharamcyOrderModel(medicineID: p.medicineID, medicineTypeID: p.medicineTypeID, amount: p.amount)
+                medicine.append(d)
+            })
+        }
+        return medicine
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let pharamacy = pharamacyArray[indexPath.item]
         
-//        handleCheckedIndex?(pharamacy)
+        //        handleCheckedIndex?(pharamacy)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

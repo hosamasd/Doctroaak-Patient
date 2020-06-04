@@ -51,6 +51,7 @@ class MainOrdersCollectionVC: BaseCollectionVC {
         }else if indexPath.item == 1 {
             let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cell2Id, for: indexPath) as! MainPharamacyOrderCell
             cell.pharamacyProfileOrderCollectionVC.pharamacyArray=pharamacyArray
+//            cell.pharamacyProfileOrderCollectionVC
             cell.pharamacyProfileOrderCollectionVC.collectionView.reloadData()
             cell.handleCheckedIOpenImage = {[unowned self] index in
                 self.handleCheckedIOpenImage?(index)

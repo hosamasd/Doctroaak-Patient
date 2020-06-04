@@ -32,13 +32,15 @@ class RadiologyProfileOrderCollectionVC: BaseCollectionVC {
         cell.handleCheckedIndex = {[unowned self] doctor in
             self.handleCheckedIndex?(doctor,indexPath)
         }
+        cell.addLapCollectionVC.medicineArray = getPharamacy()
+        cell.addLapCollectionVC.collectionView.reloadData()
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let pharamacy = pharamacyArray[indexPath.item]
         
-//        handleCheckedIndex?(pharamacy)
+        //        handleCheckedIndex?(pharamacy)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -51,5 +53,17 @@ class RadiologyProfileOrderCollectionVC: BaseCollectionVC {
         collectionView.contentInset.top = 16
         collectionView.backgroundColor = .white
         collectionView.register(RadiologyProfileOrderCell.self, forCellWithReuseIdentifier: cellId)
+    }
+    
+    func getPharamacy() -> [RadiologyOrderModel] {
+        var medicine = [RadiologyOrderModel]()
+        
+        pharamacyArray.forEach { (ph) in
+            ph.details?.forEach({ (p) in
+                let dd = RadiologyOrderModel(raysID: p.raysID)
+                medicine.append(dd)
+            })
+        }
+        return medicine
     }
 }

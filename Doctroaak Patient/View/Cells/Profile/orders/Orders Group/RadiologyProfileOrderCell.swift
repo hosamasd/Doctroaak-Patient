@@ -39,13 +39,19 @@ class RadiologyProfileOrderCell: BaseCollectionCell {
         b.layer.cornerRadius = 8
         b.clipsToBounds = true
         b.addTarget(self, action: #selector(handleCacnel), for: .touchUpInside)
-
+        
         return b
+    }()
+    lazy var addLapCollectionVC:AddLapCollectionVC = {
+        let vc = AddLapCollectionVC()
+        vc.collectionView.constrainHeight(constant: 80)
+        vc.collectionView.isHide(true)
+        return vc
     }()
     
     var handleCheckedIOpenImage:((UIImage)->Void)?
     var handleCheckedIndex:((RadiologyOrderPatientModel)->Void)?
-
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -71,8 +77,12 @@ class RadiologyProfileOrderCell: BaseCollectionCell {
     }
     
     override func setupViews() {
+        //        profileOrderDatesLabel.constrainHeight(constant: 40)
+        //        stack(profileOrderDatesLabel,pharamacyImage,cancelButton)
         profileOrderDatesLabel.constrainHeight(constant: 40)
-        stack(profileOrderDatesLabel,pharamacyImage,cancelButton)
+        let ss = getStack(views: pharamacyImage,addLapCollectionVC.view, spacing: 0, distribution: .fillEqually, axis: .vertical)
+        
+        stack(profileOrderDatesLabel,ss,cancelButton)
     }
     
     @objc func handleOpenImage()  {
@@ -80,7 +90,7 @@ class RadiologyProfileOrderCell: BaseCollectionCell {
     }
     
     @objc   func handleCacnel()  {
-    guard let pharamacy = pharamacy else { return  }
+        guard let pharamacy = pharamacy else { return  }
         handleCheckedIndex?(pharamacy)
     }
 }
