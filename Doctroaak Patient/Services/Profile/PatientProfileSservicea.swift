@@ -91,6 +91,14 @@ class PatientProfileSservicea {
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
+    func rateDoctors(patient_id:Int,doctor_id:Int,api_token:String,type:Int,rate:Int,completion: @escaping (MainAddFavoriteModel?, Error?) ->Void)  {
+        let nnn = "patient/rate/doctor"
+        let urlString = "\(baseUrl)\(nnn)".toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "rate=\(rate)&type=\(type)&patient_id=\(patient_id)&doctor_id=\(doctor_id)&api_token=\(api_token)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
     func getPatientFavoriteDocotrs(patient_id:Int,api_token:String,completion: @escaping (MainPatientFavoriteModel?, Error?) ->Void)  {
         let urlString =  "\(baseUrl)patient/favourite/list?api_token=\(api_token)&patient_id=\(patient_id)".toSecrueHttps()
         

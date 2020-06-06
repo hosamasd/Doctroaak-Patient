@@ -12,13 +12,17 @@ import SDWebImage
 
 class PatientFavoritessDoctorsCell: BaseCollectionCell {
     
- var doctor:PatientFavoriteModel! {
+ var doctor:PatientFavoriteModel? {
         didSet{
-            
+            guard let doctor = doctor  else {return}
+
             profileInfoLabel.text = MOLHLanguage.isRTLLanguage() ? doctor.doctor.nameAr : doctor.doctor.name
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
             profileInfoReservationLabel.text = "Reservation: \(doctor.fees)"
             profileInfoConsultaionLabel.text = "Consultation: \(doctor.fees2)"
+            let ss = doctor.doctor.photo//.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
+            guard let url = URL(string: ss) else { return  }
+            profileImage.sd_setImage(with: url)
             for(index,view) in starsStackView.arrangedSubviews.enumerated(){
                 guard let img = view as? UIImageView else {return}
 
@@ -27,10 +31,7 @@ class PatientFavoritessDoctorsCell: BaseCollectionCell {
                 
                 
             }
-                         let ss = doctor.doctor.photo//.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
-            //            let dd = "http"+ss ?? ""
-                        guard let url = URL(string: ss) else { return  }
-                        profileImage.sd_setImage(with: url)
+                         
 
     }
         }
@@ -197,6 +198,8 @@ class PatientFavoritessDoctorsCell: BaseCollectionCell {
     }
     
     @objc func handleBookmark()  {
+        guard let doctor = doctor  else {return}
+
         handleBookmarkDoctor?(doctor)
     }
 }

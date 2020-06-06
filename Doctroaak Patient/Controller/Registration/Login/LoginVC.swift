@@ -29,6 +29,8 @@ class LoginVC: CustomBaseViewVC {
         
         return v
     }()
+   
+   
     
     var delgate:LoginVCPrototcol?
    
@@ -38,14 +40,13 @@ class LoginVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupLoginViewModelObserver()
        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         
         super.viewWillAppear(animated)
-        
-       
         
         if userDefaults.bool(forKey: UserDefaultsConstants.isRegisterDoneAfterBooking) {
             dismiss(animated: true)

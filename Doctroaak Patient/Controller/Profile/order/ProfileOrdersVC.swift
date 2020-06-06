@@ -45,6 +45,19 @@ class ProfileOrdersVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customStarView:CustomStarView = {
+              let v = CustomStarView()
+              v.closeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveStars)))
+              v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
+              return v
+          }()
+       lazy var customMainAlertVC:CustomMainAlertVC = {
+              let t = CustomMainAlertVC()
+              t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+              t.modalTransitionStyle = .crossDissolve
+              t.modalPresentationStyle = .overCurrentContext
+              return t
+          }()
     lazy var mainBottomView:UIView = {
         let v = UIView(backgroundColor: .red)
         v.isUserInteractionEnabled = true
@@ -309,4 +322,15 @@ class ProfileOrdersVC: CustomBaseViewVC {
         view.endEditing(true)
     }
     
+    @objc  func handleDismiss()  {
+              dismiss(animated: true)
+          }
+       @objc func handleRemoveStars()  {
+              removeViewWithAnimation(vvv: customStarView)
+              customMainAlertVC.dismiss(animated: true)
+              
+          }
+       @objc  func handleDone()  {
+              print(customStarView.rating)
+       }
 }

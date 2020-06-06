@@ -17,17 +17,6 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         v.handleBookmarkDoctor = {[unowned self] doctor,indexPath in
             self.removeBookmarked(doctor,indexPath)
         }
-        //           v.handleDetails = {[unowned self] in
-        //               self.presentBeforePaymentVC()
-        //           }
-        //           v.handlePayments = {[unowned self] in
-        //               self.checkIfUserLogin()
-        //           }
-        //           v.mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoServices)))
-        //           v.main2View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoFavorites)))
-        //           v.main3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoMyOrders)))
-        //
-        //           v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         return v
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
@@ -45,23 +34,13 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         //           }
         return v
     }()
-    
-    
-    fileprivate let  apiToken:String!
-    fileprivate let patientId:Int!
-    
-    init(token:String,id:Int) {
-        self.apiToken=token
-        self.patientId=id
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var patient:PatienModel?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            patient=cacheObjectCodabe.storedValue
+        }else {}
         fetchFavorites( )
     }
     
@@ -81,14 +60,14 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
     }
     
     func removeBookmarked(_ doctor:PatientFavoriteModel,_ indexPath:IndexPath)  {
-        
+        guard let patient = patient else { return  }
         self.customPatientFavoriteeseDoctorsView.patientFavoriteDoctorsCollectionVC.doctorsArray.remove(at: indexPath.item)
         //                UIApplication.shared.beginReceivingRemoteControlEvents()
         
         //        view.isUserInteractionEnabled = false
         SVProgressHUD.show(withStatus: "Removing...".localized)
         
-        PatientProfileSservicea.shared.favoriteDoctors(patient_id: patientId, doctor_id: doctor.id, api_token: apiToken) { (base, err) in
+        PatientProfileSservicea.shared.favoriteDoctors(patient_id: patient.id, doctor_id: doctor.id, api_token: patient.apiToken) { (base, err) in
             
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
@@ -112,13 +91,14 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
     
     func fetchFavorites()  {
         
-        
+        guard let patient = patient else { return  }
+
         UIApplication.shared.beginReceivingRemoteControlEvents()
         
         //        view.isUserInteractionEnabled = false
         SVProgressHUD.show(withStatus: "Looding...".localized)
         
-        PatientProfileSservicea.shared.getPatientFavoriteDocotrs(patient_id: patientId, api_token: apiToken) { (base, err) in
+        PatientProfileSservicea.shared.getPatientFavoriteDocotrs(patient_id: patient.id, api_token: patient.apiToken) { (base, err) in
             
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
