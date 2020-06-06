@@ -52,6 +52,10 @@ class ServicesVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupAnimation()
+
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            patient=cacheObjectCodabe.storedValue
+        }else{}
     }
     
     //MARK: -user methods

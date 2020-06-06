@@ -14,8 +14,8 @@ import SDWebImage
 class CustomProfileView: CustomBaseView {
     
     var patient:PatienModel?{
-           didSet{
-               guard let patient = patient else { return  }
+        didSet{
+            guard let patient = patient else { return  }
             let urlString = patient.photo
             guard let url = URL(string: urlString) else { return  }
             doctorProfileImage.sd_setImage(with: url)
@@ -24,13 +24,13 @@ class CustomProfileView: CustomBaseView {
             phoneTextField.text = patient.phone
             birthdayTextField.text = patient.birthdate ?? ""
             putOtherData(patient)
-
+            
             DispatchQueue.main.async {
                 self.addGradientInSenderAndRemoveOther(sender: patient.gender == "male" ? self.boyButton : self.girlButton)
-
+                
             }
         }
-       }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116").withRenderingMode(.alwaysOriginal))
@@ -84,7 +84,7 @@ class CustomProfileView: CustomBaseView {
         t.title = "Phone".localized
         t.placeholderColor = .black
         t.isUserInteractionEnabled=false
-
+        
         t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
         return t
     }()
@@ -120,11 +120,11 @@ class CustomProfileView: CustomBaseView {
     lazy var boyButton:UIButton = {
         
         let button = UIButton(type: .system)
-        button.setTitle("Male", for: .normal)
+        button.setTitle("Male".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
         button.backgroundColor = .white
-
+        
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray.cgColor
         button.clipsToBounds = true
@@ -135,7 +135,7 @@ class CustomProfileView: CustomBaseView {
     }()
     lazy var girlButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Female", for: .normal)
+        button.setTitle("Female".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 8
@@ -149,13 +149,13 @@ class CustomProfileView: CustomBaseView {
     }()
     lazy var nextButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Save", for: .normal)
+        button.setTitle("Save".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
-//        button.isEnabled = false
+        //        button.isEnabled = false
         return button
     }()
     

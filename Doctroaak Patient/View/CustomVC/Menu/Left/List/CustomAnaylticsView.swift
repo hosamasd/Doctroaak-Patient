@@ -24,8 +24,8 @@ class CustomAnaylticsView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Anaylicts", font: .systemFont(ofSize: 35), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Anaylicts".localized, font: .systemFont(ofSize: 35), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var mainWebView:WKWebView = {
         let v = WKWebView()

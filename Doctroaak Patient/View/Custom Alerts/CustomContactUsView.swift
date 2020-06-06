@@ -10,7 +10,7 @@ import UIKit
 
 class CustomContactUsView: CustomBaseView {
     
-    lazy var titleLabel = UILabel(text: "Contacts Us", font: .systemFont(ofSize: 20), textColor: .black, textAlignment: .center)
+    lazy var titleLabel = UILabel(text: "Contacts Us".localized, font: .systemFont(ofSize: 20), textColor: .black, textAlignment: .center)
     lazy var whatsappButton = createImageForContacts(img: #imageLiteral(resourceName: "whatsapp(1)"), tags: 3)
     lazy var phoneButton = createImageForContacts(img: #imageLiteral(resourceName: "telephone"), tags: 2)
     lazy var websiteButton = createImageForContacts(img: #imageLiteral(resourceName: "worldwide"), tags: 0)

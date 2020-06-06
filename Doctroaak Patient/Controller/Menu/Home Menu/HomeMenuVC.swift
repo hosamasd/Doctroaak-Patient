@@ -70,18 +70,15 @@ class HomeMenuVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        putUserId()
+//        putUserId()
         setupAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        guard let pat =    cacheObjectCodabe.storedValue else { return  }
-        self.patient=pat
-        //        if let person = personManager.getPerson(){
-        //            patient = person
-        //        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            patient=cacheObjectCodabe.storedValue
+        }else{}
     }
     
     //MARK: -user methods
@@ -143,26 +140,14 @@ class HomeMenuVC: CustomBaseViewVC {
     @objc func handleGoServices()  {
         let services = ServicesVC()
         services.patient=self.patient
-        //        services.patientApiToken=patientAPITOKEN
-        //        services.patient_id=patient_Id
         let nav = UINavigationController(rootViewController: services)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
-        //        navigationController?.pushViewController(services, animated: true)
         
     }
     
     @objc func handleOpenMenu()  {
-        //        let keyWindow = UIApplication.shared.connectedScenes
-        //        .filter({$0.activationState == .foregroundActive})
-        //        .map({$0 as? UIWindowScene})
-        //        .compactMap({$0})
-        //        .first?.windows
-        //            .filter({$0.isKeyWindow}).first
-        //        let ss  = keyWindow?.rootViewController as? BaseSlidingVC
-        //        ss?.openMenu()
         (UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? BaseSlidingVC)?.openMenu()
-        //        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
         
     }
     
@@ -174,8 +159,6 @@ class HomeMenuVC: CustomBaseViewVC {
         let nav = UINavigationController(rootViewController: login)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
-        //        removeViewWithAnimation(vvv: customAlertLoginView)
-        //        customMainAlertVC.dismiss(animated: true)
     }
     
     @objc func handleOpenNotifications()  {

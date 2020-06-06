@@ -10,11 +10,11 @@ import UIKit
 
 class CustomAlertChooseLanguageView: CustomBaseView {
     
-    lazy var languageLabel = UILabel(text: "Choose Language", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var languageLabel = UILabel(text: "Choose Language".localized, font: .systemFont(ofSize: 16), textColor: .black)
 
-    lazy var englishButton = cretaeButtonss(title: "English",tags: 0)
-    lazy var arabicButton = cretaeButtonss(title: "Arabic",tags: 1)
-    lazy var cancelButton = cretaeButtonss(title: "Cancel",tags: 2)
+    lazy var englishButton = cretaeButtonss(title: "English".localized,tags: 0)
+    lazy var arabicButton = cretaeButtonss(title: "Arabic".localized,tags: 1)
+    lazy var cancelButton = cretaeButtonss(title: "Cancel".localized,tags: 2)
 
     
     override func setupViews() {

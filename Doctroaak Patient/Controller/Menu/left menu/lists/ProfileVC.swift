@@ -65,13 +65,6 @@ class ProfileVC: CustomBaseViewVC {
     //MARK:-User methods
     
     func setupViewModelObserver()  {
-        //        edirProfileViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-        //            guard let isValid = isValidForm else {return}
-        //            //            self.customLoginView.loginButton.isEnabled = isValid
-        //
-        //            self.changeButtonState(enable: isValid, vv: self.customProfileView.nextButton)
-        //        }
-        
         customProfileView.edirProfileViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
@@ -117,15 +110,15 @@ class ProfileVC: CustomBaseViewVC {
     //TODO: -handle methods
     
     @objc func createAlertForChoposingImage()  {
-        let alert = UIAlertController(title: "Choose Image", message: "Choose image fROM ", preferredStyle: .alert)
-        let camera = UIAlertAction(title: "Camera", style: .default) {[unowned self] (_) in
+        let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .camera)
             
         }
-        let gallery = UIAlertAction(title: "Open From Gallery", style: .default) {[unowned self] (_) in
+        let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
         }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
             alert.dismiss(animated: true)
         }
         
@@ -147,7 +140,7 @@ class ProfileVC: CustomBaseViewVC {
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             self.cachedATA(user)
             DispatchQueue.main.async {
-                self.showToast(context: self, msg: "your information updated...")
+                self.showToast(context: self, msg: "your information updated...".localized)
             }
         }
     }
@@ -183,7 +176,7 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
             
         }
         
-       
+        
         
         dismiss(animated: true)
     }

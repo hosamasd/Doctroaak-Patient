@@ -126,15 +126,11 @@ class BaseSlidingVC: UIViewController {
                     UIApplication.shared.open(whatsappURL as URL)
                 }
                 else {
-                    print("please install whatsapp")
+                    showToast(context: self, msg: "please install whatsapp".localized)
                 }
             }
         }
     }
-    
-    //    override var preferredStatusBarStyle: UIStatusBarStyle {
-    //        return isMenuOpen ? .lightContent : .default
-    //    }
     
     //MARK: -user methods
     
@@ -218,45 +214,6 @@ class BaseSlidingVC: UIViewController {
                 openMenu()
             }
         }
-        
-    }
-    
-    
-    
-    func didSelectItemAtIndex(index:IndexPath)  {
-        
-        
-        performRightViewCleanUp()
-        closeMenu()
-        
-        switch index.row {
-        case 0:
-            rightViewController = UINavigationController(rootViewController: ProfileVC())
-            
-            break
-            //        case 1:
-            //            rightViewController = UINavigationController(rootViewController: ListVC())
-            //        case 2:
-        //            rightViewController = BookmarkVC()
-        default:
-            let vc = UIViewController()
-            vc.view.backgroundColor = .red
-            rightViewController = UINavigationController(rootViewController: vc)
-            print(index.item)
-            //
-            //            let tabBarController = UITabBarController()
-            //            let momentsController = UIViewController()
-            //            momentsController.navigationItem.title = "Moments"
-            //            momentsController.view.backgroundColor = .orange
-            //            let navController = UINavigationController(rootViewController: momentsController)
-            //            navController.tabBarItem.title = "Moments"
-            //            tabBarController.viewControllers = [navController]
-            //            rightViewController = tabBarController
-        }
-        redView.addSubview(rightViewController.view)
-        addChild(rightViewController)
-        redView.bringSubviewToFront(darkCoverView)
-        
         
     }
     

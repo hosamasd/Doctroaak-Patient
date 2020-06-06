@@ -23,7 +23,7 @@ class MainLeftMenuCell: BaseCollectionCell {
     
     override var isSelected: Bool{
         didSet{
-            backgroundColor = isSelected ? #colorLiteral(red: 0.5359598994, green: 0.3686604202, blue: 0.9266062379, alpha: 1) : .white
+            backgroundColor = isSelected ? #colorLiteral(red: 0.7068013549, green: 0.5222674012, blue: 0.999304831, alpha: 1) : .white
         }
     }
     

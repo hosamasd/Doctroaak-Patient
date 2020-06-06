@@ -31,8 +31,8 @@ class CustomMainHomeView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Home".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var mainView:UIView = makeMainSubViewWithAppendView(vv: [Image1,label1])
     lazy var main2View:UIView =  {
@@ -41,9 +41,9 @@ class CustomMainHomeView: CustomBaseView {
         return v
     }()
     lazy var main3View:UIView = makeMainSubViewWithAppendView(vv: [Image3,label3])
-    lazy var label1 =  makeAttributedText(fir: " Find", sec: "Service")
-    lazy var label2 =  makeAttributedText(fir: " Favorite", sec: "Doctor")
-    lazy var label3 =  makeAttributedText(fir: " My", sec: "Orders")
+    lazy var label1 =  makeAttributedText(fir: " Find".localized.localized, sec: "Service".localized)
+    lazy var label2 =  makeAttributedText(fir: " Favorite".localized, sec: "Doctor".localized)
+    lazy var label3 =  makeAttributedText(fir: " My".localized, sec: "Orders".localized)
     
     lazy var Image1:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-4"))

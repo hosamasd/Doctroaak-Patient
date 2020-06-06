@@ -12,7 +12,7 @@ import UIKit
 class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "star-2"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
-    var deatas = ["Profile","Anayltics","Notifications","Contact Us","Language"]
+    var deatas = ["Profile".localized,"Anayltics".localized,"Notifications".localized,"Contact Us".localized,"Language".localized]
     
     
     
@@ -36,7 +36,6 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         handleCheckedIndex?(indexPath)
-//        checkIfLoggined(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

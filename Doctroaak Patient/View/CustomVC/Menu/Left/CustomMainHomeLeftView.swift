@@ -54,7 +54,7 @@ class CustomMainHomeLeftView: CustomBaseView {
         i.constrainHeight(constant: 30)
         return i
     }()
-    lazy var Label8 = UILabel(text: "Log Out", font: .systemFont(ofSize: 24), textColor: #colorLiteral(red: 0.6841606498, green: 0.6842750907, blue: 0.6841363311, alpha: 1))
+    lazy var Label8 = UILabel(text: "Log Out".localized, font: .systemFont(ofSize: 24), textColor: #colorLiteral(red: 0.6841606498, green: 0.6842750907, blue: 0.6841363311, alpha: 1))
     lazy var first8Stack:UIStackView = {
         let s = getStack(views: Image8,Label8, spacing: 16, alignment: .center, distribution: .fill, axis: .horizontal)
         s.constrainHeight(constant: 60)
