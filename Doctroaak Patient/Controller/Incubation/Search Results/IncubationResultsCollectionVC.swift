@@ -15,6 +15,8 @@ class IncubationResultsCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.noDataFound(incubationArray.count, text: "No Data Added Yet".localized)
+
         return incubationArray.count
     }
     

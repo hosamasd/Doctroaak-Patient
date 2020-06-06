@@ -30,7 +30,9 @@ class UserDefaultsConstants {
     static let isMedicineTypeCached="isMedicineTypeCached"
     static let isPaymentDetailsInfo = "isPaymentDetailsInfo"
     static let isPharamacyCached = "isPharamacyCached"
-
+    static let isLabAnanysisDetailsInfo = "isLabAnanysisDetailsInfo"
+      static let isRadAnanlysisCached = "isRadAnanlysisCached"
+    
     //register
     static let patientID="patientID"
     
@@ -55,6 +57,8 @@ class UserDefaultsConstants {
     static let medicineNameArray = "medicineNameArray"
     static let medicineTypeArray = "medicineTypeArray"
     static let pharamacyNameArray = "pharamacyNameArray"
+    static let labAnalysisNameArray = "labAnalysisNameArray"
+    static let radAnalysisNameArray = "radAnalysisNameArray"
     
     
     //for arabic
@@ -67,7 +71,8 @@ class UserDefaultsConstants {
     static let degreeNameARArray = "degreeNameARArray"
     static let insuranceNameARArray = "insuranceNameARArray"
     static let pharamacyNameARArray = "pharamacyNameARArray"
-    
+    static let labAnalysisNameARArray = "labAnalysisNameARArray"
+    static let radAnalysisNameARArray = "radAnalysisNameARArray"
     
     //for French
     static let areaNameFRArray = "areaNameFRArray"
@@ -79,8 +84,10 @@ class UserDefaultsConstants {
     static let degreeNameFRArray = "degreeNameFRArray"
     static let insuranceNameFRArray = "insuranceNameFRArray"
     static let pharamacyNameFRArray = "pharamacyNameFRArray"
+    static let labAnalysisNameFRArray = "labAnalysisNameFRArray"
+    static let radAnalysisNameFRArray = "radAnalysisNameFRArray"
     
-    
+    //ids
     static let cityIdArray = "cityIdArray"
     static let labIdArray = "labIdArray"
     static let medicineNameIDSArray = "medicineNameIDSArray"
@@ -91,7 +98,8 @@ class UserDefaultsConstants {
     static let insuranceIdArray = "insuranceIdArray"
     static let degreeIdArray = "degreeIdArray"
     static let pharamacyIdrray = "pharamacyIdrray"
-    
+    static let labAnalysisIdArray = "labAnalysisIdArray"
+    static let radAnalysisIdArray = "radAnalysisIdArray"
     
     static let paymentDetailsInfo = "paymentDetailsInfo"
     

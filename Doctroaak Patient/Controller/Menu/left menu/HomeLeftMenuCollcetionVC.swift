@@ -22,6 +22,7 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
         return deatas.count
     }
     

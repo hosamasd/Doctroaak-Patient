@@ -14,6 +14,8 @@ class ICUResultsCollectionVC: BaseCollectionVC {
     var icuArray =  [ICUFilterModel]()
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.noDataFound(icuArray.count, text: "No Data Added Yet".localized)
+
         return icuArray.count
     }
     

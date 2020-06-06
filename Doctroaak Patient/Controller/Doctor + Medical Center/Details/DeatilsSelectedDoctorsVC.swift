@@ -29,7 +29,7 @@ class DeatilsSelectedDoctorsVC: UIViewController {
 //        v.patient_id=patient_id
         v.selectedDoctor=selectedDoctor
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
+        v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
     }()
     
@@ -81,9 +81,8 @@ class DeatilsSelectedDoctorsVC: UIViewController {
     
     @objc func handleBook()  {
         
-        guard let apiTpken = patient?.apiToken,let patientId=patient?.id, let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
 
-//        guard let apiTpken = patientApiToken,let patientId=patient_id, let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
+        guard let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
         //        let book = DoctorBookVC(clinic_id: clinic_id, patient_id: patientId, api_token: apiTpken)
         let book = DoctorBookVC(clinic_id: clinic_id)
         book.patient=patient

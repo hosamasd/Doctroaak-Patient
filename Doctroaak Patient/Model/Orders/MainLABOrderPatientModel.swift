@@ -60,8 +60,8 @@ struct LabDetailsModel:Codable {
 
 struct LABAnalysisModel:Codable {
     let id: Int
-    let name, nameAr, nameFr, createdAt: String
-    let updatedAt: String
+    let name, nameAr, nameFr: String
+    var updatedAt,createdAt: String?
 
     enum CodingKeys: String, CodingKey {
         case id, name

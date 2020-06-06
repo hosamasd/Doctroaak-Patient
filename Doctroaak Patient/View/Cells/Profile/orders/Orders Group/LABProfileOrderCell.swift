@@ -42,8 +42,8 @@ class LABProfileOrderCell: BaseCollectionCell {
     }()
     lazy var addLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
-        vc.collectionView.constrainHeight(constant: 80)
-        vc.collectionView.isHide(true)
+        vc.collectionView.constrainHeight(constant: 100)
+                vc.collectionView.isHide(true)
         return vc
     }()
     
@@ -75,12 +75,13 @@ class LABProfileOrderCell: BaseCollectionCell {
     }
     
     override func setupViews() {
+//        backgroundColor = .orange
         //        profileOrderDatesLabel.constrainHeight(constant: 40)
         //        stack(profileOrderDatesLabel,pharamacyImage,cancelButton)
         profileOrderDatesLabel.constrainHeight(constant: 40)
-        let ss = getStack(views: pharamacyImage,addLapCollectionVC.view, spacing: 0, distribution: .fillEqually, axis: .vertical)
+        let ss = getStack(views: pharamacyImage,addLapCollectionVC.view, spacing: 0, distribution: .fillProportionally, axis: .vertical)
         
-        stack(profileOrderDatesLabel,ss,cancelButton)
+        stack(profileOrderDatesLabel,ss,cancelButton,spacing:16)
     }
     
     @objc func handleOpenImage()  {

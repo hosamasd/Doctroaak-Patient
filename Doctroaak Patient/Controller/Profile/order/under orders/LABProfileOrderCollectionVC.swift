@@ -18,13 +18,15 @@ class LABProfileOrderCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.noDataFound(pharamacyArray.count, text: "No Data Added Yet".localized)
+
         return pharamacyArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! LABProfileOrderCell
         let pharamacy = pharamacyArray[indexPath.item]
-        
+
         cell.pharamacy=pharamacy
         cell.handleCheckedIOpenImage = {[unowned self] index in
             self.handleCheckedIOpenImage?(index)
@@ -33,6 +35,9 @@ class LABProfileOrderCollectionVC: BaseCollectionVC {
             self.handleCheckedIndex?(doctor,indexPath)
         }
         cell.addLapCollectionVC.medicineArray = getPharamacy()
+        let isHide = cell.addLapCollectionVC.medicineArray.count > 0 ? false : true
+        
+        cell.addLapCollectionVC.collectionView.isHide(isHide)
         cell.addLapCollectionVC.collectionView.reloadData()
         return cell
     }
@@ -45,7 +50,7 @@ class LABProfileOrderCollectionVC: BaseCollectionVC {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return .init(width: view.frame.width, height: 250)
+        return .init(width: view.frame.width, height: 350)
     }
     
     override func setupCollection() {

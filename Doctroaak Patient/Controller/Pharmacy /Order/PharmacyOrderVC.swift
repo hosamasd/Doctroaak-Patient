@@ -35,10 +35,6 @@ class PharmacyOrderVC: CustomBaseViewVC {
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
             self.hideOrUndie(index: index)
         }
-        v.handleRemovePharamcay={[unowned self] pharamacy,index in
-            
-            self.removePharamacy(pharamacy,index)
-        }
         return v
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
@@ -56,6 +52,15 @@ class PharmacyOrderVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customAlertSuccessView:CustomAlertSuccessView = {
+        let v = CustomAlertSuccessView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleOkSuccess()
+        }
+        return v
+    }()
+    
     
     var patient:PatienModel?{
         didSet{
@@ -92,14 +97,17 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
-        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
-        patient_id=id
-        api_token=api
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+                       patient=cacheObjectCodabe.storedValue
+
+        }else {}
+//        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
+//        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
+//        patient_id=id
+//        api_token=api
         //        customPharmacyOrderView.orderSegmentedView.selectItemAt(index: 0)
         //        self.view.layoutSubviews()
     }
-    
     
     
     //MARK:-User methods
@@ -179,6 +187,22 @@ class PharmacyOrderVC: CustomBaseViewVC {
         present(imagePicker, animated: true)
     }
     
+    func handleremoveLoginAlert()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
+        presentLogin()
+        
+    }
+    
+    func presentSuccessAlert(txt:String)  {
+             
+             customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
+           customAlertSuccessView.discriptionInfoLabel.text = txt
+             customAlertLoginView.problemsView.loopMode = .loop
+             present(customMainAlertVC, animated: true)
+             
+         }
+    
     //TODO: -handle methods
     
     @objc func createAlertForChoposingImage()  {
@@ -224,14 +248,11 @@ class PharmacyOrderVC: CustomBaseViewVC {
                 SVProgressHUD.dismiss()
                 self.activeViewsIfNoData()
                 guard let message = base else {return }
-                //            guard let user = base?.data else { self.createAlert(title: "Information", message: MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn , style: .alert); return}
+                let ar = message.message ?? message.messageEn ?? ""
+                
                 
                 DispatchQueue.main.async {
-                    self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
-                    
-                    //                            self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
-                    //                self.dismiss(animated: true, completion: nil)
-                    //                       self.saveToken(user_id: user.id,user.phone)
+                    self.presentSuccessAlert(txt: ar )
                 }
             }
         }
@@ -241,21 +262,24 @@ class PharmacyOrderVC: CustomBaseViewVC {
         dismiss(animated: true, completion: nil)
     }
     
-    func removePharamacy(_ ph:PharamcyOrderModel,_ index:Int) {
-        customPharmacyOrderView.addMedicineCollectionVC.medicineArray.remove(at: index)
-        customPharmacyOrderView.pharamacyOrderViewModel.orderDetails?.remove(at: index)
-        let indexxx = IndexPath(item: index, section: 0)
-        
-        customPharmacyOrderView.addMedicineCollectionVC.collectionView.deleteItems(at: [indexxx])
-        DispatchQueue.main.async {
-            self.customPharmacyOrderView.addMedicineCollectionVC.collectionView.reloadData()
-        }
-    }
+    //    func removePharamacy(_ ph:PharamcyOrderModel,_ index:Int) {
+    //        customPharmacyOrderView.addMedicineCollectionVC.medicineArray.remove(at: index)
+    //        customPharmacyOrderView.pharamacyOrderViewModel.orderDetails?.remove(at: index)
+    //        let indexxx = IndexPath(item: index, section: 0)
+    //
+    //        customPharmacyOrderView.addMedicineCollectionVC.collectionView.deleteItems(at: [indexxx])
+    //        DispatchQueue.main.async {
+    //            self.customPharmacyOrderView.addMedicineCollectionVC.collectionView.reloadData()
+    //        }
+    //    }
     
-    func handleremoveLoginAlert()  {
+    
+    
+    @objc func handleOkSuccess()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
         customMainAlertVC.dismiss(animated: true)
-        presentLogin()
+        let orders = ProfileOrdersVC()
+        navigationController?.pushViewController(orders, animated: true)
         
     }
     

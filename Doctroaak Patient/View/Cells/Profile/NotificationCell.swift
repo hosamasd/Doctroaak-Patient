@@ -21,12 +21,12 @@ class NotificationCell: BaseCollectionCell {
             
             notifyDetailsLabel.text = "\(title) \n \(order)"
             
-            let urlString = notu.icon
             
             
-            guard let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
+            
+            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt?.toDates() else { return  }
             notifyProfileImage.sd_setImage(with: url)
-            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
+            let dateString = notu.createdAt?.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
             notifyDateLabel.text = dateString
         }
     }

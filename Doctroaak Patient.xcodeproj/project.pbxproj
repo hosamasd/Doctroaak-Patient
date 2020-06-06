@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E000D022461807A00083BD5 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D012461807A00083BD5 /* NotificationVC.swift */; };
 		4E000D052461812A00083BD5 /* CustomNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D042461812A00083BD5 /* CustomNotificationView.swift */; };
-		4E000D082461817600083BD5 /* NotificationsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D072461817600083BD5 /* NotificationsTableVC.swift */; };
+		4E000D082461817600083BD5 /* NotificationsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D072461817600083BD5 /* NotificationsCollectionVC.swift */; };
 		4E000D0B246181AB00083BD5 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E000D0A246181AB00083BD5 /* NotificationCell.swift */; };
 		4E006793243307C0004B1C3F /* PharmacyOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E006792243307C0004B1C3F /* PharmacyOrderVC.swift */; };
 		4E006795243307F1004B1C3F /* CustomPharmacyOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E006794243307F1004B1C3F /* CustomPharmacyOrderView.swift */; };
@@ -148,6 +148,8 @@
 		4EBFE88424851A1E00512689 /* MainPatientFavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFE88324851A1E00512689 /* MainPatientFavoriteModel.swift */; };
 		4EBFE8862485233C00512689 /* PatientFavoritessDoctorsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFE8852485233C00512689 /* PatientFavoritessDoctorsCollectionVC.swift */; };
 		4EBFE888248523A200512689 /* PatientFavoritessDoctorsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFE887248523A200512689 /* PatientFavoritessDoctorsCell.swift */; };
+		4EC00814248B8EFC00432E7D /* MainLABAanalysisModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC00813248B8EFC00432E7D /* MainLABAanalysisModel.swift */; };
+		4EC00816248B8F9500432E7D /* MainRadiologyAanalysisModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC00815248B8F9500432E7D /* MainRadiologyAanalysisModel.swift */; };
 		4EC21B3A24827D4200C746C1 /* CustomContactUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC21B3924827D4200C746C1 /* CustomContactUsView.swift */; };
 		4EC38C6F2439F9F2005DE994 /* PharamacyLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC38C6E2439F9F2005DE994 /* PharamacyLocationViewModel.swift */; };
 		4EC38C732439FCA0005DE994 /* PharamacyOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC38C722439FCA0005DE994 /* PharamacyOrderViewModel.swift */; };
@@ -232,7 +234,7 @@
 		092DC45AA74FAA03F635BA9B /* Pods_Doctroaak_Patient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doctroaak_Patient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E000D012461807A00083BD5 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		4E000D042461812A00083BD5 /* CustomNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotificationView.swift; sourceTree = "<group>"; };
-		4E000D072461817600083BD5 /* NotificationsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableVC.swift; sourceTree = "<group>"; };
+		4E000D072461817600083BD5 /* NotificationsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCollectionVC.swift; sourceTree = "<group>"; };
 		4E000D0A246181AB00083BD5 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		4E006792243307C0004B1C3F /* PharmacyOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyOrderVC.swift; sourceTree = "<group>"; };
 		4E006794243307F1004B1C3F /* CustomPharmacyOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPharmacyOrderView.swift; sourceTree = "<group>"; };
@@ -374,6 +376,8 @@
 		4EBFE88324851A1E00512689 /* MainPatientFavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPatientFavoriteModel.swift; sourceTree = "<group>"; };
 		4EBFE8852485233C00512689 /* PatientFavoritessDoctorsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientFavoritessDoctorsCollectionVC.swift; sourceTree = "<group>"; };
 		4EBFE887248523A200512689 /* PatientFavoritessDoctorsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientFavoritessDoctorsCell.swift; sourceTree = "<group>"; };
+		4EC00813248B8EFC00432E7D /* MainLABAanalysisModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLABAanalysisModel.swift; sourceTree = "<group>"; };
+		4EC00815248B8F9500432E7D /* MainRadiologyAanalysisModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRadiologyAanalysisModel.swift; sourceTree = "<group>"; };
 		4EC21B3924827D4200C746C1 /* CustomContactUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContactUsView.swift; sourceTree = "<group>"; };
 		4EC38C6E2439F9F2005DE994 /* PharamacyLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyLocationViewModel.swift; sourceTree = "<group>"; };
 		4EC38C722439FCA0005DE994 /* PharamacyOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyOrderViewModel.swift; sourceTree = "<group>"; };
@@ -498,7 +502,7 @@
 			isa = PBXGroup;
 			children = (
 				4E000D012461807A00083BD5 /* NotificationVC.swift */,
-				4E000D072461817600083BD5 /* NotificationsTableVC.swift */,
+				4E000D072461817600083BD5 /* NotificationsCollectionVC.swift */,
 			);
 			path = notification;
 			sourceTree = "<group>";
@@ -1102,6 +1106,7 @@
 			children = (
 				4E9F0B4C246C4DA800BB0FC0 /* RadiologyOrderModel.swift */,
 				4EDFE772246D6F0C003AF02A /* MainRadiologySearchModel.swift */,
+				4EC00815248B8F9500432E7D /* MainRadiologyAanalysisModel.swift */,
 			);
 			path = Radiology;
 			sourceTree = "<group>";
@@ -1492,6 +1497,7 @@
 			isa = PBXGroup;
 			children = (
 				4EDFE76F246D6DD0003AF02A /* MainLapSearchModel.swift */,
+				4EC00813248B8EFC00432E7D /* MainLABAanalysisModel.swift */,
 			);
 			path = LAB;
 			sourceTree = "<group>";
@@ -1812,10 +1818,12 @@
 				4ED917E32474373100494FCE /* PatientProfileSservicea.swift in Sources */,
 				4ED71264243214D100074363 /* ICUResultsCollectionVC.swift in Sources */,
 				4EA0651E2433667300D754AD /* LapSearchResultsVC.swift in Sources */,
+				4EC00814248B8EFC00432E7D /* MainLABAanalysisModel.swift in Sources */,
 				4ED135BB2439A1D0008BE002 /* DoctorSearchViewModel.swift in Sources */,
 				4EDB5B122487C48F00817257 /* CanceOrdersServices.swift in Sources */,
 				4EA8B11F2430E543008473D3 /* CustomProfileView.swift in Sources */,
 				4E04215D2462968600584BF0 /* MainVerificationSMScODEModel.swift in Sources */,
+				4EC00816248B8F9500432E7D /* MainRadiologyAanalysisModel.swift in Sources */,
 				4EA8B1192430E373008473D3 /* BaseSlidingVC.swift in Sources */,
 				4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */,
 				4EDFE773246D6F0C003AF02A /* MainRadiologySearchModel.swift in Sources */,
@@ -1864,7 +1872,7 @@
 				4ED7127324321BA900074363 /* IncubationSearchResultsVC.swift in Sources */,
 				4EDE923E246001C300205C64 /* MainCityModel.swift in Sources */,
 				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
-				4E000D082461817600083BD5 /* NotificationsTableVC.swift in Sources */,
+				4E000D082461817600083BD5 /* NotificationsCollectionVC.swift in Sources */,
 				4ED135BD2439A77F008BE002 /* ChooseLocationVC.swift in Sources */,
 				4E0421612462993C00584BF0 /* MainForgetPasswordModel.swift in Sources */,
 				4EDB5B162487C7B300817257 /* secondalertvc.swift in Sources */,

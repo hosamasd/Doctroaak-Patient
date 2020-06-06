@@ -37,6 +37,8 @@ class NotificationVC: CustomBaseViewVC {
     }()
     
     fileprivate let patients:PatienModel!
+    fileprivate let isFromMenu:Bool!
+
     //    fileprivate let api_token:String!
     //    fileprivate let user_id:Int!
     //
@@ -46,7 +48,8 @@ class NotificationVC: CustomBaseViewVC {
     //        super.init(nibName: nil, bundle: nil)
     //    }
     
-    init(patient:PatienModel) {
+    init(patient:PatienModel,isFromMenu:Bool) {
+        self.isFromMenu=isFromMenu
         self.patients=patient
         super.init(nibName: nil, bundle: nil)
     }
@@ -62,6 +65,7 @@ class NotificationVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         getNotifications()
     }
     
@@ -109,6 +113,7 @@ class NotificationVC: CustomBaseViewVC {
             DispatchQueue.main.async {
                 self.customNotificationView.notificationsCollectionVC.notificationArray.remove(at: index.item)
                 self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
+                self.showToast(context: self, msg: "Deleted successfully...")
             }
         }
     }
@@ -132,7 +137,11 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     @objc func handleBack()  {
+        if isFromMenu {
+            dismiss(animated: true)
+        }else {
         navigationController?.popViewController(animated: true)
+        }
         //        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
         
     }

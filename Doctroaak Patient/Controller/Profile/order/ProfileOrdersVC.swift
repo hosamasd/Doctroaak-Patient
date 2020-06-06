@@ -73,6 +73,11 @@ class ProfileOrdersVC: CustomBaseViewVC {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissKeyboard)))
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchAllOrders()
@@ -300,6 +305,8 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
     }
     
-    
+ @objc   func handleDismissKeyboard()  {
+        view.endEditing(true)
+    }
     
 }

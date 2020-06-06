@@ -153,7 +153,16 @@ class HomeMenuVC: CustomBaseViewVC {
     }
     
     @objc func handleOpenMenu()  {
-        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
+        //        let keyWindow = UIApplication.shared.connectedScenes
+        //        .filter({$0.activationState == .foregroundActive})
+        //        .map({$0 as? UIWindowScene})
+        //        .compactMap({$0})
+        //        .first?.windows
+        //            .filter({$0.isKeyWindow}).first
+        //        let ss  = keyWindow?.rootViewController as? BaseSlidingVC
+        //        ss?.openMenu()
+        (UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? BaseSlidingVC)?.openMenu()
+        //        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
         
     }
     
@@ -176,7 +185,7 @@ class HomeMenuVC: CustomBaseViewVC {
             present(customMainAlertVC, animated: true)
         }else {
             guard let patient = patient else { return  }
-            let notify = NotificationVC(patient: patient)
+            let notify = NotificationVC(patient: patient, isFromMenu: false)
             navigationController?.pushViewController(notify, animated: true)
         }
     }
@@ -196,8 +205,8 @@ class HomeMenuVC: CustomBaseViewVC {
     @objc func handleGoMyOrders()  {
         if patient==nil && !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
             customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 120)
-                       customAlertLoginView.problemsView.loopMode = .loop
-                       present(customMainAlertVC, animated: true)
+            customAlertLoginView.problemsView.loopMode = .loop
+            present(customMainAlertVC, animated: true)
         }else {
             let order = ProfileOrdersVC()
             order.patient=patient

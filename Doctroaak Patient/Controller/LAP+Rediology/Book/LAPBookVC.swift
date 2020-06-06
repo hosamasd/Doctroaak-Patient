@@ -54,7 +54,7 @@ class LAPBookVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertSuccessView:CustomAlertSuccessView = {
-        let v = CustomAlertSuccessView(txt: "asd")
+        let v = CustomAlertSuccessView()
         v.setupAnimation(name: "4970-unapproved-cross")
         v.handleOkTap = {[unowned self] in
             self.handleOkSuccess()
@@ -93,11 +93,10 @@ class LAPBookVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        patient=cacheObjectCodabe.storedValue
-        //        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
-        //        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
-        //        patient_id=id
-        //        api_token=api
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+                             patient=cacheObjectCodabe.storedValue
+
+              }else {}
     }
     
     
@@ -180,12 +179,13 @@ class LAPBookVC: CustomBaseViewVC {
             }
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
-            guard let message = base?.message else {return }
+            guard let message = base else {return }
+            
+            let ar = message.message ?? message.messageEn ?? ""
+            
             
             DispatchQueue.main.async {
-                
-                self.showMessage(message)
-//                self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
+                self.presentSuccessAlert(txt: ar )
             }
             
         }
@@ -214,33 +214,31 @@ class LAPBookVC: CustomBaseViewVC {
             self.activeViewsIfNoData()
             guard let message = base else {return }
             
+            let ar = message.message ?? message.messageEn ?? ""
+            
+            
             DispatchQueue.main.async {
-                self.showToast(context: self, msg: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "")
-                
-                //                            self.createAlert(title: "Information", message: (MOLHLanguage.isRTLLanguage() ? message.message : message.messageEn) ?? "" , style: .alert)
-                //                self.dismiss(animated: true, completion: nil)
-                //                       self.saveToken(user_id: user.id,user.phone)
+                self.presentSuccessAlert(txt: ar )
             }
             
         }
+    }
+    
+    func presentSuccessAlert(txt:String)  {
+        
+        customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
+        customAlertSuccessView.discriptionInfoLabel.text = txt
+        customAlertLoginView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+        
     }
     
     //TODO: -handle methods
     
     
     @objc  func handleBack()  {
+        navigationController?.popViewController(animated: true)
         
-        //        if api_token == nil && patient_id == nil  {
-        if patient == nil {
-            presentAlert()
-        }else {
-            guard let api = patient?.apiToken,let patientId = patient?.id else { return  }
-            customLAPBookView.lapBookViewModel.api_token=api
-            customLAPBookView.lapBookViewModel.patient_id=patientId
-            index == 0 ? makeLabSearch() : makeRadiologySearch()
-            
-            
-        }
     }
     
     
@@ -264,12 +262,12 @@ class LAPBookVC: CustomBaseViewVC {
         dismiss(animated: true, completion: nil)
     }
     
-   @objc func handleOkSuccess()  {
-       removeViewWithAnimation(vvv: customAlertLoginView)
-               customMainAlertVC.dismiss(animated: true)
-    let orders = ProfileOrdersVC()
-    navigationController?.pushViewController(orders, animated: true)
-    
+    @objc func handleOkSuccess()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
+        let orders = ProfileOrdersVC()
+        navigationController?.pushViewController(orders, animated: true)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -11,15 +11,18 @@ import MOLH
 
 class AddLAPCell: BaseCollectionCell {
     
-    var med:RadiologyOrderModel!{
+    var med:RadiologyOrderModel?{
         didSet{
+            guard let med = med else { return  }
+            
             DispatchQueue.main.async {
-                self.nameLabel.text = self.getNameFromIndex(self.med.raysID)
+                self.nameLabel.text = self.getNameFromIndex(med.raysID)
 
             }
         }
     }
     
+    var index = 0
     
     lazy var nameLabel = UILabel(text: "Name", font: .systemFont(ofSize: 20), textColor: .black,textAlignment: .left)
     
@@ -54,23 +57,23 @@ class AddLAPCell: BaseCollectionCell {
         seperatorView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 8, bottom: 0, right: 0))
     }
     
-    func getNameFromIndex(_ index:Int) -> String {
+    func getNameFromIndex(_ indezx:Int) -> String {
         var citName = [String]()
         var cityId = [Int]()
         
-        if index == 0 {
-            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labNameARArray :  UserDefaultsConstants.labNameArray
+        if self.index == 0 {
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labAnalysisNameARArray :  UserDefaultsConstants.labAnalysisNameArray
             let ff = UserDefaultsConstants.labIdArray
             
             checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
             
         }else {
-            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radiologyNameARArray :  UserDefaultsConstants.radiologyNameArray
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radAnalysisNameARArray :  UserDefaultsConstants.radAnalysisNameArray
                        let ff = UserDefaultsConstants.radiologyIdArray
                        
                        checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
         }
-        let ss = cityId.filter{$0 == index}
+        let ss = cityId.filter{$0 == indezx}
         let ff = ss.first ?? 1
         
         return citName[ff - 1 ]
@@ -79,7 +82,7 @@ class AddLAPCell: BaseCollectionCell {
     func checkLanguage(citName: inout [String], cityId:inout [Int],nameEn:String,nameId:String)  {
         
         
-        if let  cityArray = userDefaults.value(forKey: nameEn) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int]{
+        if let  cityArray = userDefaults.value(forKey: nameEn) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisIdArray) as? [Int]{
             
             citName = cityArray
             cityId = cityIds
@@ -88,6 +91,8 @@ class AddLAPCell: BaseCollectionCell {
     }
     
     @objc func handleRemove()  {
+        guard let med = med else { return  }
+
            handleRemoveItem?(med)
        }
 }

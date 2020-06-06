@@ -51,10 +51,10 @@ class MainServices {
         MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
     
-    func getRays(completion: @escaping (MainRaysModel?, Error?) -> ())  {
-        let urlString = baseUrl+"show_rays"
-        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
-    }
+//    func getRays(completion: @escaping (MainRaysModel?, Error?) -> ())  {
+//        let urlString = baseUrl+"show_rays"
+//        MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+//    }
     
     func getPharamacysName(completion: @escaping (MainPharamacyNameModel?, Error?) -> ())  {
            let urlString = baseUrl+"show/pharmacy"
@@ -75,6 +75,16 @@ class MainServices {
         let urlString = baseUrl+"show/radiology"
         MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
     }
+    
+    func getAnaylsisLabs(completion: @escaping (MainLABAanalysisModel?, Error?) -> ())  {
+           let urlString = baseUrl+"show_anlysis"
+           MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+       }
+       
+       func getAnaylsisRadiologys(completion: @escaping (MainRadiologyAanalysisModel?, Error?) -> ())  {
+           let urlString = baseUrl+"show_rays"
+           MainServices.mainGetMethodGenerics(urlString: urlString.toSecrueHttps(), completion: completion)
+       }
     
     func getPaymentDetails(completion: @escaping (MainPaymentDetailModel?, Error?) -> ())  {
            let urlString = baseUrl+"show-cariense-details"

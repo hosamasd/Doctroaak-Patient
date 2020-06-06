@@ -11,7 +11,7 @@ import CodableCache
 
 let reteriveAllFavorteStorage = "allFavorite"
 
-class CardiologyDoctorsResultsVC: UIViewController {
+class CardiologyDoctorsResultsVC: CustomBaseViewVC {
     
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
@@ -43,6 +43,7 @@ class CardiologyDoctorsResultsVC: UIViewController {
         v.handleBookmarkDoctor = {[unowned self] doctor in
             self.checkIfLogggined(doctor: doctor)
         }
+        
         return v
     }()
     
@@ -66,12 +67,7 @@ class CardiologyDoctorsResultsVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupViews()
-        setupNavigation()
-    }
-    
+     
     func checkIfLogggined(doctor:PatientSearchDoctorsModel)  {
         if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
             customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
@@ -116,11 +112,11 @@ class CardiologyDoctorsResultsVC: UIViewController {
         //        FavoriteStorage.sto
     }
     
-    func setupNavigation()  {
+    override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
     
-    func setupViews()  {
+    override func setupViews()  {
         view.addSubview(customCardiologyDoctorsResultsView)
         customCardiologyDoctorsResultsView.fillSuperview()
     }

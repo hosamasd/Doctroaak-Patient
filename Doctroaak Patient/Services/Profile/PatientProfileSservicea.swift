@@ -34,6 +34,8 @@ class PatientProfileSservicea {
         let nnn = "patient_update_profile"
         let urlString = "\(baseUrl)\(nnn)".toSecrueHttps()
         guard  let url = URL(string: urlString) else { return  }
+        let postsStrings = "user_id=\(user_id)&api_token=\(api_token)&address=\(address)&name=\(name)&gender=\(gender)&birthdate=\(birthdate)"
+        
         let postString = urlString+"?user_id=\(user_id)&api_token=\(api_token)&address=\(address)&name=\(name)&gender=\(gender)&birthdate=\(birthdate)" // old_password is smscode
         
         if isPhotoUpdate {
@@ -76,7 +78,7 @@ class PatientProfileSservicea {
             }
             
         }else {
-            MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+            MainServices.registerationPostMethodGeneric(postString: postsStrings, url: url, completion: completion)
             
         }
     }

@@ -47,7 +47,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     lazy var orderSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
         view.itemTitles = ["prescription","Request a medicine","All"]
-//        view.selectItemAt(index: 2)
+        //        view.selectItemAt(index: 2)
         view.allowChangeThumbWidth = true
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
@@ -58,17 +58,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         return view
     }()
     
-    func hideOrUndie(index:Int)  {
-        self.pharamacyOrderViewModel.isFirstOpetion = index == 0 ? true : false
-        self.pharamacyOrderViewModel.isSecondOpetion = index == 1 ? true : false
-        self.pharamacyOrderViewModel.isThirdOpetion = index == 2 ? true : false
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {[unowned self] in
-            self.secondStack.isHide(index == 0 ? true : false)
-            self.orLabel.isHide(index == 2 ? false :  true)
-            self.firstStack.isHide(index == 1 ? true : false)
-            
-        })
-    }
+    
     
     lazy var rosetaImageView:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "2454170"))
@@ -122,16 +112,12 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
             self.medicineCount += 1
         }
         v.handleMinusClousre = {[unowned self] count in
-            self.medicineCount = max(0, self.medicineCount-1)
+            self.medicineCount = max(1, self.medicineCount-1)
         }
         return v
     } ()
     lazy var addMedicineCollectionVC:AddMedicineCollectionVC = {
         let vc = AddMedicineCollectionVC()
-        vc.handleRemovePharamcay={[unowned self] m,index in
-            self.handleRemovePharamcay?(m,index)
-        }        //        vc.view.constrainHeight(constant: 300)
-        //        vc.view.isHide(true)
         return vc
     }()
     lazy var orLabel:UILabel = {
@@ -173,7 +159,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
-    var handleRemovePharamcay:((PharamcyOrderModel,Int)->Void)?
+    //    var handleRemovePharamcay:((PharamcyOrderModel,Int)->Void)?
     
     let pharamacyOrderViewModel = PharamacyOrderViewModel()
     var medicineNameArray = [String]()
@@ -182,17 +168,17 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     var medicineTypeChosen = 0
     var medicineCount = 0
     lazy var textView:UITextView = {
-           let tx = UITextView()
-           tx.backgroundColor = #colorLiteral(red: 0.9180622697, green: 0.918194294, blue: 0.918033421, alpha: 1)
-           tx.isScrollEnabled = false
-           tx.font = UIFont.systemFont(ofSize: 16)
-           tx.delegate = self
-           tx.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        let tx = UITextView()
+        tx.backgroundColor = #colorLiteral(red: 0.9180622697, green: 0.918194294, blue: 0.918033421, alpha: 1)
+        tx.isScrollEnabled = false
+        tx.font = UIFont.systemFont(ofSize: 16)
+        tx.delegate = self
+        tx.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         tx.isHide(true)
         tx.constrainHeight(constant: 150)
-           return tx
-       }()
-       lazy var placeHolderLabel = UILabel(text: "Enter Notes (OPTIONAL)".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
+        return tx
+    }()
+    lazy var placeHolderLabel = UILabel(text: "Enter Notes (OPTIONAL)".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     //    var  api_token:String?{didSet{pharamacyOrderViewModel.api_token=api_token} }
     //    var  patient_id:Int?{didSet{pharamacyOrderViewModel.patient_id=patient_id}}
     
@@ -202,28 +188,34 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         super.init(frame: frame)
         fetchData()
         NotificationCenter.default.addObserver(self, selector: #selector(handleTextChanged), name: UITextView.textDidChangeNotification, object: nil)
-
+        
     }
     
     override func layoutSubviews() {
-           super.layoutSubviews()
-           setup()
-       }
-       func setup() {
+        super.layoutSubviews()
+        setup()
+    }
+    func setup() {
         textView.textContainerInset = .init(top: 16, left: 16, bottom: 0, right: 0)
-       }
+    }
     
-    @objc  func handleTextChanged()  {
-           placeHolderLabel.isHidden = textView.text.count != 0
-           
-       }
-       
-       deinit {
-           NotificationCenter.default.removeObserver(self) //for avoiding retain cycle
-       }
+    func hideOrUndie(index:Int)  {
+        self.pharamacyOrderViewModel.isFirstOpetion = index == 0 ? true : false
+        self.pharamacyOrderViewModel.isSecondOpetion = index == 1 ? true : false
+        self.pharamacyOrderViewModel.isThirdOpetion = index == 2 ? true : false
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {[unowned self] in
+            self.secondStack.isHide(index == 0 ? true : false)
+            self.orLabel.isHide(index == 2 ? false :  true)
+            self.firstStack.isHide(index == 1 ? true : false)
+            
+        })
+    }
+    
+    
+    
     override var intrinsicContentSize: CGSize{
-           return .zero
-       }
+        return .zero
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -276,7 +268,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
         
         textView.hstack(placeHolderLabel).withMargins(.init(top: 16, left: 16, bottom: 0, right: 0))
-                
+        
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
@@ -303,6 +295,14 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         
     }
     
+    @objc  func handleTextChanged()  {
+        placeHolderLabel.isHidden = textView.text.count != 0
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self) //for avoiding retain cycle
+    }
 }
 
 extension CustomSecondPharmacyOrderView: UITextViewDelegate {

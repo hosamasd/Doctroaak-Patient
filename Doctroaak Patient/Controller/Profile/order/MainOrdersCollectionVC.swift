@@ -21,19 +21,19 @@ class MainOrdersCollectionVC: BaseCollectionVC {
     var radArray = [RadiologyOrderPatientModel]()
     
     var handleDCheckedIndex:((DoctorsOrderPatientModel,IndexPath)->Void)?
-       var handlePYCheckedIndex:((PharamacyOrderPatientModel,IndexPath)->Void)?
-       var handleLABCheckedIndex:((LABOrderPatientModel,IndexPath)->Void)?
-       var handleRADCheckedIndex:((RadiologyOrderPatientModel,IndexPath)->Void)?
-//    var handleDCheckedIndex:((DoctorsOrderPatientModel)->Void)?
-//    var handlePYCheckedIndex:((PharamacyOrderPatientModel)->Void)?
-//    var handleLABCheckedIndex:((LABOrderPatientModel)->Void)?
-//    var handleRADCheckedIndex:((RadiologyOrderPatientModel)->Void)?
+    var handlePYCheckedIndex:((PharamacyOrderPatientModel,IndexPath)->Void)?
+    var handleLABCheckedIndex:((LABOrderPatientModel,IndexPath)->Void)?
+    var handleRADCheckedIndex:((RadiologyOrderPatientModel,IndexPath)->Void)?
+    //    var handleDCheckedIndex:((DoctorsOrderPatientModel)->Void)?
+    //    var handlePYCheckedIndex:((PharamacyOrderPatientModel)->Void)?
+    //    var handleLABCheckedIndex:((LABOrderPatientModel)->Void)?
+    //    var handleRADCheckedIndex:((RadiologyOrderPatientModel)->Void)?
     var handleCheckedIndexForButtons:((Int)->Void)?
     var handleCheckedIOpenImage:((UIImage)->Void)?
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4//pharamacyArray.count
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -51,7 +51,7 @@ class MainOrdersCollectionVC: BaseCollectionVC {
         }else if indexPath.item == 1 {
             let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cell2Id, for: indexPath) as! MainPharamacyOrderCell
             cell.pharamacyProfileOrderCollectionVC.pharamacyArray=pharamacyArray
-//            cell.pharamacyProfileOrderCollectionVC
+            //            cell.pharamacyProfileOrderCollectionVC
             cell.pharamacyProfileOrderCollectionVC.collectionView.reloadData()
             cell.handleCheckedIOpenImage = {[unowned self] index in
                 self.handleCheckedIOpenImage?(index)

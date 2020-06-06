@@ -19,6 +19,7 @@ class LAPResultsCollectionVC: BaseCollectionVC {
 
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
         return index == 0 ? labArrayResults.count : radiologyArrayResults.count
     }
     

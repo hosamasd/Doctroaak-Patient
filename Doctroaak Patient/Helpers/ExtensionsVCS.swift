@@ -124,7 +124,7 @@ extension UIViewController {
     func showToast(context ctx: UIViewController, msg: String) {
         let la = UILabel(text: msg, font: .systemFont(ofSize: 16), textColor: .white, textAlignment: .center, numberOfLines: 0)
         let height = msg.getFrameForText(text: msg)
-        la.constrainHeight(constant: height.height)
+        la.constrainHeight(constant: height.height+20)
         la.constrainWidth(constant: view.frame.width)
         la.layer.cornerRadius=12
         la.clipsToBounds=true

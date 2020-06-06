@@ -73,6 +73,7 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
 //    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.noDataFound(index == 0 ? labWorkingDaysArray.count : index == 1 ? radWorkingDaysArray.count : workingDaysArray.count, text: "No Working Hourse Yet".localized)
         return index == 0 ? getLabTotalDays() : index == 1 ?  getRadTotalDays() : getTotalDays()
 //        var ss = 0
 //         index == 0 ? getLabTotalDays(&ss) : index == 1 ?  getRadTotalDays(&ss) :  getTotalDays(&ss)

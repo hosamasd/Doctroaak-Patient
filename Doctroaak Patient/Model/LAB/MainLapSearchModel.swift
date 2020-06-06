@@ -27,7 +27,8 @@ struct LapSearchModel:Codable {
     let phone: String
     var phone2: String?
     let city, area: Int
-    let lang, latt, apiToken, firebaseToken: String
+    let lang, latt: String
+    var apiToken,firebaseToken:String?
     let smsCode, email, password: String
     let active: Int
     let delivery: String

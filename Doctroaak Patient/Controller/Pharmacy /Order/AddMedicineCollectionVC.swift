@@ -13,11 +13,12 @@ class AddMedicineCollectionVC: BaseCollectionVC {
     
     fileprivate let cellID = "cellID"
     var medicineArray = [PharamcyOrderModel]()
-    var handleRemovePharamcay:((PharamcyOrderModel,Int)->Void)?
     var showOrderOnly:Bool = false
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.noDataFound(medicineArray.count, text: "No Data Added Yet".localized)
+
         return medicineArray.count
     }
     
@@ -26,10 +27,14 @@ class AddMedicineCollectionVC: BaseCollectionVC {
         let med = medicineArray[indexPath.item]
 //        
         cell.med = med
-        cell.handleRemovePharamcay={[unowned self] (m) in
-            self.handleRemovePharamcay?(m,indexPath.item)
-        }
+//        cell.handleRemovePharamcay={[unowned self] (m) in
+//            self.handleRemovePharamcay?(m,indexPath.item)
+//        }
         [cell.typeLabel,cell.closeImage].forEach({$0.isHide(showOrderOnly ? true : false)})
+        cell.handleRemovePharamcay = {[unowned self] item in
+            self.medicineArray.removeAll(where: {$0.medicineID==item.medicineID})
+            self.collectionView.reloadData()
+        }
         return cell
     }
     

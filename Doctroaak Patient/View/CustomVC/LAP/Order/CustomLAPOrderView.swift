@@ -92,6 +92,7 @@ class CustomLAPOrderView: CustomBaseView {
     }()
     lazy var addLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
+        vc.index=self.index
         return vc
     }()
     lazy var addMoreImage:UIImageView = {
@@ -122,6 +123,8 @@ class CustomLAPOrderView: CustomBaseView {
         s.isHide(true)
         return s
     }()
+    var handleRemoveItem:((RadiologyOrderModel)->Void)?
+
     var constainedLogoAnchor:AnchoredConstraints!
     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
     var bubleViewCenterImgHeightConstraint:NSLayoutConstraint!
@@ -168,14 +171,15 @@ class CustomLAPOrderView: CustomBaseView {
         if isArabic {
             
             
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.labNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int] {
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.radAnalysisNameARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.radAnalysisIdArray) as? [Int] {
                 
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds )
                 
                 
             
+        }
         }else {
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.labNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.radAnalysisNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.radAnalysisIdArray) as? [Int]  {
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: degreeNames, did:degreeIds )
                 
             }
@@ -187,7 +191,7 @@ class CustomLAPOrderView: CustomBaseView {
             self.layoutIfNeeded()
         }
     }
-    }
+    
     
     
     override func setupViews() {
@@ -246,6 +250,8 @@ class CustomLAPOrderView: CustomBaseView {
     
     @objc  func handleAddMore()  {
         guard let name = laPOrderViewModel.name else {print("all fields required"); return  }
+        nameDrop.text = "Name".localized
+        nameDrop.selectedIndex = -1
         let order = RadiologyOrderModel(raysID: name)
         addLapCollectionVC.medicineArray.append(order)
         

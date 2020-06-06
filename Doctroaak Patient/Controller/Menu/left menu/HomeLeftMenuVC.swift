@@ -36,12 +36,10 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        guard let pat =    cacheObjectCodabe.storedValue else { return  }
-        self.patient=pat
-        //        if let person = personManager.getPerson(){
-        //            patient = person
-        //        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+             patient =    cacheObjectCodabe.storedValue
+
+        }else {}
     }
     
     //MARK: -user methods
@@ -71,6 +69,8 @@ class HomeLeftMenuVC: CustomBaseViewVC {
             baseSlid.closeMenu()
             showAlertForLogin()
         }else {
+            guard let patient = patient else { return  }
+
 //            if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin)  && indexPath.item == 4{
 //                showAlertForLogin()
 //
@@ -98,7 +98,14 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 }else if indexPath.item == 3 {
                     baseSlid.closeMenu()
                     showAlertForContacting()
-                }
+                }else {
+                    baseSlid.closeMenu()
+                    let profile = NotificationVC(patient: patient, isFromMenu: true)
+                                       let nav = UINavigationController(rootViewController: profile)
+                                       
+                                       nav.modalPresentationStyle = .fullScreen
+                                       present(nav, animated: true)
+            }
                 
                 //        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) &&  indexPath.item==0 {
                 //            showAlertForLogin()

@@ -40,13 +40,17 @@ class PharamacyOrderViewModel {
         
         if isFirstOpetion ?? true {
             guard let image = image else { return  }
-            
+            bindableIsLogging.value=true
             OrdserBookSerivce.shared.postBookPharamacyResults(isFirst: true, isSecond: false, isThird: false,photo: image, patient_id: patientId, insurance: insurance, delivery: delivery, api_token: apiToken,pharmacy_id: pharmacy_id, completion: completion )
             
         }else if isSecondOpetion ?? true {
             guard let order = orderDetails else { return  }
+            bindableIsLogging.value=true
+
             OrdserBookSerivce.shared.postBookPharamacyResults(isFirst: false, isSecond: true, isThird: false, patient_id: patientId, insurance: insurance, delivery: delivery,orderDetails: order, api_token: apiToken,pharmacy_id: pharmacy_id, completion: completion)
         }else if isThirdOpetion ?? true {
+            bindableIsLogging.value=true
+
             OrdserBookSerivce.shared.postBookPharamacyResults(isFirst: false, isSecond: false, isThird: true,photo: image, patient_id: patientId, insurance: insurance, delivery: delivery,orderDetails: orderDetails,notes: notes, api_token: apiToken, pharmacy_id: pharmacy_id, completion: completion)
             
         }

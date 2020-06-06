@@ -71,7 +71,7 @@ class CustomDetailsView: CustomBaseView {
         v.view.constrainHeight(constant: 200)
         return v
     }()
-    lazy var bookButton:UIButton = {
+    lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Next", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -86,15 +86,15 @@ class CustomDetailsView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        addGradientInSenderAndRemoveOther(sender: bookButton)
-        bookButton.setTitleColor(.white, for: .normal)
+        addGradientInSenderAndRemoveOther(sender: nextButton)
+        nextButton.setTitleColor(.white, for: .normal)
     }
     
     
     
     override func setupViews()  {
         
-        addSubViews(views: LogoImage,backImage,titleLabel,patientFavoriteDoctorsCell,suggestedLabel,workingDateLabel,doctorSuggestShiftHorizentalVC.view,doctorWorkingDateCollectionVC.view,bookButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,patientFavoriteDoctorsCell,suggestedLabel,workingDateLabel,doctorSuggestShiftHorizentalVC.view,doctorWorkingDateCollectionVC.view,nextButton)
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -104,7 +104,7 @@ class CustomDetailsView: CustomBaseView {
         doctorSuggestShiftHorizentalVC.view.anchor(top: suggestedLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         workingDateLabel.anchor(top: doctorSuggestShiftHorizentalVC.view.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         doctorWorkingDateCollectionVC.view.anchor(top: workingDateLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-        bookButton.anchor(top: doctorWorkingDateCollectionVC.view.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 16, bottom: 16, right: 16))
+        nextButton.anchor(top: doctorWorkingDateCollectionVC.view.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 16, bottom: 16, right: 16))
         
         
     }

@@ -17,6 +17,8 @@ class DoctorListCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.noDataFound(specificationArray.count, text: "No Data Added Yet".localized)
+
         return specificationArray.count
     }
     

@@ -11,7 +11,7 @@ import UIKit
 class CustomAddMinusView: CustomBaseView {
     
     
-    var count:Int = 0
+    var count:Int = 1
     
     
     lazy var plusImageView:UIImageView = {

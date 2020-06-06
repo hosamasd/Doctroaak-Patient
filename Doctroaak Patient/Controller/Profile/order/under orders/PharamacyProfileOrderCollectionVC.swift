@@ -20,6 +20,8 @@ class PharamacyProfileOrderCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.noDataFound(pharamacyArray.count, text: "No Data Added Yet".localized)
+
         return pharamacyArray.count
     }
     

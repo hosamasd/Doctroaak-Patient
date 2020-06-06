@@ -31,8 +31,8 @@ class CustomNotificationView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Notification", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
     
-    lazy var notificationsCollectionVC:NotificationsTableVC = {
-        let v = NotificationsTableVC()
+    lazy var notificationsCollectionVC:NotificationsCollectionVC = {
+        let v = NotificationsCollectionVC()
         v.handledisplayNotification = {[unowned self] index,ind in
             self.handledisplayNotification?(index,ind)
         }

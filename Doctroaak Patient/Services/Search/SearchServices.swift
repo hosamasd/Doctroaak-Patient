@@ -61,13 +61,13 @@ class SearchServices {
             }else if pharmacy_id != -1 && (city != nil && are == nil) {
                 checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)&city=\(city!)"
             }else if pharmacy_id != -1 && (city == nil && are != nil) {
-                checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)&are=\(are!)"
+                checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)&area=\(are!)"
                 
             }else if   pharmacy_id != -1 && (city != nil && are != nil) {
-                checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
+                checks = "?pharmacy_id=\(pharmacy_id!)&insurance=\(insurance)&delivery=\(delivery)&area=\(are!)&city=\(city!)"
                 
             }else if   pharmacy_id == -1 && (city != nil && are != nil) {
-                checks = "?insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
+                checks = "?insurance=\(insurance)&delivery=\(delivery)&area=\(are!)&city=\(city!)"
                 
             }
         }
@@ -94,13 +94,13 @@ class SearchServices {
             }else if lab_id != -1 &&  (city != -1 && are == -1) {
                 checks = "?lab_id=\(lab_id!)&insurance=\(insurance)&delivery=\(delivery)&city=\(city!)"
             }else if lab_id != -1 &&  (city == -1 && are != -1) {
-                checks = "?lab_id=\(lab_id!)&insurance=\(insurance)&delivery=\(delivery)&are=\(are!)"
+                checks = "?lab_id=\(lab_id!)&insurance=\(insurance)&delivery=\(delivery)&area=\(are!)"
                 
             }else if  lab_id != -1 && (city != -1 && are != -1) {
-                checks = "?lab_id=\(lab_id!)&insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
+                checks = "?lab_id=\(lab_id!)&insurance=\(insurance)&delivery=\(delivery)&area=\(are!)&city=\(city!)"
                 
             }else if   lab_id == -1 && (city != -1 && are != -1) {
-                checks = "?insurance=\(insurance)&delivery=\(delivery)&are=\(are!)&city=\(city!)"
+                checks = "?insurance=\(insurance)&delivery=\(delivery)&area=\(are!)&city=\(city!)"
                 
             }
         }
@@ -116,13 +116,8 @@ class SearchServices {
     
     func iCUGetSearchResults(isFirst:Bool,city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainICUFilterModel?, Error?) ->Void)  {
         let urlString = "\(baseUrl)icu/get".toSecrueHttps()
-        let checks = isFirst ? "?city=\(city!)&are=\(are!)" : "?latt=\(latt!)&lang=\(lang!)"
+        let checks = isFirst ? "?city=\(city!)&area=\(are!)" : "?latt=\(latt!)&lang=\(lang!)"
 
-//        if   !isFirst {
-//            checks = "?latt=\(latt!)&lang=\(lang!)"
-//        }else {
-//            checks = "?city=\(city!)&are=\(are!)"
-//        }
         let postString = urlString+checks
         
         MainServices.mainGetMethodGenerics(urlString: postString, completion: completion)
@@ -130,7 +125,7 @@ class SearchServices {
     
     func incubationGetSearchResults(isFirst:Bool,city:Int? = nil ,are:Int? = nil,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainIncubtionSearchModel?, Error?) ->Void)  {
         let urlString = "\(baseUrl)incubation/get".toSecrueHttps()
-        let checks = isFirst ? "?city=\(city!)&are=\(are!)" : "?latt=\(latt!)&lang=\(lang!)"
+        let checks = isFirst ? "?city=\(city!)&area=\(are!)" : "?latt=\(latt!)&lang=\(lang!)"
         
         
         let postString = urlString+checks

@@ -232,6 +232,8 @@ class BaseSlidingVC: UIViewController {
         switch index.row {
         case 0:
             rightViewController = UINavigationController(rootViewController: ProfileVC())
+            
+            break
             //        case 1:
             //            rightViewController = UINavigationController(rootViewController: ListVC())
             //        case 2:
