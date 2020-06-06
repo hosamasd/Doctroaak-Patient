@@ -8,6 +8,8 @@
 
 import UIKit
 import CodableCache
+import SVProgressHUD
+import MOLH
 
 let reteriveAllFavorteStorage = "allFavorite"
 
@@ -67,6 +69,12 @@ class CardiologyDoctorsResultsVC: CustomBaseViewVC {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            patient=cacheObjectCodabe.storedValue
+        } else {}
+    }
      
     func checkIfLogggined(doctor:PatientSearchDoctorsModel)  {
         if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
@@ -80,36 +88,20 @@ class CardiologyDoctorsResultsVC: CustomBaseViewVC {
     
     func handleBookmarkOrNot(doctor:PatientSearchDoctorsModel)  {
         
-        //        if var favoriteee=FavoriteStorage.retrieve(reteriveAllFavorteStorage, from: .documents, as: PatientSearchDoctorsModel.self)  {
-        //            if customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite {
-        //                           favoriteee.removeAll(where: {$0.name==doctor.name})
-        //                       }else {
-        //                           favoriteee.append(doctor)
-        //                       }
-        //                       FavoriteStorage.storesss(favoriteee, to: .documents, as: reteriveAllFavorteStorage)
-        //
-        //
-        ////        if var favorites = FavoriteStorage.retrievess(reteriveAllFavorteStorage, from: .documents, as: PatientSearchDoctorsModel.self){
-        ////            if customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite {
-        ////                favorites.removeAll(where: {$0.name==doctor.name})
-        ////            }else {
-        ////                favorites.append(doctor)
-        ////            }
-        ////            FavoriteStorage.storesss(favorites, to: .documents, as: reteriveAllFavorteStorage)
-        //
-        //        }else {
-        //
-        //            FavoriteStorage.storesss([doctor], to: .documents, as: reteriveAllFavorteStorage)
-        //
-        ////            customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite = !customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.isFavorite
-        //
-        //        }
-        DispatchQueue.main.async {
-            //            self.customCardiologyDoctorsResultsView.patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
-        }
+        guard let patient = patient else { return  }
         
-        //        FavoriteStorage.store(doctor, to: .documents, as: "favorites")
-        //        FavoriteStorage.sto
+        PatientProfileSservicea.shared.favoriteDoctors(patient_id: patient.id, doctor_id: doctor.id, api_token: patient.apiToken) { (base, err) in
+            
+        if let err = err {
+                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+                   }
+            guard let mess = base else {return}
+            let message = MOLHLanguage.isRTLLanguage() ? mess.message : mess.messageEn
+            
+            DispatchQueue.main.async {
+                self.showToast(context: self, msg: message)
+            }
+        }
     }
     
     override func setupNavigation()  {

@@ -23,8 +23,8 @@ class CustomMainServicesView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Service", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Service".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var main3View = createMainView(vv: Image3, vv2: label3)
     lazy var main2View = createMainView(vv: Image2, vv2: label2)
@@ -34,13 +34,13 @@ class CustomMainServicesView: CustomBaseView {
     lazy var main6View = createMainView(vv: Image6, vv2: label6)
     lazy var main7View = createMainView(vv: Image7, vv2: label7)
     
-    lazy var label1 =  UILabel(text: "  Doctor", font: .systemFont(ofSize: 16), textColor: .black)
-    lazy var label2 =  UILabel(text: "  Medical Center", font: .systemFont(ofSize: 16), textColor: .black)
-    lazy var label3 =  UILabel(text: "  Pharmacy ", font: .systemFont(ofSize: 16), textColor: .black)
-    lazy var label4 =  UILabel(text: "  Lab", font: .systemFont(ofSize: 16), textColor: .black)
-    lazy var label5 =  UILabel(text: "  Radiology", font: .systemFont(ofSize: 16), textColor: .black)
-    lazy var label6 =  UILabel(text: "  Incubation", font: .systemFont(ofSize: 16), textColor: .black)
-    lazy var label7 =  UILabel(text: "  I.C.U", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var label1 =  UILabel(text: "  Doctor".localized, font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var label2 =  UILabel(text: "  Medical Center".localized, font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var label3 =  UILabel(text: "  Pharmacy ".localized, font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var label4 =  UILabel(text: "  Lab".localized, font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var label5 =  UILabel(text: "  Radiology".localized, font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var label6 =  UILabel(text: "  Incubation".localized, font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var label7 =  UILabel(text: "  I.C.U".localized, font: .systemFont(ofSize: 16), textColor: .black)
     
     lazy var Image1:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4150"))

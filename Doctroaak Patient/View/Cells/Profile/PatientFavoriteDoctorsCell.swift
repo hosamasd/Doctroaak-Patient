@@ -106,7 +106,8 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     }()
     var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
     var handleCheckedDoctor:((PatientSearchDoctorsModel)->Void)?
-
+    var isFavorite = false
+    
     
     
     override init(frame: CGRect) {
@@ -202,8 +203,8 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     
     @objc func handleBookmark()  {
         guard let docotr = doctor else { return  }
-//        isFavorite = !isFavorite
-//        bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
+        isFavorite = !isFavorite
+        bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
         handleBookmarkDoctor?(docotr)
     }
     
