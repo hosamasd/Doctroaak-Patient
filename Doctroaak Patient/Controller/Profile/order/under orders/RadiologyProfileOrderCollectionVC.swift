@@ -34,8 +34,14 @@ class RadiologyProfileOrderCollectionVC: BaseCollectionVC {
         cell.handleCheckedIndex = {[unowned self] doctor in
             self.handleCheckedIndex?(doctor,indexPath)
         }
+        
         cell.addLapCollectionVC.medicineArray = getPharamacy()
-        cell.addLapCollectionVC.collectionView.reloadData()
+        DispatchQueue.main.async {
+            cell.addLapCollectionVC.collectionView.reloadData()
+            
+        }
+//        cell.addLapCollectionVC.medicineArray = getPharamacy()
+//        cell.addLapCollectionVC.collectionView.reloadData()
         return cell
     }
     

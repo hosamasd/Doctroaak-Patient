@@ -38,7 +38,10 @@ class PharamacyProfileOrderCollectionVC: BaseCollectionVC {
             self.handleCheckedIndex?(doctor,indexPath)
         }
         cell.addMedicineCollectionVC.medicineArray = getPharamacy()
-        cell.addMedicineCollectionVC.collectionView.reloadData()
+        DispatchQueue.main.async {
+                    cell.addMedicineCollectionVC.collectionView.reloadData()
+
+        }
         
         return cell
     }

@@ -12,29 +12,29 @@ import SDWebImage
 
 class PatientFavoritessDoctorsCell: BaseCollectionCell {
     
- var doctor:PatientFavoriteModel? {
+    var doctor:PatientFavoriteModel? {
         didSet{
             guard let doctor = doctor  else {return}
-
+            
             profileInfoLabel.text = MOLHLanguage.isRTLLanguage() ? doctor.doctor.nameAr : doctor.doctor.name
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
-            profileInfoReservationLabel.text = "Reservation: \(doctor.fees)"
-            profileInfoConsultaionLabel.text = "Consultation: \(doctor.fees2)"
+            profileInfoReservationLabel.text = "Reservation".localized + " : \(doctor.fees)"
+            profileInfoConsultaionLabel.text = "Consultation".localized + " : \(doctor.fees2)"
             let ss = doctor.doctor.photo//.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
             guard let url = URL(string: ss) else { return  }
             profileImage.sd_setImage(with: url)
             for(index,view) in starsStackView.arrangedSubviews.enumerated(){
                 guard let img = view as? UIImageView else {return}
-
+                
                 let ratingInt = Int(doctor.doctor.reservationRate ?? "0" )
                 img.image = index >= ratingInt ?? 0 ? #imageLiteral(resourceName: "star-1") : #imageLiteral(resourceName: "star")
                 
                 
             }
-                         
-
-    }
+            
+            
         }
+    }
     
     
     
@@ -131,10 +131,6 @@ class PatientFavoritessDoctorsCell: BaseCollectionCell {
         backgroundColor = .white
         layer.cornerRadius = 8
         clipsToBounds = true
-        
-        //        setupShadow(opacity: 0.8, radius: 10, offset: .init(width: 0, height: 10), color: .red)
-        //        addSubview(totalStackFinished)
-        //        totalStackFinished.fillSuperview()
         let ss = stack(profileImage,UIView())
         let dd = stack(profileInfoLabel,totalStackFinished).withMargins(.init(top: -16, left: 0, bottom: 0, right: 0))
         
@@ -193,13 +189,13 @@ class PatientFavoritessDoctorsCell: BaseCollectionCell {
             }
         }
         let ss = cityId.filter{$0 == index}
-         let ff = ss.first ?? 1
+        let ff = ss.first ?? 1
         return citName[ff-1]
     }
     
     @objc func handleBookmark()  {
         guard let doctor = doctor  else {return}
-
+        
         handleBookmarkDoctor?(doctor)
     }
 }

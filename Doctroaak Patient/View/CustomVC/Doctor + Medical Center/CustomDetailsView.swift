@@ -27,6 +27,21 @@ class CustomDetailsView: CustomBaseView {
         }
     }
     
+    var selectedSecondDoctor:PatientFavoriteModel? {
+          didSet{
+              guard let selectedDoctor = selectedSecondDoctor else { return  }
+
+              patientFavoriteDoctorsCell.secondDoctor=selectedDoctor
+              doctorSuggestShiftHorizentalVC.suggestedDaysArray = selectedDoctor.freeDays
+              doctorWorkingDateCollectionVC.workingDaysArray = selectedDoctor.workingHours
+              DispatchQueue.main.async {
+                  self.doctorSuggestShiftHorizentalVC.collectionView.reloadData()
+                  self.doctorWorkingDateCollectionVC.collectionView.reloadData()
+              }
+          }
+      }
+    
+    
 //    var patient:PatienModel?{
 //                     didSet{
 //                         guard let patient = patient else { return  }

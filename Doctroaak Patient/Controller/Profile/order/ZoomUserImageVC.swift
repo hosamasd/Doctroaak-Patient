@@ -29,7 +29,7 @@ lazy var mainImageView:UIImageView = {
         let label = UILabel(text: "Preview".localized, font: .systemFont(ofSize: 20), textColor: .black)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_clear_24px").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleClose))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "×-2").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(handleClose))
     }
     
    override func setupViews()  {

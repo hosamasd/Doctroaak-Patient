@@ -14,10 +14,7 @@ class PharamacyProfileOrderCell: BaseCollectionCell {
         didSet{
             guard let pharamacy = pharamacy else { return  }
             var mmm = [PharamcyOrderModel]()
-            profileOrderDatesLabel.text = pharamacy.createdAt
-            let urlString = pharamacy.photo
-            guard let url = URL(string: urlString) else { return  }
-            pharamacyImage.sd_setImage(with: url)
+            profileOrderDatesLabel.text = pharamacy.updatedAt
             addMedicineCollectionVC.showOrderOnly = true
             if pharamacy.details?.count ?? 1 > 0 {
                 guard let details = pharamacy.details else { return  }
@@ -30,6 +27,10 @@ class PharamacyProfileOrderCell: BaseCollectionCell {
                 }
                 addMedicineCollectionVC.view.isHide(false)
             }else {
+                let urlString = pharamacy.photo
+                guard let url = URL(string: urlString) else { return  }
+                pharamacyImage.sd_setImage(with: url)
+
                 addMedicineCollectionVC.view.isHide(true)
             }
             self.addMedicineCollectionVC.medicineArray = mmm
@@ -42,7 +43,7 @@ class PharamacyProfileOrderCell: BaseCollectionCell {
     
     lazy var profileOrderDatesLabel = UILabel(text: "22/4/2020  2:30 pm", font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .center)
     lazy var pharamacyImage:UIImageView = {
-        let i = UIImageView(backgroundColor: .gray)
+        let i = UIImageView(image: #imageLiteral(resourceName: "herbal"))
         i.isUserInteractionEnabled = true
         i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenImage)))
         return i
@@ -62,8 +63,6 @@ class PharamacyProfileOrderCell: BaseCollectionCell {
     }()
     lazy var addMedicineCollectionVC:AddMedicineCollectionVC = {
         let vc = AddMedicineCollectionVC()
-        vc.collectionView.constrainHeight(constant: 80)
-        vc.collectionView.isHide(true)
         return vc
     }()
     
@@ -96,7 +95,10 @@ class PharamacyProfileOrderCell: BaseCollectionCell {
     
     override func setupViews() {
         profileOrderDatesLabel.constrainHeight(constant: 40)
+       
         let ss = getStack(views: pharamacyImage,addMedicineCollectionVC.view, spacing: 0, distribution: .fillEqually, axis: .vertical)
+
+//        let ss = getStack(views: pharamacyImage,addMedicineCollectionVC.view, spacing: 0, distribution: .fillEqually, axis: .vertical)
         
         stack(profileOrderDatesLabel,ss,cancelButton)
     }

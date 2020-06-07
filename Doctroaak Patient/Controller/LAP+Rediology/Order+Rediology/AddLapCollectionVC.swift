@@ -14,6 +14,7 @@ class AddLapCollectionVC: BaseCollectionVC {
     fileprivate let cellID = "cellID"
     var medicineArray = [RadiologyOrderModel]()//["one","two","three","four","fifie"]
     var index:Int = 0
+    var showOrderOnly:Bool = false
 
    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -32,6 +33,8 @@ class AddLapCollectionVC: BaseCollectionVC {
         //
         cell.index=index
         cell.med = med
+        [cell.closeImage].forEach({$0.isHide(showOrderOnly ? true : false)})
+
         cell.handleRemoveItem = {[unowned self] item in
             self.medicineArray.removeAll(where: {$0.raysID==item.raysID})
             self.collectionView.reloadData()

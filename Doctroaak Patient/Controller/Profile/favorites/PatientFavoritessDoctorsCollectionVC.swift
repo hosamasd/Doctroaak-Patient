@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import MOLH
 
 class PatientFavoritessDoctorsCollectionVC: BaseCollectionVC {
     
 
  fileprivate let cellId = "cellId"
+    
     var handleCheckedIndex:((PatientFavoriteModel)->Void)?
     var doctorsArray:[PatientFavoriteModel] = [PatientFavoriteModel]()
+//    var doctorsSecondArray:[PatientSearchDoctorsModel] = [PatientSearchDoctorsModel]()
+
 //    var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
     var handleBookmarkDoctor:((PatientFavoriteModel,IndexPath)->Void)?
 

@@ -19,20 +19,45 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
             let x = MOLHLanguage.isRTLLanguage() ? doctor.nameAr ?? doctor.name : doctor.name
             let d = MOLHLanguage.isRTLLanguage() ?  doctor.degree?.name ?? "" :  doctor.degree?.name ?? ""
             
-             putAttributedText(la: profileInfoLabel, ft: x+"\n", st: d+"\n\n")
+            putAttributedText(la: profileInfoLabel, ft: x+"\n", st: d+"\n\n")
+            profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
+            profileInfoReservationLabel.text = "Reservation".localized + " : \(doctor.fees)" + "EGY".localized
+            profileInfoConsultaionLabel.text = "Consultation".localized + " : \(doctor.fees2)" + "EGY".localized
+            for(index,view) in starsStackView.arrangedSubviews.enumerated(){
+                guard let img = view as? UIImageView else {return}
+                
+                let ratingInt = Int(doctor.reservationRate ?? "0" )
+                img.image = index >= ratingInt ?? 0 ? #imageLiteral(resourceName: "star-1") : #imageLiteral(resourceName: "star")
+                let ss = doctor.doctor.photo
+                guard let url = URL(string: ss) else { return  }
+                profileImage.sd_setImage(with: url)
+                bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
+                
+            }
+        }
+    }
+    
+    var secondDoctor:PatientFavoriteModel? {
+        didSet{
+            guard let doctor = secondDoctor else { return  }
+            let x = MOLHLanguage.isRTLLanguage() ? doctor.doctor.nameAr ?? doctor.doctor.name : doctor.doctor.name
+            let d = MOLHLanguage.isRTLLanguage() ?  doctor.doctor.degree?.name ?? "" :  doctor.doctor.degree?.name ?? ""
+            
+            putAttributedText(la: profileInfoLabel, ft: x+"\n", st: d+"\n\n")
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
             profileInfoReservationLabel.text = "Reservation: \(doctor.fees) EGY"
             profileInfoConsultaionLabel.text = "Consultation: \(doctor.fees2) EGY"
             for(index,view) in starsStackView.arrangedSubviews.enumerated(){
                 guard let img = view as? UIImageView else {return}
                 
-                let ratingInt = Int(doctor.reservationRate ?? "0" )
+                let ratingInt = Int(doctor.doctor.reservationRate ?? "0" )
                 img.image = index >= ratingInt ?? 0 ? #imageLiteral(resourceName: "star-1") : #imageLiteral(resourceName: "star")
-                 let ss = doctor.doctor.photo//.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
+                let ss = doctor.doctor.photo//.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
                 //            let dd = "http"+ss ?? ""
-                            guard let url = URL(string: ss) else { return  }
-                            profileImage.sd_setImage(with: url)
-//                                bookmarkImage.image =   favorite.contains(aqar.id ) ? #imageLiteral(resourceName: "Group 3923-10") : #imageLiteral(resourceName: "Group 3923s")
+                guard let url = URL(string: ss) else { return  }
+                profileImage.sd_setImage(with: url)
+                bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
+                
                 
             }
         }
@@ -49,7 +74,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     }()
     lazy var profileInfoLabel:UILabel = {
         let l = UILabel()
-      
+        
         l.numberOfLines = 2
         return l
     }()
@@ -106,7 +131,12 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     }()
     var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
     var handleCheckedDoctor:((PatientSearchDoctorsModel)->Void)?
-    var isFavorite = false
+    var isFavorite = false {
+        didSet {
+            bookmarkImage.image = isFavorite ? #imageLiteral(resourceName: "ic_favorite_24px") : #imageLiteral(resourceName: "ic_favorite_border_24px")
+            
+        }
+    }
     
     
     
@@ -197,7 +227,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
             }
         }
         let ss = cityId.filter{$0 == index}
-         let ff = ss.first ?? 1
+        let ff = ss.first ?? 1
         return citName[ff-1]
     }
     
@@ -209,8 +239,8 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     }
     
     func putAttributedText(la:UILabel,ft:String,st:String)  {
-          let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-              attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
-              la.attributedText = attributeText
+        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+        la.attributedText = attributeText
     }
 }

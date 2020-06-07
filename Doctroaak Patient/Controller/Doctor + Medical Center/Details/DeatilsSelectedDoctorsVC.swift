@@ -27,7 +27,7 @@ class DeatilsSelectedDoctorsVC: UIViewController {
         let v = CustomDetailsView()
 //        v.patientApiToken=patientApiToken
 //        v.patient_id=patient_id
-        v.selectedDoctor=selectedDoctor
+//        v.selectedDoctor=selectedDoctor
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         return v
@@ -39,16 +39,37 @@ class DeatilsSelectedDoctorsVC: UIViewController {
 //            customDetailsView.patient=patient
         }
     }
+    var isFavorite:Bool? {
+        didSet {
+            guard let isFavorite = isFavorite else { return  }
+            customDetailsView.patientFavoriteDoctorsCell.isFavorite=isFavorite
+        }
+    }
+    
+    var selectedSecondDoctor:PatientFavoriteModel?{
+        didSet{
+            guard let selectedSecondDoctor = selectedSecondDoctor else { return  }
+            customDetailsView.selectedSecondDoctor=selectedSecondDoctor
+
+        }
+    }
+    var selectedDoctor:PatientSearchDoctorsModel?{
+        didSet{
+            guard let selectedDoctor = selectedDoctor else { return  }
+            customDetailsView.selectedDoctor=selectedDoctor
+        }
+    }
+
     //    var patient_id:Int?
     //    var patientApiToken:String?
-    fileprivate let selectedDoctor:PatientSearchDoctorsModel!
-    init(doctors:PatientSearchDoctorsModel) {
-        self.selectedDoctor=doctors
-        super.init(nibName: nil, bundle: nil)
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    fileprivate let selectedDoctor:PatientSearchDoctorsModel!
+//    init(doctors:PatientSearchDoctorsModel) {
+//        self.selectedDoctor=doctors
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +102,7 @@ class DeatilsSelectedDoctorsVC: UIViewController {
     
     @objc func handleBook()  {
         
-
+guard let selectedDoctor = selectedDoctor else { return  }
         guard let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
         //        let book = DoctorBookVC(clinic_id: clinic_id, patient_id: patientId, api_token: apiTpken)
         let book = DoctorBookVC(clinic_id: clinic_id)

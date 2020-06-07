@@ -24,10 +24,10 @@ class ProfileOrderCell: BaseCollectionCell {
             
             putAttributedText(la: profileInfoLabel, ft: "\(name)\n", st: "\(checks)")
             
-            profileInfoReservationNumberLabel.text = "reservation number : \(doctor.reservationNumber)"
-            profileInfoWaitingTimeLabel.text = "waiting time : \(waits) mintues"
-            profileInfoReservationLabel.text = "Reservation :"+reserve
-            profileInfoConsultaionLabel.text = "Consultation :"+consultaion
+            profileInfoReservationNumberLabel.text = "reservation number".localized + " : \(doctor.reservationNumber)"
+            profileInfoWaitingTimeLabel.text = "waiting time".localized + " : \(waits) mintues"
+            profileInfoReservationLabel.text = "Reservation".localized + " :"+reserve
+            profileInfoConsultaionLabel.text = "Consultation".localized + " :"+consultaion
             
             
             
@@ -37,7 +37,7 @@ class ProfileOrderCell: BaseCollectionCell {
             
             profileImage.sd_setImage(with: url)
             
-            let title = Calendar.current.isDateInYesterday(datees) ? "Rate Order" : "Cancel Order"
+            let title = Calendar.current.isDateInYesterday(datees) ? "Rate Order".localized : "Cancel Order".localized
             cancelButton.setTitle(title, for: .normal)
             
         }
@@ -111,7 +111,7 @@ class ProfileOrderCell: BaseCollectionCell {
     }()
     lazy var cancelButton:UIButton = {
         let b = UIButton()
-        b.setTitle("Cancel Order", for: .normal)
+        b.setTitle("Cancel Order".localized, for: .normal)
         b.setTitleColor(.black, for: .normal)
         b.backgroundColor = .white
         b.constrainHeight(constant: 50)
@@ -123,7 +123,7 @@ class ProfileOrderCell: BaseCollectionCell {
     
     var handleCheckedIndex:((DoctorsOrderPatientModel)->Void)?
     var handleRateIndex:((DoctorsOrderPatientModel)->Void)?
-
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -182,7 +182,7 @@ class ProfileOrderCell: BaseCollectionCell {
     
     func getCityFromIndex(_ index:Int?) -> String {
         guard let index = index else { return "Reservation" }
-        return index ==  1 ? "Reservation"  : index == 2 ?  "Consultaion" : "Continue"
+        return index ==  1 ? "Reservation".localized  : index == 2 ?  "Consultaion".localized : "Continue".localized
     }
     
     @objc   func handleCacnel(sender:UIButton)  {

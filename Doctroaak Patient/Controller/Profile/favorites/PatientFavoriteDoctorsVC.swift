@@ -17,6 +17,9 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         v.handleBookmarkDoctor = {[unowned self] doctor,indexPath in
             self.removeBookmarked(doctor,indexPath)
         }
+        v.handleCheckedIndex = {[unowned self] d in
+            self.goToSelectedDocotor(d)
+        }
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
@@ -93,8 +96,8 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
     func fetchFavorites()  {
         
         guard let patient = patient else { return  }
-
-        UIApplication.shared.beginReceivingRemoteControlEvents()
+        
+        UIApplication.shared.beginIgnoringInteractionEvents()
         
         //        view.isUserInteractionEnabled = false
         SVProgressHUD.show(withStatus: "Looding...".localized)
@@ -116,12 +119,20 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         }
     }
     
+    func goToSelectedDocotor(_ d:PatientFavoriteModel)  {
+        let selected = DeatilsSelectedDoctorsVC()//(doctors: d)
+        selected.selectedSecondDoctor=d
+        selected.isFavorite=true
+        navigationController?.pushViewController(selected, animated: true)
+    }
+    
     func putData(_ favorites:[PatientFavoriteModel ])  {
         customPatientFavoriteeseDoctorsView.patientFavoriteDoctorsCollectionVC.doctorsArray=favorites
+        
         customPatientFavoriteeseDoctorsView.patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
     }
     
-  @objc  func handleBack()  {
+    @objc  func handleBack()  {
         dismiss(animated: true)
     }
     

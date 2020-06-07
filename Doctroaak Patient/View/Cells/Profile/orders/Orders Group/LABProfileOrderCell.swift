@@ -13,16 +13,42 @@ class LABProfileOrderCell: BaseCollectionCell {
     var pharamacy:LABOrderPatientModel?{
         didSet{
             guard let pharamacy = pharamacy else { return  }
+            var mmm = [RadiologyOrderModel]()
+
             profileOrderDatesLabel.text = pharamacy.createdAt
-            let urlString = pharamacy.photo
-            guard let url = URL(string: urlString) else { return  }
-            pharamacyImage.sd_setImage(with: url)
+           addLapCollectionVC.showOrderOnly = true
+
+            
+            
+            if pharamacy.details?.count ?? 1 > 0 {
+                guard let details = pharamacy.details else { return  }
+                
+                
+                details.forEach { (d) in
+                    let med = RadiologyOrderModel(raysID: d.analysisID)
+                    mmm.append(med)
+                    
+                }
+                addLapCollectionVC.view.isHide(false)
+            }else {
+                let urlString = pharamacy.photo
+                guard let url = URL(string: urlString) else { return  }
+                pharamacyImage.sd_setImage(with: url)
+                
+                addLapCollectionVC.view.isHide(true)
+            }
+            self.addLapCollectionVC.medicineArray = mmm
+            
+            DispatchQueue.main.async {
+                self.addLapCollectionVC.collectionView.reloadData()
+            }
+            
         }
     }
     
     lazy var profileOrderDatesLabel = UILabel(text: "22/4/2020  2:30 pm", font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .center)
     lazy var pharamacyImage:UIImageView = {
-        let i = UIImageView(backgroundColor: .gray)
+        let i = UIImageView(image: #imageLiteral(resourceName: "x-ray"))
         i.isUserInteractionEnabled = true
         i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenImage)))
         return i
@@ -42,8 +68,8 @@ class LABProfileOrderCell: BaseCollectionCell {
     }()
     lazy var addLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
-        vc.collectionView.constrainHeight(constant: 100)
-                vc.collectionView.isHide(true)
+//        vc.collectionView.constrainHeight(constant: 100)
+//        vc.collectionView.isHide(true)
         return vc
     }()
     
@@ -75,12 +101,14 @@ class LABProfileOrderCell: BaseCollectionCell {
     }
     
     override func setupViews() {
-//        backgroundColor = .orange
+        //        backgroundColor = .orange
         //        profileOrderDatesLabel.constrainHeight(constant: 40)
         //        stack(profileOrderDatesLabel,pharamacyImage,cancelButton)
         profileOrderDatesLabel.constrainHeight(constant: 40)
-        let ss = getStack(views: pharamacyImage,addLapCollectionVC.view, spacing: 0, distribution: .fillProportionally, axis: .vertical)
+//        let ss = getStack(views: pharamacyImage,addLapCollectionVC.view, spacing: 0, distribution: .fillProportionally, axis: .vertical)
         
+        let ss = getStack(views: pharamacyImage,addLapCollectionVC.view, spacing: 0, distribution: .fillEqually, axis: .vertical)
+
         stack(profileOrderDatesLabel,ss,cancelButton,spacing:16)
     }
     

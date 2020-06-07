@@ -36,8 +36,9 @@ class CardiologyDoctorsResultsVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         
         v.handleCheckedIndex = {[unowned self] doctor in
-            let cDetails = DeatilsSelectedDoctorsVC(doctors: doctor)
+            let cDetails = DeatilsSelectedDoctorsVC()//(doctors: doctor)
             cDetails.patient=self.patient
+            cDetails.selectedDoctor=doctor
             //            cDetails.patientApiToken=self.patientApiToken
             //            cDetails.patient_id=self.patient_id
             self.navigationController?.pushViewController(cDetails, animated: true)

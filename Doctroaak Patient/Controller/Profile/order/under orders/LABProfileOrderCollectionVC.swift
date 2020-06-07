@@ -19,14 +19,14 @@ class LABProfileOrderCollectionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(pharamacyArray.count, text: "No Data Added Yet".localized)
-
+        
         return pharamacyArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! LABProfileOrderCell
         let pharamacy = pharamacyArray[indexPath.item]
-
+        
         cell.pharamacy=pharamacy
         cell.handleCheckedIOpenImage = {[unowned self] index in
             self.handleCheckedIOpenImage?(index)
@@ -34,11 +34,17 @@ class LABProfileOrderCollectionVC: BaseCollectionVC {
         cell.handleCheckedIndex = {[unowned self] doctor in
             self.handleCheckedIndex?(doctor,indexPath)
         }
-        cell.addLapCollectionVC.medicineArray = getPharamacy()
-        let isHide = cell.addLapCollectionVC.medicineArray.count > 0 ? false : true
         
-        cell.addLapCollectionVC.collectionView.isHide(isHide)
-        cell.addLapCollectionVC.collectionView.reloadData()
+        cell.addLapCollectionVC.medicineArray = getPharamacy()
+        DispatchQueue.main.async {
+            cell.addLapCollectionVC.collectionView.reloadData()
+            
+        }
+        //        cell.addLapCollectionVC.medicineArray = getPharamacy()
+        //        let isHide = cell.addLapCollectionVC.medicineArray.count > 0 ? false : true
+        //        
+        //        cell.addLapCollectionVC.collectionView.isHide(isHide)
+        //        cell.addLapCollectionVC.collectionView.reloadData()
         return cell
     }
     

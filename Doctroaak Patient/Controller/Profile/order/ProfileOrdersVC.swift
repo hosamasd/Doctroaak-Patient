@@ -18,23 +18,23 @@ class ProfileOrdersVC: CustomBaseViewVC {
         v.handleLABCheckedIndex = {[unowned self] lab,ind in
             print(ind.item)
             
-            self.createAlert(indexx:ind,ind:2,order_id: lab.id, message: "LAB")
+            self.createAlert(indexx:ind,ind:2,order_id: lab.id, message: "LAB".localized)
         }
         v.handlePharmacyCheckedIndex = {[unowned self] lab,ind in
             print(ind.item)
             
-            self.createAlert(indexx:ind,ind:1,order_id: lab.id, message: "PHARMACY")
+            self.createAlert(indexx:ind,ind:1,order_id: lab.id, message: "PHARMACY".localized)
         }
         
         v.handleRadCheckedIndex = {[unowned self] lab,ind in
             print(ind.item)
             
-            self.createAlert(indexx:ind,ind:3,order_id: lab.id, message: "RADIOLOGY")
+            self.createAlert(indexx:ind,ind:3,order_id: lab.id, message: "RADIOLOGY".localized)
         }
         
         v.handleDoctorCheckedIndex = {[unowned self] lab,ind in
             print(ind.item)
-            self.createAlert(indexx:ind,ind:0,order_id: lab.id, message: "DOCTOR")
+            self.createAlert(indexx:ind,ind:0,order_id: lab.id, message: "DOCTOR".localized)
         }
         v.handleCheckedIndexForButtons = {[unowned self] index in
             self.goToSpecificButton(index)
@@ -96,8 +96,8 @@ class ProfileOrdersVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-                        patient = cacheObjectCodabe.storedValue
-  }else {}
+            patient = cacheObjectCodabe.storedValue
+        }else {}
         fetchAllOrders()
     }
     
@@ -227,7 +227,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
     
     @objc  func handleBack()  {
         dismiss(animated: true)
-//        navigationController?.popViewController(animated: true)
+        //        navigationController?.popViewController(animated: true)
     }
     
     @objc func handleDoctors()  {
@@ -243,14 +243,14 @@ class ProfileOrdersVC: CustomBaseViewVC {
     }
     
     func createAlert(indexx:IndexPath,ind:Int,order_id:Int,message:String)  {
-        let alertController = UIAlertController(title: "Feedback \n\n\n\n\n", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Feedback \n\n\n\n\n".localized, message: nil, preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
+        let cancelAction = UIAlertAction.init(title: "Cancel".localized, style: .default) { (action) in
             alertController.view.removeObserver(self, forKeyPath: "bounds")
         }
         alertController.addAction(cancelAction)
         
-        let saveAction = UIAlertAction(title: "Submit", style: .default) { (action) in
+        let saveAction = UIAlertAction(title: "Submit".localized, style: .default) { (action) in
             let enteredText = self.textView.text
             self.makeActionForCancel(indexx:indexx,ind:ind,order_id:order_id,message:enteredText ?? "",type: message)
             alertController.view.removeObserver(self, forKeyPath: "bounds")
@@ -339,26 +339,27 @@ class ProfileOrdersVC: CustomBaseViewVC {
     @objc  func handleDismiss()  {
         dismiss(animated: true)
     }
+    
     @objc func handleRemoveStars()  {
         removeViewWithAnimation(vvv: customStarView)
         customMainAlertVC.dismiss(animated: true)
-        
-    }
+     }
+    
     @objc  func handleDone()  {
         print(customStarView.rating)
         let rate = Int(customStarView.rating)
         guard let patient = patient else {handleRemoveStars(); return  }
         UIApplication.shared.beginIgnoringInteractionEvents()
-
-        SVProgressHUD.show(withStatus: "Rating...")
+        
+        SVProgressHUD.show(withStatus: "Rating...".localized)
         PatientProfileSservicea.shared.rateDoctors(patient_id: patient.id, doctor_id: customStarView.doctor_id, api_token: patient.apiToken, type: customStarView.type, rate: rate) { (base, err) in
             
-        if let err = err {
-                       SVProgressHUD.showError(withStatus: err.localizedDescription)
-            self.activeViewsIfNoData();self.handleRemoveStars();return
-                   }
-                   SVProgressHUD.dismiss()
-                   self.activeViewsIfNoData()
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();self.handleRemoveStars();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
             guard let use = base else {self.handleRemoveStars();return}
             let me = MOLHLanguage.isRTLLanguage() ? use.message : use.messageEn
             
@@ -366,7 +367,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
                 self.showToast(context: self, msg: me)
                 self.handleRemoveStars()
             }
-    }
+        }
     }
     
 }

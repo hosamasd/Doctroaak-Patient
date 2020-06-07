@@ -17,7 +17,7 @@ class AddMedicineCollectionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView.noDataFound(medicineArray.count, text: "No Data Added Yet".localized)
+//        collectionView.noDataFound(medicineArray.count, text: "No Data Added Yet".localized)
 
         return medicineArray.count
     }
@@ -25,7 +25,7 @@ class AddMedicineCollectionVC: BaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AddMedicineCell
         let med = medicineArray[indexPath.item]
-//        
+//
         cell.med = med
 //        cell.handleRemovePharamcay={[unowned self] (m) in
 //            self.handleRemovePharamcay?(m,indexPath.item)

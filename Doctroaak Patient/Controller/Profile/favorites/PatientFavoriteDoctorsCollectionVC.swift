@@ -13,6 +13,7 @@ class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
     fileprivate let cellId = "cellId"
     var handleCheckedIndex:((PatientSearchDoctorsModel)->Void)?
     var doctorsArray:[PatientSearchDoctorsModel] = [PatientSearchDoctorsModel]()
+    
 //    var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
     var handleBookmarkDoctor:((PatientSearchDoctorsModel)->Void)?
     var handleCheckedDoctor:((PatientSearchDoctorsModel)->Void)?

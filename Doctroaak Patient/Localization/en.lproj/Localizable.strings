@@ -93,6 +93,8 @@
 "Rediology  working hours"="Rediology  working hours";"Lab  working hours"="Lab  working hours";"Book"="Book";
 "Saturday"="Saturday";"Sunday"="Sunday";"Monday"="Monday";"Tuesday"="Tuesday";"Wednsday"="Wednsday";"Thursday"="Thursday";"Friday"="Friday";
 
+//Home
+
 //BaseSlidingVC
 "Choose Language"="Choose Language"; "English"= "English";"Arabic"="Arabic";"Cancel"="Cancel";"Contacts Us"="Contacts Us";
 "please install whatsapp"="please install whatsapp";
@@ -116,3 +118,19 @@
 //ServicesVC
 "  Doctor"="  Doctor";"  Medical Center"="  Medical Center";"  Pharmacy "="  Pharmacy ";
 "  Lab"="  Lab";"  Radiology"="  Radiology";"  Incubation"="  Incubation";"  I.C.U"="  I.C.U";
+
+//end of home
+
+
+//ZoomUserImageVC
+"Preview"="Preview";
+
+//profile
+//PatientFavoriteDoctorsVC
+"Removing..."="Removing...";"Favorite\nDoctor"="Favorite\nDoctor";
+"Reservation"="Reservation";"Consultation"="Consultation";
+
+//ProfileOrdersVC
+"DOCTOR"="DOCTOR";"RADIOLOGY"="RADIOLOGY";"PHARMACY"="PHARMACY";"LAB"="LAB";"Rating..."="Rating...";
+"Feedback \n\n\n\n\n"="Feedback \n\n\n\n\n";"Continue"="Continue";
+"Rate Order"="Rate Order";"Cancel Order"="Cancel Order";"Reservation"="Reservation";"Consultaion"="Consultaion";
