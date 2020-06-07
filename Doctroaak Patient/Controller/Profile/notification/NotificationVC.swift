@@ -140,7 +140,9 @@ class NotificationVC: CustomBaseViewVC {
         if isFromMenu {
             dismiss(animated: true)
         }else {
-        navigationController?.popViewController(animated: true)
+            dismiss(animated: true)
+
+//        navigationController?.popViewController(animated: true)
         }
         //        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
         

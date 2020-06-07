@@ -53,6 +53,9 @@ class CustomProfileOrdersView: CustomBaseView {
         vc.handlePYCheckedIndex = {[unowned self] index,ind in
             self.handlePharmacyCheckedIndex?(index,ind)
         }
+        vc.handleRateIndex = {[unowned self] index in
+            self.handleRateIndex?(index)
+        }
         return vc
     }()
     var handleCheckedIndexForButtons:((Int)->Void)?
@@ -62,6 +65,7 @@ class CustomProfileOrdersView: CustomBaseView {
     var handlePharmacyCheckedIndex:((PharamacyOrderPatientModel,IndexPath)->Void)?
     var handleDoctorCheckedIndex:((DoctorsOrderPatientModel,IndexPath)->Void)?
     var handleCheckedIOpenImage:((UIImage)->Void)?
+    var handleRateIndex:((DoctorsOrderPatientModel)->Void)?
     
     override func setupViews() {
         backgroundColor = .white

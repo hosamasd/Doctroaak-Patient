@@ -30,7 +30,8 @@ class MainOrdersCollectionVC: BaseCollectionVC {
     //    var handleRADCheckedIndex:((RadiologyOrderPatientModel)->Void)?
     var handleCheckedIndexForButtons:((Int)->Void)?
     var handleCheckedIOpenImage:((UIImage)->Void)?
-    
+    var handleRateIndex:((DoctorsOrderPatientModel)->Void)?
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
@@ -44,6 +45,9 @@ class MainOrdersCollectionVC: BaseCollectionVC {
             cell.doctorProfileOrderCollectionVC.collectionView.reloadData()
             cell.handleDoctorCheckedIndex = {[unowned self] doc,index in
                 self.handleDCheckedIndex?(doc,index)
+            }
+            cell.handleRateIndex = {[unowned self] doctor in
+                self.handleRateIndex?(doctor)
             }
             
             return cell

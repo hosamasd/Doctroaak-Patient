@@ -57,8 +57,8 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     func checkIfLoggined(_ indexPath:IndexPath)  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-
-//        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+        
+        //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
         if indexPath.item ==  3 || indexPath.item == 4{
             if indexPath.item == 3 {
                 baseSlid.closeMenu()
@@ -108,8 +108,8 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     func chooseLanguage()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-
-//        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+        
+        //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
         
         baseSlid.closeMenu()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
@@ -117,8 +117,8 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     }
     func showAlertForContacting()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-
-//        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+        
+        //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
         
         baseSlid.closeMenu()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customContactUsView, height: 120)
@@ -126,19 +126,17 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     }
     
     func showAlertForLogin()  {
-
-//        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+        
+        //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-
+        
         baseSlid.closeMenu()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertLoginView, height: 200)
         baseSlid.customAlertLoginView.problemsView.loopMode = .loop
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
     
-    //TODO: -handle methods
-    
-    @objc func handleLogout()  {
+    func performLogout()  {
         guard let patient = patient else { return  }
         cacheObjectCodabe.deleteFile(patient)
         userDefaults.set(false, forKey: UserDefaultsConstants.isPatientLogin)
@@ -149,4 +147,27 @@ class HomeLeftMenuVC: CustomBaseViewVC {
             self.customMainHomeLeftView.userImage.image =  #imageLiteral(resourceName: "Group 4143")
         }
     }
+    
+    func createAlerts() {
+        let alert = UIAlertController(title: "Warring...", message: "Do You Want To Log Out?", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Log Out", style: .destructive) {[unowned self] (_) in
+            self.performLogout()
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+    
+    //TODO: -handle methods
+    
+    @objc func handleLogout()  {
+        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
+        baseSlid.closeMenu()
+        createAlerts()
+    }
+    
+    
 }

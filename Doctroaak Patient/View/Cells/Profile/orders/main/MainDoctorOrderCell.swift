@@ -15,11 +15,15 @@ class MainDoctorOrderCell: BaseCollectionCell {
         vc.handleCheckedIndex = {[unowned self] indexPath,index in
             self.handleDoctorCheckedIndex?(indexPath,index)
         }
+        vc.handleRateIndex = {[unowned self] doctor in
+            self.handleRateIndex?(doctor)
+        }
         return vc
     }()
     
     
-   
+   var handleRateIndex:((DoctorsOrderPatientModel)->Void)?
+
     var handleDoctorCheckedIndex:((DoctorsOrderPatientModel,IndexPath)->Void)?
 
 //    var handleDoctorCheckedIndex:((DoctorsOrderPatientModel)->Void)?

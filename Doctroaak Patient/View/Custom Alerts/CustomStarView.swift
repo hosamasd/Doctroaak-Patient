@@ -80,6 +80,8 @@ class CustomStarView: CustomBaseView {
         let v =  UIView(backgroundColor: .clear)
         return v
     }()
+    var doctor_id = 1
+    var type = 1
     
     var rating:Double = 0.0
     var handleRateValue:((Int)->Void)?

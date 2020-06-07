@@ -17,6 +17,7 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         v.handleBookmarkDoctor = {[unowned self] doctor,indexPath in
             self.removeBookmarked(doctor,indexPath)
         }
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
@@ -118,6 +119,10 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
     func putData(_ favorites:[PatientFavoriteModel ])  {
         customPatientFavoriteeseDoctorsView.patientFavoriteDoctorsCollectionVC.doctorsArray=favorites
         customPatientFavoriteeseDoctorsView.patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
+    }
+    
+  @objc  func handleBack()  {
+        dismiss(animated: true)
     }
     
 }

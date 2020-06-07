@@ -17,6 +17,7 @@ class DoctorProfileOrderCollectionVC: BaseCollectionVC {
     var handleCheckedIndex:((DoctorsOrderPatientModel,IndexPath)->Void)?
 
     var handleCheckedIOpenImage:((UIImage)->Void)?
+    var handleRateIndex:((DoctorsOrderPatientModel)->Void)?
 
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -32,6 +33,9 @@ class DoctorProfileOrderCollectionVC: BaseCollectionVC {
                 cell.doctor=doctor
         cell.handleCheckedIndex = {[unowned self] doctor in
             self.handleCheckedIndex?(doctor,indexPath)
+        }
+        cell.handleRateIndex = {[unowned self] doctor in
+            self.handleRateIndex?(doctor)
         }
         return cell
     }

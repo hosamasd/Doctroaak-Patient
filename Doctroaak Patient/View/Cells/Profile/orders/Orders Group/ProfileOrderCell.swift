@@ -21,17 +21,25 @@ class ProfileOrderCell: BaseCollectionCell {
             let waits = doctor.clinic.waitingTime
             let reserve = doctor.clinic.fees
             let consultaion = doctor.clinic.fees2
-
+            
             putAttributedText(la: profileInfoLabel, ft: "\(name)\n", st: "\(checks)")
-
+            
             profileInfoReservationNumberLabel.text = "reservation number : \(doctor.reservationNumber)"
             profileInfoWaitingTimeLabel.text = "waiting time : \(waits) mintues"
             profileInfoReservationLabel.text = "Reservation :"+reserve
             profileInfoConsultaionLabel.text = "Consultation :"+consultaion
+            
+            
+            
+            
             let urlString = doctor.clinic.doctor.photo
-            guard let url = URL(string: urlString) else { return  }
+            guard let url = URL(string: urlString), let datees = doctor.createdAt.toDates() else { return  }
             
             profileImage.sd_setImage(with: url)
+            
+            let title = Calendar.current.isDateInYesterday(datees) ? "Rate Order" : "Cancel Order"
+            cancelButton.setTitle(title, for: .normal)
+            
         }
     }
     
@@ -46,7 +54,7 @@ class ProfileOrderCell: BaseCollectionCell {
     }()
     lazy var profileInfoLabel:UILabel = {
         let l = UILabel()
-       
+        
         l.numberOfLines = 2
         return l
     }()
@@ -59,14 +67,14 @@ class ProfileOrderCell: BaseCollectionCell {
     }()
     lazy var profileInfoReservationNumberLabel = UILabel(text: "reservation number: 2", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var profileInfoWaitingTimeLabel = UILabel(text: "waiting time : 30 mintues", font: .systemFont(ofSize: 16), textColor: .black)
-
+    
     lazy var profileInfoAddressLabel = UILabel(text: "Fifth Settlement, New Cairo", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var profileInfoReservationLabel = UILabel(text: "Reservation : 200.0 EGP", font: .systemFont(ofSize: 16), textColor: .black)
     lazy var profileInfoConsultaionLabel = UILabel(text: "Consultation : 50.0 EGP", font: .systemFont(ofSize: 16), textColor: .black)
     
     lazy var profileInfoReservationNumberButton = createImagess(image: #imageLiteral(resourceName: "ic_date_range_24px"))
     lazy var profileInfoWaitingTimeButton = createImagess(image: #imageLiteral(resourceName: "available"))
- lazy var profileInfoAddressButton = createImagess(image: #imageLiteral(resourceName: "ic_room_24px"))
+    lazy var profileInfoAddressButton = createImagess(image: #imageLiteral(resourceName: "ic_room_24px"))
     lazy var profileInfoReservationButton = createImagess(image: #imageLiteral(resourceName: "ic_date_range_24px"))
     lazy var profileInfoConsultaionButton = createImagess(image: #imageLiteral(resourceName: "avatar"))
     
@@ -83,13 +91,13 @@ class ProfileOrderCell: BaseCollectionCell {
         return b
     }()
     lazy var forthStack:UIStackView = {
-           let b = hstack(profileInfoReservationNumberButton,profileInfoReservationNumberLabel,spacing:8)
-           return b
-       }()
-       lazy var fifthStack:UIStackView = {
-           let b = hstack(profileInfoWaitingTimeButton,profileInfoWaitingTimeLabel,spacing:8)
-           return b
-       }()
+        let b = hstack(profileInfoReservationNumberButton,profileInfoReservationNumberLabel,spacing:8)
+        return b
+    }()
+    lazy var fifthStack:UIStackView = {
+        let b = hstack(profileInfoWaitingTimeButton,profileInfoWaitingTimeLabel,spacing:8)
+        return b
+    }()
     //
     lazy var totalStackFinished:UIStackView = {
         let b = stack(forthStack,fifthStack,firstStack,secondStack,thirdStack,spacing:8)
@@ -103,7 +111,7 @@ class ProfileOrderCell: BaseCollectionCell {
     }()
     lazy var cancelButton:UIButton = {
         let b = UIButton()
-        b.setTitle("Cancel order", for: .normal)
+        b.setTitle("Cancel Order", for: .normal)
         b.setTitleColor(.black, for: .normal)
         b.backgroundColor = .white
         b.constrainHeight(constant: 50)
@@ -114,6 +122,7 @@ class ProfileOrderCell: BaseCollectionCell {
     }()
     
     var handleCheckedIndex:((DoctorsOrderPatientModel)->Void)?
+    var handleRateIndex:((DoctorsOrderPatientModel)->Void)?
 
     
     override func layoutSubviews() {
@@ -165,10 +174,10 @@ class ProfileOrderCell: BaseCollectionCell {
         return b
     }
     
-   func putAttributedText(la:UILabel,ft:String,st:String)  {
-          let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-              attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
-              la.attributedText = attributeText
+    func putAttributedText(la:UILabel,ft:String,st:String)  {
+        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+        la.attributedText = attributeText
     }
     
     func getCityFromIndex(_ index:Int?) -> String {
@@ -176,8 +185,12 @@ class ProfileOrderCell: BaseCollectionCell {
         return index ==  1 ? "Reservation"  : index == 2 ?  "Consultaion" : "Continue"
     }
     
- @objc   func handleCacnel()  {
-    guard let doctor = doctor else { return  }
-        handleCheckedIndex?(doctor)
+    @objc   func handleCacnel(sender:UIButton)  {
+        guard let doctor = doctor else { return  }
+        if sender.titleLabel?.text == "Rate Order"  {
+            handleRateIndex?(doctor)
+        }else {
+            handleCheckedIndex?(doctor)
+        }
     }
 }

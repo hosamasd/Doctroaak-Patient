@@ -43,21 +43,24 @@ class ProfileOrdersVC: CustomBaseViewVC {
             let preview = ZoomUserImageVC(img: img)
             self.navigationController?.pushViewController(preview, animated: true)
         }
+        v.handleRateIndex = {[unowned self] doctor in
+            self.presentStarsView(doctor)
+        }
         return v
     }()
     lazy var customStarView:CustomStarView = {
-              let v = CustomStarView()
-              v.closeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveStars)))
-              v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-              return v
-          }()
-       lazy var customMainAlertVC:CustomMainAlertVC = {
-              let t = CustomMainAlertVC()
-              t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-              t.modalTransitionStyle = .crossDissolve
-              t.modalPresentationStyle = .overCurrentContext
-              return t
-          }()
+        let v = CustomStarView()
+        v.closeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveStars)))
+        v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
+        return v
+    }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     lazy var mainBottomView:UIView = {
         let v = UIView(backgroundColor: .red)
         v.isUserInteractionEnabled = true
@@ -80,7 +83,6 @@ class ProfileOrdersVC: CustomBaseViewVC {
     
     var patient:PatienModel?{
         didSet{
-            patient = cacheObjectCodabe.storedValue
             guard let patient = patient else { return  }
             //               customMainHomeView.patient=patient
         }
@@ -93,6 +95,9 @@ class ProfileOrdersVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+                        patient = cacheObjectCodabe.storedValue
+  }else {}
         fetchAllOrders()
     }
     
@@ -212,8 +217,17 @@ class ProfileOrdersVC: CustomBaseViewVC {
         }
     }
     
+    func presentStarsView(_ doctor:DoctorsOrderPatientModel)  {
+        guard let type =  doctor.type.toInt() else { return  }
+        customMainAlertVC.addCustomViewInCenter(views: customStarView, height: 200)
+        customStarView.type = type
+        customStarView.doctor_id = doctor.id
+        present(customMainAlertVC, animated: true)
+    }
+    
     @objc  func handleBack()  {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
+//        navigationController?.popViewController(animated: true)
     }
     
     @objc func handleDoctors()  {
@@ -318,19 +332,41 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
     }
     
- @objc   func handleDismissKeyboard()  {
+    @objc   func handleDismissKeyboard()  {
         view.endEditing(true)
     }
     
     @objc  func handleDismiss()  {
-              dismiss(animated: true)
-          }
-       @objc func handleRemoveStars()  {
-              removeViewWithAnimation(vvv: customStarView)
-              customMainAlertVC.dismiss(animated: true)
-              
-          }
-       @objc  func handleDone()  {
-              print(customStarView.rating)
-       }
+        dismiss(animated: true)
+    }
+    @objc func handleRemoveStars()  {
+        removeViewWithAnimation(vvv: customStarView)
+        customMainAlertVC.dismiss(animated: true)
+        
+    }
+    @objc  func handleDone()  {
+        print(customStarView.rating)
+        let rate = Int(customStarView.rating)
+        guard let patient = patient else {handleRemoveStars(); return  }
+        UIApplication.shared.beginIgnoringInteractionEvents()
+
+        SVProgressHUD.show(withStatus: "Rating...")
+        PatientProfileSservicea.shared.rateDoctors(patient_id: patient.id, doctor_id: customStarView.doctor_id, api_token: patient.apiToken, type: customStarView.type, rate: rate) { (base, err) in
+            
+        if let err = err {
+                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+            self.activeViewsIfNoData();self.handleRemoveStars();return
+                   }
+                   SVProgressHUD.dismiss()
+                   self.activeViewsIfNoData()
+            guard let use = base else {self.handleRemoveStars();return}
+            let me = MOLHLanguage.isRTLLanguage() ? use.message : use.messageEn
+            
+            DispatchQueue.main.async {
+                self.showToast(context: self, msg: me)
+                self.handleRemoveStars()
+            }
+    }
+    }
+    
 }

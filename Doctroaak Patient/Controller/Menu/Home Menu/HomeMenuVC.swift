@@ -169,7 +169,10 @@ class HomeMenuVC: CustomBaseViewVC {
         }else {
             guard let patient = patient else { return  }
             let notify = NotificationVC(patient: patient, isFromMenu: false)
-            navigationController?.pushViewController(notify, animated: true)
+            let nav = UINavigationController(rootViewController: notify)
+                       nav.modalPresentationStyle = .fullScreen
+                       present(nav, animated: true)
+//            navigationController?.pushViewController(notify, animated: true)
         }
     }
     
@@ -182,7 +185,11 @@ class HomeMenuVC: CustomBaseViewVC {
             guard let patient = patient else { return  }
             let favorite = PatientFavoriteDoctorsVC()
             favorite.patient=patient
-            navigationController?.pushViewController(favorite,animated:true)
+            let nav = UINavigationController(rootViewController: favorite)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+
+//            navigationController?.pushViewController(favorite,animated:true)
         }
     }
     
@@ -194,7 +201,10 @@ class HomeMenuVC: CustomBaseViewVC {
         }else {
             let order = ProfileOrdersVC()
             order.patient=patient
-            navigationController?.pushViewController(order, animated: true)
+            let nav = UINavigationController(rootViewController: order)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+//            navigationController?.pushViewController(nav, animated: true)
         }
         print(666)
     }
