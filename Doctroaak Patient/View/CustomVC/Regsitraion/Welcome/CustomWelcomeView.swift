@@ -22,7 +22,7 @@ class CustomWelcomeView: CustomBaseView {
         i.constrainHeight(constant: 80)
         return i
     }()
-    lazy var copyWriteLabel = UILabel(text: "Copyright @".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
+    lazy var copyWriteLabel = UILabel(text: "Copyright @ Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
     lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
     
     

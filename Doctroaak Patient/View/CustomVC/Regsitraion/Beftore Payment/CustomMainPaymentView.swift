@@ -10,6 +10,7 @@
 import UIKit
 import TTSegmentedControl
 import SkyFloatingLabelTextField
+import MOLH
 
 class CustomMainPaymentView: CustomBaseView {
     
@@ -19,15 +20,15 @@ class CustomMainPaymentView: CustomBaseView {
         return i
     }()
     lazy var backImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
+        let i = UIImageView(image: MOLHLanguage.isRTLLanguage() ? #imageLiteral(resourceName: "left-arrow") : #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled = true
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Payment".localized, font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Select the payment method".localized, font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Payment".localized, font: .systemFont(ofSize: 30), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
+    lazy var soonLabel = UILabel(text: "Select the payment method".localized, font: .systemFont(ofSize: 18), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     lazy var vodafoneImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Vodafone_Sim_Card"))
@@ -86,11 +87,18 @@ class CustomMainPaymentView: CustomBaseView {
     lazy var choosePayLabel = UILabel(text: "Enter your phone number :".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var numberTextField:UITextField = {
-        let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .default,secre: true)
+        let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .numberPad,secre: true)
+        s.textAlignment = .center
         let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
-        s.leftView = button
+        if MOLHLanguage.isRTLLanguage()  {
+             button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
+            s.rightView = button
+                   s.rightViewMode = .always
+        }else {
+            button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
+ s.leftView = button
         s.leftViewMode = .always
+        }
         return s
     }()
     lazy var codeTextField:UITextField = {
@@ -116,18 +124,7 @@ class CustomMainPaymentView: CustomBaseView {
     lazy var monthVisaTextField:UITextField = {
         let t = createMainTextFields(place: " Expiration Date".localized)
         t.textAlignment = .center
-        
-        //        t.placeholder = " 04/20 ".localized
-        //        //           t.titleColor = .lightGray
-        //        t.title = " Expiration Date".localized
         t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
-        
-        //           t.placeholderColor = .lightGray
-        //        t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        //        t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        //        t.textAlignment = .center
-        //        t.errorColor = UIColor.red
-        //           t.constrainHeight(constant: 50)
         return t
     }()
     lazy var doneButton:UIButton = {
@@ -167,8 +164,15 @@ class CustomMainPaymentView: CustomBaseView {
             visaCardImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             
         ])
+        
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         //
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

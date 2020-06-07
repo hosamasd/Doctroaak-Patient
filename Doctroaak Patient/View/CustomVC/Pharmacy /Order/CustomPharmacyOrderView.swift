@@ -64,7 +64,7 @@ class CustomPharmacyOrderView: CustomBaseView {
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        //        i.optionArray = ["one","two","three"]
+        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, index, _) in
@@ -94,7 +94,7 @@ class CustomPharmacyOrderView: CustomBaseView {
     
     lazy var typeDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
+        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
         i.placeholder = "Type".localized
         i.didSelect {[unowned self] (txt, index, _) in

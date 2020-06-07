@@ -24,8 +24,8 @@ class CustomFirstSkipPaymentView: CustomBaseView {
            return i
        }()
        
-    lazy var titleLabel = UILabel(text: "Information".localized, font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Information".localized, font: .systemFont(ofSize: 30), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     lazy var mainBeforePaymentCollectionVC:MainBeforePaymentCollectionVC = {
        let vc = MainBeforePaymentCollectionVC()
@@ -40,8 +40,15 @@ class CustomFirstSkipPaymentView: CustomBaseView {
     
     override func setupViews() {
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,mainBeforePaymentCollectionVC.view)//bottomStack,seocndLogoImage,discriptionLabel,pageControl)//,subView,textStack,insuranceCodeTextField,bottomStack,insuranceDrop,signUpButton)
-           
-           LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        
+        if MOLHLanguage.isRTLLanguage() {
+                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+               }else {
+                   
+                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+              }
+        
+//           LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
            backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
            titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
            soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

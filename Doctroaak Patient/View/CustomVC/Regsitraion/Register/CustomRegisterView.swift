@@ -22,15 +22,15 @@ class CustomRegisterView: CustomBaseView {
         return i
     }()
     lazy var backImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
+        let i = UIImageView(image: MOLHLanguage.isRTLLanguage() ? #imageLiteral(resourceName: "left-arrow") : #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled = true
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Welcome".localized, font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Create account".localized, font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Welcome".localized, font: .systemFont(ofSize: 30), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
+    lazy var soonLabel = UILabel(text: "Create account".localized, font: .systemFont(ofSize: 18), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     lazy var userProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
@@ -85,7 +85,11 @@ class CustomRegisterView: CustomBaseView {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray.cgColor
         button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+        if MOLHLanguage.isRTLLanguage() {
+            button.rightImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+        }else {
+            button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+        }
         return button
     }()
     lazy var girlButton:UIButton = {
@@ -97,7 +101,11 @@ class CustomRegisterView: CustomBaseView {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray.cgColor
         button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+        if MOLHLanguage.isRTLLanguage() {
+                   button.rightImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+               }else {
+                   button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+               }
         return button
     }()
     lazy var birthdayTextField:UITextField = {
@@ -116,6 +124,8 @@ class CustomRegisterView: CustomBaseView {
     
     lazy var insuranceDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        
         i.arrowSize = 20
         i.placeholder = "Insurance company".localized
         i.didSelect { (txt, index, _) in
@@ -202,7 +212,14 @@ class CustomRegisterView: CustomBaseView {
             userProfileImage.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

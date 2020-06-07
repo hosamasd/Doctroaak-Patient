@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MOLH
 
 class MainBeforePaymentCollectionVC: BaseCollectionVC {
     
@@ -33,8 +34,8 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     lazy var secondBackButton = createButtons(img: #imageLiteral(resourceName: "buttons-square-grayd"), tags: 1, selector: #selector(handlback))
     
     lazy var bottomStack:UIStackView = {
-        let ss = getStack(views: backButton,nextButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let bottomStack = getStack(views: skipButton,UIView(),ss, spacing: 16, distribution: .fill, axis: .horizontal)
+        let ss = MOLHLanguage.isRTLLanguage() ? getStack(views: nextButton,backButton, spacing: 16, distribution: .fillEqually, axis: .horizontal) : getStack(views: backButton,nextButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        let bottomStack = MOLHLanguage.isRTLLanguage() ? getStack(views: ss,UIView(),skipButton, spacing: 16, distribution: .fill, axis: .horizontal) : getStack(views: skipButton,UIView(),ss, spacing: 16, distribution: .fill, axis: .horizontal)
         
         return bottomStack
     }()

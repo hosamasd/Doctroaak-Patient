@@ -92,7 +92,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     fileprivate func saveData() {
         
-        userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ? cachedDropLists() : ()
+        !userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ? cachedDropLists() : ()
     }
     
     func anyAfterCached()  {

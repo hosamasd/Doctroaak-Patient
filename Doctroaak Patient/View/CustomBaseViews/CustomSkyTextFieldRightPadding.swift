@@ -9,6 +9,7 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import MOLH
 
 class CustomSkyTextFieldRightPadding: SkyFloatingLabelTextField {
     
@@ -69,7 +70,7 @@ class CustomSkyTextFieldRightPadding: SkyFloatingLabelTextField {
     
     
     init(padding:CGFloat,height:CGFloat) {
-        self.padding = padding
+        self.padding = MOLHLanguage.isRTLLanguage() ? -padding :  padding
         self.height = height
         super.init(frame: .zero)
         self.layer.cornerRadius = height / 2

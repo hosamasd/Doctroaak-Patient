@@ -46,6 +46,8 @@ class CustomICUSearchView: CustomBaseView {
        }()
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+
         i.arrowSize = 20
         i.placeholder = "City".localized
         
@@ -59,6 +61,8 @@ class CustomICUSearchView: CustomBaseView {
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+
         i.arrowSize = 20
         //        i.arrowColor = .white
         i.placeholder = "Area".localized
