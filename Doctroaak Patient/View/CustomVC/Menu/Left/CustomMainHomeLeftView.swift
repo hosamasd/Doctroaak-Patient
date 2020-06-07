@@ -39,7 +39,7 @@ class CustomMainHomeLeftView: CustomBaseView {
         i.clipsToBounds = true
         return i
     }()
-    lazy var userNameLabel = UILabel(text: "", font: .systemFont(ofSize: 20), textColor: .white)
+    lazy var userNameLabel = UILabel(text: "", font: .systemFont(ofSize: 20), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     lazy var homeLeftMenuCollectionVC:HomeLeftMenuCollcetionVC  =  {
         let vc = HomeLeftMenuCollcetionVC()
@@ -54,9 +54,9 @@ class CustomMainHomeLeftView: CustomBaseView {
         i.constrainHeight(constant: 30)
         return i
     }()
-    lazy var Label8 = UILabel(text: "Log Out".localized, font: .systemFont(ofSize: 24), textColor: #colorLiteral(red: 0.6841606498, green: 0.6842750907, blue: 0.6841363311, alpha: 1))
+    lazy var Label8 = UILabel(text: "Log Out".localized, font: .systemFont(ofSize: 24), textColor: #colorLiteral(red: 0.6841606498, green: 0.6842750907, blue: 0.6841363311, alpha: 1),textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     lazy var first8Stack:UIStackView = {
-        let s = getStack(views: Image8,Label8, spacing: 16, alignment: .center, distribution: .fill, axis: .horizontal)
+        let s = MOLHLanguage.isRTLLanguage() ? getStack(views: Label8,Image8, spacing: 16, alignment: .center, distribution: .fill, axis: .horizontal) : getStack(views: Image8,Label8, spacing: 16, alignment: .center, distribution: .fill, axis: .horizontal)
         s.constrainHeight(constant: 60)
         s.isHide(true)
         return s

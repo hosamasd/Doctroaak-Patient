@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import MOLH
 
 class CustomDoctorListsView: CustomBaseView {
  
     var index:Int! {
         didSet {
-            titleLabel.text = index == 0 ? "Doctor" : "Medical Center"
-            userSpecificationLabel.text = index == 0 ? "Find the best rated doctors" : "Find the best rated Medical Center"
+            titleLabel.text = index == 0 ? "Doctor".localized : "Medical Center".localized
+            userSpecificationLabel.text = index == 0 ? "Find the best rated doctors".localized : "Find the best rated Medical Center".localized
         }
     }
     
@@ -24,14 +25,14 @@ class CustomDoctorListsView: CustomBaseView {
         return i
     }()
     lazy var backImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
+        let i = UIImageView(image: MOLHLanguage.isRTLLanguage() ? #imageLiteral(resourceName: "left-arrow") : #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Doctor", font: .systemFont(ofSize: 35), textColor: .white)
-    lazy var userSpecificationLabel = UILabel(text: "Find the best rated doctors", font: .systemFont(ofSize: 16), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Doctor", font: .systemFont(ofSize: 35), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
+    lazy var userSpecificationLabel = UILabel(text: "Find the best rated doctors", font: .systemFont(ofSize: 16), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     lazy var doctorListCollectionVC:DoctorListCollectionVC = {
         let vc = DoctorListCollectionVC()
@@ -49,7 +50,15 @@ class CustomDoctorListsView: CustomBaseView {
         
         addSubViews(views: LogoImage,backImage,titleLabel,userSpecificationLabel,doctorListCollectionVC.view)
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+            
+        }
+        
+//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         //        notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

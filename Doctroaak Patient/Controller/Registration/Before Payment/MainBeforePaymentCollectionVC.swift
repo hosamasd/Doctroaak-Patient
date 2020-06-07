@@ -46,7 +46,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     fileprivate let pagesImages = [#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280"),#imageLiteral(resourceName: "2663530"),#imageLiteral(resourceName: "2427280")]
     var pages :[String] = [String]()
     var handlePaymentAction:(()->Void)?
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,8 +88,6 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     func setupViews()  {
         
         secondStack.isHide(true)
-        //        bottomStack.isHide(true)
-        
         view.addSubViews(views: pageControl,bottomStack,secondStack)
         pageControl.anchor(top: nil, leading: nil, bottom: bottomStack.topAnchor, trailing: nil,padding: .init(top: 0, left: 0, bottom: 60, right: 0))
         pageControl.centerXInSuperview()
@@ -140,8 +138,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
             if nextIndex == pages.count - 1 {
                 
                 hideOrUnhide(b: false, b2: true)
-                //                return
-            }
+             }
         }else {
             let indexPath = IndexPath(item: 3, section: 0)
             
@@ -169,7 +166,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     @objc func handlePayment()  {
-        //        let payment =
+        handlePaymentAction?()
         
     }
     

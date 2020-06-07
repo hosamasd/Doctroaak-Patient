@@ -8,6 +8,7 @@
 
 
 import UIKit
+import MOLH
 extension UIView {
     
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {
@@ -226,5 +227,11 @@ extension UIScrollView {
 extension Array where Element: Equatable {
     func indexes(of element: Element) -> [Int] {
         return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
+    }
+}
+
+extension NSTextAlignment {
+    func rightOrLeft() -> NSTextAlignment {
+        return MOLHLanguage.isRTLLanguage() ? .right : .left
     }
 }

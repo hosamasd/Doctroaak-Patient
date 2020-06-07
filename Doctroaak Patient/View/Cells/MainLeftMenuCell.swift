@@ -8,6 +8,7 @@
 
 
 import UIKit
+import MOLH
 
 class MainLeftMenuCell: BaseCollectionCell {
     
@@ -19,7 +20,7 @@ class MainLeftMenuCell: BaseCollectionCell {
         i.constrainHeight(constant: 30)
         return i
     }()
-    lazy var Label6 = UILabel(text: "Contact Us", font: .systemFont(ofSize: 24), textColor: .black)
+    lazy var Label6 = UILabel(text: "Contact Us", font: .systemFont(ofSize: 24), textColor: .black,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     override var isSelected: Bool{
         didSet{
@@ -29,6 +30,7 @@ class MainLeftMenuCell: BaseCollectionCell {
     
     
     override  func setupViews() {
-        hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+        MOLHLanguage.isRTLLanguage() ? hstack(Image6,Label6,UIView(),spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0)) : hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+
     }
 }

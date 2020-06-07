@@ -63,7 +63,7 @@ class BaseSlidingVC: UIViewController {
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
     fileprivate let velocityThreshold: CGFloat = 500
-    fileprivate let menuWidth:CGFloat = 300
+    fileprivate let menuWidth:CGFloat =   300
     fileprivate var isMenuOpen:Bool = false
     var redViewTrailingConstraint: NSLayoutConstraint!
     var redViewLeadingConstarint:NSLayoutConstraint!
@@ -244,6 +244,8 @@ class BaseSlidingVC: UIViewController {
         setNeedsStatusBarAppearanceUpdate() // for indicate system to any changes in status bar
     }
     
+    
+    
     //TODO: -handle methods
     
     @objc func handleTapped()  {
@@ -251,15 +253,32 @@ class BaseSlidingVC: UIViewController {
     }
     
     @objc  func handlePaneed(gesture:UIPanGestureRecognizer)  {
-        let transltaion = gesture.translation(in: view)
-        var x = transltaion.x
-        x = isMenuOpen ? x+menuWidth : x
-        x = min(menuWidth, x)
-        x = max(0, x)
-        redViewLeadingConstarint.constant = x
-        darkCoverView.alpha = x / menuWidth
-        if gesture.state == .ended {
-            handleEnded(gesture: gesture)
+        if MOLHLanguage.isRTLLanguage() {
+            
+            let transltaion = gesture.translation(in: view)
+            if transltaion.x > 0 {
+                return
+            }
+            var x = -transltaion.x
+            x = isMenuOpen ? x+menuWidth : x
+            x = min(menuWidth, x)
+            x = max(0, x)
+            redViewLeadingConstarint.constant = x
+            darkCoverView.alpha = x / menuWidth
+            if gesture.state == .ended {
+                handleEnded(gesture: gesture)
+            }
+        }else {
+            let transltaion = gesture.translation(in: view)
+            var x = transltaion.x
+            x = isMenuOpen ? x+menuWidth : x
+            x = min(menuWidth, x)
+            x = max(0, x)
+            redViewLeadingConstarint.constant = x
+            darkCoverView.alpha = x / menuWidth
+            if gesture.state == .ended {
+                handleEnded(gesture: gesture)
+            }
         }
     }
     
@@ -273,6 +292,17 @@ class BaseSlidingVC: UIViewController {
         
     }
     
+    fileprivate func resetAppLanguage(_ isArabic:Bool) {
+        //reset language
+        //        self.navigationController?.popViewController(animated: true)
+        if isArabic {
+            MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "en" ? "ar" : "ar")
+        }else {
+            MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "ar" ? "en" : "en")
+        }
+        MOLH.reset()
+    }
+    
     @objc func handleDismiss()  {
         dismiss(animated: true, completion: nil)
     }
@@ -282,11 +312,15 @@ class BaseSlidingVC: UIViewController {
         case 0:
             //english
             print("english")
-            !MOLHLanguage.isArabic() ? () : print("not englisg")
+            !MOLHLanguage.isArabic() ? () :                resetAppLanguage(false)
+            
+            
         case 1:
             //arabic
             print("arabic")
-            MOLHLanguage.isArabic() ? () : print("not arabic")
+            MOLHLanguage.isArabic() ? () :               resetAppLanguage(true)
+            
+            
         default:
             ()
         }

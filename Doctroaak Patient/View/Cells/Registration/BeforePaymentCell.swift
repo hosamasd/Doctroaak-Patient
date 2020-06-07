@@ -15,7 +15,10 @@ class BeforePaymentCell: BaseCollectionCell {
         didSet {
 //            splashImageView.image = page.image
             guard let page = page else { return  }
-            descriptionLabel.text = page
+            DispatchQueue.main.async {
+                self.descriptionLabel.text = page
+            }
+           
     }
     }
     
@@ -33,7 +36,7 @@ class BeforePaymentCell: BaseCollectionCell {
     
     lazy var descriptionLabel: UILabel = {
         let la = UILabel()
-//        la.backgroundColor = .red
+        la.textColor = . black
         la.numberOfLines = 6
         la.sizeToFit()
         return la

@@ -20,7 +20,7 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 1000)
+        v.constrainHeight(constant: 900)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
@@ -52,7 +52,8 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     
     
     func fetchData()  {
-        userDefaults.bool(forKey: UserDefaultsConstants.isPaymentDetailsInfo) ? () : getStaticData()
+        getStaticData()
+//        !userDefaults.bool(forKey: UserDefaultsConstants.isPaymentDetailsInfo) ? () : getStaticData()
     }
     
     func getStaticData()  {
@@ -73,6 +74,7 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
             let arabicPages = Array(flattened[0...3])
             let englishPages = Array(flattened[4...7])
             
+        
             DispatchQueue.main.async {
                 self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pages = MOLHLanguage.isRTLLanguage() ? arabicPages : englishPages
                 self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.numberOfPages = arabicPages.count
@@ -82,9 +84,14 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     }
     
     override func setupViews() {
-        
-        view.addSubview(customFirstSkipPaymentView)
-        customFirstSkipPaymentView.fillSuperview()
+        view.addSubview(scrollView)
+               scrollView.fillSuperview()
+               scrollView.addSubview(mainView)
+               mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+               mainView.addSubViews(views: customFirstSkipPaymentView)
+               customFirstSkipPaymentView.fillSuperview()
+//        view.addSubview(customFirstSkipPaymentView)
+//        customFirstSkipPaymentView.fillSuperview()
     }
     
     override func setupNavigation()  {

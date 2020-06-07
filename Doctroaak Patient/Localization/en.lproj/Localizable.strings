@@ -113,7 +113,8 @@
 
 //HomeMenuVC
 " Find"=" Find";"Service"="Service";" Favorite"=" Favorite";"Doctor"="Doctor";
-" My"=" My";"Orders"="Orders";"Home"="Home";
+" My"=" My";"Orders"="Orders";"Home"="Home";"Subscribe now to the \n200 EGP offer"="Subscribe now to the \n200 EGP offer";
+"    Payment  "="    Payment  ";"Details"="Details";
 
 //ServicesVC
 "  Doctor"="  Doctor";"  Medical Center"="  Medical Center";"  Pharmacy "="  Pharmacy ";

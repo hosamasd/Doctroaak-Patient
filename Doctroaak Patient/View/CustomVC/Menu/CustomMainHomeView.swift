@@ -8,36 +8,41 @@
 
 
 import UIKit
+import MOLH
 
 class CustomMainHomeView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
+        i.translatesAutoresizingMaskIntoConstraints = false
+        
         return i
     }()
     lazy var listImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "ic_subject_24px"))
+        let i = UIImageView(image:  #imageLiteral(resourceName: "ic_subject_24px"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled = true
+        i.translatesAutoresizingMaskIntoConstraints = false
+        
         return i
     }()
     lazy var notifyImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px"))
+        let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px")   )// #imageLiteral(resourceName: "ic_notifications_active_24px"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled=true
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Home".localized, font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Home".localized, font: .systemFont(ofSize: 30), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     lazy var mainView:UIView = makeMainSubViewWithAppendView(vv: [Image1,label1])
     lazy var main2View:UIView =  {
         let v = makeMainSubViewWithAppendView(vv: [Image2,label2])
-//        v.constrainHeight(constant: 100)
+        //        v.constrainHeight(constant: 100)
         return v
     }()
     lazy var main3View:UIView = makeMainSubViewWithAppendView(vv: [Image3,label3])
@@ -75,24 +80,28 @@ class CustomMainHomeView: CustomBaseView {
     }()
     
     lazy var baseAdsCell:BaseAdsCell = {
-       let b = BaseAdsCell()
+        let b = BaseAdsCell()
         b.handleDetails = {[unowned self] in
             self.handleDetails?()
         }
         b.handlePayments = {[unowned self] in
             self.handlePayments?()
-               }
+        }
         return b
     }()
     
     var handlePayments:(()->Void)?
-      var handleDetails:(()->Void)?
+    var handleDetails:(()->Void)?
     
+    var constainedAnchor:AnchoredConstraints!
+    var listImageconstainedDateAnchor:AnchoredConstraints!
+    var LogoImageconstainedAnchor:AnchoredConstraints!
+    var notifyImageconstainedDateAnchor:AnchoredConstraints!
     
     override func setupViews() {
-        main3View.hstack(Image3,label3)
-        main2View.hstack(Image2,label2)
-        mainView.hstack(Image1,label1)
+//        main3View.hstack(Image3,label3)
+//        main2View.hstack(Image2,label2)
+//        mainView.hstack(Image1,label1)
         let ss = getStack(views: mainView,main2View,main3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,soonLabel,ss,baseAdsCell)
@@ -100,19 +109,28 @@ class CustomMainHomeView: CustomBaseView {
         NSLayoutConstraint.activate([
             ss.centerXAnchor.constraint(equalTo: centerXAnchor),
             ss.centerYAnchor.constraint(equalTo: centerYAnchor,constant: 60)
-            ])
-        //        ss.centerInSuperview()
+        ])
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+            main3View.hstack(label3,Image3)
+            main2View.hstack(label2,Image2)
+            mainView.hstack(label1,Image1)
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+            main3View.hstack(Image3,label3)
+            main2View.hstack(Image2,label2)
+            mainView.hstack(Image1,label1)
+            
+        }
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        
         ss.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
         
         baseAdsCell.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 32, right: 32))
-        
     }
     
     func makeAttributedText(fir:String,sec:String) -> UILabel {
