@@ -141,6 +141,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         cacheObjectCodabe.deleteFile(patient)
         userDefaults.set(false, forKey: UserDefaultsConstants.isPatientLogin)
         userDefaults.synchronize()
+        self.patient = nil
         DispatchQueue.main.async {
             self.customMainHomeLeftView.first8Stack.isHide(true)
             self.customMainHomeLeftView.userNameLabel.text = ""

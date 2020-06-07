@@ -59,8 +59,8 @@ class HomeMenuVC: CustomBaseViewVC {
     }()
     
     lazy var views = [ customMainHomeView.mainView,customMainHomeView.main2View,customMainHomeView.main3View]
-    var patient_Id:Int?
-    var patientAPITOKEN:String?
+    //    var patient_Id:Int?
+    //    var patientAPITOKEN:String?
     var patient:PatienModel?{
         didSet{
             guard let patient = patient else { return  }
@@ -70,7 +70,7 @@ class HomeMenuVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        putUserId()
+        //        putUserId()
         setupAnimation()
     }
     
@@ -85,8 +85,9 @@ class HomeMenuVC: CustomBaseViewVC {
     
     func putUserId()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-            patient_Id = userDefaults.integer(forKey: UserDefaultsConstants.patientUserID)
-            patientAPITOKEN = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN)
+            patient=cacheObjectCodabe.storedValue
+            //            patient_Id = userDefaults.integer(forKey: UserDefaultsConstants.patientUserID)
+            //            patientAPITOKEN = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN)
         }else {}
     }
     
@@ -137,6 +138,22 @@ class HomeMenuVC: CustomBaseViewVC {
         chooseVC(isDetail: true)
     }
     
+    func handleremoveLoginAlert()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
+        let login = LoginVC()
+        login.delgate = self
+        let nav = UINavigationController(rootViewController: login)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+    
+    fileprivate func openAlertForLogin() {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
+        customAlertLoginView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
     @objc func handleGoServices()  {
         let services = ServicesVC()
         services.patient=self.patient
@@ -151,36 +168,24 @@ class HomeMenuVC: CustomBaseViewVC {
         
     }
     
-    func handleremoveLoginAlert()  {
-        removeViewWithAnimation(vvv: customAlertLoginView)
-        customMainAlertVC.dismiss(animated: true)
-        let login = LoginVC()
-        login.delgate = self
-        let nav = UINavigationController(rootViewController: login)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
-    }
+    
     
     @objc func handleOpenNotifications()  {
         if patient==nil && !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin){
-            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
-            customAlertLoginView.problemsView.loopMode = .loop
-            present(customMainAlertVC, animated: true)
+            openAlertForLogin()
         }else {
             guard let patient = patient else { return  }
             let notify = NotificationVC(patient: patient, isFromMenu: false)
             let nav = UINavigationController(rootViewController: notify)
-                       nav.modalPresentationStyle = .fullScreen
-                       present(nav, animated: true)
-//            navigationController?.pushViewController(notify, animated: true)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+            //            navigationController?.pushViewController(notify, animated: true)
         }
     }
     
     @objc func handleGoFavorites()  {
         if patient == nil {
-            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 120)
-            customAlertLoginView.problemsView.loopMode = .loop
-            present(customMainAlertVC, animated: true)
+            openAlertForLogin()
         }else {
             guard let patient = patient else { return  }
             let favorite = PatientFavoriteDoctorsVC()
@@ -188,8 +193,8 @@ class HomeMenuVC: CustomBaseViewVC {
             let nav = UINavigationController(rootViewController: favorite)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
-
-//            navigationController?.pushViewController(favorite,animated:true)
+            
+            //            navigationController?.pushViewController(favorite,animated:true)
         }
     }
     
@@ -204,7 +209,7 @@ class HomeMenuVC: CustomBaseViewVC {
             let nav = UINavigationController(rootViewController: order)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
-//            navigationController?.pushViewController(nav, animated: true)
+            //            navigationController?.pushViewController(nav, animated: true)
         }
         print(666)
     }

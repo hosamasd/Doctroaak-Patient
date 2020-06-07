@@ -21,21 +21,24 @@ struct MainPharamacyNameModel:Codable {
 }
 
 struct PharamacyNameModel:Codable {
+    
     let id: Int
-    let name: String
-    var nameAr, nameFr: String?
-    let phone: String
-    var phone2, address, addressAr, addressFr: String?
-    let lang, apiToken, firebaseToken, latt: String
-    let smsCode, email: String
-    let city, area: Int?
-    let password: String
-    let active: Int
-    let delivery: String
-    let avaliableDays: Int
-    var pharmacyDoctorID: Int?
-    let photo: String
-    let createdAt, updatedAt: String
+       let name: String
+       var nameAr, nameFr: String?
+       let phone: String
+       let phone2, address, addressAr, addressFr: String?
+       let lang, apiToken: String
+       var firebaseToken: String?
+       let latt, smsCode: String
+       var email: String?
+       var city, area: Int?
+       let password: String
+       let active: Int
+       let delivery: String
+       let avaliableDays: Int
+       var pharmacyDoctorID: Int?
+       let photo: String
+       var createdAt, updatedAt: String?
     let pharmacyInsurances: [PharmacyInsuranceModel]
     let workingHours: [PharamacyWorkingHourModel]
     let insuranceCompany: [InsurcaneCompanyModel]
