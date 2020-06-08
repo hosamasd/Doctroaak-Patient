@@ -76,38 +76,40 @@ class CustomRegisterView: CustomBaseView {
         s.rightViewMode = .always
         return s
     }()
-    lazy var boyButton:UIButton = {
-        
-        let button = UIButton(type: .system)
-        button.setTitle("Male".localized, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        if MOLHLanguage.isRTLLanguage() {
-            button.rightImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
-        }else {
-            button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
-        }
-        return button
-    }()
-    lazy var girlButton:UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Female".localized, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        if MOLHLanguage.isRTLLanguage() {
-            button.rightImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-        }else {
-            button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-        }
-        return button
-    }()
+    lazy var boyButton:UIButton = createMainButtonsForGenderss(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false)
+     lazy var girlButton:UIButton = createMainButtonsForGenderss(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
+//    lazy var boyButton:UIButton = {
+//
+//        let button = UIButton(type: .system)
+//        button.setTitle("Male".localized, for: .normal)
+//        button.setTitleColor(.white, for: .normal)
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        if MOLHLanguage.isRTLLanguage() {
+//            button.rightImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+//        }else {
+//            button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+//        }
+//        return button
+//    }()
+//    lazy var girlButton:UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("Female".localized, for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .white
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        if MOLHLanguage.isRTLLanguage() {
+//            button.rightImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+//        }else {
+//            button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+//        }
+//        return button
+//    }()
     lazy var birthdayTextField:UITextField = {
         let t = UITextField()
         
@@ -127,6 +129,8 @@ class CustomRegisterView: CustomBaseView {
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
         i.tintColor = .black
+        i.rowBackgroundColor = .gray
+
         i.arrowSize = 20
         i.placeholder = "Insurance company".localized
         i.didSelect { (txt, index, _) in

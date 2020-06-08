@@ -72,7 +72,8 @@ class CustomLapSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
-        
+        i.rowBackgroundColor = .gray
+
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
@@ -93,7 +94,8 @@ class CustomLapSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
-        
+        i.rowBackgroundColor = .gray
+
         //        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
@@ -110,7 +112,8 @@ class CustomLapSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
-        
+        i.rowBackgroundColor = .gray
+
         i.arrowSize = 20
         i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in

@@ -98,8 +98,7 @@ class ServicesVC: CustomBaseViewVC {
     //TODO:-Hnadle methods
     
     @objc  func handleOpenVC()  {
-        let doc = DoctorListsVC()
-        doc.index = 0
+        let doc = DoctorListsVC(index: 0)
         doc.patient=self.patient
 //        doc.patientApiToken=patientApiToken
 //        doc.patient_id=patient_id
@@ -108,8 +107,7 @@ class ServicesVC: CustomBaseViewVC {
     }
     
     @objc  func handleOpenMedicalVC()  {
-            let doc = DoctorListsVC()
-            doc.index = 1
+            let doc = DoctorListsVC(index: 1)
             doc.patient=self.patient
     //        doc.patientApiToken=patientApiToken
     //        doc.patient_id=patient_id

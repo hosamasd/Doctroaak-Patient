@@ -21,14 +21,12 @@ class DoctorBookVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 900)
+        v.constrainHeight(constant: 1000)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
     lazy var cusomDoctorBookView:CusomDoctorBookView = {
         let v = CusomDoctorBookView()
-        //        v.patient_id = patient_id ?? 0
-        //        v.api_token = api_token ?? ""
         v.clinic_id = clinic_id
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -65,16 +63,10 @@ class DoctorBookVC: CustomBaseViewVC {
         }
     }
     
-    //    var  api_token:String?
-    //    var  patient_id:Int?
-    //    fileprivate let api_token:String!
-    //    fileprivate let patient_id:Int!
     fileprivate let clinic_id:Int!
     
     init(clinic_id:Int) {
-        //        self.api_token=api_token
         self.clinic_id=clinic_id
-        //        self.patient_id=patient_id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -93,10 +85,7 @@ class DoctorBookVC: CustomBaseViewVC {
         if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
                              patient=cacheObjectCodabe.storedValue
 
-              }else {}        //        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
-        //        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
-        //    patient_id=id
-        //        api_token=api
+              }else {}
     }
     
     
@@ -189,7 +178,6 @@ class DoctorBookVC: CustomBaseViewVC {
     }
     
     @objc func handleBook()  {
-        //        if api_token == nil && patient_id==nil {
         if patient == nil {
             presentAlert(vvv: customAlertLoginView)
             
@@ -237,10 +225,4 @@ extension DoctorBookVC: LoginVCPrototcol {
         self.patient=patient
         handleBook()
     }
-    
-    //    func useApiAndPatienId(api: String, patient: Int) {
-    //        api_token = api
-    //        patient_id=patient
-    //        handleBook()
-    //    }
 }

@@ -38,7 +38,15 @@ class DoctorListsVC: CustomBaseViewVC {
         return v
     }()
     
-    var index:Int = 0
+    fileprivate let index:Int!
+    init(index:Int) {
+        self.index=index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     var patient:PatienModel?{
         didSet{
             guard let patient = patient else { return  }
@@ -67,12 +75,16 @@ class DoctorListsVC: CustomBaseViewVC {
     }
     
     func getData()  {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+
         SVProgressHUD.show(withStatus: "Looding")
         MainServices.shared.getSpecificationss { (base, err) in
             if let err=err{
-                SVProgressHUD.showError(withStatus: err.localizedDescription);return
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
             guard let specificationsArray = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             self.customDoctorListsView.doctorListCollectionVC.specificationArray = specificationsArray
             

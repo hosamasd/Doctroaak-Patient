@@ -77,6 +77,7 @@ class CustomLAPOrderView: CustomBaseView {
         i.arrowSize = 20
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
+        i.rowBackgroundColor = .gray
 
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in

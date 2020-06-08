@@ -11,6 +11,49 @@ import UIKit
 import MOLH
 extension UIView {
     
+    func createMainButtonsForGender(title:String,img:UIImage,bg:Bool?,selector:Selector) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        if (bg == true) {
+            button.backgroundColor = ColorConstants.disabledButtonsGray
+        }else{}
+        
+        button.layer.cornerRadius = 8
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.clipsToBounds = true
+        if MOLHLanguage.isRTLLanguage() {
+            button.rightImage(image: img, renderMode: .alwaysOriginal)
+        }else {
+            button.leftImage(image: img, renderMode: .alwaysOriginal)
+        }
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        return button
+        
+    }
+    
+    func createMainButtonsForGenderss(title:String,img:UIImage,bg:Bool?) -> UIButton {
+           let button = UIButton(type: .system)
+           button.setTitle(title, for: .normal)
+           button.setTitleColor(.black, for: .normal)
+           if (bg == true) {
+               button.backgroundColor = ColorConstants.disabledButtonsGray
+           }else{}
+           
+           button.layer.cornerRadius = 8
+           button.layer.borderWidth = 1
+           button.layer.borderColor = UIColor.gray.cgColor
+           button.clipsToBounds = true
+           if MOLHLanguage.isRTLLanguage() {
+               button.rightImage(image: img, renderMode: .alwaysOriginal)
+           }else {
+               button.leftImage(image: img, renderMode: .alwaysOriginal)
+           }
+           return button
+           
+       }
+    
     func putAttributedText(la:UILabel,ft:String,st:String)  {
         let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
            attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))

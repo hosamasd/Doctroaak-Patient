@@ -67,7 +67,8 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
         i.textColor = .black
-        
+        i.rowBackgroundColor = .gray
+
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, index, _) in
             //            self.selectedName=self.pha
@@ -99,7 +100,8 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
         i.textColor = .black
-        
+        i.rowBackgroundColor = .gray
+
         i.placeholder = "Type".localized
         i.didSelect {[unowned self] (txt, index, _) in
             self.pharamacyOrderViewModel.api_token = txt

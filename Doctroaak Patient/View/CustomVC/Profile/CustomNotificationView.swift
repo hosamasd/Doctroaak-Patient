@@ -44,6 +44,7 @@ class CustomNotificationView: CustomBaseView {
     var handledisplayNotification:((PatientNotificationModel,IndexPath)->Void)?
     
     override func setupViews() {
+        
         [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         addSubViews(views: LogoImage,backImage,soonLabel,titleLabel,notificationsCollectionVC.view)
         //        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)

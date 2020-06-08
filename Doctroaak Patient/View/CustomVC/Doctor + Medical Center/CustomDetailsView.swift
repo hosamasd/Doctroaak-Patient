@@ -16,7 +16,7 @@ class CustomDetailsView: CustomBaseView {
     var selectedDoctor:PatientSearchDoctorsModel? {
         didSet{
             guard let selectedDoctor = selectedDoctor else { return  }
-
+            
             patientFavoriteDoctorsCell.doctor=selectedDoctor
             doctorSuggestShiftHorizentalVC.suggestedDaysArray = selectedDoctor.freeDays
             doctorWorkingDateCollectionVC.workingDaysArray = selectedDoctor.workingHours
@@ -28,26 +28,26 @@ class CustomDetailsView: CustomBaseView {
     }
     
     var selectedSecondDoctor:PatientFavoriteModel? {
-          didSet{
-              guard let selectedDoctor = selectedSecondDoctor else { return  }
-
-              patientFavoriteDoctorsCell.secondDoctor=selectedDoctor
-              doctorSuggestShiftHorizentalVC.suggestedDaysArray = selectedDoctor.freeDays
-              doctorWorkingDateCollectionVC.workingDaysArray = selectedDoctor.workingHours
-              DispatchQueue.main.async {
-                  self.doctorSuggestShiftHorizentalVC.collectionView.reloadData()
-                  self.doctorWorkingDateCollectionVC.collectionView.reloadData()
-              }
-          }
-      }
+        didSet{
+            guard let selectedDoctor = selectedSecondDoctor else { return  }
+            
+            patientFavoriteDoctorsCell.secondDoctor=selectedDoctor
+            doctorSuggestShiftHorizentalVC.suggestedDaysArray = selectedDoctor.freeDays
+            doctorWorkingDateCollectionVC.workingDaysArray = selectedDoctor.workingHours
+            DispatchQueue.main.async {
+                self.doctorSuggestShiftHorizentalVC.collectionView.reloadData()
+                self.doctorWorkingDateCollectionVC.collectionView.reloadData()
+            }
+        }
+    }
     
     
-//    var patient:PatienModel?{
-//                     didSet{
-//                         guard let patient = patient else { return  }
-////                         .patient=patient
-//                     }
-//                 }
+    //    var patient:PatienModel?{
+    //                     didSet{
+    //                         guard let patient = patient else { return  }
+    ////                         .patient=patient
+    //                     }
+    //                 }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -96,8 +96,8 @@ class CustomDetailsView: CustomBaseView {
         return button
     }()
     
-//    var patient_id:Int?
-//       var patientApiToken:String?
+    //    var patient_id:Int?
+    //       var patientApiToken:String?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -108,9 +108,16 @@ class CustomDetailsView: CustomBaseView {
     
     
     override func setupViews()  {
+        [titleLabel,suggestedLabel,workingDateLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         
         addSubViews(views: LogoImage,backImage,titleLabel,patientFavoriteDoctorsCell,suggestedLabel,workingDateLabel,doctorSuggestShiftHorizentalVC.view,doctorWorkingDateCollectionVC.view,nextButton)
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         patientFavoriteDoctorsCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))

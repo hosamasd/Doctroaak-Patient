@@ -149,9 +149,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         layer.shadowRadius = 20
         layer.opacity = 1
         layer.borderColor = UIColor.lightGray.cgColor
-        layer.borderWidth = 1//(except for this nothing else is woking)
-        //        dropShadow(color: .red, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
-        //        setupShadow(opacity: 0.2, radius: 16, offset: .init(width: 0, height: 50), color: .red)
+        layer.borderWidth = 1
         setupViewss()
         
         
@@ -162,6 +160,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     }
     
     func setupViewss() {
+        [profileInfoAddressLabel,profileInfoReservationLabel,profileInfoConsultaionLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         backgroundColor = .white
         layer.cornerRadius = 8
         clipsToBounds = true

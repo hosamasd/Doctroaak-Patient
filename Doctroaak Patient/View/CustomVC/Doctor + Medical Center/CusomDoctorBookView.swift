@@ -51,7 +51,7 @@ class CusomDoctorBookView: CustomBaseView {
                 self.doctorBookViewModel.notes = ""
             }
             self.subStack.isHide(index == 0 ? true : false)
-            index == 0 ?  self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 200,bottomt:80,log: -48 ,centerImg: 250) : self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 60,bottomt:0,log: 0, centerImg: 100 )
+//            index == 0 ?  self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116"),tr: 0,tops: 200,bottomt:80,log: -48 ,centerImg: 250) : self.updateOtherLabels(img: #imageLiteral(resourceName: "Group 4116-1"),tr: 60,tops: 60,bottomt:0,log: 0, centerImg: 100 )
             self.doctorBookViewModel.isFirstOpetion = index == 0 ? true : false
             self.resetAll()
         }
@@ -76,7 +76,8 @@ class CusomDoctorBookView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
-
+        i.rowBackgroundColor = .gray
+        
         i.optionArray = ["New","Consultation","Continue"]
         i.arrowSize = 20
         i.placeholder = "Type".localized
@@ -93,9 +94,8 @@ class CusomDoctorBookView: CustomBaseView {
     lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
     lazy var ageTextField = createMainTextFields(place: "enter Age",type: .numberPad)
     
-    lazy var boyButton:UIButton = createMainButton(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false)
-    
-    lazy var girlButton:UIButton = createMainButton(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
+    lazy var boyButton:UIButton = createMainButtonsForGender(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false, selector: #selector(handleBoy))
+    lazy var girlButton:UIButton = createMainButtonsForGender(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true, selector: #selector(handleGirl(sender:)))
     lazy var subStack:UIStackView = {
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         
@@ -149,9 +149,9 @@ class CusomDoctorBookView: CustomBaseView {
     }
     
     override func setupViews() {
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         [mobileNumberTextField,fullNameTextField,ageTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)})
-        boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
-        girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
         shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
         shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
         [titleLabel,bookSegmentedView,LogoImage].forEach({$0.translatesAutoresizingMaskIntoConstraints = false})
@@ -170,7 +170,16 @@ class CusomDoctorBookView: CustomBaseView {
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,bookSegmentedView,bookButton,mainStack)
         
         
-        constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 30, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+//            constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 30, left: 0, bottom: 0, right: -48))
+
+                        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+                    }else {
+//                        constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 30, left: -48, bottom: 0, right: 0))
+
+                        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+                    }
+//        constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 30, left: -48, bottom: 0, right: 0))
         
         //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
@@ -216,33 +225,37 @@ class CusomDoctorBookView: CustomBaseView {
     }
     
     
-    func createMainButton(title:String,img:UIImage,bg:Bool?) -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        if (bg == true) {
-            button.backgroundColor = ColorConstants.disabledButtonsGray
-        }else{}
-        
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.leftImage(image: img, renderMode: .alwaysOriginal)
-        return button
-        
-    }
+//    func createMainButtonsForGender(title:String,img:UIImage,bg:Bool?) -> UIButton {
+//        let button = UIButton(type: .system)
+//        button.setTitle(title, for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        if (bg == true) {
+//            button.backgroundColor = ColorConstants.disabledButtonsGray
+//        }else{}
+//        
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        if MOLHLanguage.isRTLLanguage() {
+//            button.rightImage(image: img, renderMode: .alwaysOriginal)
+//        }else {
+//            button.leftImage(image: img, renderMode: .alwaysOriginal)
+//        }
+//        return button
+//        
+//    }
     
-    fileprivate func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat,centerImg:CGFloat) {
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-            self.LogoImage.image = img
-            self.constainedLogoAnchor.trailing?.constant = tr
-            self.constainedLogoAnchor.leading?.constant = log
-            self.bubleViewBottomTitleConstraint.constant = bottomt
-            self.bubleViewTopSegConstraint.constant = tops
-            
-        })
-    }
+//    fileprivate func updateOtherLabels(img:UIImage,tr:CGFloat,tops:CGFloat,bottomt:CGFloat,log:CGFloat,centerImg:CGFloat) {
+//        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+////            self.LogoImage.image = img
+////            self.constainedLogoAnchor.trailing?.constant = tr
+////            self.constainedLogoAnchor.leading?.constant = log
+////            self.bubleViewBottomTitleConstraint.constant = bottomt
+////            self.bubleViewTopSegConstraint.constant = tops
+//
+//        })
+//    }
     
     
     fileprivate func changeBoyGirlState(_ sender: UIButton,secondBtn:UIButton,isMale:Bool) {
@@ -322,8 +335,6 @@ class CusomDoctorBookView: CustomBaseView {
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
-//        doctorBookViewModel.api_token=api_token
-//        doctorBookViewModel.patient_id=patient_id
         doctorBookViewModel.clinic_id=clinic_id
         if let datePicker = self.dateTextField.inputView as? UIDatePicker { // 2.1
             

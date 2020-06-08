@@ -58,7 +58,8 @@ class CustomICUSearchView: CustomBaseView {
         i.textColor = .black
         i.arrowSize = 20
         i.placeholder = "City".localized
-        
+        i.rowBackgroundColor = .gray
+
         i.didSelect { (txt, index, _) in
             self.getAreaAccordingToCityId(index: index)
             
@@ -71,6 +72,7 @@ class CustomICUSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
+        i.rowBackgroundColor = .gray
 
         i.arrowSize = 20
         //        i.arrowColor = .white

@@ -65,44 +65,25 @@ class CustomProfileView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var addressTextField:SkyFloatingLabelTextField = {
-        let t = SkyFloatingLabelTextField()
-        t.keyboardType = UIKeyboardType.default
-        t.placeholder = " Address".localized
-        t.titleColor = .black
-        t.title = "enter your Address".localized
-        t.placeholderColor = .black
-        t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        t.errorColor = UIColor.red
-        return t
-    }()
-    lazy var phoneTextField:SkyFloatingLabelTextField = {
-        let t = SkyFloatingLabelTextField()
-        t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        t.placeholder = "Phone".localized
-        t.keyboardType = UIKeyboardType.numberPad
-        t.title = "Phone".localized
-        t.placeholderColor = .black
-        t.isUserInteractionEnabled=false
-        
-        t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        return t
-    }()
-    lazy var emailTextField:SkyFloatingLabelTextField = {
-        let t = SkyFloatingLabelTextField()
-        t.keyboardType = UIKeyboardType.emailAddress
-        t.placeholder = "enter your email".localized
-        t.titleColor = .black
-        t.title = "your email".localized
-        t.placeholderColor = .black
-        t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
-        t.errorColor = UIColor.red
-        t.constrainHeight(constant: 60)
-        t.isUserInteractionEnabled=false
-        return t
-    }()
+   
+    lazy var addressTextField = createTexts(type: .default, placeholder:  " Address".localized, title: "enter your Address".localized, userInteraction: true)
+    lazy var phoneTextField = createTexts(type: .numberPad, placeholder:  " Phone".localized, title: "Phone".localized, userInteraction: false)
+    lazy var emailTextField = createTexts(type: .numberPad, placeholder:  " Phone".localized, title: "Phone".localized, userInteraction: false)
+
+//    lazy var emailTextField:SkyFloatingLabelTextField = {
+//        let t = SkyFloatingLabelTextField()
+//        t.keyboardType = UIKeyboardType.emailAddress
+//        t.placeholder = "enter your email".localized
+//        t.titleColor = .black
+//        t.title = "your email".localized
+//        t.placeholderColor = .black
+//        t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
+//        t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
+//        t.errorColor = UIColor.red
+//        t.constrainHeight(constant: 60)
+//        t.isUserInteractionEnabled=false
+//        return t
+//    }()
     lazy var birthdayTextField:SkyFloatingLabelTextField = {
         let t = SkyFloatingLabelTextField()
         //           t.keyboardType = UIKeyboardType.emailAddress
@@ -115,39 +96,10 @@ class CustomProfileView: CustomBaseView {
         t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
         t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
         t.errorColor = UIColor.red
-        //           t.constrainHeight(constant: 50)
         return t
     }()
-    lazy var boyButton:UIButton = {
-        
-        let button = UIButton(type: .system)
-        button.setTitle("Male".localized, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 8
-        button.backgroundColor = .white
-        
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
-        button.isEnabled = false
-        
-        return button
-    }()
-    lazy var girlButton:UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Female".localized, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-        button.isEnabled = false
-        
-        return button
-    }()
+    lazy var boyButton:UIButton = createMainButtonsForGenderss(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false)
+    lazy var girlButton:UIButton = createMainButtonsForGenderss(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
     lazy var nextButton:UIButton = {
         let button = UIButton()
         button.setTitle("Save".localized, for: .normal)
@@ -156,7 +108,7 @@ class CustomProfileView: CustomBaseView {
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
-        //        button.isEnabled = false
+        //                button.isEnabled = false
         return button
     }()
     
@@ -168,6 +120,7 @@ class CustomProfileView: CustomBaseView {
     }
     
     override func setupViews() {
+        [titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         [ phoneTextField,emailTextField,addressTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         let genderStack = getStack(views: boyButton,girlButton, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         
@@ -181,12 +134,17 @@ class CustomProfileView: CustomBaseView {
         
         addSubViews(views: LogoImage,backImage,titleLabel,subView,textStack,nextButton)
         
-        //         insuranceDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
         NSLayoutConstraint.activate([
             subView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -209,6 +167,21 @@ class CustomProfileView: CustomBaseView {
         edirProfileViewModel.image=doctorEditProfileImageView.image ?? UIImage()
         edirProfileViewModel.isPhotoEdit=false
         edirProfileViewModel.phone=patient.phone
+    }
+    
+    func createTexts(type:UIKeyboardType,placeholder:String,title:String,userInteraction:Bool) -> SkyFloatingLabelTextField {
+        let t = SkyFloatingLabelTextField()
+               t.keyboardType = UIKeyboardType.default
+               t.placeholder = placeholder
+               t.titleColor = .black
+               t.title = title
+               t.placeholderColor = .black
+               t.lineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
+               t.selectedLineColor = #colorLiteral(red: 0.2641228139, green: 0.9383022785, blue: 0.9660391212, alpha: 1)
+               t.errorColor = UIColor.red
+        t.isUserInteractionEnabled = userInteraction
+        t.constrainHeight(constant: 60)
+               return t
     }
     
     @objc func textFieldDidChange(text: UITextField)  {

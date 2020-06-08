@@ -73,34 +73,35 @@ class CustomLAPBookView: CustomBaseView {
     lazy var ageTextField = createMainTextFields(place: "enter age",type: .numberPad)
     
     
-    
-    lazy var boyButton:UIButton = {
-        
-        let button = UIButton(type: .system)
-        button.setTitle("Male", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
-        button.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
-        return button
-    }()
-    lazy var girlButton:UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Female", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-        button.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
-        
-        return button
-    }()
+    lazy var boyButton:UIButton = createMainButtonsForGender(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false, selector: #selector(handleBoy))
+    lazy var girlButton:UIButton = createMainButtonsForGender(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true, selector: #selector(handleGirl(sender:)))
+//    lazy var boyButton:UIButton = {
+//
+//        let button = UIButton(type: .system)
+//        button.setTitle("Male", for: .normal)
+//        button.setTitleColor(.white, for: .normal)
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+//        button.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
+//        return button
+//    }()
+//    lazy var girlButton:UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("Female", for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .white
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+//        button.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
+//
+//        return button
+//    }()
     lazy var subStack:UIStackView = {
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         

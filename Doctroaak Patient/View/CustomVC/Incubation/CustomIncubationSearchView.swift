@@ -35,6 +35,7 @@ class CustomIncubationSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
+        i.rowBackgroundColor = .gray
 
         i.arrowSize = 20
         i.placeholder = "City".localized
@@ -50,6 +51,7 @@ class CustomIncubationSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
+        i.rowBackgroundColor = .gray
 
         i.arrowSize = 20
         i.placeholder = "Area".localized

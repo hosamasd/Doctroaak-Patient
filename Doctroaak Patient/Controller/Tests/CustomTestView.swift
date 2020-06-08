@@ -96,7 +96,8 @@ class CustomTestView: CustomBaseView {
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
         i.textColor = .black
-
+        i.rowBackgroundColor = .gray
+        
         i.placeholder = "Type".localized
         
         return i
@@ -110,30 +111,32 @@ class CustomTestView: CustomBaseView {
     lazy var dayTextField = createMainTextFields(place: "   DD")
     lazy var monthTextField = createMainTextFields(place: " MM")
     lazy var yearTextField = createMainTextFields(place: "  YYYY")
-    lazy var boyButton:UIButton = {
-        
-        let button = UIButton(type: .system)
-        button.setTitle("Male", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
-        return button
-    }()
-    lazy var girlButton:UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Female", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-        return button
-    }()
+    lazy var boyButton:UIButton = createMainButtonsForGenderss(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false)
+     lazy var girlButton:UIButton = createMainButtonsForGenderss(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
+//    lazy var boyButton:UIButton = {
+//
+//        let button = UIButton(type: .system)
+//        button.setTitle("Male", for: .normal)
+//        button.setTitleColor(.white, for: .normal)
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+//        return button
+//    }()
+//    lazy var girlButton:UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("Female", for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .white
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+//        return button
+//    }()
     lazy var subStack:UIStackView = {
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         
@@ -159,7 +162,7 @@ class CustomTestView: CustomBaseView {
         if isActive {
             
             
-            if boyButton.backgroundColor == nil {//|| bookButton.backgroundColor == nil || shift1Button.backgroundColor == nil {
+            if boyButton.backgroundColor == nil {
                 addGradientInSenderAndRemoveOther(sender: boyButton)
                 boyButton.setTitleColor(.white, for: .normal)
             }
@@ -180,17 +183,6 @@ class CustomTestView: CustomBaseView {
     }
     
     override func setupViews() {
-//        [fullNameTextField,mobileNumberTextField,dayTextField,boyButton].forEach({$0.constrainHeight(constant: 60)})
-//        let sV = getStack(views: mainDateView,mainDropView, spacing: 16, distribution: .fillEqually, axis: .vertical)
-//        let sssd = getStack(views: shift1Button,shift2Button, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        
-//        
-//        let mainStack = getStack(views: sV,sssd,subStack, spacing: 16, distribution: .fillProportionally, axis: .vertical)
-//        
-//        
-//        dateTextField.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 16))
-//        typeDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
-//        
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,bookSegmentedView)//,bookButton,mainStack)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: -30, left: 0, bottom: 0, right: -60))
@@ -198,11 +190,7 @@ class CustomTestView: CustomBaseView {
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         bookSegmentedView.anchor(top: backImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 32, bottom: 16, right: 32))
-//
-//        mainStack.anchor(top: bookSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-//        bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 16, bottom: 16, right: 16))
-        
-    }
+      }
     
     func secondButtons(title:String) ->UIButton {
         let b  = UIButton()
@@ -221,9 +209,8 @@ class CustomTestView: CustomBaseView {
         views.forEach { (bt) in
             bt.setTitleColor(.black, for: .normal)
             bt.backgroundColor = .gray
-            //            bt.
-        }
-        //        sender.backgroundColor = ColorConstant.mainBackgroundColor
+          }
+        
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
