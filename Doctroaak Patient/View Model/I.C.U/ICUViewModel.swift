@@ -26,15 +26,27 @@ class ICUViewModel {
     
     
     func performSearchinging(completion:@escaping (MainICUFilterModel?,Error?)->Void)  {
-        if isFirstOpetion ?? true {
-            guard let city = city,let area = area else { return  }
-            bindableIsLogging.value = true
-            SearchServices.shared.iCUGetSearchResults(isFirst:true,city: city, are: area, completion: completion)
-        }else {
-            guard   let lat = lat,let lng = lng else { return  }
-            bindableIsLogging.value = true
-            SearchServices.shared.iCUGetSearchResults(isFirst:false, latt: lat, lang: lng, completion: completion);return
-        }
+            if isFirstOpetion ?? true {
+                guard let city = city,let area = area else { return  }
+                bindableIsLogging.value = true
+                SearchServices.shared.iCUGetSearchResults(isFirst:true,city: city, are: area, completion: completion)
+            }else {
+                guard   let lat = lat,let lng = lng else { return  }
+                bindableIsLogging.value = true
+                SearchServices.shared.iCUGetSearchResults(isFirst:false, latt: lat, lang: lng, completion: completion);return
+            }
+   }
+    
+    func performIncubationSearching(completion:@escaping (MainIncubtionSearchModel?,Error?)->Void)  {
+          if isFirstOpetion ?? true {
+                 guard let city = city,let area = area else { return  }
+                 bindableIsLogging.value = true
+                 SearchServices.shared.incubationGetSearchResults(isFirst:true,city: city, are: area, completion: completion)
+             }else {
+                 guard   let lat = lat,let lng = lng else { return  }
+                 bindableIsLogging.value = true
+                 SearchServices.shared.incubationGetSearchResults( isFirst:false,latt: lat, lang: lng, completion: completion);return
+             }
     }
     
     func checkFormValidity() {

@@ -19,8 +19,8 @@ class LAPSearchViewModel {
     var area:Int? = -1 {didSet {checkFormValidity()}}
     var insuranceCompany:Int? = 0 {didSet {checkFormValidity()}}
     var delivery:Int? = 0 {didSet {checkFormValidity()}}
-    var lat:Double? {didSet {checkFormValidity()}}
-    var lng:Double?  {didSet {checkFormValidity()}}
+    var lat:Double? = -1 {didSet {checkFormValidity()}}
+    var lng:Double? = -1  {didSet {checkFormValidity()}}
     var lab_id:Int? = -1 {didSet {checkFormValidity()}}
     var radiology_id:Int? = -1 {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}

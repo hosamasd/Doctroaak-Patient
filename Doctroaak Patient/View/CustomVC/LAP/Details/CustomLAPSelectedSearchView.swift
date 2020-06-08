@@ -68,6 +68,8 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     
     lazy var lapResultsCelllll:LAPResultsCelllll = {
         let v = LAPResultsCelllll()
+        v.constrainHeight(constant: 150)
+
         v.locationImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLocation)))
         //        v.handleGetLocation = {[unowned self] (la,ln) in
         //            self.handleGetLocation?(la,ln)
@@ -75,7 +77,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         return v
     }()
     
-    lazy var doctorWorkingDataLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var doctorWorkingDataLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     lazy var lapDoctorWorkingDataCollectionVC:DoctorWorkingDateCollectionVC = {
         let vc = DoctorWorkingDateCollectionVC()
         //        vc.view.constrainHeight(constant: 300)
@@ -106,10 +108,17 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     }
     
     override func setupViews() {
-        lapResultsCelllll.constrainHeight(constant: 150)
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,lapResultsCelllll,lapDoctorWorkingDataCollectionVC.view,doctorWorkingDataLabel,bookButton)
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+                  LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+              }else {
+                  
+                  LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+              }
+//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

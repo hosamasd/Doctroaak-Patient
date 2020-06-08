@@ -58,7 +58,7 @@ class CustomRegisterView: CustomBaseView {
         let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.imageEdgeInsets = showPassword
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
         s.rightView = button
@@ -69,7 +69,7 @@ class CustomRegisterView: CustomBaseView {
         let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.imageEdgeInsets = showPassword//UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
         s.rightView = button
@@ -102,10 +102,10 @@ class CustomRegisterView: CustomBaseView {
         button.layer.borderColor = UIColor.gray.cgColor
         button.clipsToBounds = true
         if MOLHLanguage.isRTLLanguage() {
-                   button.rightImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-               }else {
-                   button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-               }
+            button.rightImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+        }else {
+            button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+        }
         return button
     }()
     lazy var birthdayTextField:UITextField = {
@@ -125,7 +125,8 @@ class CustomRegisterView: CustomBaseView {
     lazy var insuranceDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        
+        i.textColor = .black
+        i.tintColor = .black
         i.arrowSize = 20
         i.placeholder = "Insurance company".localized
         i.didSelect { (txt, index, _) in
@@ -167,6 +168,8 @@ class CustomRegisterView: CustomBaseView {
     let registerViewModel = RegisterViewModel()
     var insuracneArray = [String]()
     var insuracneIDSArray = [Int]()
+    let showPassword = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()

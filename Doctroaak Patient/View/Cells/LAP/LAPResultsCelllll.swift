@@ -21,11 +21,13 @@ class  LAPResultsCelllll: BaseCollectionCell {
             let city = getCityFromIndex(lab.city)
             let area = getAreaFromIndex(lab.area)
             
-            
-            let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-            attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
-            profileInfoLabel.attributedText = attributeText
-            profileInfoDeliveryyLabel.text = lab.delivery
+            putAttributedText(la: profileInfoLabel, ft: name+"\n", st: "\(area), \(city) \n")
+            let delivery = lab.delivery.toInt() == 0 ? "Delivery".localized : "Not Delivery"
+
+//            let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+//            attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
+//            profileInfoLabel.attributedText = attributeText
+            profileInfoDeliveryyLabel.text = delivery
             let urlString = lab.photo
             guard let url = URL(string: urlString), let lat = lab.latt.toDouble(),let lng = lab.lang.toDouble() else { return  }
             profileImage.sd_setImage(with: url)
@@ -40,9 +42,10 @@ class  LAPResultsCelllll: BaseCollectionCell {
             let city = getCityFromIndex(rad.city)
             let area = getAreaFromIndex(rad.area)
             
-            let attributeText = NSMutableAttributedString(string: name, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-            attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
-            profileInfoLabel.attributedText = attributeText
+            putAttributedText(la: profileInfoLabel, ft: name+"\n", st: "\(area), \(city) \n")
+//            let attributeText = NSMutableAttributedString(string: name, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+//            attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
+//            profileInfoLabel.attributedText = attributeText
             profileInfoDeliveryyLabel.text = rad.delivery
             let urlString = rad.photo
             guard let url = URL(string: urlString), let lat = rad.latt.toDouble(),let lng = rad.lang.toDouble() else { return  }
@@ -115,6 +118,7 @@ class  LAPResultsCelllll: BaseCollectionCell {
     }
     
     func setupViewss() {
+        [profileInfoDeliveryyLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         backgroundColor = .white
         let ddx = hstack(UIView(),locationImage, spacing: 16)
         
@@ -159,6 +163,12 @@ class  LAPResultsCelllll: BaseCollectionCell {
         
         return citName[ff - 1 ]
     }
+    
+//    func putAttributedText(la:UILabel,ft:String,st:String)  {
+//        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
+//        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+//        la.attributedText = attributeText
+//    }
     
     func getAreaFromIndex(_ index:Int) -> String {
         var citName = [String]()

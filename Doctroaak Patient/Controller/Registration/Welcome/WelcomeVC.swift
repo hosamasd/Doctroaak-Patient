@@ -466,7 +466,7 @@ class WelcomeVC: CustomBaseViewVC {
             })
             
             mTY?.forEach({ (city) in
-                mmNNameArray.append(city.name)
+                mTYNameArray.append(city.name)
                 mTYNameArray.append(city.nameAr)
                 mTYNameFR.append(city.nameFr )
                 mTYIdData.append(city.id)
@@ -510,10 +510,10 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(mNNameARData, forKey: UserDefaultsConstants.medicineNameARArray)
             userDefaults.set(mNIdData, forKey: UserDefaultsConstants.medicineNameIDSArray)
             
-            userDefaults.set(mmNNameArray, forKey: UserDefaultsConstants.medicineTypeArray)
-            userDefaults.set(mNNameFR, forKey: UserDefaultsConstants.medicineTypeFRArray)
-            userDefaults.set(mNNameARData, forKey: UserDefaultsConstants.medicineTypeARArray)
-            userDefaults.set(mNIdData, forKey: UserDefaultsConstants.medicineTypeIDSArray)
+            userDefaults.set(mTYNameArray, forKey: UserDefaultsConstants.medicineTypeArray)
+            userDefaults.set(mTYNameFR, forKey: UserDefaultsConstants.medicineTypeFRArray)
+            userDefaults.set(mTYNameARData, forKey: UserDefaultsConstants.medicineTypeARArray)
+            userDefaults.set(mTYIdData, forKey: UserDefaultsConstants.medicineTypeIDSArray)
             
             //anaylsis
             userDefaults.set(labAnaylsisNameArray, forKey: UserDefaultsConstants.labAnalysisNameArray)
@@ -524,7 +524,7 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(radAnaylsisNameArray, forKey: UserDefaultsConstants.radAnalysisNameArray)
             userDefaults.set(radAnaylsisNameARData, forKey: UserDefaultsConstants.radAnalysisNameARArray)
             userDefaults.set(radAnaylsisNameFR, forKey: UserDefaultsConstants.radAnalysisNameFRArray)
-            userDefaults.set(radAnaylsisIdData, forKey: UserDefaultsConstants.medicineTypeIDSArray)
+            userDefaults.set(radAnaylsisIdData, forKey: UserDefaultsConstants.radAnalysisIdArray)
             
             
             userDefaults.set(dNameArray, forKey: UserDefaultsConstants.degreeNameArray)

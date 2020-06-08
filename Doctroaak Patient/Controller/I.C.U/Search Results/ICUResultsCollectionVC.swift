@@ -12,11 +12,16 @@ class ICUResultsCollectionVC: BaseCollectionVC {
     
     fileprivate let cellId = "cellId"
     var icuArray =  [ICUFilterModel]()
+    var icubationArray =  [IncubtionSearchModel]()
+    var index:Int = 0
+    var handleSelectedItem:((ICUFilterModel)->Void)?
+    var handleSecondSelectedItem:((IncubtionSearchModel)->Void)?
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(icuArray.count, text: "No Data Added Yet".localized)
 
-        return icuArray.count
+        return index == 0 ?  icuArray.count : icubationArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -27,6 +32,17 @@ class ICUResultsCollectionVC: BaseCollectionVC {
         cell.profileImage.backgroundColor = indexPath.item % 2 == 0 ? .gray : .yellow
 
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if index == 0 {
+                    let ic = icuArray[indexPath.item]
+            handleSelectedItem?(ic)
+
+        }else {
+            let ic = icubationArray[indexPath.item] 
+                handleSecondSelectedItem?(ic)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

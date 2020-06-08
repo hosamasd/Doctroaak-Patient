@@ -38,6 +38,18 @@ class ICUSearchVC: CustomBaseViewVC {
         return v
     }()
     
+    fileprivate let index:Int!
+    
+    init(index:Int) {
+        self.index=index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
@@ -96,10 +108,48 @@ class ICUSearchVC: CustomBaseViewVC {
         
     }
     
-    func goToNext(_ users:[ICUFilterModel])  {
-        let details = ICUSearchResultsVC()
+    func goToNext(_ users:[ICUFilterModel]? = nil,_ ss:[IncubtionSearchModel]? = nil)  {
+        let details = ICUSearchResultsVC(index: index)
         details.icuArray=users
+        details.icubationArray = ss
         navigationController?.pushViewController(details, animated: true)
+    }
+    
+    func performICU()  {
+        customICUSearchView.icuViewModel.performSearchinging { (base, err) in
+                   if let err = err {
+                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+                       self.activeViewsIfNoData();return
+                   }
+                   SVProgressHUD.dismiss()
+                   self.activeViewsIfNoData()
+                   guard let users = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+                   
+                   DispatchQueue.main.async {
+                       self.goToNext(users)
+                   }
+                   
+                   
+               }
+    }
+    
+    func performIncubation()  {
+           customICUSearchView.icuViewModel.performIncubationSearching { (base, err) in
+                
+            if let err = err {
+                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                           self.activeViewsIfNoData();return
+                       }
+                       SVProgressHUD.dismiss()
+                       self.activeViewsIfNoData()
+                       guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+                       
+                       DispatchQueue.main.async {
+                           self.goToNext(nil,user)
+                       }
+            
+            
+        }
     }
     
     @objc  func handleBack()  {
@@ -108,21 +158,9 @@ class ICUSearchVC: CustomBaseViewVC {
     
     @objc func handleSearch()  {
         
-        customICUSearchView.icuViewModel.performSearchinging { (base, err) in
-            if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.activeViewsIfNoData();return
-            }
-            SVProgressHUD.dismiss()
-            self.activeViewsIfNoData()
-            guard let users = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            
-            DispatchQueue.main.async {
-                self.goToNext(users)
-            }
-            
-            
-        }
+        index == 0 ? performICU() : performIncubation()
+        
+       
         
     }
     

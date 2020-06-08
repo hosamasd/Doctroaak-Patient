@@ -34,9 +34,10 @@ class ICUResultsCell: BaseCollectionCell {
     lazy var profileInfoLabel:UILabel = {
         let l = UILabel()
         l.numberOfLines = 2
+        l.textAlignment =  MOLHLanguage.isRTLLanguage() ? .right : .left
         return l
     }()
-    lazy var profileInfoAvalibalityLabel = UILabel(text: "Avilabilty seats :  12", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var profileInfoAvalibalityLabel = UILabel(text: "Avilabilty seats :  12", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     
     lazy var profileInfoAvailbilityButton = createImagess(image: #imageLiteral(resourceName: "available"))
@@ -93,10 +94,10 @@ class ICUResultsCell: BaseCollectionCell {
         return b
     }
     
-    func putAttributedText(la:UILabel,ft:String,st:String)  {
-        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
-        la.attributedText = attributeText
-    }
+//    func putAttributedText(la:UILabel,ft:String,st:String)  {
+//        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
+//        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+//        la.attributedText = attributeText
+//    }
 
 }

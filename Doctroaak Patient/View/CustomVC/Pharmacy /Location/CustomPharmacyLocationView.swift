@@ -46,8 +46,12 @@ class CustomPharmacyLocationView: CustomBaseView {
         let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
         v.isHide(true)
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
-        
-        v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 0, bottom: 4, right: 16))
+            
+        }else {
+            v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+        }
         return v
     }()
     lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
@@ -58,14 +62,15 @@ class CustomPharmacyLocationView: CustomBaseView {
         v.constrainWidth(constant: 60)
         v.isUserInteractionEnabled=true
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
-
+        
         return v
     }()
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-
+        i.textColor = .black
+        
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
@@ -80,7 +85,8 @@ class CustomPharmacyLocationView: CustomBaseView {
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-
+        i.textColor = .black
+        
         i.arrowSize = 20
         i.placeholder = "City".localized
         i.didSelect { (txt, indexx, _) in
@@ -95,6 +101,8 @@ class CustomPharmacyLocationView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
+        i.textColor = .black
+        
         i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in
             self.pharamacyLocationViewModel.area = self.areaIDSArray[index]//index+1
@@ -153,6 +161,8 @@ class CustomPharmacyLocationView: CustomBaseView {
     
     
     override func setupViews() {
+        [titleLabel,soonLabel,addressLabel,delvieryLabel,insuranceLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+        
         let textStack = getStack(views: addressMainView,mainDropView,orLabel,mainDrop2View,mainDrop3View,insuranceView,delvieryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,searchSegmentedView,textStack,searchButton)
@@ -162,7 +172,13 @@ class CustomPharmacyLocationView: CustomBaseView {
         insuranceView.hstack(insuranceLabel,insuranceSwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
         delvieryView.hstack(delvieryLabel,delvierySwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -222,7 +238,7 @@ class CustomPharmacyLocationView: CustomBaseView {
         if isArabic {
             
             
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.pharamacyNameARArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.pharamacyIdrray) as? [Int] {
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.pharamacyNameArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.pharamacyIdrray) as? [Int] {
                 
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds,nn: nameArrays,ni: nameIdss )
                 

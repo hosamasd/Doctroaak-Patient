@@ -19,6 +19,14 @@ class AddMedicineCell: BaseCollectionCell {
         }
     }
     
+    var meds:PharamcyWithNameOrderModel?{
+           didSet{
+               guard let med = meds else { return  }
+            nameLabel.text = med.medicineName
+            typeLabel.text = med.medicineType
+               countLabel.text = "\(med.amount)"
+           }
+       }
     
     
     lazy var nameLabel = UILabel(text: "Name", font: .systemFont(ofSize: 20), textColor: .black,textAlignment: .left)
@@ -48,6 +56,7 @@ class AddMedicineCell: BaseCollectionCell {
         return v
     }()
     var handleRemovePharamcay:((PharamcyOrderModel)->Void)?
+//    var handleRemovePharamcay:((PharamcyOrderModel,PharamcyWithNameOrderModel)->Void)?
 
     
     override func setupViews() {

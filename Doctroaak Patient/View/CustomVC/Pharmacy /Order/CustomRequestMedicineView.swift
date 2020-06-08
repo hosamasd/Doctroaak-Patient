@@ -17,6 +17,8 @@ class CustomRequestMedicineView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
+        i.textColor = .black
+
         i.placeholder = "Name".localized
         return i
     }()
@@ -25,7 +27,7 @@ class CustomRequestMedicineView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
-        //        i.arrowColor = .white
+        i.textColor = .black
         i.placeholder = "Type".localized
         return i
     }()

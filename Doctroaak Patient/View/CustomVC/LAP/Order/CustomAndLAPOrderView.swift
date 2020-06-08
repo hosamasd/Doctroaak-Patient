@@ -88,6 +88,7 @@ class CustomAndLAPOrderView: CustomBaseView {
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        i.textColor = .black
 
         i.arrowSize = 20
         i.placeholder = "Name".localized
@@ -209,6 +210,8 @@ class CustomAndLAPOrderView: CustomBaseView {
     }
     
     override func setupViews() {
+        [soonLabel,titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
 
         let mainStacxk = getStack(views: firstStack,orLabel,secondStack, spacing: 16, distribution: .fill, axis: .vertical)
@@ -218,8 +221,13 @@ class CustomAndLAPOrderView: CustomBaseView {
 
         
 
-        
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

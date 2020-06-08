@@ -27,6 +27,12 @@ class IncubationSearchResultsVC: CustomBaseViewVC {
     lazy var customIncubationResultsView:CustomIncubationResultsView = {
         let v = CustomIncubationResultsView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.handleSelectedItem = {[unowned self] icu in
+            let result = ICUSlelcetedResultVC( index:1 )
+            result.incubation=icu
+            self.navigationController?.pushViewController(result, animated: true)
+        }
+
         return v
     }()
     

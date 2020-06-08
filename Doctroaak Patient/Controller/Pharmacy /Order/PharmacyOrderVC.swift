@@ -35,8 +35,14 @@ class PharmacyOrderVC: CustomBaseViewVC {
         v.orderSegmentedView.didSelectItemWith = {[unowned self] (index, title) in
             self.hideOrUndie(index: index)
         }
+        v.handleRemovePharamcay = {[unowned self] arr , index in
+            self.deleteThis(arr,index)
+        }
         return v
     }()
+    
+   
+    
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
         t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
@@ -112,6 +118,12 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
+    func deleteThis(_ ss:PharamcyOrderModel,_ index:IndexPath)  {
+           customPharmacyOrderView.addMedicineCollectionVC.medicineArray.remove(at: index.item)
+           DispatchQueue.main.async {
+               self.customPharmacyOrderView.addMedicineCollectionVC.collectionView.reloadData()
+           }
+       }
     
     func hideOrUndie(index:Int)  {
         self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = index == 0 ? true : false

@@ -89,10 +89,12 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        i.textColor = .black
 
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect { (txt, indexx, _) in
+            self.choosedName=txt
             //                                   self.pharamacyOrderViewModel. = self.index
             self.medicineNameChosen = self.medicineNameIDSArray[indexx]
         }
@@ -101,10 +103,12 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     lazy var typeDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        i.textColor = .black
 
         i.arrowSize = 20
         i.placeholder = "Type".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
+            self.choosedType=txt
             self.medicineTypeChosen = self.mdeicineTypeIDSArray[indexx]
         }
         return i
@@ -114,6 +118,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         let v = CustomAddMinusView()
         v.handleAddClousre = {[unowned self] count in
             self.medicineCount += 1
+            
         }
         v.handleMinusClousre = {[unowned self] count in
             self.medicineCount = max(1, self.medicineCount-1)
@@ -122,6 +127,9 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     } ()
     lazy var addMedicineCollectionVC:AddMedicineCollectionVC = {
         let vc = AddMedicineCollectionVC()
+        vc.handleRemovePharamcay = {[unowned self] isn , indexPath in
+            self.handleRemovePharamcay?(isn,indexPath)
+        }
         return vc
     }()
     lazy var orLabel:UILabel = {
@@ -164,13 +172,17 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         return button
     }()
     //    var handleRemovePharamcay:((PharamcyOrderModel,Int)->Void)?
-    
+    var handleRemovePharamcay:((PharamcyOrderModel,IndexPath)->Void)?
+
     let pharamacyOrderViewModel = PharamacyOrderViewModel()
     var medicineNameArray = [String]()
     var mdeicineTypeArray = [String]()
     var medicineNameChosen = 0
     var medicineTypeChosen = 0
-    var medicineCount = 0
+    var medicineCount = 1
+    var choosedName = ""
+    var choosedType = ""
+
     lazy var textView:UITextView = {
         let tx = UITextView()
         tx.backgroundColor = #colorLiteral(red: 0.9180622697, green: 0.918194294, blue: 0.918033421, alpha: 1)
@@ -235,7 +247,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         if isArabic {
             
             
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.medicineNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.medicineNameIDSArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.medicineTypeARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.medicineTypeIDSArray) as? [Int]  {
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.medicineNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.medicineNameIDSArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.medicineTypeArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.medicineTypeIDSArray) as? [Int]  {
                 
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds )
                 
@@ -264,6 +276,8 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     }
     
     override func setupViews() {
+        [titleLabel,soonLabel,quantityLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         main2DropView.hstack(typeDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
         
@@ -273,7 +287,13 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         
         textView.hstack(placeHolderLabel).withMargins(.init(top: 16, left: 16, bottom: 0, right: 0))
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+                 LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+             }else {
+                 
+                 LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+             }
+//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -80, right: 0))
@@ -285,8 +305,20 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     }
     
     @objc  func handleAddMore()  {
-        let type = PharamcyOrderModel(medicineID: medicineNameChosen, medicineTypeID: medicineTypeChosen, amount: medicineCount)
-        self.addMedicineCollectionVC.medicineArray.append(type)
+        nameDrop.text = "Name".localized
+        typeDrop.text = "Type".localized
+               nameDrop.selectedIndex = -1
+        typeDrop.selectedIndex = -1
+        
+        let text = self.choosedName
+        let type = self.choosedType
+        
+//        let medicine = PharamcyWithNameOrderModel(medicineName: text, medicineType: type, amount: medicineCount)
+        
+               
+//               addMedicineCollectionVC.medicineTextArray.append(medicine)
+        let types = PharamcyOrderModel(medicineID: medicineNameChosen, medicineTypeID: medicineTypeChosen, amount: medicineCount)
+        self.addMedicineCollectionVC.medicineArray.append(types)
         DispatchQueue.main.async {
             
             //            self.addMedicineCollectionVC.view.isHide(false)

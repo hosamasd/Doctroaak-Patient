@@ -29,8 +29,8 @@ class LAPOrderVC: CustomBaseViewVC {
     lazy var customAndLAPOrderView:CustomLAPOrderView = {
         let v = CustomLAPOrderView()
         v.index=index
-        v.patientId = patientId ?? 0
-        v.apiToken = apiToken ?? ""
+//        v.patientId = patientId ?? 0
+//        v.apiToken = apiToken ?? ""
         v.labId=self.labId
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
@@ -38,14 +38,24 @@ class LAPOrderVC: CustomBaseViewVC {
             self.hideOrUndie(index: index)
         }
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
-        
+        v.handleRemoveItem = {[unowned self] arr , index in
+                   self.deleteThis(arr,index)
+               }
         return v
     }()
+    
 //    var meidicneArray:[RadiologyOrderModel]?
     
     var bubleViewHeightConstraint:NSLayoutConstraint!
-    var apiToken:String?
-    var patientId:Int? 
+//    var apiToken:String?
+//    var patientId:Int?
+    
+    var patient:PatienModel? {
+        didSet{
+            guard let patient = patient else { return  }
+        }
+    }
+    
     fileprivate let labId:Int!
     //    fileprivate let radId:Int!
     
@@ -66,15 +76,20 @@ class LAPOrderVC: CustomBaseViewVC {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            patient = cacheObjectCodabe.storedValue
+        }else {}
+       }
+    
     //MARK:-User methods
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
+   
     
     override func setupViews() {
         
@@ -87,6 +102,13 @@ class LAPOrderVC: CustomBaseViewVC {
         bubleViewHeightConstraint.isActive = true
         mainView.addSubViews(views: customAndLAPOrderView)
         customAndLAPOrderView.fillSuperview()
+    }
+    
+    func deleteThis(_ ss:RadiologyOrderModel,_ index:IndexPath)  {
+        customAndLAPOrderView.addLapCollectionVC.medicineArray.remove(at: index.item)
+        DispatchQueue.main.async {
+            self.customAndLAPOrderView.addLapCollectionVC.collectionView.reloadData()
+        }
     }
     
     func hideOrUndie(index:Int)  {

@@ -15,29 +15,33 @@ class AddLapCollectionVC: BaseCollectionVC {
     var medicineArray = [RadiologyOrderModel]()//["one","two","three","four","fifie"]
     var index:Int = 0
     var showOrderOnly:Bool = false
-
-   
+    var medicineTextsArray = [String]()
+    var handleRemoveItem:((RadiologyOrderModel,IndexPath)->Void)?
+    
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(medicineArray.count, text: "No Data Added Yet".localized)
-
-        return medicineArray.count
+        
+        return medicineTextsArray.count//medicineArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AddLAPCell
-                let med = medicineArray[indexPath.item]
+        let med = medicineTextsArray[indexPath.item]
+        let meds = medicineArray[indexPath.item]
+        
         //
         cell.index=index
-        cell.med = med
+        cell.text = med
+        cell.med=meds
         [cell.closeImage].forEach({$0.isHide(showOrderOnly ? true : false)})
-
+        
         cell.handleRemoveItem = {[unowned self] item in
-            self.medicineArray.removeAll(where: {$0.raysID==item.raysID})
-            self.collectionView.reloadData()
+            self.handleRemoveItem?(item,indexPath)
         }
         return cell
     }
@@ -47,12 +51,12 @@ class AddLapCollectionVC: BaseCollectionVC {
     }
     
     //MARK:-User methods
-
-  
+    
+    
     
     override func setupCollection() {
         collectionView.backgroundColor = .white
-//        collectionView.backgroundColor = .red
+        //        collectionView.backgroundColor = .red
         collectionView.register(AddLAPCell.self, forCellWithReuseIdentifier: cellID)
     }
 }

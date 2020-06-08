@@ -7,7 +7,49 @@
 //
 
 import UIKit
+import MOLH
+import SDWebImage
+
 class ICUSelectedResultsCell: BaseCollectionCell {
+    
+    var icu:ICUFilterModel? {
+        didSet{
+            guard let ic = icu else { return  }
+            
+            profileInfoNameLabel.text = MOLHLanguage.isRTLLanguage() ? ic.nameAr : ic.name
+            profileInfoDescriptionLabel.text = MOLHLanguage.isRTLLanguage() ?  ic.descriptionAr : ic.datumDescription
+            profileInfoAvilabiltyLabel.text = "Avilabilty seats".localized + " :  \(ic.bedNumber)"
+            profileInfoCityLabel.text = "City ".localized + " : \(getCityFromIndex(ic.city))"
+            profileInfoAreaLabel.text = "Area ".localized + " : \(getAreaFromIndex(ic.area))"
+            
+            for(index,view) in starsStackView.arrangedSubviews.enumerated(){
+                guard let img = view as? UIImageView else {return}
+                
+                let ratingInt = Int(ic.rate  )
+                img.image = index >= ratingInt ?? 0 ? #imageLiteral(resourceName: "star-1") : #imageLiteral(resourceName: "star")
+             }
+        }
+    }
+    
+    var icubation:IncubtionSearchModel? {
+        didSet{
+            guard let ic = icubation else { return  }
+            
+            profileInfoNameLabel.text = MOLHLanguage.isRTLLanguage() ? ic.nameAr : ic.name
+            profileInfoDescriptionLabel.text = MOLHLanguage.isRTLLanguage() ?  ic.descriptionAr : ic.datumDescription
+            profileInfoAvilabiltyLabel.text = "Avilabilty seats".localized + " :  \(ic.bedNumber)"
+            profileInfoCityLabel.text = "City ".localized + " : \(getCityFromIndex(ic.city))"
+            profileInfoAreaLabel.text = "Area ".localized + " : \(getAreaFromIndex(ic.area))"
+            
+            for(index,view) in starsStackView.arrangedSubviews.enumerated(){
+                guard let img = view as? UIImageView else {return}
+                
+                let ratingInt = Int(ic.rate  )
+                img.image = index >= ratingInt ?? 0 ? #imageLiteral(resourceName: "star-1") : #imageLiteral(resourceName: "star")
+             }
+        }
+    }
+    
     
      lazy var profileImage:UIImageView = {
             let i = UIImageView(backgroundColor: .gray)
@@ -42,15 +84,15 @@ class ICUSelectedResultsCell: BaseCollectionCell {
         lazy var profileInfoConsultaionButton = createImagess(image: #imageLiteral(resourceName: "avatar"))
         
         lazy var firstStack:UIStackView = {
-            let b =  hstack(profileInfoAddressButton,profileInfoAvilabiltyLabel,spacing:8)
+            let b = MOLHLanguage.isRTLLanguage() ? hstack(profileInfoAvilabiltyLabel,profileInfoAddressButton,spacing:8) : hstack(profileInfoAvilabiltyLabel,profileInfoAddressButton,spacing:8)
             return b
         }()
         lazy var secondStack:UIStackView = {
-            let b = hstack(profileInfoReservationButton,profileInfoCityLabel,spacing:8)
+            let b = MOLHLanguage.isRTLLanguage()  ? hstack(profileInfoCityLabel,profileInfoReservationButton,spacing:8) : hstack(profileInfoReservationButton,profileInfoCityLabel,spacing:8)
             return b
         }()
         lazy var thirdStack:UIStackView = {
-            let b = hstack(profileInfoConsultaionButton,profileInfoAreaLabel,spacing:8)
+            let b = MOLHLanguage.isRTLLanguage() ? hstack(profileInfoAreaLabel,profileInfoConsultaionButton,spacing:8) : hstack(profileInfoConsultaionButton,profileInfoAreaLabel,spacing:8)
             return b
         }()
       
@@ -85,6 +127,7 @@ class ICUSelectedResultsCell: BaseCollectionCell {
         }
         
         func setupViewss() {
+//            [profileInfoAreaLabel,profileInfoDescriptionLabel,profileInfoAvilabiltyLabel,profileInfoCityLabel,profileInfoAreaLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left })
             backgroundColor = .white
             layer.cornerRadius = 8
             clipsToBounds = true
@@ -105,4 +148,48 @@ class ICUSelectedResultsCell: BaseCollectionCell {
             b.constrainHeight(constant: 20)
             return b
         }
+    
+    func getCityFromIndex(_ index:Int) -> String {
+        var citName = [String]()
+        var cityId = [Int]()
+        
+        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
+            
+            citName = cityArray
+            cityId = cityIds
+            
+            
+            
+        }else {
+            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
+                citName = cityArray
+                cityId = cityIds
+            }
+        }
+        let ss = cityId.filter{$0 == index}
+        let ff = ss.first ?? 1
+        
+        return citName[ff - 1 ]
+    }
+    
+    func getAreaFromIndex(_ index:Int) -> String {
+        var citName = [String]()
+        var cityId = [Int]()
+        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
+            
+            citName = cityArray
+            cityId = cityIds
+            
+            
+            
+        }else {
+            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
+                citName = cityArray
+                cityId = cityIds
+            }
+        }
+        let ss = cityId.filter{$0 == index}
+        let ff = ss.first ?? 1
+        return citName[ff-1]
+    }
 }

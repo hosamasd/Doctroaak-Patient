@@ -80,6 +80,8 @@ class CustomDoctorSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
+        i.textColor = .black
+
         i.placeholder = "City".localized
         i.didSelect { (txt, index, _) in
             self.getAreaAccordingToCityId(index: index)
@@ -94,7 +96,7 @@ class CustomDoctorSearchView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.arrowSize = 20
-        //        i.arrowColor = .white
+        i.textColor = .black
         i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in
             self.doctorSearchViewModel.area = self.areaIDSArray[index]//index+1

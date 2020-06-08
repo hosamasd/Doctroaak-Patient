@@ -17,10 +17,21 @@ class AddLAPCell: BaseCollectionCell {
             
             DispatchQueue.main.async {
                 self.nameLabel.text = self.getNameFromIndex(med.raysID)
-
+                
             }
         }
     }
+    
+    var text:String?{
+        didSet{
+            guard let te = text else { return  }
+            DispatchQueue.main.async {
+                self.nameLabel.text = te
+                
+            }
+        }
+    }
+    
     
     var index = 0
     
@@ -63,15 +74,15 @@ class AddLAPCell: BaseCollectionCell {
         
         if self.index == 0 {
             let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labAnalysisNameARArray :  UserDefaultsConstants.labAnalysisNameArray
-            let ff = UserDefaultsConstants.labIdArray
+            let ff = UserDefaultsConstants.labAnalysisIdArray
             
             checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
             
         }else {
             let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radAnalysisNameARArray :  UserDefaultsConstants.radAnalysisNameArray
-                       let ff = UserDefaultsConstants.radiologyIdArray
-                       
-                       checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
+            let ff = UserDefaultsConstants.radAnalysisIdArray
+            
+            checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
         }
         let ss = cityId.filter{$0 == indezx}
         let ff = ss.first ?? 1
@@ -80,19 +91,21 @@ class AddLAPCell: BaseCollectionCell {
     }
     
     func checkLanguage(citName: inout [String], cityId:inout [Int],nameEn:String,nameId:String)  {
-        
-        
-        if let  cityArray = userDefaults.value(forKey: nameEn) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisIdArray) as? [Int]{
+        if let  cityArray = userDefaults.value(forKey: nameEn) as? [String],let cityIds = userDefaults.value(forKey: nameId) as? [Int]{
             
             citName = cityArray
             cityId = cityIds
-         }
+        }
+        
+        
+        
+        
         
     }
     
     @objc func handleRemove()  {
         guard let med = med else { return  }
-
-           handleRemoveItem?(med)
-       }
+        
+        handleRemoveItem?(med)
+    }
 }

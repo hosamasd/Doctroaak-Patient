@@ -76,9 +76,11 @@ class CustomLAPOrderView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.arrowSize = 20
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        i.textColor = .black
 
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
+            self.selectedName = txt
             self.laPOrderViewModel.index = self.index
             if self.index == 0 {
                 self.laPOrderViewModel.name  = self.labNameIDSArray[indexx]
@@ -95,6 +97,9 @@ class CustomLAPOrderView: CustomBaseView {
     lazy var addLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
         vc.index=self.index
+        vc.handleRemoveItem = {[unowned self] item,index in
+                   self.handleRemoveItem?(item,index)
+               }
         return vc
     }()
     lazy var addMoreImage:UIImageView = {
@@ -125,13 +130,15 @@ class CustomLAPOrderView: CustomBaseView {
         s.isHide(true)
         return s
     }()
-    var handleRemoveItem:((RadiologyOrderModel)->Void)?
+    var handleRemoveItem:((RadiologyOrderModel,IndexPath)->Void)?
 
     var constainedLogoAnchor:AnchoredConstraints!
     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
     var bubleViewCenterImgHeightConstraint:NSLayoutConstraint!
     var bubleViewTopSegConstraint:NSLayoutConstraint!
     var index = 0
+    var selectedName = ""
+    
     var labId:Int? {
         didSet{
             guard let labId = labId else { return  }
@@ -173,7 +180,7 @@ class CustomLAPOrderView: CustomBaseView {
         if isArabic {
             
             
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.radAnalysisNameARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.radAnalysisIdArray) as? [Int] {
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.radAnalysisNameArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.radAnalysisIdArray) as? [Int] {
                 
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds )
                 
@@ -197,6 +204,7 @@ class CustomLAPOrderView: CustomBaseView {
     
     
     override func setupViews() {
+        [soonLabel,titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         let mainStacxk = getStack(views: firstStack,orLabel,secondStack, spacing: 16, distribution: .fill, axis: .vertical)
         
         mainDropView.hstack(nameDrop).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
@@ -204,8 +212,13 @@ class CustomLAPOrderView: CustomBaseView {
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
         
-        
-        constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+                  LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+              }else {
+                  
+                  LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+              }
+//        constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -80, right: 0))
@@ -254,8 +267,12 @@ class CustomLAPOrderView: CustomBaseView {
         guard let name = laPOrderViewModel.name else {print("all fields required"); return  }
         nameDrop.text = "Name".localized
         nameDrop.selectedIndex = -1
+        
+        let text = selectedName
+        
+        addLapCollectionVC.medicineTextsArray.append(text)
         let order = RadiologyOrderModel(raysID: name)
-        addLapCollectionVC.medicineArray.append(order)
+  addLapCollectionVC.medicineArray.append(order)
         
         
         DispatchQueue.main.async {

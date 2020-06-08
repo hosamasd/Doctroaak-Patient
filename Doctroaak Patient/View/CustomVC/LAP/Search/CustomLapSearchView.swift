@@ -70,9 +70,9 @@ class CustomLapSearchView: CustomBaseView {
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        //        i.optionArray = ["one","two","three"]
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-
+        i.textColor = .black
+        
         i.arrowSize = 20
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
@@ -82,7 +82,7 @@ class CustomLapSearchView: CustomBaseView {
             }else{
                 self.lAPSearchViewModel.radiology_id = self.radiologyIDSArray[indexx]
             }
-//            self.lAPSearchViewModel.lab_id = index == 0 ? self.labNameIDSArray[index] : self.radiologyIDSArray[index]
+            //            self.lAPSearchViewModel.lab_id = index == 0 ? self.labNameIDSArray[index] : self.radiologyIDSArray[index]
         }
         
         return i
@@ -92,13 +92,14 @@ class CustomLapSearchView: CustomBaseView {
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-
-//        i.optionArray = ["one","two","three"]
+        i.textColor = .black
+        
+        //        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
         i.didSelect { (txt, indexx, _) in
             self.lAPSearchViewModel.index = self.index
-  self.getAreaAccordingToCityId(index: indexx)
+            self.getAreaAccordingToCityId(index: indexx)
             self.lAPSearchViewModel.city = self.cityIDSArray[indexx]//index+1
         }
         
@@ -108,8 +109,8 @@ class CustomLapSearchView: CustomBaseView {
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-
-//        i.optionArray = ["one","two","three"]
+        i.textColor = .black
+        
         i.arrowSize = 20
         i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in
@@ -171,6 +172,7 @@ class CustomLapSearchView: CustomBaseView {
     
     
     override func setupViews() {
+        [titleLabel,soonLabel,insuranceLabel,delvieryLabel,addressLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         let textStack = getStack(views: addressMainView,mainDropView,orLabel,mainDrop2View,mainDrop3View,insuranceView,delvieryView, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,searchSegmentedView,textStack,searchButton)
@@ -180,7 +182,13 @@ class CustomLapSearchView: CustomBaseView {
         insuranceView.hstack(insuranceLabel,insuranceSwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
         delvieryView.hstack(delvieryLabel,delvierySwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -240,7 +248,7 @@ class CustomLapSearchView: CustomBaseView {
         if isArabic {
             
             
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.labNameARArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let radArrays = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameARArray) as? [String],let radIdss = userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.labNameARArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let radArrays = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameARArray) as? [String],let radIdss = userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
                 
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds,nn: nameArrays,ni: nameIdss,rN: radArrays,rI: radIdss )
                 
@@ -254,7 +262,7 @@ class CustomLapSearchView: CustomBaseView {
         }
         self.cityDrop.optionArray = cityArray
         self.areaDrop.optionArray = areaArray
-        //        self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
+//                self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
         DispatchQueue.main.async {
             self.layoutIfNeeded()
         }

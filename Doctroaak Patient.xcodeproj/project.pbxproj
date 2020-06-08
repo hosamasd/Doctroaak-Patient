@@ -129,6 +129,7 @@
 		4EAF736524867F8900A19ADB /* LABProfileOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF736424867F8900A19ADB /* LABProfileOrderCell.swift */; };
 		4EAF736724867FA500A19ADB /* PharamacyProfileOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF736624867FA500A19ADB /* PharamacyProfileOrderCell.swift */; };
 		4EB0076C2483C02400819956 /* FavoriteStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0076B2483C02400819956 /* FavoriteStorage.swift */; };
+		4EB14053248E46E6009B53B8 /* PharamcyWithNameOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB14052248E46E6009B53B8 /* PharamcyWithNameOrderModel.swift */; };
 		4EB36AA124616A7F00B67458 /* MainPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB36AA024616A7F00B67458 /* MainPaymentVC.swift */; };
 		4EB36AA324616A9500B67458 /* CustomMainPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB36AA224616A9500B67458 /* CustomMainPaymentView.swift */; };
 		4EB36AA524616AC300B67458 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB36AA424616AC300B67458 /* PaymentViewModel.swift */; };
@@ -358,6 +359,7 @@
 		4EAF736424867F8900A19ADB /* LABProfileOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABProfileOrderCell.swift; sourceTree = "<group>"; };
 		4EAF736624867FA500A19ADB /* PharamacyProfileOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyProfileOrderCell.swift; sourceTree = "<group>"; };
 		4EB0076B2483C02400819956 /* FavoriteStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteStorage.swift; sourceTree = "<group>"; };
+		4EB14052248E46E6009B53B8 /* PharamcyWithNameOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamcyWithNameOrderModel.swift; sourceTree = "<group>"; };
 		4EB36AA024616A7F00B67458 /* MainPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPaymentVC.swift; sourceTree = "<group>"; };
 		4EB36AA224616A9500B67458 /* CustomMainPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainPaymentView.swift; sourceTree = "<group>"; };
 		4EB36AA424616AC300B67458 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
@@ -875,6 +877,7 @@
 			isa = PBXGroup;
 			children = (
 				4E60640B246C429600A93238 /* PharamcyOrderModel.swift */,
+				4EB14052248E46E6009B53B8 /* PharamcyWithNameOrderModel.swift */,
 			);
 			path = Pharamacy;
 			sourceTree = "<group>";
@@ -1766,6 +1769,7 @@
 				4EAE9DCA24852A4C00976CF1 /* CustomPatientFavoriteeseDoctorsView.swift in Sources */,
 				4EA37B9124700CBB0059EC4C /* OpenLocationUsingLatAndLongView.swift in Sources */,
 				4ED7127524321BD600074363 /* CustomIncubationResultsView.swift in Sources */,
+				4EB14053248E46E6009B53B8 /* PharamcyWithNameOrderModel.swift in Sources */,
 				4EB42F41246D231C001A4CCD /* MainGetRadiologyModel.swift in Sources */,
 				4EA8B1112430E0FE008473D3 /* HomeLeftMenuCollcetionVC.swift in Sources */,
 				4EDE92502460040A00205C64 /* MainRegisterAllModel.swift in Sources */,

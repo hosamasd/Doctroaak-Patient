@@ -238,9 +238,9 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         handleBookmarkDoctor?(docotr)
     }
     
-    func putAttributedText(la:UILabel,ft:String,st:String)  {
-        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
-        la.attributedText = attributeText
-    }
+//    func putAttributedText(la:UILabel,ft:String,st:String)  {
+//        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
+//        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+//        la.attributedText = attributeText
+//    }
 }

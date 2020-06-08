@@ -12,7 +12,8 @@ class IncubationResultsCollectionVC: BaseCollectionVC {
  
     fileprivate let cellId = "cellId"
     var incubationArray = [IncubtionSearchModel]()
-    
+    var handleSelectedItem:((IncubtionSearchModel)->Void)?
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(incubationArray.count, text: "No Data Added Yet".localized)
@@ -27,6 +28,11 @@ class IncubationResultsCollectionVC: BaseCollectionVC {
         cell.incu = inc
         cell.profileImage.backgroundColor = indexPath.item % 2 == 0 ? .gray : .yellow
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let ic = incubationArray[indexPath.item]
+        handleSelectedItem?(ic)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

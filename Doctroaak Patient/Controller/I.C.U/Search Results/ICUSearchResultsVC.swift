@@ -25,7 +25,11 @@ class ICUSearchResultsVC: CustomBaseViewVC {
     lazy var customICUResultsView:CustomICUResultsView = {
         let v = CustomICUResultsView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        
+        v.handleSelectedItem = {[unowned self] icu in
+            let result = ICUSlelcetedResultVC( index:0 )
+            result.icu=icu
+            self.navigationController?.pushViewController(result, animated: true)
+        }
         return v
     }()
     
@@ -33,12 +37,33 @@ class ICUSearchResultsVC: CustomBaseViewVC {
         didSet{
             guard let icu = icuArray else { return  }
             customICUResultsView.icuResultsCollectionVC.icuArray=icu
+            customICUResultsView.icuResultsCollectionVC.index=index
             DispatchQueue.main.async {
                 self.customICUResultsView.icuResultsCollectionVC.collectionView.reloadData()
             }
-            
-            
-        }
+         }
+    }
+    
+    var icubationArray: [IncubtionSearchModel]?{
+         didSet{
+             guard let icu = icubationArray else { return  }
+             customICUResultsView.icuResultsCollectionVC.icubationArray=icu
+            customICUResultsView.icuResultsCollectionVC.index=index
+
+             DispatchQueue.main.async {
+                 self.customICUResultsView.icuResultsCollectionVC.collectionView.reloadData()
+             }
+          }
+     }
+    
+    fileprivate let index:Int!
+    init(index:Int) {
+        self.index=index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {

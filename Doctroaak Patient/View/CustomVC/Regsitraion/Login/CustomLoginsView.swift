@@ -40,7 +40,7 @@ class CustomLoginsView: CustomBaseView {
       
         s.rightView = button
         s.rightViewMode = .always
-        
+        s.constrainHeight(constant: 60)
         return s
     }()
     lazy var forgetPasswordButton:UIButton = {
@@ -82,6 +82,8 @@ class CustomLoginsView: CustomBaseView {
     
     
     override func setupViews() {
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         [ phoneNumberTextField,passwordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         let forgetStack = MOLHLanguage.isRTLLanguage() ? getStack(views: forgetPasswordButton,UIView(), spacing: 8, distribution: .fill, axis: .horizontal) : getStack(views: UIView(),forgetPasswordButton, spacing: 8, distribution: .fill, axis: .horizontal)
         let createStack = MOLHLanguage.isRTLLanguage() ? getStack(views: createAccountButton,createAccountLabel, spacing: 0, distribution: .fill, axis: .horizontal) : getStack(views: createAccountLabel,createAccountButton, spacing: 0, distribution: .fill, axis: .horizontal)

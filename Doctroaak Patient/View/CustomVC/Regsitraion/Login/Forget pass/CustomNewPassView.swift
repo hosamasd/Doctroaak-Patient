@@ -8,6 +8,9 @@
 
 import SkyFloatingLabelTextField
 import UIKit
+import MOLH
+
+let showPassword = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
 
 class CustomNewPassView: CustomBaseView {
     
@@ -18,7 +21,7 @@ class CustomNewPassView: CustomBaseView {
         return i
     }()
     lazy var backImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
+        let i = UIImageView(image: MOLHLanguage.isRTLLanguage() ? #imageLiteral(resourceName: "left-arrow") : #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled = true
@@ -33,18 +36,19 @@ class CustomNewPassView: CustomBaseView {
         let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.imageEdgeInsets = showPassword //UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
         s.rightView = button
         s.rightViewMode = .always
+        s.constrainHeight(constant: 60)
         return s
     }()
     lazy var confirmPasswordTextField:UITextField = {
         let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.imageEdgeInsets = showPassword //UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
         s.rightView = button
@@ -68,6 +72,9 @@ class CustomNewPassView: CustomBaseView {
 
     
     override func setupViews() {
+
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         [passwordTextField,confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         let textStack = getStack(views: passwordTextField,confirmPasswordTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
@@ -77,9 +84,15 @@ class CustomNewPassView: CustomBaseView {
         NSLayoutConstraint.activate([
             choosePayLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             choosePayLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0)
-            ])
+        ])
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -90,32 +103,32 @@ class CustomNewPassView: CustomBaseView {
     }
     
     @objc func textFieldDidChange(text: UITextField)  {
-           guard let texts = text.text else { return  }
-           if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-               if text == confirmPasswordTextField {
-                   if text.text != passwordTextField.text {
-                       floatingLabelTextField.errorMessage = "Passowrd should be same".localized
-                       newPassViewModel.confirmPassword = nil
-                   }
-                   else {
-                       newPassViewModel.confirmPassword = texts
-                       floatingLabelTextField.errorMessage = ""
-                   }
-               }else
-               {
-                   if(texts.count < 8 ) {
-                       floatingLabelTextField.errorMessage = "password must have 8 character".localized
-                       newPassViewModel.password = nil
-                   }
-                   else {
-                       floatingLabelTextField.errorMessage = ""
-                       newPassViewModel.password = texts
-                   }
-               }
-               
-               
-           }
-       }
+        guard let texts = text.text else { return  }
+        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+            if text == confirmPasswordTextField {
+                if text.text != passwordTextField.text {
+                    floatingLabelTextField.errorMessage = "Passowrd should be same".localized
+                    newPassViewModel.confirmPassword = nil
+                }
+                else {
+                    newPassViewModel.confirmPassword = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+            }else
+            {
+                if(texts.count < 8 ) {
+                    floatingLabelTextField.errorMessage = "password must have 8 character".localized
+                    newPassViewModel.password = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    newPassViewModel.password = texts
+                }
+            }
+            
+            
+        }
+    }
     
     @objc func handleASD()  {
         passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry

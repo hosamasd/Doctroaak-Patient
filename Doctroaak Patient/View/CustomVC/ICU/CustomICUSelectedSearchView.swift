@@ -12,6 +12,14 @@ import MOLH
 
 class CustomICUSelectedSearchView: CustomBaseView {
     
+    var index:Int?{
+        didSet{
+            guard let index = index else { return  }
+            titleLabel.text = index == 0 ? "I.C.U".localized : "Incubation".localized
+        }
+    }
+    
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -44,10 +52,16 @@ class CustomICUSelectedSearchView: CustomBaseView {
     }()
     
     override func setupViews() {
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,icuSelectedResultsCell,mapView,mapLabel)
-        
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

@@ -8,6 +8,7 @@
 
 import SkyFloatingLabelTextField
 import UIKit
+import MOLH
 
 class CustomVerificationView: CustomBaseView {
     
@@ -18,7 +19,7 @@ class CustomVerificationView: CustomBaseView {
         return i
     }()
     lazy var backImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
+        let i = UIImageView(image: MOLHLanguage.isRTLLanguage() ? #imageLiteral(resourceName: "left-arrow") : #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled = true
@@ -54,7 +55,13 @@ class CustomVerificationView: CustomBaseView {
     
     
     override func setupViews() {
-        [ firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
+        [ firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField].forEach { (s) in
+            s.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+            s.textColor = .black
+        }
         resendButton.isEnabled = false
         let numbersStack = getStack(views: firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         //        let mainStack = getStack(views: verificationLabel, spacing: <#T##CGFloat#>, distribution: <#T##UIStackView.Distribution#>, axis: <#T##NSLayoutConstraint.Axis#>)
@@ -67,7 +74,13 @@ class CustomVerificationView: CustomBaseView {
             verificationLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+               }else {
+                   
+                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+               }
+//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

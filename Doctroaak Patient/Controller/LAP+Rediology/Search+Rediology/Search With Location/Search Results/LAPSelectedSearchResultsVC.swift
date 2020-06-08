@@ -44,8 +44,15 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
             customLAPSelectedSearchView.rad=radiologyArrayResults
         }
     }
-    var apiToken:String?
-       var patientId:Int?
+//    var apiToken:String?
+//       var patientId:Int?
+    
+    var patient:PatienModel? {
+        didSet{
+            guard let patient = patient else { return  }
+        }
+    }
+    
     fileprivate let index:Int!
     init(index:Int) {
         self.index = index
@@ -82,9 +89,9 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         
         
         let book = LAPOrderVC(index:index,lab: labId )
-        book.patientId=patientId
-        book.apiToken=apiToken
-        
+//        book.patientId=patientId
+//        book.apiToken=apiToken
+        book.patient=self.patient
         navigationController?.pushViewController(book, animated: true)
     }
     

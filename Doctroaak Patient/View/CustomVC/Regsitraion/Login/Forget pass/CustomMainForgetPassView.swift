@@ -9,6 +9,7 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import MOLH
 
 
 class CustomForgetPassView: CustomBaseView {
@@ -19,7 +20,7 @@ class CustomForgetPassView: CustomBaseView {
         return i
     }()
     lazy var backImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
+        let i = UIImageView(image: MOLHLanguage.isRTLLanguage() ? #imageLiteral(resourceName: "left-arrow") : #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled = true
@@ -31,15 +32,51 @@ class CustomForgetPassView: CustomBaseView {
     lazy var choosePayLabel = UILabel(text: "Enter your phone number :".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var numberTextField:UITextField = {
-        let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .phonePad)
-        s.textAlignment = .center
+        let s = SkyFloatingLabelTextField()//createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
-        s.leftView = button
-        s.leftViewMode = .always
+        s.layer.borderWidth = 1
+        s.layer.borderColor = UIColor.lightGray.cgColor
+        s.placeholder = "(324) 242-2457"
+//        s.text = "phone".localized
+//        button.frame = CGRect(x: CGFloat(t.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
+
+//               let button = UIButton(type: .custom)
+//               button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
+//               button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+               button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+//               button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
+             
+               s.rightView = button
+               s.rightViewMode = .always
+        s.textAlignment = .center
+        s.constrainHeight(constant: 60)
         s.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
 
         return s
+//        let t = UITextField()//CustomSkyTextFieldRightPadding(padding:   16, height: 60)//createMainTextFields(padding:100,place: "(324) 242-2457", type: .phonePad)
+//
+//        t.layer.cornerRadius = 8
+//               t.clipsToBounds = true
+//               t.placeholder = "(324) 242-2457"
+//        t.textColor = .black
+//        t.keyboardType = .numberPad
+//               t.layer.borderWidth = 1
+//               t.layer.borderColor = UIColor.lightGray.cgColor
+//
+//        let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
+//        button.frame = CGRect(x: CGFloat(t.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
+//        if MOLHLanguage.isRTLLanguage() {
+//            t.rightView = button
+//                 t.rightViewMode = .always
+//        }else {
+//        t.leftView = button
+//        t.leftViewMode = .always
+//        }
+//        t.textAlignment = .center
+//
+//        t.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+//        t.constrainHeight(constant: 60)
+//        return t
     }()
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
@@ -50,24 +87,26 @@ class CustomForgetPassView: CustomBaseView {
         button.constrainHeight(constant: 50)
         
         button.clipsToBounds = true
-//        button.isEnabled = false
+                button.isEnabled = false
         return button
     }()
     
     let forgetPassViewModel = ForgetPassViewModel()
-
-    override func layoutSubviews() {
-        addGradientInSenderAndRemoveOther(sender: nextButton)
-    }
     
     override func setupViews() {
-        
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,nextButton,choosePayLabel,numberTextField)
         
         
         choosePayLabel.centerInSuperview(size: .init(width: frame.width, height: 120))
         //
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -78,18 +117,35 @@ class CustomForgetPassView: CustomBaseView {
     }
     
     @objc func textFieldDidChange(text: UITextField)  {
-          guard let texts = text.text else { return  }
-          if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-              if  !texts.isValidPhoneNumber    {
-                  floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                  forgetPassViewModel.phone = nil
-              }
-              else {
-                  floatingLabelTextField.errorMessage = ""
-                  forgetPassViewModel.phone = texts
-              }
-              
-              
-          }
-      }
+        guard let texts = text.text else { return  }
+        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+            if text == numberTextField {
+                if  !texts.isValidPhoneNumber    {
+                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                    forgetPassViewModel.phone = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    forgetPassViewModel.phone = texts
+                }
+                
+        }
+        }
+    }
+    
+//    @objc func textFieldDidChange(text: UITextField)  {
+//        guard let texts = text.text else { return  }
+//        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+//            if  !texts.isValidPhoneNumber    {
+//                floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+//                forgetPassViewModel.phone = nil
+//            }
+//            else {
+//                floatingLabelTextField.errorMessage = ""
+//                forgetPassViewModel.phone = texts
+//            }
+//
+//
+//        }
+//    }
 }

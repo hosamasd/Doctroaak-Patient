@@ -20,10 +20,7 @@ class PharamacyResultsCell: BaseCollectionCell {
             let area = getAreaFromIndex(pharamacy.area)
                         let avaible = pharamacy.active == 0 ? "Available" : "UnAvailable"
             
-            let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-            attributeText.append(NSAttributedString(string: " \(area), \(city)", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
-            profileInfoLabel.attributedText = attributeText
-            profileInfoLabel.numberOfLines = 0
+            putAttributedText(la: profileInfoLabel, ft: name+"\n", st: " \(area), \(city)")
             
             profileInfoDeliveryyLabel.text = "Delivery is \(avaible)"
             let urlString = pharamacy.photo
@@ -83,7 +80,8 @@ class PharamacyResultsCell: BaseCollectionCell {
     }
     
     func setupViewss() {
-        
+        [profileInfoLabel,profileInfoDeliveryyLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         
         let ss = stack(profileImage,UIView())
         let dd = stack(profileInfoLabel,firstStack).withMargins(.init(top: -16, left: 0, bottom: 0, right: 0))
