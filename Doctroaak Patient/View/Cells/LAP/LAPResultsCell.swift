@@ -33,14 +33,13 @@ class LAPResultsCell: BaseCollectionCell {
             let name = MOLHLanguage.isRTLLanguage() ?  rad.nameAr ?? rad.name : rad.name
             let city = getCityFromIndex(rad.city)
             let area = getAreaFromIndex(rad.area)
+            let delivery = lab.delivery.toInt() == 1 ? "Delivery".localized : "Not Delivery".localized
+
             //               let avaible = rad.active == 0 ? "Available" : "UnAvailable"
+            putAttributedText(la: profileInfoLabel, ft: name+"\n", st: "\n \(area), \(city) \n\n")
+
             
-            let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
-            attributeText.append(NSAttributedString(string: "\n\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
-            profileInfoLabel.attributedText = attributeText
-            profileInfoLabel.numberOfLines = 0
-            
-            profileInfoDeliveryyLabel.text = rad.delivery
+            profileInfoDeliveryyLabel.text = delivery
             let urlString = rad.photo
             guard let url = URL(string: urlString) else { return  }
             profileImage.sd_setImage(with: url)

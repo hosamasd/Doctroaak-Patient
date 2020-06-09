@@ -15,7 +15,7 @@ class CustomICUSelectedSearchView: CustomBaseView {
     var index:Int?{
         didSet{
             guard let index = index else { return  }
-            titleLabel.text = index == 0 ? "I.C.U".localized : "Incubation".localized
+            titleLabel.text = index == 1 ? "I.C.U".localized : "Incubation".localized
         }
     }
     

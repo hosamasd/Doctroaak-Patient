@@ -11,6 +11,20 @@ import MOLH
 
 class CustomICUResultsView: CustomBaseView {
     
+    var index:Int!{
+           didSet{
+               titleLabel.text = index == 1 ? "I.C.U".localized : "Incubation".localized
+               icuResultsCollectionVC.index = index
+               
+//               if index == 0 {
+//                   icuResultsCollectionVC.icuArray=icuArray
+//                   
+//               }else {
+//                   icuResultsCollectionVC.icubationArray = icubationArray
+//               }
+//               icuResultsCollectionVC.collectionView.reloadData()
+           }
+       }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -45,7 +59,8 @@ class CustomICUResultsView: CustomBaseView {
     }()
     var handleSelectedItem:((ICUFilterModel)->Void)?
     var handleSecondSelectedItem:((IncubtionSearchModel)->Void)?
-    
+    var icuArray =  [ICUFilterModel]()
+    var icubationArray =  [IncubtionSearchModel]()
     
     override func setupViews() {
         [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})

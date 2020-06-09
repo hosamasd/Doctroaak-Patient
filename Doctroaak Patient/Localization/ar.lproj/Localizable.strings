@@ -64,7 +64,7 @@
 //Search
 
 //ICUSearchVC
-"Search"="بحث";"Select Your Location"="اختر الموقع";"Area"="المنطقة";"City"="المدينة";
+"Search"="بحث";"Select Your Location"="اختر الموقع";"Area"="المنطقة";"City"="المدينة";"Area "="المنطقة ";"City "="المدينه ";
 
 //PharmacyLocationVC
 "OR"="او";"Pharmacy"="صيدلية";
@@ -76,7 +76,7 @@
 //ChooseLocationVC
 "Please press long to pick up location"="اضغط ضغطا مطولا لتغيير موقعك الجغرافي";
 //ICUSearchResultsVC
-"I.C.U"="العناية المركزه";"Avaible Seat"="المقاعد المتاحة";
+"I.C.U"="العناية المركزه";"Avilabilty seats"="المقاعد المتاحة";
 
 
 //ICUSlelcetedResultVC

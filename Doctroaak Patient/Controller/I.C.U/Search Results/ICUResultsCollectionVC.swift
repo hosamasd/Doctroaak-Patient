@@ -16,32 +16,35 @@ class ICUResultsCollectionVC: BaseCollectionVC {
     var index:Int = 0
     var handleSelectedItem:((ICUFilterModel)->Void)?
     var handleSecondSelectedItem:((IncubtionSearchModel)->Void)?
-
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(icuArray.count, text: "No Data Added Yet".localized)
-
+        
         return index == 0 ?  icuArray.count : icubationArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ICUResultsCell
-        let icu = icuArray[indexPath.item]
+        if index == 0 {
+            cell.icu = icuArray[indexPath.item]
+        }else {
+            cell.incubation = icubationArray[indexPath.item]
+        }
         
-        cell.icu=icu
         cell.profileImage.backgroundColor = indexPath.item % 2 == 0 ? .gray : .yellow
-
+        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if index == 0 {
-                    let ic = icuArray[indexPath.item]
+            let ic = icuArray[indexPath.item]
             handleSelectedItem?(ic)
-
+            
         }else {
             let ic = icubationArray[indexPath.item] 
-                handleSecondSelectedItem?(ic)
+            handleSecondSelectedItem?(ic)
         }
     }
     

@@ -22,6 +22,17 @@ class ICUResultsCell: BaseCollectionCell {
         }
     }
     
+    var incubation:IncubtionSearchModel? {
+           didSet{
+               guard let inc = incubation else { return  }
+                          let name = MOLHLanguage.isRTLLanguage() ? inc.nameAr : inc.name
+                          let des = MOLHLanguage.isRTLLanguage() ? inc.descriptionAr : inc.datumDescription
+                          
+                          putAttributedText(la: profileInfoLabel, ft: name+"\n", st: des)
+                          profileInfoAvalibalityLabel.text = "Avilabilty seats".localized + " : \(inc.bedNumber)"
+           }
+       }
+    
     lazy var profileImage:UIImageView = {
 
       let i = UIImageView(backgroundColor: .gray)
@@ -93,11 +104,4 @@ class ICUResultsCell: BaseCollectionCell {
         b.constrainHeight(constant: 20)
         return b
     }
-    
-//    func putAttributedText(la:UILabel,ft:String,st:String)  {
-//        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
-//        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
-//        la.attributedText = attributeText
-//    }
-
 }

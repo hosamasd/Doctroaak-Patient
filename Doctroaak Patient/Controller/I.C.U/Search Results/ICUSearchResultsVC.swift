@@ -30,6 +30,11 @@ class ICUSearchResultsVC: CustomBaseViewVC {
             result.icu=icu
             self.navigationController?.pushViewController(result, animated: true)
         }
+        v.handleSecondSelectedItem = {[unowned self] icu in
+            let result = ICUSlelcetedResultVC( index:0 )
+            result.incubation=icu
+            self.navigationController?.pushViewController(result, animated: true)
+        }
         return v
     }()
     

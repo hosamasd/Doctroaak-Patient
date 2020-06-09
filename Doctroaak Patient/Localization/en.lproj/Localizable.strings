@@ -83,13 +83,14 @@
 "Get well soon!"="Get well soon!";"I.C.U"="I.C.U";"Avaible Seat"="Avaible Seat";
 
 //ICUSlelcetedResultVC
-"Map"="Map";
+"Map"="Map";"Area "="Area ";"City "="City ";
 
 //IncubationSearchVC
 "Search by city and area"="Search by city and area";"Search by address"="Search by address";"Address"="Address";
 
+
 //IncubationSearchResultsVC
-"Incubation"="Incubation";
+"Incubation"="Incubation";"Avilabilty seats"="Avilabilty seats";
 
 //LapSearchVC
 "Searching..."="Searching..."; "Lab"= "Lab";"Radiology"="Radiology";"Insurance company"="Insurance company";

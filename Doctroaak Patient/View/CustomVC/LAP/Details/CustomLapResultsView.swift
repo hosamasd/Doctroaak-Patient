@@ -13,7 +13,7 @@ class CustomLapResultsView: CustomBaseView {
     
     var index:Int!{
         didSet{
-            titleLabel.text = index == 1 ? "Rediology".localized : "Lab".localized
+            titleLabel.text = index == 1 ? "Radiology".localized : "Lab".localized
             lapResultsCollectionVC.index = index
             
             if index == 0 {
