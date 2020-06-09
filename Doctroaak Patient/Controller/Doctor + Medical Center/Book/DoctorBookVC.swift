@@ -28,12 +28,14 @@ class DoctorBookVC: CustomBaseViewVC {
     lazy var cusomDoctorBookView:CusomDoctorBookView = {
         let v = CusomDoctorBookView()
         v.clinic_id = clinic_id
+        v.index=index
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
+        
         t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         t.modalTransitionStyle = .crossDissolve
         t.modalPresentationStyle = .overCurrentContext
@@ -63,9 +65,12 @@ class DoctorBookVC: CustomBaseViewVC {
         }
     }
     
+    fileprivate let index:Int!
+
     fileprivate let clinic_id:Int!
     
-    init(clinic_id:Int) {
+    init(clinic_id:Int,index:Int) {
+        self.index=index
         self.clinic_id=clinic_id
         super.init(nibName: nil, bundle: nil)
     }

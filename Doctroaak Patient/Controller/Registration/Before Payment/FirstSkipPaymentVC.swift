@@ -29,12 +29,27 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
         let v = CustomFirstSkipPaymentView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         v.handlePaymentAction = {[unowned self] in
-            let payment = MainPaymentVC()
-            self.navigationController?.pushViewController(payment, animated: true)
+            self.checkLoginState()
+            
         }
         return v
     }()
     
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleremoveLoginAlert()
+        }
+        return v
+    }()
     var infoDetails:[[String]]? {
         didSet{
             
@@ -44,16 +59,25 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                fetchData()
+        fetchData()
     }
     
     
     //MARK: -user methods
     
+    func checkLoginState()  {
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
+            present(customMainAlertVC, animated: true)
+        }else {
+            let payment = MainPaymentVC()
+            self.navigationController?.pushViewController(payment, animated: true)
+        }
+    }
     
     func fetchData()  {
         getStaticData()
-//        !userDefaults.bool(forKey: UserDefaultsConstants.isPaymentDetailsInfo) ? () : getStaticData()
+        //        !userDefaults.bool(forKey: UserDefaultsConstants.isPaymentDetailsInfo) ? () : getStaticData()
     }
     
     func getStaticData()  {
@@ -74,7 +98,7 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
             let arabicPages = Array(flattened[0...3])
             let englishPages = Array(flattened[4...7])
             
-        
+            
             DispatchQueue.main.async {
                 self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pages = MOLHLanguage.isRTLLanguage() ? arabicPages : englishPages
                 self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.numberOfPages = arabicPages.count
@@ -85,13 +109,13 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     
     override func setupViews() {
         view.addSubview(scrollView)
-               scrollView.fillSuperview()
-               scrollView.addSubview(mainView)
-               mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-               mainView.addSubViews(views: customFirstSkipPaymentView)
-               customFirstSkipPaymentView.fillSuperview()
-//        view.addSubview(customFirstSkipPaymentView)
-//        customFirstSkipPaymentView.fillSuperview()
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customFirstSkipPaymentView)
+        customFirstSkipPaymentView.fillSuperview()
+        //        view.addSubview(customFirstSkipPaymentView)
+        //        customFirstSkipPaymentView.fillSuperview()
     }
     
     override func setupNavigation()  {
@@ -99,6 +123,18 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     }
     
     @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        
         dismiss(animated: true)
+    }
+    
+    func handleremoveLoginAlert()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
+        let login = LoginVC()
+        let nav = UINavigationController(rootViewController: login)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+        
     }
 }

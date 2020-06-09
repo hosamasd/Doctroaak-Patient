@@ -113,7 +113,7 @@ class NotificationVC: CustomBaseViewVC {
             DispatchQueue.main.async {
                 self.customNotificationView.notificationsCollectionVC.notificationArray.remove(at: index.item)
                 self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
-                self.showToast(context: self, msg: "Deleted successfully...")
+                self.showToast(context: self, msg: MOLHLanguage.isRTLLanguage() ? user.message :  user.message)//"Deleted successfully...".localized)
             }
         }
     }
@@ -144,7 +144,6 @@ class NotificationVC: CustomBaseViewVC {
 
 //        navigationController?.popViewController(animated: true)
         }
-        //        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
         
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MOLH
 
 class BaseCollectionCell: UICollectionViewCell {
     
@@ -21,4 +22,5 @@ class BaseCollectionCell: UICollectionViewCell {
     func setupViews()  {
         backgroundColor = .white
     }
+    
 }

@@ -47,7 +47,7 @@ class CustomMainHomeView: CustomBaseView {
     }()
     lazy var main3View:UIView = makeMainSubViewWithAppendView(vv: [Image3,label3])
     lazy var label1 =  makeAttributedText(fir: " Find".localized.localized, sec: "Service".localized)
-    lazy var label2 =  makeAttributedText(fir: " Favorite".localized, sec: "Doctor".localized)
+    lazy var label2 =  makeAttributedText(fir: " Favorite".localized, sec: "Doctors".localized)
     lazy var label3 =  makeAttributedText(fir: " My".localized, sec: "Orders".localized)
     
     lazy var Image1:UIImageView = {
@@ -99,9 +99,9 @@ class CustomMainHomeView: CustomBaseView {
     var notifyImageconstainedDateAnchor:AnchoredConstraints!
     
     override func setupViews() {
-//        main3View.hstack(Image3,label3)
-//        main2View.hstack(Image2,label2)
-//        mainView.hstack(Image1,label1)
+        //        main3View.hstack(Image3,label3)
+        //        main2View.hstack(Image2,label2)
+        //        mainView.hstack(Image1,label1)
         let ss = getStack(views: mainView,main2View,main3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,soonLabel,ss,baseAdsCell)
@@ -136,8 +136,13 @@ class CustomMainHomeView: CustomBaseView {
     func makeAttributedText(fir:String,sec:String) -> UILabel {
         let l = UILabel()
         let attrString = NSMutableAttributedString()
-            .appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 16, fir+"\n")
-            .appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 16, sec)
+        if MOLHLanguage.isRTLLanguage() {
+            attrString.appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 16, sec+"\n")
+            attrString.appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 16, fir)
+        }else {
+            attrString.appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 16, fir+"\n")
+            attrString.appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 16, sec)
+        }
         l.attributedText = attrString
         l.numberOfLines = 2
         l.textAlignment = .center

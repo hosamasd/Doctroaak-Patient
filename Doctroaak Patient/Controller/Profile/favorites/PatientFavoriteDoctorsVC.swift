@@ -39,6 +39,16 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         return v
     }()
     var patient:PatienModel?
+    fileprivate let index:Int!
+
+    init(index:Int) {
+        self.index=index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -82,7 +92,7 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
             guard let user = base else { return}
             
             DispatchQueue.main.async {
-                self.showToast(context: self, msg: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+                self.showToast(context: self, msg: MOLHLanguage.isRTLLanguage() ? user.message ?? "" : user.messageEn ?? "")
                 
                 self.customPatientFavoriteeseDoctorsView.patientFavoriteDoctorsCollectionVC.collectionView.deleteItems(at: [indexPath])
             }
@@ -120,7 +130,7 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
     }
     
     func goToSelectedDocotor(_ d:PatientFavoriteModel)  {
-        let selected = DeatilsSelectedDoctorsVC()//(doctors: d)
+        let selected = DeatilsSelectedDoctorsVC(index: self.index)//(doctors: d)
         selected.selectedSecondDoctor=d
         selected.isFavorite=true
         navigationController?.pushViewController(selected, animated: true)

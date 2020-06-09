@@ -12,6 +12,7 @@ class DoctorListCollectionVC: BaseCollectionVC {
     
     var specificationArray = [SpecificationModel]()
     fileprivate let cellId = "cellId"
+    var index = 0
     
     var handleCheckedIndex:((Int)->Void)?
     
@@ -25,7 +26,7 @@ class DoctorListCollectionVC: BaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorHomeListCell
         let spy = specificationArray[indexPath.item]
-        
+        cell.index = index
         cell.spy = spy
         return cell
     }

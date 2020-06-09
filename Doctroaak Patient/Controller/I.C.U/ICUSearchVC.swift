@@ -28,6 +28,7 @@ class ICUSearchVC: CustomBaseViewVC {
     
     lazy var customICUSearchView:CustomICUSearchView = {
         let v = CustomICUSearchView()
+        v.index = index
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.handlerChooseLocation = {[unowned self] in
             let loct = ChooseLocationVC()

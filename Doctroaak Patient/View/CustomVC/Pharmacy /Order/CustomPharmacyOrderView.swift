@@ -26,12 +26,12 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Order ", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Order your request", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Order ".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Order your request".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var orderSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
-        view.itemTitles = ["prescription","Request a medicine","All"]
+        view.itemTitles = ["prescription".localized,"Request a medicine".localized,"All".localized]
         view.constrainHeight(constant: 50)
         view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
         view.useShadow = true
@@ -53,7 +53,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         return i
     }()
     lazy var uploadView = makeMainSubViewWithAppendView(vv: [uploadLabel,uploadImage])
-    lazy var uploadLabel = UILabel(text: "Upload prescription", font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
+    lazy var uploadLabel = UILabel(text: "Upload prescription".localized, font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
     
     lazy var uploadImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
@@ -68,7 +68,7 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.arrowSize = 20
         i.textColor = .black
         i.rowBackgroundColor = .gray
-
+        
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, index, _) in
             //            self.selectedName=self.pha
@@ -101,14 +101,14 @@ class CustomPharmacyOrderView: CustomBaseView {
         i.arrowSize = 20
         i.textColor = .black
         i.rowBackgroundColor = .gray
-
+        
         i.placeholder = "Type".localized
         i.didSelect {[unowned self] (txt, index, _) in
             self.pharamacyOrderViewModel.api_token = txt
         }
         return i
     }()
-    lazy var quantityLabel = UILabel(text: "Quantity", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var quantityLabel = UILabel(text: "Quantity".localized, font: .systemFont(ofSize: 16), textColor: .black)
     lazy var customAddMinusView:CustomAddMinusView = {
         let v = CustomAddMinusView()
         v.handleAddClousre = {[unowned self] count in
@@ -135,7 +135,7 @@ class CustomPharmacyOrderView: CustomBaseView {
     }()
     lazy var nextButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Next", for: .normal)
+        button.setTitle("Next".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16

@@ -9,6 +9,7 @@
 
 import UIKit
 import Alamofire
+import MOLH
 
 extension UIViewController {
     
@@ -31,8 +32,7 @@ extension UIViewController {
                 vvv.removeFromSuperview()
             }
         }
-        
-    }
+     }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
         

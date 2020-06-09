@@ -77,15 +77,26 @@ class CustomIncubationSearchView: CustomBaseView {
     }()
     
     
-    
     lazy var addressMainView:UIView = {
-        let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
-        v.isHide(true)
-        v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
-        
-        return v
-    }()
+           let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
+           v.isHide(true)
+           v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+           if MOLHLanguage.isRTLLanguage() {
+               v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 0, bottom: 4, right: 16))
+               
+           }else {
+               v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+           }
+           return v
+       }()
+//    lazy var addressMainView:UIView = {
+//        let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
+//        v.isHide(true)
+//        v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+//        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+//
+//        return v
+//    }()
     lazy var addressLabel = UILabel(text: "Address".localized, font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
     lazy var addressImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))

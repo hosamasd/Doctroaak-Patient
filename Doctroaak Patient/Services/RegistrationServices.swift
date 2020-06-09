@@ -68,7 +68,7 @@ class RegistrationServices {
            MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
        }
        //
-       func MainForgetPassword(phone:String,completion:@escaping (MainForgetPasswordModel?,Error?)->Void)  { ////baseusermodel
+       func MainForgetPassword(phone:String,completion:@escaping (MainAddFavoriteModel?,Error?)->Void)  { ////baseusermodel
            let nnn = "patient_forget_password"
            let urlString = baseUrl+nnn
            guard  let url = URL(string: urlString.toSecrueHttps()) else { return  }
@@ -77,9 +77,9 @@ class RegistrationServices {
        }
        
        
-       func MainUpdateUsingSMSPassword(index:Int,phone:String,old_password:String,new_password:String,completion:@escaping (MainLoginModel?,Error?)->Void) {
+       func MainUpdateUsingSMSPassword(phone:String,old_password:String,new_password:String,completion:@escaping (MainAddFavoriteModel?,Error?)->Void) {
            let nnn = "patient_update_password"
-           let urlString = baseUrl+nnn.toSecrueHttps()
+           let urlString = "\(baseUrl)\(nnn)".toSecrueHttps()
            guard  let url = URL(string: urlString) else { return  }
            let postString = "phone=\(phone)&old_password=\(old_password)&new_password=\(new_password)" // old_password is smscode
            MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
@@ -88,8 +88,8 @@ class RegistrationServices {
        func MainReceiveSmsCode(user_id:Int,sms_code:String,completion:@escaping (MainVerificationSMScODEModel?,Error?)->Void)  {
            let nnn = "patient_verify_account"
            
-           let urlString = baseUrl+nnn
-        guard  let url = URL(string: urlString.toSecrueHttps()) else { return  }
+        let urlString = "\(baseUrl)\(nnn)".toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
            
            let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
            MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)

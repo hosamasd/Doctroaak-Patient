@@ -111,22 +111,14 @@ class DoctorSearchVC: CustomBaseViewVC {
             guard let   placeMark = placemarks?[0] else {return}
             
             // Address dictionary
-            print(placeMark.locality)
+            let xc = placeMark.locality
+            self.customDoctorSearchView.addressLabel.text =  xc ?? ""
+
             // Location name
             if let locationName = placeMark.addressDictionary!["Name"] as? String,let city = placeMark.addressDictionary!["City"] as? String ,let country = placeMark.addressDictionary!["Country"] as? String {
                 self.customDoctorSearchView.addressLabel.text =  " \(locationName) - \(String(describing: city)) - \(String(describing: country))"
-                self.customDoctorSearchView.doctorSearchViewModel.lat = latitude
-                self.customDoctorSearchView.doctorSearchViewModel.specificationId = self.specificationId
-                self.customDoctorSearchView.doctorSearchViewModel.lng = longitude
+
             }
-            
-            
-            // Location name
-            //            let street = placeMark.subLocality; let city = placeMark.administrativeArea;let country = placeMark.country
-            //            self.customDoctorSearchView.addressLabel.text =  " \(placeMark.subLocality ?? "") - \(String(describing: city)) - \(String(describing: country))"
-            //            self.customDoctorSearchView.doctorSearchViewModel.lat = latitude
-            //            self.customDoctorSearchView.doctorSearchViewModel.lng = longitude
-            
         })
         
         
@@ -134,7 +126,7 @@ class DoctorSearchVC: CustomBaseViewVC {
     
     func goToNext(_ doctors:[PatientSearchDoctorsModel])  {
         
-        let card = CardiologyDoctorsResultsVC(doctors:doctors)
+        let card = CardiologyDoctorsResultsVC(doctors:doctors,index: index)
         card.patient=self.patient
         //        card.patientApiToken=patientApiToken
         //        card.patient_id=patient_id
@@ -172,6 +164,12 @@ extension DoctorSearchVC: ChooseLocationVCProtocol {
     
     func getLatAndLong(lat: Double, long: Double) {
         convertLatLongToAddress(latitude: lat, longitude: long)
+        self.customDoctorSearchView.doctorSearchViewModel.lat = lat
+        self.customDoctorSearchView.doctorSearchViewModel.specificationId = self.specificationId
+
+        self.customDoctorSearchView.doctorSearchViewModel.lng = long
+
+
     }
     
 }

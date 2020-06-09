@@ -37,6 +37,7 @@ class CustomForgetPassView: CustomBaseView {
         s.layer.borderWidth = 1
         s.layer.borderColor = UIColor.lightGray.cgColor
         s.placeholder = "(324) 242-2457"
+        s.keyboardType = .numberPad
 //        s.text = "phone".localized
 //        button.frame = CGRect(x: CGFloat(t.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
 
@@ -80,7 +81,7 @@ class CustomForgetPassView: CustomBaseView {
     }()
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Save".localized, for: .normal)
+        button.setTitle("Send".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16

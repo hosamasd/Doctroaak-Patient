@@ -41,7 +41,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         return v
     }()
     
-   
+    
     
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
@@ -104,13 +104,13 @@ class PharmacyOrderVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-                       patient=cacheObjectCodabe.storedValue
-
+            patient=cacheObjectCodabe.storedValue
+            
         }else {}
-//        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
-//        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
-//        patient_id=id
-//        api_token=api
+        //        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
+        //        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
+        //        patient_id=id
+        //        api_token=api
         //        customPharmacyOrderView.orderSegmentedView.selectItemAt(index: 0)
         //        self.view.layoutSubviews()
     }
@@ -119,11 +119,12 @@ class PharmacyOrderVC: CustomBaseViewVC {
     //MARK:-User methods
     
     func deleteThis(_ ss:PharamcyOrderModel,_ index:IndexPath)  {
-           customPharmacyOrderView.addMedicineCollectionVC.medicineArray.remove(at: index.item)
-           DispatchQueue.main.async {
-               self.customPharmacyOrderView.addMedicineCollectionVC.collectionView.reloadData()
-           }
-       }
+        customPharmacyOrderView.addMedicineCollectionVC.medicineArray.remove(at: index.item)
+        customPharmacyOrderView.pharamacyOrderViewModel.orderDetails = customPharmacyOrderView.addMedicineCollectionVC.medicineArray
+        DispatchQueue.main.async {
+            self.customPharmacyOrderView.addMedicineCollectionVC.collectionView.reloadData()
+        }
+    }
     
     func hideOrUndie(index:Int)  {
         self.customPharmacyOrderView.pharamacyOrderViewModel.isFirstOpetion = index == 0 ? true : false
@@ -207,13 +208,13 @@ class PharmacyOrderVC: CustomBaseViewVC {
     }
     
     func presentSuccessAlert(txt:String)  {
-             
-             customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
-           customAlertSuccessView.discriptionInfoLabel.text = txt
-             customAlertLoginView.problemsView.loopMode = .loop
-             present(customMainAlertVC, animated: true)
-             
-         }
+        
+        customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
+        customAlertSuccessView.discriptionInfoLabel.text = txt
+        customAlertLoginView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+        
+    }
     
     //TODO: -handle methods
     

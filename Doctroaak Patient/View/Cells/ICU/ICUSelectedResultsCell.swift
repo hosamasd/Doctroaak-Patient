@@ -149,47 +149,4 @@ class ICUSelectedResultsCell: BaseCollectionCell {
             return b
         }
     
-    func getCityFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        
-        return citName[ff - 1 ]
-    }
-    
-    func getAreaFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        return citName[ff-1]
-    }
 }

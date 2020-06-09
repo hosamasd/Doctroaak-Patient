@@ -31,6 +31,7 @@ class LoginVC: CustomBaseViewVC {
     }()
    
    
+    var isFromNewPass:Bool = false
     
     var delgate:LoginVCPrototcol?
    
@@ -88,6 +89,7 @@ class LoginVC: CustomBaseViewVC {
     }
     
     func saveToken(use:PatienModel)  {
+        
         userDefaults.set(true, forKey: UserDefaultsConstants.isPatientLogin)
         userDefaults.set(use.id, forKey: UserDefaultsConstants.patientID)
         userDefaults.set(use.apiToken, forKey: UserDefaultsConstants.patientAPITOKEN)
@@ -117,12 +119,15 @@ class LoginVC: CustomBaseViewVC {
     
     
     @objc  func handleRegister()  {
+        isFromNewPass = false
         let register = RegisterVC()
         navigationController?.pushViewController(register, animated: true)
         
     }
     
     @objc  func handleLogin()  {
+        isFromNewPass = false
+
         customLoginsView.loginViewModel.performLogging { (base, err) in
             
             if let err = err {
@@ -141,12 +146,18 @@ class LoginVC: CustomBaseViewVC {
     }
     
     @objc func handleForget()  {
+        isFromNewPass = false
+
         let forget = ForgetPasswordVC()
         navigationController?.pushViewController(forget, animated: true)
     }
     
     @objc func handleBack()  {
-        dismiss(animated: true, completion: nil)
+        if isFromNewPass {
+            navigationController?.popViewController(animated: true)
+        }else{
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     

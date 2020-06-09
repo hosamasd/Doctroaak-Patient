@@ -41,14 +41,14 @@ class DoctorDaysShiftCell: BaseCollectionCell {
     }()
     lazy var shift1Button: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Shift 1", for: .normal)
+        button.setTitle("Shift 1".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
         return button
     }()
     lazy var shift2Button:UIButton = {
-        let b = UIButton(title: "Shift 2", titleColor: .black, font: .systemFont(ofSize: 16), backgroundColor: .lightGray, target: self, action: nil)
+        let b = UIButton(title: "Shift 2".localized, titleColor: .black, font: .systemFont(ofSize: 16), backgroundColor: .lightGray, target: self, action: nil)
         b.constrainHeight(constant: 50)
         b.layer.cornerRadius = 8
         b.clipsToBounds = true

@@ -18,11 +18,11 @@ class PharamacyResultsCell: BaseCollectionCell {
             let name = MOLHLanguage.isRTLLanguage() ?  pharamacy.nameAr ?? pharamacy.name : pharamacy.name
             let city = getCityFromIndex(pharamacy.city)
             let area = getAreaFromIndex(pharamacy.area)
-                        let avaible = pharamacy.active == 0 ? "Available" : "UnAvailable"
+            let avaible = pharamacy.active == 1 ? "Available".localized : "UnAvailable".localized
             
             putAttributedText(la: profileInfoLabel, ft: name+"\n", st: " \(area), \(city)")
             
-            profileInfoDeliveryyLabel.text = "Delivery is \(avaible)"
+            profileInfoDeliveryyLabel.text = "Delivery is".localized + " \(avaible)"
             let urlString = pharamacy.photo
             guard let url = URL(string: urlString) else { return  }
             profileImage.sd_setImage(with: url)
@@ -100,49 +100,6 @@ class PharamacyResultsCell: BaseCollectionCell {
         return b
     }
     
-    func getCityFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        
-        return citName[ff - 1 ]
-    }
-    
-    func getAreaFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        return citName[ff-1]
-    }
     
 }
 

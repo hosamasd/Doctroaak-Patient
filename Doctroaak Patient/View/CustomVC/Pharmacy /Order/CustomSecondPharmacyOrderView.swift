@@ -41,12 +41,12 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Order ", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Order your request", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Order ".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Order your request".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var orderSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
-        view.itemTitles = ["prescription","Request a medicine","All"]
+        view.itemTitles = ["prescription".localized,"Request a medicine".localized,"All".localized]
         //        view.selectItemAt(index: 2)
         view.allowChangeThumbWidth = true
         view.constrainHeight(constant: 50)
@@ -76,7 +76,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         
         return v
     }()
-    lazy var uploadLabel = UILabel(text: "Upload prescription", font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
+    lazy var uploadLabel = UILabel(text: "Upload prescription".localized, font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
     
     lazy var uploadImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
@@ -115,7 +115,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         }
         return i
     }()
-    lazy var quantityLabel = UILabel(text: "Quantity", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var quantityLabel = UILabel(text: "Quantity".localized, font: .systemFont(ofSize: 16), textColor: .black)
     lazy var customAddMinusView:CustomAddMinusView = {
         let v = CustomAddMinusView()
         v.handleAddClousre = {[unowned self] count in
@@ -135,7 +135,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
         return vc
     }()
     lazy var orLabel:UILabel = {
-        let l = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
+        let l = UILabel(text: "OR".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
         l.isHide(true)
         return l
     }()
@@ -164,7 +164,7 @@ class CustomSecondPharmacyOrderView: CustomBaseView {
     
     lazy var nextButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Book", for: .normal)
+        button.setTitle("Book".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16

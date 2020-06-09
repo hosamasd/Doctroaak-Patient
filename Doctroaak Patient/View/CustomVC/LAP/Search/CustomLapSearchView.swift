@@ -51,13 +51,25 @@ class CustomLapSearchView: CustomBaseView {
         return view
     }()
     lazy var addressMainView:UIView = {
-        let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
-        v.isHide(true)
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
-        
-        v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
-        return v
-    }()
+           let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
+           v.isHide(true)
+           v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+           if MOLHLanguage.isRTLLanguage() {
+               v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 0, bottom: 4, right: 16))
+               
+           }else {
+               v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+           }
+           return v
+       }()
+//    lazy var addressMainView:UIView = {
+//        let v = makeMainSubViewWithAppendView(vv: [addressImage,addressLabel])
+//        v.isHide(true)
+//        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+//
+//        v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+//        return v
+//    }()
     lazy var addressLabel = UILabel(text: "Address".localized, font: .systemFont(ofSize: 14), textColor: .lightGray,numberOfLines: 3)
     lazy var addressImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
@@ -130,7 +142,7 @@ class CustomLapSearchView: CustomBaseView {
     lazy var insuranceSwitch:UISwitch = {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
-        s.isOn = true
+        s.isOn = false
         s.addTarget(self, action: #selector(handleInsuracneCheck), for: .valueChanged)
         return s
     }()
@@ -140,7 +152,7 @@ class CustomLapSearchView: CustomBaseView {
     lazy var delvierySwitch:UISwitch = {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
-        s.isOn = true
+        s.isOn = false
         s.addTarget(self, action: #selector(handleDelvieryCheck), for: .valueChanged)
         
         return s
@@ -251,16 +263,16 @@ class CustomLapSearchView: CustomBaseView {
         if isArabic {
             
             
-            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.labNameARArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let radArrays = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameARArray) as? [String],let radIdss = userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
-                
+            if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let arasNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] , let areaIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.labNameArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let radArrays = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameArray) as? [String],let radIdss = userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
+
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds,nn: nameArrays,ni: nameIdss,rN: radArrays,rI: radIdss )
-                
-                
+
+
             }
         }else {
             if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let nameArrays = userDefaults.value(forKey: UserDefaultsConstants.labNameArray) as? [String],let nameIdss = userDefaults.value(forKey: UserDefaultsConstants.labIdArray) as? [Int],let radArrays = userDefaults.value(forKey: UserDefaultsConstants.radiologyNameArray) as? [String],let radIdss = userDefaults.value(forKey: UserDefaultsConstants.radiologyIdArray) as? [Int]  {
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: degreeNames, did:degreeIds,nn: nameArrays,ni: nameIdss,rN: radArrays,rI: radIdss )
-                
+
             }
         }
         self.cityDrop.optionArray = cityArray
@@ -289,11 +301,11 @@ class CustomLapSearchView: CustomBaseView {
     
     
     @objc  func handleDelvieryCheck(sender:UISwitch)  {
-        lAPSearchViewModel.delivery = sender.isOn ? 0 : 1
+        lAPSearchViewModel.delivery = sender.isOn ? 1 : 0
     }
     
     @objc  func handleInsuracneCheck(sender:UISwitch)  {
-        lAPSearchViewModel.insuranceCompany = sender.isOn ? 0 : 1
+        lAPSearchViewModel.insuranceCompany = sender.isOn ? 1 : 0
     }
     
     @objc  func handleOpenLocation()  {

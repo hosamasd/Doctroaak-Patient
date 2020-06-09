@@ -188,7 +188,7 @@ class HomeMenuVC: CustomBaseViewVC {
             openAlertForLogin()
         }else {
             guard let patient = patient else { return  }
-            let favorite = PatientFavoriteDoctorsVC()
+            let favorite = PatientFavoriteDoctorsVC(index: 0)
             favorite.patient=patient
             let nav = UINavigationController(rootViewController: favorite)
             nav.modalPresentationStyle = .fullScreen
@@ -200,22 +200,23 @@ class HomeMenuVC: CustomBaseViewVC {
     
     @objc func handleGoMyOrders()  {
         if patient==nil && !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 120)
-            customAlertLoginView.problemsView.loopMode = .loop
-            present(customMainAlertVC, animated: true)
+                        openAlertForLogin()
+
         }else {
             let order = ProfileOrdersVC()
             order.patient=patient
             let nav = UINavigationController(rootViewController: order)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
-            //            navigationController?.pushViewController(nav, animated: true)
         }
-        print(666)
     }
     
     @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+
         dismiss(animated: true, completion: nil)
+
+        
     }
 }
 

@@ -661,6 +661,10 @@ extension NSAttributedString {
 
 extension String {
     
+    func returnTrueOrFalse(value:String) -> String {
+        return value.toInt() == 0 ? "false" : "true"
+    }
+    
     func toDates(withFormat format: String = "yyyy-MM-dd HH:mm:ss")-> Date?{
         
         let dateFormatter = DateFormatter()

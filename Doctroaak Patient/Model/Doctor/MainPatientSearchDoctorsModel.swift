@@ -29,19 +29,16 @@ struct PatientSearchDoctorsModel:Codable {
     let availableDays: Int
     let createdAt, updatedAt: String
     var availabilityDate: String?
-    let name,gender: String
+    var name,gender: String?
     var nameAr, nameFr: String?
-    let  smsCode, apiToken: String
-    let firebaseToken: String?
-    let email, password: String
-    let specializationID: Int
-    var degreeID:Int? 
+    var   apiToken: String?
+    var password,email,smsCode,firebaseToken: String?
+    var specializationID,degreeID:Int?
     
-    let cv: String
-    var cv2, reservationRate, degreeRate: String?
-    let isHospital: Int
+    var cv,cv2, reservationRate, degreeRate: String?
     var datumDescription: String?
-    let isMedicalCenter: Int
+    var isHospital,isMedicalCenter: Int?
+    
     let workingHours: [WorkingHourModel]
     let  specialization: DegreeSearchModel
     var degree: DegreeSearchModel?
@@ -83,7 +80,7 @@ struct PatientSearchDoctorsModel:Codable {
 
 struct DegreeSearchModel:Codable {
     let id: Int
-    let name, nameAr, nameFr: String
+    var name, nameAr, nameFr: String?
     var createdAt: String?
     let updatedAt: String?
     let photo: String?
@@ -116,9 +113,9 @@ struct DoctorModel:Codable {
     let id: Int
     let name: String
     var gender,nameAr, nameFr: String?
-    let  phone, smsCode, apiToken: String
-    let firebaseToken: String?
-    let email, password: String
+    let  phone, apiToken: String
+    var email,smsCode,firebaseToken: String?
+    let  password: String
     let active, specializationID: Int
     var degreeID:Int? 
     
@@ -127,7 +124,7 @@ struct DoctorModel:Codable {
     let photo: String
     var reservationRate, degreeRate: String?
     let createdAt, updatedAt: String
-    let isHospital: Int
+    var isHospital: Int?
     var doctorDescription: String?
     let isMedicalCenter: Int
     var rate:Int? 

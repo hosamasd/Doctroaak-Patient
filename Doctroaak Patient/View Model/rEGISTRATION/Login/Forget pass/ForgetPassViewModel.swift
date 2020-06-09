@@ -18,7 +18,7 @@ class ForgetPassViewModel: CustomBaseView {
     var phone:String? {didSet {checkFormValidity()}}
     
     
-    func performLogging(completion:@escaping (MainForgetPasswordModel?,Error?)->Void)  {
+    func performResetPassword(completion:@escaping (MainAddFavoriteModel?,Error?)->Void)  {
         guard let phone = phone
             else { return  }
         bindableIsLogging.value = true

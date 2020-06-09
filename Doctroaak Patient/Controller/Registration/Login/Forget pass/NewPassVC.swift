@@ -15,15 +15,22 @@ class NewPassVC: CustomBaseViewVC {
     
     lazy var customNewPassView:CustomNewPassView = {
         let v = CustomNewPassView()
-        
+        v.phone=phone
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         
         v.doneButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
     }()
     
-    var index:Int = 0
+    fileprivate let phone:String!
+    init(phone:String) {
+        self.phone=phone
+        super.init(nibName: nil, bundle: nil)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,15 +69,39 @@ class NewPassVC: CustomBaseViewVC {
         
     }
     
+    func goToNext()  {
+           let login = LoginVC()
+        login.isFromNewPass = true
+                  navigationController?.pushViewController(login, animated: true)
+       }
+    
     //TODO: -handle methods
     
     
     
     @objc func handleNext()  {
+        customNewPassView.newPassViewModel.performLogging { (base, err) in
+            
+        if let err = err {
+                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+                       self.activeViewsIfNoData();return
+                   }
+                   SVProgressHUD.dismiss()
+                   self.activeViewsIfNoData()
+                   guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+
+            if user.message == "Information Update   " {
+            DispatchQueue.main.async {
+                self.showToast(context: self, msg: MOLHLanguage.isRTLLanguage() ? base?.message ?? "" : base?.messageEn ?? "")
+
+//                self.goToNext()
+            }
+            }else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);return}
+        
+        }
         
         
-        let login = LoginVC()
-        navigationController?.pushViewController(login, animated: true)
+       
         
     }
     

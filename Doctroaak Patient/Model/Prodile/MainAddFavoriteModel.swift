@@ -10,7 +10,7 @@ import UIKit
 
 struct MainAddFavoriteModel:Codable {
     let status: Int
-      let message, messageEn: String
+      var message, messageEn: String?
       var data: String?
 
       enum CodingKeys: String, CodingKey {

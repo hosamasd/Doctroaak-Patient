@@ -85,16 +85,36 @@ class ForgetPasswordVC:   CustomBaseViewVC {
           customMainAlertVC.dismiss(animated: true)
       }
     
-    @objc func handleDismiss()  {
-              dismiss(animated: true, completion: nil)
-          }
+    func goToNext()  {
+        guard let phone = customForgetPassView.forgetPassViewModel.phone else { return  }
+        let verifiy = NewPassVC(phone: phone)
+               navigationController?.pushViewController(verifiy, animated: true)
+    }
+    
+   
     //TODO: -handle methods
     
-  
+  @objc func handleDismiss()  {
+               dismiss(animated: true, completion: nil)
+           }
     
     @objc func handleDonePayment()  {
-        let verifiy = NewPassVC()
-        navigationController?.pushViewController(verifiy, animated: true)
+        
+        customForgetPassView.forgetPassViewModel.performResetPassword { (base, err) in
+            
+        if let err = err {
+                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+                       self.activeViewsIfNoData();return
+                   }
+                   SVProgressHUD.dismiss()
+                   self.activeViewsIfNoData()
+                   guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            DispatchQueue.main.async {
+                self.goToNext()
+            }
+        
+        }
+       
         
     }
     

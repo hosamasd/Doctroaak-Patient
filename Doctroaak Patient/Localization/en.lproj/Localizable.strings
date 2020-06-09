@@ -38,7 +38,7 @@
 "LOGIN"="LOGIN";"SIGN UP"="SIGN UP";
 
 //LoginVC
-"Login..."="Login...";"Hello"="Hello";
+"Login..."="Login...";"Hello"="Hello";"Sign up"="Sign up";
 "Sign in to your account"="Sign in to your account";"Phone Number"="Phone Number";"Password"="Password";
 "Forget Password ?"="Forget Password ?";"Don't have an account ? "="Don't have an account ? ";
 "Sign up"="Sign up";
@@ -47,7 +47,7 @@
 
 //ForgetPasswordVC
 "Resending password..."="Resending password...";"Please login first"="Please login first";"OK"="OK";
-"Forget"="Forget";"Save"="Save";
+"Forget"="Forget";"Save"="Save";"code is not valid"="code is not valid";
 
 //VerificationVC
 "SMS Code is sent again...."="SMS Code is sent again....";"Verification"="Verification";
@@ -65,12 +65,20 @@
 "Create account"="Create account";"Welcome"="Welcome";" Name"=" Name";" phone"=" phone";
 "Male"="Male";"Female"="Female";"   Birthday"="   Birthday";
 
+//Search
+
 //ICUSearchVC
 "Search"="Search";"Select Your Location"="Select Your Location";"Area"="Area";"City"="City";
  
 //ChooseLocationVC
-"Done"="Done";
+"Done"="Done";"Please press long to pick up location"="Please press long to pick up location";
 
+//PharmacyLocationVC
+"OR"="OR";" EGY"=" EGY";"Pharmacy"="Pharmacy";
+"Enter Text (Optional)"="Enter Text (Optional)";"Upload prescription"="Upload prescription";
+"prescription"="prescription";"Request a medicine"="Request a medicine";"All"="All";
+"Available"="Available";"UnAvailable"="UnAvailable";"Delivery is"="Delivery is";
+"Order "="Order ";"Order your request"="Order your request";"Name"="Name";"Type"="Type";
 //ICUSearchResultsVC
 "Get well soon!"="Get well soon!";"I.C.U"="I.C.U";"Avaible Seat"="Avaible Seat";
 
@@ -88,7 +96,7 @@
 "Delivery ?"="Delivery ?";
 
 //LapSearchResultsVC
-
+"Not Delivery"="Not Delivery";"Request an analysis"="Request an analysis";"Request a ray"="Request a ray";
 //LAPSelectedSearchResultsVC
 "Rediology  working hours"="Rediology  working hours";"Lab  working hours"="Lab  working hours";"Book"="Book";
 "Saturday"="Saturday";"Sunday"="Sunday";"Monday"="Monday";"Tuesday"="Tuesday";"Wednsday"="Wednsday";"Thursday"="Thursday";"Friday"="Friday";
@@ -135,3 +143,32 @@
 "DOCTOR"="DOCTOR";"RADIOLOGY"="RADIOLOGY";"PHARMACY"="PHARMACY";"LAB"="LAB";"Rating..."="Rating...";
 "Feedback \n\n\n\n\n"="Feedback \n\n\n\n\n";"Continue"="Continue";
 "Rate Order"="Rate Order";"Cancel Order"="Cancel Order";"Reservation"="Reservation";"Consultaion"="Consultaion";
+
+//NotificationVC
+"Notification"="Notification";
+
+//NotificationsCollectionVC
+"No Data Added Yet"="No Data Added Yet";"Choose Options"="Choose Options";
+"What do you want to make?"="What do you want to make?";"Delete"="Delete";
+
+
+//DOCTOR
+//DoctorListsVC
+"No interntetI Connection"="No interntetI Connection";"Doctor"="Doctor";"Medical Center"="Medical Center";
+"Find the best rated doctors"="Find the best rated doctors";"Find the best rated Medical Center"="Find the best rated Medical Center";
+
+//DoctorSearchVC
+"Searching..."="Searching...";
+
+
+
+//CardiologyDoctorsResultsVC
+"Doctors"="Doctors";
+
+//DeatilsSelectedDoctorsVC
+"Next"="Next";"Doctor's working date"="Doctor's working date";"Doctor free suggested days"="Doctor free suggested days";
+"Details"="Details";
+
+//DoctorBookVC
+"Book for me"="Book for me";"Book for another person"="Book for another person";"Reservation"="Reservation";
+"Consultation"="Consultation";"Continue"="Continue";"Shift 1"="Shift 1";"Shift 2"="Shift 2";

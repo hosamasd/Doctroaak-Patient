@@ -14,6 +14,13 @@ let showPassword = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, 
 
 class CustomNewPassView: CustomBaseView {
     
+    var phone:String? {
+        didSet{
+            guard let phone = phone else { return  }
+            newPassViewModel.phone=phone
+        }
+    }
+    
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -32,29 +39,21 @@ class CustomNewPassView: CustomBaseView {
     lazy var soonLabel = UILabel(text: "Password".localized, font: .systemFont(ofSize: 30), textColor: .white)
     lazy var choosePayLabel = UILabel(text: "Please Enter your new password".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
+       lazy var codeTextField = createMainTextFields(place: "enter code".localized, type: .numberPad)
+
     lazy var passwordTextField:UITextField = {
-        let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = showPassword //UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
-        s.rightView = button
-        s.rightViewMode = .always
-        s.constrainHeight(constant: 60)
-        return s
-    }()
-    lazy var confirmPasswordTextField:UITextField = {
-        let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = showPassword //UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
-        s.rightView = button
-        s.rightViewMode = .always
-        return s
-    }()
+           let s = createMainTextFields(place: "New Password".localized, type: .default,secre: true)
+           let button = UIButton(type: .custom)
+           button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
+           button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+           button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+           button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
+         
+           s.rightView = button
+           s.rightViewMode = .always
+           s.constrainHeight(constant: 60)
+           return s
+       }()
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Done".localized, for: .normal)
@@ -75,8 +74,8 @@ class CustomNewPassView: CustomBaseView {
 
         [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
 
-        [passwordTextField,confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
-        let textStack = getStack(views: passwordTextField,confirmPasswordTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        [passwordTextField,codeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        let textStack = getStack(views: codeTextField,passwordTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         choosePayLabel.constrainHeight(constant: 40)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doneButton,choosePayLabel,textStack)
@@ -105,9 +104,9 @@ class CustomNewPassView: CustomBaseView {
     @objc func textFieldDidChange(text: UITextField)  {
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-            if text == confirmPasswordTextField {
-                if text.text != passwordTextField.text {
-                    floatingLabelTextField.errorMessage = "Passowrd should be same".localized
+            if text == codeTextField {
+                if texts.count < 4 {
+                    floatingLabelTextField.errorMessage = "code is not valid".localized
                     newPassViewModel.confirmPassword = nil
                 }
                 else {
@@ -132,9 +131,5 @@ class CustomNewPassView: CustomBaseView {
     
     @objc func handleASD()  {
         passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
-    }
-    
-    @objc func handleASDs()  {
-        confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
     }
 }

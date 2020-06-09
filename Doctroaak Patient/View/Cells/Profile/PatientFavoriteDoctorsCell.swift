@@ -16,13 +16,13 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     var doctor:PatientSearchDoctorsModel? {
         didSet{
             guard let doctor = doctor else { return  }
-            let x = MOLHLanguage.isRTLLanguage() ? doctor.nameAr ?? doctor.name : doctor.name
+            let x = MOLHLanguage.isRTLLanguage() ? doctor.nameAr ?? doctor.name ?? "" : doctor.name ?? ""
             let d = MOLHLanguage.isRTLLanguage() ?  doctor.degree?.name ?? "" :  doctor.degree?.name ?? ""
             
-            putAttributedText(la: profileInfoLabel, ft: x+"\n", st: d+"\n\n")
+            putAttributedText(la: profileInfoLabel, ft: x+"\n", st: d+"\n")
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
-            profileInfoReservationLabel.text = "Reservation".localized + " : \(doctor.fees)" + "EGY".localized
-            profileInfoConsultaionLabel.text = "Consultation".localized + " : \(doctor.fees2)" + "EGY".localized
+            profileInfoReservationLabel.text = "Reservation".localized + " : \(doctor.fees)" + " EGY".localized
+            profileInfoConsultaionLabel.text = "Consultation".localized + " : \(doctor.fees2)" + " EGY".localized
             for(index,view) in starsStackView.arrangedSubviews.enumerated(){
                 guard let img = view as? UIImageView else {return}
                 
@@ -186,49 +186,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         return b
     }
     
-    func getCityFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        
-        return citName[ff - 1 ]
-    }
     
-    func getAreaFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        return citName[ff-1]
-    }
     
     @objc func handleBookmark()  {
         guard let docotr = doctor else { return  }

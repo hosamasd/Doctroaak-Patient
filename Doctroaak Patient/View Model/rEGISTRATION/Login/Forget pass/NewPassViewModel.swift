@@ -17,18 +17,20 @@ class NewPassViewModel {
     //variables
     var password:String? {didSet {checkFormValidity()}}
     var confirmPassword:String? {didSet {checkFormValidity()}}
+    var phone:String? {didSet {checkFormValidity()}}
+
     
-    
-    func performLogging(completion:@escaping (MainForgetPasswordModel,Error?)->Void)  {
-        guard let password = password,let confirmPassword = confirmPassword
+    func performLogging(completion:@escaping (MainAddFavoriteModel?,Error?)->Void)  {
+        guard let password = password,let confirmPassword = confirmPassword,let phone=phone
             else { return  }
         bindableIsLogging.value = true
         
+        RegistrationServices.shared.MainUpdateUsingSMSPassword(phone: phone, old_password: password, new_password: confirmPassword, completion: completion)
         //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
     
     func checkFormValidity() {
-        let isFormValid = password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password
+        let isFormValid = password?.isEmpty == false && confirmPassword?.isEmpty == false && phone?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

@@ -75,10 +75,6 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(index == 0 ? labWorkingDaysArray.count : index == 1 ? radWorkingDaysArray.count : workingDaysArray.count, text: "No Working Hourse Yet".localized)
         return index == 0 ? getLabTotalDays() : index == 1 ?  getRadTotalDays() : getTotalDays()
-//        var ss = 0
-//         index == 0 ? getLabTotalDays(&ss) : index == 1 ?  getRadTotalDays(&ss) :  getTotalDays(&ss)
-//        //        getTotalDays(&ss)
-//        return  ss//workingDaysArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,10 +89,6 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
             let index = radWorkingDaysArray[indexPath.item]
             cell.rad=index
         }
-        //        let index = indexPath.item
-        //        let day = workingDaysArray[indexPath.item]
-        //
-        //        cell.day=day
         [ cell.doctorSecondTimeLabel,cell.doctorDaySecondLastTimeLabel].forEach({$0.isHide(index == 10 ? true : false)})
         return cell
     }
@@ -114,10 +106,6 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
             let index = radWorkingDaysArray[indexPath.item]
             height = index.active == 0 ? 0 : 60
         }
-        //        let index = workingDaysArray[indexPath.item]
-        //        
-        //        let height:CGFloat = index.active == 0 ? 0 : 60
-        
         return .init(width: view.frame.width, height: 60)
     }
     

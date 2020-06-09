@@ -15,7 +15,7 @@ class AddLapCollectionVC: BaseCollectionVC {
     var medicineArray = [RadiologyOrderModel]()//["one","two","three","four","fifie"]
     var index:Int = 0
     var showOrderOnly:Bool = false
-    var medicineTextsArray = [String]()
+//    var medicineTextsArray = [String]()
     var handleRemoveItem:((RadiologyOrderModel,IndexPath)->Void)?
     
     
@@ -26,17 +26,15 @@ class AddLapCollectionVC: BaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(medicineArray.count, text: "No Data Added Yet".localized)
         
-        return medicineTextsArray.count//medicineArray.count
+        return medicineArray.count//medicineArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AddLAPCell
-        let med = medicineTextsArray[indexPath.item]
         let meds = medicineArray[indexPath.item]
         
         //
         cell.index=index
-        cell.text = med
         cell.med=meds
         [cell.closeImage].forEach({$0.isHide(showOrderOnly ? true : false)})
         

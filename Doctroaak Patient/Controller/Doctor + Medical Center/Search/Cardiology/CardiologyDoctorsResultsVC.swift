@@ -36,7 +36,7 @@ class CardiologyDoctorsResultsVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         
         v.handleCheckedIndex = {[unowned self] doctor in
-            let cDetails = DeatilsSelectedDoctorsVC()//(doctors: doctor)
+            let cDetails = DeatilsSelectedDoctorsVC(index: self.index)//(doctors: doctor)
             cDetails.patient=self.patient
             cDetails.selectedDoctor=doctor
             //            cDetails.patientApiToken=self.patientApiToken
@@ -61,8 +61,11 @@ class CardiologyDoctorsResultsVC: CustomBaseViewVC {
     //    var patient_id:Int?
     //    var patientApiToken:String?
     fileprivate let doctorsArray:[PatientSearchDoctorsModel]!
-    init(doctors:[PatientSearchDoctorsModel]) {
+    fileprivate let index:Int!
+
+    init(doctors:[PatientSearchDoctorsModel],index:Int) {
         self.doctorsArray=doctors
+        self.index=index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -100,7 +103,7 @@ class CardiologyDoctorsResultsVC: CustomBaseViewVC {
             let message = MOLHLanguage.isRTLLanguage() ? mess.message : mess.messageEn
             
             DispatchQueue.main.async {
-                self.showToast(context: self, msg: message)
+                self.showToast(context: self, msg: message ?? "")
             }
         }
     }

@@ -10,126 +10,161 @@
 
 
 //FirstSkipPaymentVC
-"Information"="معلومات";
-"Get well soon!"="نتمنى لك الشفاء العاجل!";"Skip"="تخطي";
-
-//MainBeforePaymentCollectionVC
-"Payment"="دفع";
+"Information"="Information";
+"Get well soon!"="نتمنى لك الشفاء العاجل!";
 "Skip"="تخطي";
 
+//MainBeforePaymentCollectionVC
+"Payment"="الدفع";
+
 //MainPaymentVC
-"Payment"="Payment";
-"Select the payment method"="Select the payment method";
-"You will pay 200 pounds for the/n subscription card"="You will pay 200 pounds for the/n subscription card";
-"Visa card"="Visa card";"Fawry"="Fawry";"Vodafone cash"="Vodafone cash";
-"Enter your phone number :"="Enter your phone number :";
-" Expiration Date"=" Expiration Date";
-"Done"="Done";"Eneter the code :"="Eneter the code :";"Visa number :"="Visa number :";
-"Invalid   Phone"="Invalid   Phone";"Invalid   visa number"="Invalid   visa number";
-"Invalid CVC  visa number"="Invalid CVC  visa number";
-"code must have 6 character"="code must have 6 character";
+"Select the payment method"=" اختر طريقة الدفع";
+"You will pay 200 pounds for the/n subscription card"="انت سوف تدفع 200 جنيه لهذا الاشتراك";
+"Visa card"="الفيزا";"Fawry"="فوري";"Vodafone cash"="فودافون كاش";
+"Enter your phone number :"="ادخل رقم تليفونك :";
+" Expiration Date"=" تاريخ الانتهاء";
+"Done"="تم";"Eneter the code :"="ادخل الكود :";"Visa number :"="رقم الفيزا :";
+"Invalid   Phone"="رقم محمول غير صحيح";"Invalid   visa number"="رقم الفيزا غير صحيح";
+"Invalid CVC  visa number"="الرقم غير صحيح";
+"code must have 6 character"="الكود مكون من ٦ ارقام";
 
 //WelcomeVC
-"Looding..."="Looding...";"Copyright @"="Copyright @";"Doctoraak "="Doctoraak ";
+"Looding..."="تحميل...";"Copyright @"="حقوق محفوظه @";"Doctoraak "="Doctoraak ";
 
 //SecondWelcomeVC
-"LOGIN"="LOGIN";"SIGN UP"="SIGN UP";
+"LOGIN"="تسجيل الدخول";"SIGN UP"="حساب جديد";
 
 //LoginVC
-"Login..."="Login...";"Hello"="Hello";
-"Sign in to your account"="Sign in to your account";"Phone Number"="Phone Number";"Password"="Password";
-"Forget Password ?"="Forget Password ?";"Don't have an account ? "="Don't have an account ? ";
-"Sign up"="Sign up";
-"Invalid   Phone"="Invalid   Phone";
-"password must have 8 character"="password must have 8 character";
+"Login..."="تسجيل الدخول...";"Hello"="مرحبا";"Sign up"="حساب جديد";
+"Sign in to your account"="سجل الدخول لحسابك";"Phone Number"="رقم المحمول";"Password"="الباسورد";
+"Forget Password ?"="نسيت الباسورد ?";"Don't have an account ? "="لا تملك حساب ? ";
+"Invalid   Phone"="رقم محمول غير صحيح";
+"password must have 8 character"="الباسورد يجب ان يكون ٨ ارقام";
 
 //ForgetPasswordVC
-"Resending password..."="Resending password...";"Please login first"="Please login first";"OK"="OK";
-"Forget"="Forget";"Save"="Save";
+"Resending password..."="اعاده ارسال الباسورد...";"Please login first"="سجل الدخول اولا";"OK"="موافق";
+"Forget"="نسيت";"Save"="حفظ";"code is not valid"="الكود خاطئ";
 
 //VerificationVC
-"SMS Code is sent again...."="SMS Code is sent again....";"Verification"="Verification";
-"Check your mobile for verification Code"="Check your mobile for verification Code";
-"Please, enter the verification code \n we send to your mobile "="Please, enter the verification code \n we send to your mobile ";
-"Resend again "="Resend again ";"Confirm"="Confirm";
+"SMS Code is sent again...."="رسالة النصية ارسلت من جديد....";"Verification"="نفعيل";
+"Check your mobile for verification Code"="افحص الهاتف للوصول لرساله التفعيل";
+"Please, enter the verification code \n we send to your mobile "="من فضلك افحص الرسايل  \n ارسلت للهاتف ";
+"Resend again "="ارسل مرة تانية ";"Confirm"="تفعيل";
 
 //NewPassVC
-"Saving password..."="Saving password...";"New"="New";"Please Enter your new password"="Please Enter your new password";
-"confirm Password"="confirm Password";
+"Saving password..."="حفظ الباسورد...";"New"="جديد";"Please Enter your new password"="ادخل الباسورد الجديد";
+"confirm Password"="تاكيد الباسورد";
 
 //RegisterVC
-"Cancel"="Cancel";"Camera"="Camera";"enter email"="enter email";
-"Open From Gallery"="Open From Gallery";"Choose Image"="Choose Image";"Choose image fROM "="Choose image fROM ";
-"Create account"="Create account";"Welcome"="Welcome";" Name"=" Name";" phone"=" phone";
-"Male"="Male";"Female"="Female";"   Birthday"="   Birthday";
+"Cancel"="الغاء";"Camera"="الكاميرا";"enter email"="ادخل الايميل";
+"Open From Gallery"="فتح معرض الصور";"Choose Image"="اختر الصورة";"Choose image fROM "="اختر الصورة من خلال ";
+"Create account"="عمل حساب جديد";"Welcome"="مرحبا";" Name"=" الاسم";" phone"=" الموبايل";
+"Male"="ذكر";"Female"="انثي";"   Birthday"="   تاريخ الميلاد";
+
+//Search
 
 //ICUSearchVC
-"Search"="Search";"Select Your Location"="Select Your Location";"Area"="Area";"City"="City";
- 
-//ChooseLocationVC
-"Done"="Done";
+"Search"="بحث";"Select Your Location"="اختر الموقع";"Area"="المنطقة";"City"="المدينة";
 
+//PharmacyLocationVC
+"OR"="او";"Pharmacy"="صيدلية";
+"Enter Text (Optional)"="ادخل الوصف (اختياري)";"Upload prescription"="رفع الروشت";
+"prescription"="روشته";"Request a medicine"="طلب دواء";"All"="الكل";
+"Available"="متاح";"UnAvailable"="غير متاح";"Delivery is"="التوصيل";
+"Order "="طلب ";"Order your request"="ابدأ في اجراءات طلب";"Name"="الاسم";"Type"="النوع";
+"Delivery"="متاح التوصيل";
+//ChooseLocationVC
+"Please press long to pick up location"="اضغط ضغطا مطولا لتغيير موقعك الجغرافي";
 //ICUSearchResultsVC
-"Get well soon!"="Get well soon!";"I.C.U"="I.C.U";"Avaible Seat"="Avaible Seat";
+"I.C.U"="العناية المركزه";"Avaible Seat"="المقاعد المتاحة";
+
 
 //ICUSlelcetedResultVC
-"Map"="Map";
+"Map"="الموقع"; " EGY"=" جنيه";
 
 //IncubationSearchVC
-"Search by city and area"="Search by city and area";"Search by address"="Search by address";"Address"="Address";
+"Search by city and area"="بحث بواسطه المدينة والمنطقة";"Search by address"="بحث بواسطه الموقع الجغرافي";"Address"="الموقع الجغرافي";
 
 //IncubationSearchResultsVC
-"Incubation"="Incubation";
+"Incubation"="الحضانه";
 
 //LapSearchVC
-"Searching..."="Searching..."; "Lab"= "Lab";"Radiology"="Radiology";"Insurance company"="Insurance company";
-"Delivery ?"="Delivery ?";
+"Searching..."="بحث..."; "Lab"= "معمل";"Radiology"="مركز اشعه";"Insurance company"="شركة تامين";
+"Delivery ?"="التوصيل متاح ?";
 
 //LapSearchResultsVC
+"Not Delivery"="التوصيل غير متاح";"Request an analysis"=" اختر تحليل";"Request a ray"=" اختر اشعه";
 
 //LAPSelectedSearchResultsVC
-"Rediology  working hours"="Rediology  working hours";"Lab  working hours"="Lab  working hours";"Book"="Book";
-"Saturday"="Saturday";"Sunday"="Sunday";"Monday"="Monday";"Tuesday"="Tuesday";"Wednsday"="Wednsday";"Thursday"="Thursday";"Friday"="Friday";
+"Rediology  working hours"="ساعات العمل في مركز الاشعه";"Lab  working hours"="ساعات العمل في المعمل";"Book"="حجز";
+"Saturday"="السبت";"Sunday"="الاحد";"Monday"="الاتنين";"Tuesday"="الثلاثاء";"Wednsday"="الاربعاء";"Thursday"="الخميس";"Friday"="الجمعه";
 
 //Home
 
 //BaseSlidingVC
-"Choose Language"="Choose Language"; "English"= "English";"Arabic"="Arabic";"Cancel"="Cancel";"Contacts Us"="Contacts Us";
-"please install whatsapp"="please install whatsapp";
+"Choose Language"="اختر لغة البرنامج"; "English"= "English";"Arabic"="العربيه";"Cancel"="الغاء";"Contacts Us"="تواصل معنا";
+"please install whatsapp"="من فضلك قم تثبيت البرنامج الواتس اولا";
 
 //HomeLeftMenuVC
-"Log Out"="Log Out";
+"Log Out"="تسجيل الخروج";
 
 //HomeLeftMenuCollcetionVC
-"Profile"="Profile";"Anayltics"="Anayltics";"Notifications"="Notifications";"Contact Us"="Contact Us";"Language"="Language";
+"Profile"="الملف الشخصي";"Anayltics"="احصائيات";"Notifications"="التنبيهات";"Contact Us"="تواصل معنا";"Language"="اللفه";
 
 //ProfileVC
-"your information updated..."="your information updated...";
+"your information updated..."="معلوماتك الشخصية تم تعديلها...";
 
 //AnaylticsVC
-"Anaylicts"="Anaylicts";
 
 //HomeMenuVC
-" Find"=" Find";"Service"="Service";" Favorite"=" Favorite";"Doctor"="Doctor";
-" My"=" My";"Orders"="Orders";"Home"="Home";"Subscribe now to the \n200 EGP offer"="Subscribe now to the \n200 EGP offer";
-"    Payment  "="    Payment  ";"Details"="Details";
+" Find"="  اعثر عليها";"Service"="الخدمات";" Favorite"=" المفضل";"Doctors"="دكتورك";
+" My"=" الخاصه بي";"Orders"="الاوردرات";"Home"="الرئيسية";
+"    Payment  "="    دفع  ";"Details"="تفاصيل";
 
 //ServicesVC
-"  Doctor"="  Doctor";"  Medical Center"="  Medical Center";"  Pharmacy "="  Pharmacy ";
-"  Lab"="  Lab";"  Radiology"="  Radiology";"  Incubation"="  Incubation";"  I.C.U"="  I.C.U";
+"  Doctor"="  دكتور";"  Medical Center"="  مراكز طبيه";"  Pharmacy "="  صيدليه ";
+"  Lab"="  معمل";"  Radiology"="  مركز اشعه";"  Incubation"="  حضانه";"  I.C.U"="  العناية المركزه";
 
 //end of home
 
 
 //ZoomUserImageVC
-"Preview"="Preview";
+"Preview"="عرض";
 
 //profile
 //PatientFavoriteDoctorsVC
-"Removing..."="Removing...";"Favorite\nDoctor"="Favorite\nDoctor";
-"Reservation"="Reservation";"Consultation"="Consultation";
+"Removing..."="حذف...";"Favorite\nDoctor"="مفضل\nدكتور";
+"Reservation"="حجز";"Consultation"="استشاره";
 
 //ProfileOrdersVC
-"DOCTOR"="DOCTOR";"RADIOLOGY"="RADIOLOGY";"PHARMACY"="PHARMACY";"LAB"="LAB";"Rating..."="Rating...";
-"Feedback \n\n\n\n\n"="Feedback \n\n\n\n\n";"Continue"="Continue";
-"Rate Order"="Rate Order";"Cancel Order"="Cancel Order";"Reservation"="Reservation";"Consultaion"="Consultaion";
+"DOCTOR"="دكتور";"RADIOLOGY"="مركز اشعه";"PHARMACY"="صيدلية";"LAB"="معمل";"Rating..."="تقييم...";
+"Feedback \n\n\n\n\n"="معلومتا \n\n\n\n\n";"Continue"="استمر";
+"Rate Order"="تقييم الاوردر";"Cancel Order"="الغاء الاوردر";"Reservation"="حجز";"Consultaion"="استشاره";
+
+//NotificationVC
+"Notification"="التنبيهات";
+
+//NotificationsCollectionVC
+"No Data Added Yet"="لا توجد داتا مضافه لحد الان";"Choose Options"="اختر المناسب لك";
+"What do you want to make?"="ماذا تريد ان تفعل?";"Delete"="حذف";
+
+
+//DOCTOR
+//DoctorListsVC
+"No interntetI Connection"="لا يوجد اتصال بالانترنت";"Doctor"="دكتور";"Medical Center"="مراكز طبيه";
+"Find the best rated doctors"=" العثور على أفضل الأطباء !";"Find the best rated Medical Center"=" العثور علي أفضل المراكز الطبية!";
+
+//DoctorSearchVC
+"Searching..."="بحث...";
+
+//CardiologyDoctorsResultsVC
+"Doctors"="الدكاتره";
+
+//DeatilsSelectedDoctorsVC
+"Next"="التالي";"Doctor's working date"="ساعات العمل للدكتور";"Doctor free suggested days"="الايام المتاحة للدكتور";
+"Details"="تفاصيل";
+
+
+//DoctorBookVC
+"Book for me"="احجز لي";"Book for another person"="احجز لشخص اخر";"Reservation"="حجز";
+"Consultation"="استشاره";"Continue"="متابعه";"Shift 1"="الشفت الاول";"Shift 2"="الشفت الثاني";

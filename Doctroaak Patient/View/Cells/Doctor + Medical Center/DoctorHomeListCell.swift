@@ -12,12 +12,21 @@ import MOLH
 
 class DoctorHomeListCell: BaseCollectionCell {
     
-    var spy:SpecificationModel!  {
+    var spy:SpecificationModel?  {
         didSet{
+            guard let spy = spy else { return  }
+
             docLabel.text = MOLHLanguage.isRTLLanguage() ?  spy.nameAr : spy.name
             let urlString = spy.url
             guard let url = URL(string: urlString) else { return  }
             docImage.sd_setImage(with: url)
+        }
+    }
+    
+    var index:Int? {
+        didSet{
+            guard let index = index else { return  }
+            docLabel.text = index == 0 ? "Doctor".localized : "Medical Center".localized
         }
     }
     
@@ -34,7 +43,7 @@ class DoctorHomeListCell: BaseCollectionCell {
         i.constrainHeight(constant: 60)
         return i
     }()
-    lazy var docLabel = UILabel(text: "Cardiology", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center)
+    lazy var docLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center)
     
     
     

@@ -15,7 +15,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
     
     var index:Int!{
         didSet{
-            titleLabel.text = index == 1 ? "Rediology".localized : "Lap".localized
+            titleLabel.text = index == 1 ? "Rediology".localized : "Lab".localized
             doctorWorkingDataLabel.text = index == 0 ? "Lab  working hours".localized : "Rediology  working hours".localized
         }
     }
@@ -57,7 +57,7 @@ class CustomLAPSelectedSearchView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Lap", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Lab".localized, font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)

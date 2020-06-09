@@ -87,18 +87,13 @@ class CustomMainPaymentView: CustomBaseView {
     lazy var choosePayLabel = UILabel(text: "Enter your phone number :".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var numberTextField:UITextField = {
-        let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .numberPad,secre: true)
+        let s = createMainTextFields(padding:100,place: "Phone".localized, type: .numberPad,secre: false)
         s.textAlignment = .center
         let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
-        if MOLHLanguage.isRTLLanguage()  {
-             button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
-            s.rightView = button
-                   s.rightViewMode = .always
-        }else {
             button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
- s.leftView = button
-        s.leftViewMode = .always
-        }
+            s.leftView = button
+            s.leftViewMode = .always
+//        }
         return s
     }()
     lazy var codeTextField:UITextField = {
@@ -298,4 +293,6 @@ class CustomMainPaymentView: CustomBaseView {
         paymentViewModel.fawryCode = nil
         paymentViewModel.vodafoneVode = nil
     }
+    
+    
 }

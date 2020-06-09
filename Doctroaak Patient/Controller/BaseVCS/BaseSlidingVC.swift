@@ -256,9 +256,9 @@ class BaseSlidingVC: UIViewController {
         if MOLHLanguage.isRTLLanguage() {
             
             let transltaion = gesture.translation(in: view)
-            if transltaion.x > 0 {
-                return
-            }
+            //            if transltaion.x > 0 {
+            //                return
+            //            }
             var x = -transltaion.x
             x = isMenuOpen ? x+menuWidth : x
             x = min(menuWidth, x)
@@ -304,6 +304,9 @@ class BaseSlidingVC: UIViewController {
     }
     
     @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        removeViewWithAnimation(vvv: customContactUsView)
+        removeViewWithAnimation(vvv: customAlertChooseLanguageView)
         dismiss(animated: true, completion: nil)
     }
     

@@ -13,6 +13,14 @@ import MOLH
 
 class CustomLAPOrderView: CustomBaseView {
     
+    var index:Int? {
+        didSet{
+            guard let index = index else { return  }
+            orderSegmentedView.itemTitles = index == 0 ? ["prescription".localized,"Request an analysis".localized,"All".localized] : ["prescription".localized,"Request a ray".localized,"All".localized]
+            addLapCollectionVC.index=index
+            nameDrop.optionArray = index == 0 ? labNameArray : radiologyNameArray
+        }
+    }
     
     
     lazy var LogoImage:UIImageView = {
@@ -27,12 +35,12 @@ class CustomLAPOrderView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Order ", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Order your request", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Order ".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Order your request".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var orderSegmentedView:TTSegmentedControl = {
         let view = TTSegmentedControl()
-        view.itemTitles = ["prescription","Request a medicine","All"]
+        view.itemTitles = ["prescription".localized,"Request an analysis".localized,"All".localized]
         
         view.allowChangeThumbWidth = true
         view.constrainHeight(constant: 50)
@@ -59,7 +67,7 @@ class CustomLAPOrderView: CustomBaseView {
         v.constrainHeight(constant: 60)
         return v
     }()
-    lazy var uploadLabel = UILabel(text: "Upload prescription", font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
+    lazy var uploadLabel = UILabel(text: "Upload prescription".localized, font: .systemFont(ofSize: 20), textColor: .lightGray,textAlignment: .center)
     
     lazy var uploadImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4174"))
@@ -67,7 +75,7 @@ class CustomLAPOrderView: CustomBaseView {
         return i
     }()
     lazy var orLabel:UILabel = {
-        let l = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
+        let l = UILabel(text: "OR".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
         l.isHide(true)
         return l
     }()
@@ -78,7 +86,7 @@ class CustomLAPOrderView: CustomBaseView {
         i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         i.textColor = .black
         i.rowBackgroundColor = .gray
-
+        
         i.placeholder = "Name".localized
         i.didSelect {[unowned self] (txt, indexx, _) in
             self.selectedName = txt
@@ -97,10 +105,9 @@ class CustomLAPOrderView: CustomBaseView {
     }()
     lazy var addLapCollectionVC:AddLapCollectionVC = {
         let vc = AddLapCollectionVC()
-        vc.index=self.index
         vc.handleRemoveItem = {[unowned self] item,index in
-                   self.handleRemoveItem?(item,index)
-               }
+            self.handleRemoveItem?(item,index)
+        }
         return vc
     }()
     lazy var addMoreImage:UIImageView = {
@@ -132,12 +139,11 @@ class CustomLAPOrderView: CustomBaseView {
         return s
     }()
     var handleRemoveItem:((RadiologyOrderModel,IndexPath)->Void)?
-
+    
     var constainedLogoAnchor:AnchoredConstraints!
     var bubleViewBottomTitleConstraint:NSLayoutConstraint!
     var bubleViewCenterImgHeightConstraint:NSLayoutConstraint!
     var bubleViewTopSegConstraint:NSLayoutConstraint!
-    var index = 0
     var selectedName = ""
     
     var labId:Int? {
@@ -149,7 +155,7 @@ class CustomLAPOrderView: CustomBaseView {
         }
     }
     
-
+    
     
     var isDataFound = false
     var isSecondIndex = false
@@ -186,8 +192,8 @@ class CustomLAPOrderView: CustomBaseView {
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: arasNames, did:areaIds )
                 
                 
-            
-        }
+                
+            }
         }else {
             if  let cityArray = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.labAnalysisIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.radAnalysisNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.radAnalysisIdArray) as? [Int]  {
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: degreeNames, did:degreeIds )
@@ -195,7 +201,7 @@ class CustomLAPOrderView: CustomBaseView {
             }
         }
         
-        self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
+//        self.nameDrop.optionArray = index == 0 ?  labNameArray : radiologyNameArray
         
         DispatchQueue.main.async {
             self.layoutIfNeeded()
@@ -214,12 +220,12 @@ class CustomLAPOrderView: CustomBaseView {
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,orderSegmentedView,mainStacxk,nextButton)
         
         if MOLHLanguage.isRTLLanguage() {
-                  LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
-              }else {
-                  
-                  LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-              }
-//        constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        constainedLogoAnchor = LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: backImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -80, right: 0))
@@ -271,9 +277,9 @@ class CustomLAPOrderView: CustomBaseView {
         
         let text = selectedName
         
-        addLapCollectionVC.medicineTextsArray.append(text)
+//        addLapCollectionVC.medicineTextsArray.append(text)
         let order = RadiologyOrderModel(raysID: name)
-  addLapCollectionVC.medicineArray.append(order)
+        addLapCollectionVC.medicineArray.append(order)
         
         
         DispatchQueue.main.async {

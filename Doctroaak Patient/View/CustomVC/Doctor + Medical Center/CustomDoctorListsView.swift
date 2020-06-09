@@ -10,15 +10,17 @@ import UIKit
 import MOLH
 
 class CustomDoctorListsView: CustomBaseView {
- 
-    var index:Int! {
+    
+    var index:Int? {
         didSet {
+            guard let index = index else { return  }
             titleLabel.text = index == 0 ? "Doctor".localized : "Medical Center".localized
             userSpecificationLabel.text = index == 0 ? "Find the best rated doctors".localized : "Find the best rated Medical Center".localized
+            doctorListCollectionVC.index=index
         }
     }
     
- 
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116").withRenderingMode(.alwaysOriginal))
         i.contentMode = .scaleAspectFill
@@ -39,7 +41,7 @@ class CustomDoctorListsView: CustomBaseView {
         vc.handleCheckedIndex = {[unowned self ] id in
             self.handleCheckedIndex?(id)
         }
-//        vc.view.isHide(vc.specificationArray.count < 1 ? true : false)
+        //        vc.view.isHide(vc.specificationArray.count < 1 ? true : false)
         return vc
     }()
     
@@ -55,9 +57,9 @@ class CustomDoctorListsView: CustomBaseView {
         }else {
             
             LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-       }
+        }
         
-//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         //        notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

@@ -17,7 +17,7 @@ class ProfileOrderCell: BaseCollectionCell {
             guard let doctor = doctor else { return  }
             profileOrderDatesLabel.text = doctor.createdAt
             let name = MOLHLanguage.isRTLLanguage() ? doctor.clinic.doctor.nameAr ??  doctor.clinic.doctor.name : doctor.clinic.doctor.name
-            let checks = getCityFromIndex(doctor.type.toInt())
+            let checks = getTypeFromIndex(doctor.type.toInt() )
             let waits = doctor.clinic.waitingTime
             let reserve = doctor.clinic.fees
             let consultaion = doctor.clinic.fees2
@@ -180,7 +180,7 @@ class ProfileOrderCell: BaseCollectionCell {
 //        la.attributedText = attributeText
 //    }
     
-    func getCityFromIndex(_ index:Int?) -> String {
+    func getTypeFromIndex(_ index:Int?) -> String {
         guard let index = index else { return "Reservation" }
         return index ==  1 ? "Reservation".localized  : index == 2 ?  "Consultaion".localized : "Continue".localized
     }

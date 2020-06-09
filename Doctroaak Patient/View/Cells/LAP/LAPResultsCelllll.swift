@@ -22,7 +22,7 @@ class  LAPResultsCelllll: BaseCollectionCell {
             let area = getAreaFromIndex(lab.area)
             
             putAttributedText(la: profileInfoLabel, ft: name+"\n", st: "\(area), \(city) \n")
-            let delivery = lab.delivery.toInt() == 0 ? "Delivery".localized : "Not Delivery"
+            let delivery = lab.delivery.toInt() == 0 ? "Delivery".localized : "Not Delivery".localized
 
 //            let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
 //            attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))
@@ -141,55 +141,34 @@ class  LAPResultsCelllll: BaseCollectionCell {
         return b
     }
     
-    func getCityFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        
-        return citName[ff - 1 ]
-    }
+//    func getCityFromIndex(_ index:Int) -> String {
+//        var citName = [String]()
+//        var cityId = [Int]()
+//        
+//        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
+//            
+//            citName = cityArray
+//            cityId = cityIds
+//            
+//            
+//            
+//        }else {
+//            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
+//                citName = cityArray
+//                cityId = cityIds
+//            }
+//        }
+//        let ss = cityId.filter{$0 == index}
+//        let ff = ss.first ?? 1
+//        
+//        return citName[ff - 1 ]
+//    }
     
 //    func putAttributedText(la:UILabel,ft:String,st:String)  {
 //        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
 //        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
 //        la.attributedText = attributeText
 //    }
-    
-    func getAreaFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        return citName[ff-1]
-    }
     
 //    @objc func handleLocation()  {
 //        var lat:Double

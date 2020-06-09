@@ -22,17 +22,6 @@ class AddLAPCell: BaseCollectionCell {
         }
     }
     
-    var text:String?{
-        didSet{
-            guard let te = text else { return  }
-            DispatchQueue.main.async {
-                self.nameLabel.text = te
-                
-            }
-        }
-    }
-    
-    
     var index = 0
     
     lazy var nameLabel = UILabel(text: "Name", font: .systemFont(ofSize: 20), textColor: .black,textAlignment: .left)
@@ -73,13 +62,13 @@ class AddLAPCell: BaseCollectionCell {
         var cityId = [Int]()
         
         if self.index == 0 {
-            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labAnalysisNameARArray :  UserDefaultsConstants.labAnalysisNameArray
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labAnalysisNameArray :  UserDefaultsConstants.labAnalysisNameArray
             let ff = UserDefaultsConstants.labAnalysisIdArray
             
             checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
             
         }else {
-            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radAnalysisNameARArray :  UserDefaultsConstants.radAnalysisNameArray
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radAnalysisNameArray :  UserDefaultsConstants.radAnalysisNameArray
             let ff = UserDefaultsConstants.radAnalysisIdArray
             
             checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)

@@ -61,9 +61,9 @@ class CustomDetailsView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Details", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var suggestedLabel = UILabel(text: "Doctor free suggested days", font: .systemFont(ofSize: 18), textColor: .gray)
-    lazy var workingDateLabel = UILabel(text: "Doctor's working date", font: .systemFont(ofSize: 18), textColor: .gray)
+    lazy var titleLabel = UILabel(text: "Details".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var suggestedLabel = UILabel(text: "Doctor free suggested days".localized, font: .systemFont(ofSize: 18), textColor: .gray)
+    lazy var workingDateLabel = UILabel(text: "Doctor's working date".localized, font: .systemFont(ofSize: 18), textColor: .gray)
     lazy var mainSecondView:UIView = {
         let v = UIView(backgroundColor: .white)
         v.layer.cornerRadius = 8
@@ -88,7 +88,7 @@ class CustomDetailsView: CustomBaseView {
     }()
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Next", for: .normal)
+        button.setTitle("Next".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.constrainHeight(constant: 50)

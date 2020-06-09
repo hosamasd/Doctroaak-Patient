@@ -63,7 +63,7 @@ class DoctorListsVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !ConnectivityInternet.isConnectedToInternet {
-            showToast(context: self, msg: "No interntetI Connection")
+            showToast(context: self, msg: "No interntetI Connection".localized)
         }
     }
     
@@ -76,8 +76,8 @@ class DoctorListsVC: CustomBaseViewVC {
     
     func getData()  {
         UIApplication.shared.beginIgnoringInteractionEvents()
-
-        SVProgressHUD.show(withStatus: "Looding")
+        
+        SVProgressHUD.show(withStatus: "Looding...".localized)
         MainServices.shared.getSpecificationss { (base, err) in
             if let err=err{
                 SVProgressHUD.showError(withStatus: err.localizedDescription)

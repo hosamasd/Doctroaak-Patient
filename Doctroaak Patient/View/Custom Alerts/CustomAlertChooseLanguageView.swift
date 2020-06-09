@@ -7,10 +7,10 @@
 //
 
 import UIKit
-
+import MOLH
 class CustomAlertChooseLanguageView: CustomBaseView {
     
-    lazy var languageLabel = UILabel(text: "Choose Language".localized, font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var languageLabel = UILabel(text: "Choose Language".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
 
     lazy var englishButton = cretaeButtonss(title: "English".localized,tags: 0)
     lazy var arabicButton = cretaeButtonss(title: "Arabic".localized,tags: 1)

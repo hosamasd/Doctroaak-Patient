@@ -34,7 +34,7 @@ class CustomRequestMedicineView: CustomBaseView {
         i.placeholder = "Type".localized
         return i
     }()
-    lazy var quantityLabel = UILabel(text: "Quantity", font: .systemFont(ofSize: 20), textColor: .black)
+    lazy var quantityLabel = UILabel(text: "Quantity".localized, font: .systemFont(ofSize: 20), textColor: .black)
     lazy var customAddMinusView = CustomAddMinusView()
     lazy var addMoreImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4178"))
@@ -55,9 +55,5 @@ class CustomRequestMedicineView: CustomBaseView {
 
 //        addSubViews(views: .view)
         stack(mainDropView,mainDrop2View,s,dd, spacing: 16, distribution: .fillEqually)
-//        mainStack.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
-//        addMedicineCollectionVC.view.anchor(top: mainStack.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
-
-//        addMedicineCollectionVC.view.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
     }
 }

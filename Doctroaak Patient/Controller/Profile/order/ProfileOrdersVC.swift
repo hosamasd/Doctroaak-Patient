@@ -283,7 +283,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
             
             DispatchQueue.main.async {
                 self.removeItem(ind: ind, indexx: indexx)
-                self.showToast(context: self, msg: mess)
+                self.showToast(context: self, msg: mess ?? "")
             }        }
     }
     
@@ -364,7 +364,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
             let me = MOLHLanguage.isRTLLanguage() ? use.message : use.messageEn
             
             DispatchQueue.main.async {
-                self.showToast(context: self, msg: me)
+                self.showToast(context: self, msg: me ?? "")
                 self.handleRemoveStars()
             }
         }

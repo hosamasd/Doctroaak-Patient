@@ -29,8 +29,8 @@ class CustomNotificationView: CustomBaseView {
         i.contentMode = .scaleAspectFill
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Notification", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Notification".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var notificationsCollectionVC:NotificationsCollectionVC = {
         let v = NotificationsCollectionVC()

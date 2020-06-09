@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 import MapKit
 
 protocol ChooseLocationVCProtocol {
@@ -74,7 +75,7 @@ class ChooseLocationVC: CustomBaseViewVC {
     }
     
     @objc fileprivate func handleInfo()  {
-        //        SVProgressHUD.showInfo(withStatus: "Please press long to pick up location".localized)
+                SVProgressHUD.showInfo(withStatus: "Please press long to pick up location".localized)
     }
     
     @objc fileprivate func handleDismss()  {

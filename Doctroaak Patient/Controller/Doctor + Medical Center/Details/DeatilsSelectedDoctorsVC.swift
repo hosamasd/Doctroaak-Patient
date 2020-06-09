@@ -59,6 +59,17 @@ class DeatilsSelectedDoctorsVC: UIViewController {
             customDetailsView.selectedDoctor=selectedDoctor
         }
     }
+    
+    fileprivate let index:Int!
+       
+       init(index:Int) {
+           self.index=index
+           super.init(nibName: nil, bundle: nil)
+       }
+       
+       required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
 
     //    var patient_id:Int?
     //    var patientApiToken:String?
@@ -105,7 +116,7 @@ class DeatilsSelectedDoctorsVC: UIViewController {
 guard let selectedDoctor = selectedDoctor else { return  }
         guard let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
         //        let book = DoctorBookVC(clinic_id: clinic_id, patient_id: patientId, api_token: apiTpken)
-        let book = DoctorBookVC(clinic_id: clinic_id)
+        let book = DoctorBookVC(clinic_id: clinic_id, index:index)
         book.patient=patient
         //        book.api_token=apiTpken
         //        book.patient_id=patientId

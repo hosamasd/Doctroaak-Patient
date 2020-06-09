@@ -18,7 +18,7 @@ class LAPResultsCell: BaseCollectionCell {
             let city = getCityFromIndex(lab.city)
             let area = getAreaFromIndex(lab.area)
             //            let avaible = lab.active == 0 ? "Available" : "UnAvailable"
-            let delivery = lab.delivery.toInt() == 0 ? "Delivery".localized : "Not Delivery"
+            let delivery = lab.delivery.toInt() == 1 ? "Delivery".localized : "Not Delivery".localized
             
             putAttributedText(la: profileInfoLabel, ft: name+"\n", st: "\n \(area), \(city) \n\n")
             profileInfoDeliveryyLabel.text = delivery
@@ -117,49 +117,6 @@ class LAPResultsCell: BaseCollectionCell {
         return b
     }
     
-    func getCityFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        
-        return citName[ff - 1 ]
-    }
-    
-    func getAreaFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-            
-            citName = cityArray
-            cityId = cityIds
-            
-            
-            
-        }else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        return citName[ff-1]
-    }
     
 }
 
