@@ -81,13 +81,16 @@ class CustomLapSearchView: CustomBaseView {
     }()
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Name")
 
-        i.arrowSize = 20
-        i.placeholder = "Name".localized
+//        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+//        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+//        i.textColor = .black
+//        i.rowBackgroundColor = .gray
+//
+//        i.arrowSize = 20
+//        i.attributedPlaceholder = NSAttributedString(string: "Name".localized,attributes: [.foregroundColor: UIColor.black])
+
         i.didSelect {[unowned self] (txt, indexx, _) in
             self.lAPSearchViewModel.index = self.index
             if self.index == 0 {
@@ -110,7 +113,8 @@ class CustomLapSearchView: CustomBaseView {
 
         //        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
-        i.placeholder = "City".localized
+        i.attributedPlaceholder = NSAttributedString(string: "City".localized,attributes: [.foregroundColor: UIColor.black])
+
         i.didSelect { (txt, indexx, _) in
             self.lAPSearchViewModel.index = self.index
             self.getAreaAccordingToCityId(index: indexx)
@@ -121,13 +125,16 @@ class CustomLapSearchView: CustomBaseView {
     }()
     lazy var mainDrop3View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Area")
 
-        i.arrowSize = 20
-        i.placeholder = "Area".localized
+//        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+//        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+//        i.textColor = .black
+//        i.rowBackgroundColor = .gray
+//
+//        i.arrowSize = 20
+//        i.attributedPlaceholder = NSAttributedString(string: "Area".localized,attributes: [.foregroundColor: UIColor.black])
+
         i.didSelect {[unowned self] (txt, index, _) in
             self.lAPSearchViewModel.area = self.areaIDSArray[index]//index+1
             

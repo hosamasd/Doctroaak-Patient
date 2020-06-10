@@ -64,7 +64,7 @@
 "Open From Gallery"="Open From Gallery";"Choose Image"="Choose Image";"Choose image fROM "="Choose image fROM ";
 "Create account"="Create account";"Welcome"="Welcome";" Name"=" Name";" phone"=" phone";
 "Male"="Male";"Female"="Female";"   Birthday"="   Birthday";
-
+"Insurance company"="Insurance company";"Insurance code"="Insurance code";"Reigster..."="Reigster...";
 //Search
 
 //ICUSearchVC
@@ -141,6 +141,10 @@
 "Reservation"="Reservation";"Consultation"="Consultation";
 
 //ProfileOrdersVC
+"Doctors\n"="Doctors\n";"Pharamacy\n"="Pharamacy\n";"Lab\n"="Lab\n";"Radiology\n"="Radiology\n";
+"Cancel order"="Cancel order";
+
+//ProfileOrdersVC
 "DOCTOR"="DOCTOR";"RADIOLOGY"="RADIOLOGY";"PHARMACY"="PHARMACY";"LAB"="LAB";"Rating..."="Rating...";
 "Feedback \n\n\n\n\n"="Feedback \n\n\n\n\n";"Continue"="Continue";
 "Rate Order"="Rate Order";"Cancel Order"="Cancel Order";"Reservation"="Reservation";"Consultaion"="Consultaion";
@@ -157,7 +161,7 @@
 //DoctorListsVC
 "No interntetI Connection"="No interntetI Connection";"Doctor"="Doctor";"Medical Center"="Medical Center";
 "Find the best rated doctors"="Find the best rated doctors";"Find the best rated Medical Center"="Find the best rated Medical Center";
-
+"No Days Available Yet"="No Days Available Yet";
 //DoctorSearchVC
 "Searching..."="Searching...";
 
@@ -173,3 +177,5 @@
 //DoctorBookVC
 "Book for me"="Book for me";"Book for another person"="Book for another person";"Reservation"="Reservation";
 "Consultation"="Consultation";"Continue"="Continue";"Shift 1"="Shift 1";"Shift 2"="Shift 2";
+
+

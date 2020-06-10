@@ -56,7 +56,7 @@ class LABProfileOrderCell: BaseCollectionCell {
     
     lazy var cancelButton:UIButton = {
         let b = UIButton()
-        b.setTitle("Cancel order", for: .normal)
+        b.setTitle("Cancel order".localized, for: .normal)
         b.setTitleColor(.black, for: .normal)
         b.backgroundColor = .white
         b.constrainHeight(constant: 50)

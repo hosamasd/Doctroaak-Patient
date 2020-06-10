@@ -8,6 +8,8 @@
 
 import UIKit
 import AVKit
+import iOSDropDown
+import MOLH
 extension UIView{
     
     private static let kRotationAnimationKey = "rotationanimationkey"
@@ -1050,6 +1052,7 @@ extension UICollectionView{
             label.frame.origin.x = 0
             label.frame.origin.y = 0
             label.textAlignment = .center
+            label.textColor = .black
             label.text =  text
             self.backgroundView = label
         }else{
@@ -1070,4 +1073,18 @@ extension String {
         return self.substring(from: range.upperBound)
     }
 
+}
+
+extension UIView {
+    func returnMainDropDown(bg:UIColor,plcae:String) -> DropDown {
+        let b = DropDown()
+        
+        b.backgroundColor = bg
+        b.arrowSize = 20
+        b.textColor = .black
+        b.rowBackgroundColor = .gray
+        b.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        b.attributedPlaceholder = NSAttributedString(string: plcae.localized,attributes: [.foregroundColor: UIColor.black])
+    return b
+    }
 }

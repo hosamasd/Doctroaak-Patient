@@ -15,8 +15,10 @@ class PatientFavoritessDoctorsCell: BaseCollectionCell {
     var doctor:PatientFavoriteModel? {
         didSet{
             guard let doctor = doctor  else {return}
+            let name = MOLHLanguage.isRTLLanguage() ? doctor.doctor.nameAr ?? doctor.doctor.name  : doctor.doctor.name
+            let des = MOLHLanguage.isRTLLanguage() ? doctor.doctor.degree?.nameAr ?? doctor.doctor.degree?.name ?? "" : doctor.doctor.degree?.name ?? ""
             
-            profileInfoLabel.text = MOLHLanguage.isRTLLanguage() ? doctor.doctor.nameAr : doctor.doctor.name
+            putAttributedText(la: profileInfoLabel, ft: name+"\n", st: des + "\n")
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
             profileInfoReservationLabel.text = "Reservation".localized + " : \(doctor.fees)"
             profileInfoConsultaionLabel.text = "Consultation".localized + " : \(doctor.fees2)"
@@ -128,6 +130,7 @@ class PatientFavoritessDoctorsCell: BaseCollectionCell {
     }
     
     func setupViewss() {
+        [profileInfoLabel,profileInfoAddressLabel,profileInfoReservationLabel,profileInfoConsultaionLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         backgroundColor = .white
         layer.cornerRadius = 8
         clipsToBounds = true

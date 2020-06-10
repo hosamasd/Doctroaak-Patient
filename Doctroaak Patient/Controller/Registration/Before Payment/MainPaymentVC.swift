@@ -9,10 +9,12 @@
 
 import UIKit
 import SVProgressHUD
+//import AcceptSDK
+
 
 class MainPaymentVC: CustomBaseViewVC {
     
-    
+
     
     lazy var customMainPaymentView:CustomMainPaymentView = {
         let v = CustomMainPaymentView()

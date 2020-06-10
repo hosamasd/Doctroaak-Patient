@@ -49,16 +49,10 @@ class CustomDoctorSearchView: CustomBaseView {
         }
         return view
     }()
-       lazy var mainDropView = makeMainSubViewWithAppendView(vv: [cityDrop])
+    lazy var mainDropView = makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.arrowSize = 20
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "City")
         
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
-
-        i.placeholder = "City".localized
         i.didSelect { (txt, index, _) in
             self.getAreaAccordingToCityId(index: index)
             //            self.doctorSearchViewModel.insuranceCompany = true
@@ -69,13 +63,8 @@ class CustomDoctorSearchView: CustomBaseView {
     }()
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.arrowSize = 20
-        i.rowBackgroundColor = .gray
-
-        i.textColor = .black
-        i.placeholder = "Area".localized
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Area")
+        
         i.didSelect {[unowned self] (txt, index, _) in
             self.doctorSearchViewModel.area = self.areaIDSArray[index]//index+1
             self.doctorSearchViewModel.specificationId = self.specificationId
@@ -102,12 +91,11 @@ class CustomDoctorSearchView: CustomBaseView {
         v.isHide(true)
         v.addSubViews(views: addressImage,addressLabel)
         if MOLHLanguage.isRTLLanguage() {
-                   v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 0, bottom: 4, right: 16))
-                   
-               }else {
-                   v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
-               }
-//        v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+            v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 0, bottom: 4, right: 16))
+            
+        }else {
+            v.hstack(addressLabel,addressImage).withMargins(.init(top: 4, left: 16, bottom: 4, right: 0))
+        }
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
         v.constrainHeight(constant: 60)
         return v
@@ -174,18 +162,17 @@ class CustomDoctorSearchView: CustomBaseView {
         ])
         
         if MOLHLanguage.isRTLLanguage() {
-                  LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
-              }else {
-                  
-                  LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-             }
-//        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         userSpecificationLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         searchSegmentedView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 46, bottom: 0, right: 32))
         textStack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
-        //        text2Stack.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
         
         searchButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         

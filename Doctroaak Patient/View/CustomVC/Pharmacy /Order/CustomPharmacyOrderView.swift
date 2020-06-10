@@ -63,13 +63,8 @@ class CustomPharmacyOrderView: CustomBaseView {
     lazy var orLabel = UILabel(text: "OR", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.arrowSize = 20
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
-        
-        i.placeholder = "Name".localized
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Name")
+
         i.didSelect {[unowned self] (txt, index, _) in
             //            self.selectedName=self.pha
             //            self.pharamacyOrderViewModel.name = txt
@@ -96,13 +91,8 @@ class CustomPharmacyOrderView: CustomBaseView {
     } ()
     
     lazy var typeDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.arrowSize = 20
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
-        
-        i.placeholder = "Type".localized
+               let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Name")
+
         i.didSelect {[unowned self] (txt, index, _) in
             self.pharamacyOrderViewModel.api_token = txt
         }

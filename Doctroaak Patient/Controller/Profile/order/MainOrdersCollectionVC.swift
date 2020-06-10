@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MOLH
 
 class MainOrdersCollectionVC: BaseCollectionVC {
     
@@ -31,7 +32,7 @@ class MainOrdersCollectionVC: BaseCollectionVC {
     var handleCheckedIndexForButtons:((Int)->Void)?
     var handleCheckedIOpenImage:((UIImage)->Void)?
     var handleRateIndex:((DoctorsOrderPatientModel)->Void)?
-
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
@@ -100,12 +101,37 @@ class MainOrdersCollectionVC: BaseCollectionVC {
     func scrollToSpecificIndex(indexNumber:Int)  {
         let index = IndexPath(item: indexNumber, section: 0)
         
+        let direction:UICollectionView.ScrollPosition = MOLHLanguage.isRTLLanguage() ? .left : .right
+        
+        //        collectionView.scrollToItem(at: index, at: direction, animated: true)
+        
         collectionView.scrollToItem(at: index, at: .right, animated: true)
     }
     
+    
+    
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let item = targetContentOffset.pointee.x / view.frame.width
-        handleCheckedIndexForButtons?(Int(item))
+        var xcd:CGFloat = 0.0
+        if MOLHLanguage.isRTLLanguage() {
+            
+            if targetContentOffset.pointee.x ==  1077.0 {
+                xcd = 0.0
+            }else if targetContentOffset.pointee.x == 718.0{
+                xcd = 359.0
+            }else if targetContentOffset.pointee.x == 359.0 {
+                xcd = 718.0
+            }else {
+                xcd=1077.0
+            }
+            
+            let dd = xcd / view.frame.width
+            handleCheckedIndexForButtons?(Int(dd));return
+            
+        }else {
+            let item = targetContentOffset.pointee.x / view.frame.width
+            handleCheckedIndexForButtons?(Int(item));return
+            
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

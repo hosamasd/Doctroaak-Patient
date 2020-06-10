@@ -77,46 +77,15 @@ class CustomRegisterView: CustomBaseView {
         return s
     }()
     lazy var boyButton:UIButton = createMainButtonsForGenderss(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false)
-     lazy var girlButton:UIButton = createMainButtonsForGenderss(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
-//    lazy var boyButton:UIButton = {
-//
-//        let button = UIButton(type: .system)
-//        button.setTitle("Male".localized, for: .normal)
-//        button.setTitleColor(.white, for: .normal)
-//        button.layer.cornerRadius = 8
-//        button.layer.borderWidth = 1
-//        button.layer.borderColor = UIColor.gray.cgColor
-//        button.clipsToBounds = true
-//        if MOLHLanguage.isRTLLanguage() {
-//            button.rightImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
-//        }else {
-//            button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
-//        }
-//        return button
-//    }()
-//    lazy var girlButton:UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setTitle("Female".localized, for: .normal)
-//        button.setTitleColor(.black, for: .normal)
-//        button.backgroundColor = .white
-//        button.layer.cornerRadius = 8
-//        button.layer.borderWidth = 1
-//        button.layer.borderColor = UIColor.gray.cgColor
-//        button.clipsToBounds = true
-//        if MOLHLanguage.isRTLLanguage() {
-//            button.rightImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-//        }else {
-//            button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-//        }
-//        return button
-//    }()
+    lazy var girlButton:UIButton = createMainButtonsForGenderss(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
     lazy var birthdayTextField:UITextField = {
         let t = UITextField()
         
         t.layer.cornerRadius = 8
         t.clipsToBounds = true
-        t.placeholder = "   Birthday".localized
         t.textAlignment = .center
+        t.textColor = .black
+        t.attributedPlaceholder = NSAttributedString(string: "   Birthday".localized,attributes: [.foregroundColor: UIColor.black])
         t.layer.borderWidth = 1
         t.layer.borderColor = UIColor.lightGray.cgColor
         return t
@@ -125,19 +94,35 @@ class CustomRegisterView: CustomBaseView {
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [insuranceDrop])
     
     lazy var insuranceDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.tintColor = .black
-        i.rowBackgroundColor = .gray
-
-        i.arrowSize = 20
-        i.placeholder = "Insurance company".localized
-        i.didSelect { (txt, index, _) in
-            self.registerViewModel.insuranceCode =  self.insuracneIDSArray[index]//index+1
-        }
-        return i
-    }()
+           let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Insurance company")
+           i.didSelect { (txt, index, _) in
+               UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                   self.insuranceCodeTextField.isHide(false)
+               })
+               self.registerViewModel.isInsurance = true
+           }
+           return i
+       }()
+    
+//    lazy var insuranceDrop:DropDown = {
+//        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+//        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+//        i.textColor = .black
+//        i.tintColor = .black
+//        i.rowBackgroundColor = .gray
+//
+//        i.arrowSize = 20
+//        i.attributedPlaceholder = NSAttributedString(string: "Insurance company".localized,attributes: [.foregroundColor: UIColor.black])
+//
+//        i.didSelect { (txt, index, _) in
+//            UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+//                self.insuranceCodeTextField.isHide(false)
+//            })
+//            self.registerViewModel.isInsurance = true
+//            //            self.registerViewModel.insuranceCode =  self.insuracneIDSArray[index]//index+1
+//        }
+//        return i
+//    }()
     lazy var insuranceCodeTextField = createMainTextFields(place: "Insurance code".localized)
     
     lazy var acceptButton:UIButton = {
@@ -159,7 +144,7 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var signUpButton:UIButton = {
         let button = UIButton()
-        button.setTitle("SignUp".localized, for: .normal)
+        button.setTitle("SIGN UP".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
@@ -195,6 +180,7 @@ class CustomRegisterView: CustomBaseView {
     
     
     override func setupViews() {
+        insuranceCodeTextField.isHide(true)
         addViewsTargets()
         
         let subView = UIView(backgroundColor: .clear)

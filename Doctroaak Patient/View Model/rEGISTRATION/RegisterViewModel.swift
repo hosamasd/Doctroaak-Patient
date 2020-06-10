@@ -23,7 +23,7 @@ class RegisterViewModel {
     var password:String? {didSet {checkFormValidity()}}
     var confirmPassword:String? {didSet {checkFormValidity()}}
     var birthday:String? {didSet {checkFormValidity()}}
-//    var isInsurance:Bool? = false {didSet {checkFormValidity()}}
+    var isInsurance:Bool? = false {didSet {checkFormValidity()}}
      var insuranceCode:Int? = -1 {didSet {checkFormValidity()}}
     var image:UIImage? {didSet {checkFormValidity()}}
     var gender:String?  = "male" {didSet {checkFormValidity()}}
@@ -42,7 +42,8 @@ class RegisterViewModel {
     
     func checkFormValidity() {
         
-        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && image != nil  && isAccept != false && insuranceCode  != -1
+        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && image != nil  && isAccept != false && isInsurance == false ||
+            insuranceCode  != -1 && email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && image != nil  && isAccept != false && isAccept == true
 
         bindableIsFormValidate.value = isFormValid
         

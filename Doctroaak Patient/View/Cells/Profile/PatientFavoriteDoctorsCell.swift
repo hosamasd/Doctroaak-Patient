@@ -16,8 +16,8 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
     var doctor:PatientSearchDoctorsModel? {
         didSet{
             guard let doctor = doctor else { return  }
-            let x = MOLHLanguage.isRTLLanguage() ? doctor.nameAr ?? doctor.name ?? "" : doctor.name ?? ""
-            let d = MOLHLanguage.isRTLLanguage() ?  doctor.degree?.name ?? "" :  doctor.degree?.name ?? ""
+            let x = MOLHLanguage.isRTLLanguage() ? doctor.doctor.nameAr ?? doctor.doctor.name ?? "" : doctor.doctor.name ?? ""
+            let d = MOLHLanguage.isRTLLanguage() ?  doctor.degree?.nameAr ?? doctor.degree?.name ??  "" :  doctor.degree?.name ?? ""
             
             putAttributedText(la: profileInfoLabel, ft: x+"\n", st: d+"\n")
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"
@@ -41,7 +41,7 @@ class PatientFavoriteDoctorsCell: BaseCollectionCell {
         didSet{
             guard let doctor = secondDoctor else { return  }
             let x = MOLHLanguage.isRTLLanguage() ? doctor.doctor.nameAr ?? doctor.doctor.name : doctor.doctor.name
-            let d = MOLHLanguage.isRTLLanguage() ?  doctor.doctor.degree?.name ?? "" :  doctor.doctor.degree?.name ?? ""
+            let d = MOLHLanguage.isRTLLanguage() ?  doctor.doctor.degree?.nameAr ?? doctor.doctor.degree?.name ?? "" :  doctor.doctor.degree?.name ?? ""
             
             putAttributedText(la: profileInfoLabel, ft: x+"\n", st: d+"\n\n")
             profileInfoAddressLabel.text = "\(getCityFromIndex(doctor.city.toInt() ?? 1)) , \(getAreaFromIndex(doctor.area.toInt() ?? 1 )) " //"\(doctor.city) , \(doctor.area)"

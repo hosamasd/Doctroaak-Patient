@@ -16,7 +16,7 @@ class CustomICUSearchView: CustomBaseView {
     var index:Int?{
         didSet{
             guard let index = index else { return  }
-            titleLabel.text = index == 0 ? "I.C.U".localized : "Incubation".localized
+            titleLabel.text = index == 1 ? "I.C.U".localized : "Incubation".localized
         }
     }
     
@@ -53,12 +53,7 @@ class CustomICUSearchView: CustomBaseView {
            return view
        }()
     lazy var cityDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.arrowSize = 20
-        i.placeholder = "City".localized
-        i.rowBackgroundColor = .gray
+               let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "City")
 
         i.didSelect { (txt, index, _) in
             self.getAreaAccordingToCityId(index: index)
@@ -69,14 +64,8 @@ class CustomICUSearchView: CustomBaseView {
     }()
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
+               let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Area")
 
-        i.arrowSize = 20
-        //        i.arrowColor = .white
-        i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in
             self.icuViewModel.area = self.areaIDSArray[index]//index+1
             

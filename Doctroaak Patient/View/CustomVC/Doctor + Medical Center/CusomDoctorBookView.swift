@@ -22,11 +22,11 @@ class CusomDoctorBookView: CustomBaseView {
         }
     }
     var clinic_id:Int?{
-           didSet{
-               guard let clinic_id = clinic_id else { return  }
-               doctorBookViewModel.clinic_id = clinic_id
-           }
-       }
+        didSet{
+            guard let clinic_id = clinic_id else { return  }
+            doctorBookViewModel.clinic_id = clinic_id
+        }
+    }
     
     
     var patient:PatienModel?{
@@ -78,8 +78,8 @@ class CusomDoctorBookView: CustomBaseView {
     }()
     lazy var dateTextField:UITextField = {
         let t = UITextField()
-        t.placeholder = "enter date".localized
         t.textColor = .black
+        t.attributedPlaceholder = NSAttributedString(string: "enter date".localized,attributes: [.foregroundColor: UIColor.black])
         t.textAlignment = .center
         
         t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
@@ -89,14 +89,10 @@ class CusomDoctorBookView: CustomBaseView {
     
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [typeDrop])
     lazy var typeDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Name")
         
         i.optionArray = ["Reservation".localized,"Consultation".localized,"Continue".localized]
-        i.arrowSize = 20
-        i.placeholder = "Type".localized
+        i.attributedPlaceholder = NSAttributedString(string: "Type".localized,attributes: [.foregroundColor: UIColor.black])
         i.didSelect {[unowned self] (txt, index, _) in
             self.doctorBookViewModel.type = index+1
             self.doctorBookViewModel.secondType = index+1

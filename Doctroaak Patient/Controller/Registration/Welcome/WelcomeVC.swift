@@ -67,7 +67,9 @@ class WelcomeVC: CustomBaseViewVC {
         
         UIView.animate(withDuration: 0.7, delay: 0.6 * 1.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
             [ self.customWelcomeView.docotrLabel, self.customWelcomeView.copyWriteLabel].forEach({$0.transform = .identity})
+            if userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists){
             self.goToNextVC()
+            }else {}
         })
     }
     
@@ -333,6 +335,11 @@ class WelcomeVC: CustomBaseViewVC {
             semaphore.signal()
             self.reloadMainData(group1, group11, group0,group01,groupL,groupR,groupMN,groupMTY,groupPayment,groupPY,groupray,grouprads)
             semaphore.wait()
+            
+//            semaphore.signal()
+//            self.handleNext()
+//                       semaphore.wait()
+            
         }
     }
     
@@ -518,7 +525,7 @@ class WelcomeVC: CustomBaseViewVC {
             //anaylsis
             userDefaults.set(labAnaylsisNameArray, forKey: UserDefaultsConstants.labAnalysisNameArray)
             userDefaults.set(labAnaylsisNameFR, forKey: UserDefaultsConstants.labAnalysisNameFRArray)
-            userDefaults.set(labAnaylsisNameARData, forKey: UserDefaultsConstants.labNameARArray)
+            userDefaults.set(labAnaylsisNameARData, forKey: UserDefaultsConstants.labAnalysisNameARArray)
             userDefaults.set(labAnaylsisIdData, forKey: UserDefaultsConstants.labAnalysisIdArray)
             
             userDefaults.set(radAnaylsisNameArray, forKey: UserDefaultsConstants.radAnalysisNameArray)
@@ -556,6 +563,7 @@ class WelcomeVC: CustomBaseViewVC {
             
             userDefaults.set(true, forKey: UserDefaultsConstants.isCachedDriopLists)
             userDefaults.synchronize()
+            self.handleNext()
             self.view.layoutIfNeeded()
         }
     }

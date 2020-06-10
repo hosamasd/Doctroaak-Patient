@@ -16,7 +16,7 @@ class DoctorSuggestShiftHorizentalVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView.noDataFound(suggestedDaysArray.count, text: "No Data Added Yet".localized)
+        collectionView.noDataFound(suggestedDaysArray.count, text: "No Days Available Yet".localized)
 
         return suggestedDaysArray.count
     }

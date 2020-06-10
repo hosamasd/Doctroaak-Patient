@@ -38,7 +38,7 @@ struct PatienModel:Codable {
        let createdAt, updatedAt: String
        var insuranceCodeID, blockDays, blockDate: String?
        let url: String
-       var insurance: String?
+       var insurance: InsurcaneCompanyModel?
 
        enum CodingKeys: String, CodingKey {
            case id, name

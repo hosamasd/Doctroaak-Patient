@@ -42,6 +42,7 @@ class CustomMainHomeView: CustomBaseView {
     lazy var mainView:UIView = makeMainSubViewWithAppendView(vv: [Image1,label1])
     lazy var main2View:UIView =  {
         let v = makeMainSubViewWithAppendView(vv: [Image2,label2])
+        v.constrainHeight(constant: 60)
         //        v.constrainHeight(constant: 100)
         return v
     }()

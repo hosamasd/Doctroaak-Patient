@@ -113,10 +113,10 @@ class DeatilsSelectedDoctorsVC: UIViewController {
     
     @objc func handleBook()  {
         
-guard let selectedDoctor = selectedDoctor else { return  }
-        guard let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
+        let ids = selectedDoctor?.workingHours.first?.clinicID ?? selectedSecondDoctor?.workingHours.first?.clinicID ?? 1
+//        guard let clinic_id = selectedDoctor.workingHours.first?.clinicID else { return  }
         //        let book = DoctorBookVC(clinic_id: clinic_id, patient_id: patientId, api_token: apiTpken)
-        let book = DoctorBookVC(clinic_id: clinic_id, index:index)
+        let book = DoctorBookVC(clinic_id: ids, index:index)
         book.patient=patient
         //        book.api_token=apiTpken
         //        book.patient_id=patientId

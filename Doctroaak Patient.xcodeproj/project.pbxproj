@@ -184,6 +184,7 @@
 		4EDB5B162487C7B300817257 /* secondalertvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB5B152487C7B300817257 /* secondalertvc.swift */; };
 		4EDBED882487BBB3007FFE03 /* ZoomUserImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBED872487BBB3007FFE03 /* ZoomUserImageVC.swift */; };
 		4EDDC5F02462DF4B005A9253 /* CustomAlertChooseLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */; };
+		4EDE5CEF2490EF85007D7F66 /* CustomDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE5CEE2490EF85007D7F66 /* CustomDropDownMenu.swift */; };
 		4EDE77532484FF79005DFCF6 /* PharamacyResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE77522484FF79005DFCF6 /* PharamacyResultsCell.swift */; };
 		4EDE77552485019B005DFCF6 /* PharamacySelectedSearchResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE77542485019B005DFCF6 /* PharamacySelectedSearchResultsVC.swift */; };
 		4EDE9237246000FE00205C64 /* MainServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE9236246000FE00205C64 /* MainServices.swift */; };
@@ -414,6 +415,7 @@
 		4EDB5B152487C7B300817257 /* secondalertvc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondalertvc.swift; sourceTree = "<group>"; };
 		4EDBED872487BBB3007FFE03 /* ZoomUserImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomUserImageVC.swift; sourceTree = "<group>"; };
 		4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertChooseLanguageView.swift; sourceTree = "<group>"; };
+		4EDE5CEE2490EF85007D7F66 /* CustomDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownMenu.swift; sourceTree = "<group>"; };
 		4EDE77522484FF79005DFCF6 /* PharamacyResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyResultsCell.swift; sourceTree = "<group>"; };
 		4EDE77542485019B005DFCF6 /* PharamacySelectedSearchResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacySelectedSearchResultsVC.swift; sourceTree = "<group>"; };
 		4EDE9236246000FE00205C64 /* MainServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainServices.swift; sourceTree = "<group>"; };
@@ -655,6 +657,7 @@
 				4E04C881243235BE00D1AD1C /* CustomPaddingTextField.swift */,
 				4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */,
 				4E1E529C24335619005E5695 /* CustomSeg.swift */,
+				4EDE5CEE2490EF85007D7F66 /* CustomDropDownMenu.swift */,
 			);
 			path = CustomBaseViews;
 			sourceTree = "<group>";
@@ -1864,6 +1867,7 @@
 				4EDF901D24866C4B00F142E8 /* CustomAlertSuccessView.swift in Sources */,
 				4E203AFE2430919A002144FF /* RegisterVC.swift in Sources */,
 				4EFE85C12431ED8A00E44DD1 /* PatientFavoriteDoctorsCell.swift in Sources */,
+				4EDE5CEF2490EF85007D7F66 /* CustomDropDownMenu.swift in Sources */,
 				4E13DDC224308A7600421737 /* Extensions.swift in Sources */,
 				4E13DDCC24308B2B00421737 /* ExtensionsVCS.swift in Sources */,
 				4E000D052461812A00083BD5 /* CustomNotificationView.swift in Sources */,

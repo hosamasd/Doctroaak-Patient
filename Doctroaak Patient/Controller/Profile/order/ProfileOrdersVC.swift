@@ -343,7 +343,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
     @objc func handleRemoveStars()  {
         removeViewWithAnimation(vvv: customStarView)
         customMainAlertVC.dismiss(animated: true)
-     }
+    }
     
     @objc  func handleDone()  {
         print(customStarView.rating)

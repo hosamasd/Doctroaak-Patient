@@ -23,10 +23,11 @@ struct MainPatientNotificationModel:Codable {
 
 struct PatientNotificationModel:Codable {
     let id, userID: Int
-       let orderID, userType, messageAr, messageEn: String
+       let userType, messageAr, messageEn: String
+    var orderID,orderType:String?
+    
        let titleEn, icon, titleAr: String
        let sent, seen: Int
-       let  orderType: String
     var createdAt, updatedAt:String?
     
        var order: OrderModel?

@@ -14,24 +14,14 @@ class CustomRequestMedicineView: CustomBaseView {
     
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.arrowSize = 20
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Name")
 
-        i.placeholder = "Name".localized
         return i
     }()
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [typeDrop])
     lazy var typeDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.rowBackgroundColor = .gray
+                let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Type")
 
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.arrowSize = 20
-        i.textColor = .black
-        i.placeholder = "Type".localized
         return i
     }()
     lazy var quantityLabel = UILabel(text: "Quantity".localized, font: .systemFont(ofSize: 20), textColor: .black)

@@ -57,7 +57,7 @@ class RegisterVC: CustomBaseViewVC {
         customRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Login...".localized)
+                SVProgressHUD.show(withStatus: "Reigster...".localized)
                 
             }else {
                 SVProgressHUD.dismiss()

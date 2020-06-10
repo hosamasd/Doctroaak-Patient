@@ -81,13 +81,15 @@ class CustomLAPOrderView: CustomBaseView {
     }()
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.arrowSize = 20
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
-        
-        i.placeholder = "Name".localized
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Name")
+
+//        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+//        i.arrowSize = 20
+//        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+//        i.textColor = .black
+//        i.rowBackgroundColor = .gray
+//        i.attributedPlaceholder = NSAttributedString(string: "Name".localized,attributes: [.foregroundColor: UIColor.black])
+
         i.didSelect {[unowned self] (txt, indexx, _) in
             self.selectedName = txt
             self.laPOrderViewModel.index = self.index

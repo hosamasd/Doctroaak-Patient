@@ -25,7 +25,7 @@ class NewPassViewModel {
             else { return  }
         bindableIsLogging.value = true
         
-        RegistrationServices.shared.MainUpdateUsingSMSPassword(phone: phone, old_password: password, new_password: confirmPassword, completion: completion)
+        RegistrationServices.shared.MainUpdateUsingSMSPassword(phone: phone, old_password: confirmPassword, new_password: password, completion: completion)
         //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
     

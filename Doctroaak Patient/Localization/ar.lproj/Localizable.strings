@@ -29,7 +29,7 @@
 "code must have 6 character"="الكود مكون من ٦ ارقام";
 
 //WelcomeVC
-"Looding..."="تحميل...";"Copyright @"="حقوق محفوظه @";"Doctoraak "="Doctoraak ";
+"Looding..."="تحميل...";"Copyright @"="حقوق محفوظه @";"Doctoraak "="دكتورك ";"Copyright @ Doctoraak "="حقوق محفوظه @ دكتورك ";
 
 //SecondWelcomeVC
 "LOGIN"="تسجيل الدخول";"SIGN UP"="حساب جديد";
@@ -60,7 +60,8 @@
 "Open From Gallery"="فتح معرض الصور";"Choose Image"="اختر الصورة";"Choose image fROM "="اختر الصورة من خلال ";
 "Create account"="عمل حساب جديد";"Welcome"="مرحبا";" Name"=" الاسم";" phone"=" الموبايل";
 "Male"="ذكر";"Female"="انثي";"   Birthday"="   تاريخ الميلاد";
-
+"Insurance company"="شركة تامين";"Insurance code"="كود التامين";
+" Accept "=" موافق ";"Terms and Conditions"="الشروط والاحكام";"Reigster..."="عمل حساب جديد...";
 //Search
 
 //ICUSearchVC
@@ -119,7 +120,7 @@
 //HomeMenuVC
 " Find"="  اعثر عليها";"Service"="الخدمات";" Favorite"=" المفضل";"Doctors"="دكتورك";
 " My"=" الخاصه بي";"Orders"="الاوردرات";"Home"="الرئيسية";
-"    Payment  "="    دفع  ";"Details"="تفاصيل";
+"    Payment  "="    دفع  ";"Details"="تفاصيل";"Subscribe now to the \n200 EGP offer"="اشترك الان \n في عرض ال 200 جني";
 
 //ServicesVC
 "  Doctor"="  دكتور";"  Medical Center"="  مراكز طبيه";"  Pharmacy "="  صيدليه ";
@@ -133,8 +134,12 @@
 
 //profile
 //PatientFavoriteDoctorsVC
-"Removing..."="حذف...";"Favorite\nDoctor"="مفضل\nدكتور";
+"Removing..."="حذف...";"Favorite\nDoctor"="دكتورك\nالمفضل";
 "Reservation"="حجز";"Consultation"="استشاره";
+
+//ProfileOrdersVC
+"Doctors\n"="دكتور\n";"Pharamacy\n"="صيدليه\n";"Lab\n"="معمل\n";"Radiology\n"="اشعه تحاليل\n";
+"Cancel order"="الغاء الطلب";
 
 //ProfileOrdersVC
 "DOCTOR"="دكتور";"RADIOLOGY"="مركز اشعه";"PHARMACY"="صيدلية";"LAB"="معمل";"Rating..."="تقييم...";
@@ -153,6 +158,7 @@
 //DoctorListsVC
 "No interntetI Connection"="لا يوجد اتصال بالانترنت";"Doctor"="دكتور";"Medical Center"="مراكز طبيه";
 "Find the best rated doctors"=" العثور على أفضل الأطباء !";"Find the best rated Medical Center"=" العثور علي أفضل المراكز الطبية!";
+"No Days Available Yet"="لا توجد ايام متاحه حاليا";
 
 //DoctorSearchVC
 "Searching..."="بحث...";

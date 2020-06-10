@@ -62,13 +62,13 @@ class AddLAPCell: BaseCollectionCell {
         var cityId = [Int]()
         
         if self.index == 0 {
-            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labAnalysisNameArray :  UserDefaultsConstants.labAnalysisNameArray
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labAnalysisNameARArray :  UserDefaultsConstants.labAnalysisNameArray
             let ff = UserDefaultsConstants.labAnalysisIdArray
             
             checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
             
         }else {
-            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radAnalysisNameArray :  UserDefaultsConstants.radAnalysisNameArray
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radAnalysisNameARArray :  UserDefaultsConstants.radAnalysisNameArray
             let ff = UserDefaultsConstants.radAnalysisIdArray
             
             checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)

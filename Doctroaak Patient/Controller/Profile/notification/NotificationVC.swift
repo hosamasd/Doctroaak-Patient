@@ -113,7 +113,7 @@ class NotificationVC: CustomBaseViewVC {
             DispatchQueue.main.async {
                 self.customNotificationView.notificationsCollectionVC.notificationArray.remove(at: index.item)
                 self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
-                self.showToast(context: self, msg: MOLHLanguage.isRTLLanguage() ? user.message :  user.message)//"Deleted successfully...".localized)
+                self.showToast(context: self, msg: MOLHLanguage.isRTLLanguage() ? "تمت العملية بنجاح" :  user.messageEn)//"Deleted successfully...".localized)
             }
         }
     }

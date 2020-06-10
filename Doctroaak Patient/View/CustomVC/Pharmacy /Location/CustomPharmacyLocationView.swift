@@ -67,13 +67,7 @@ class CustomPharmacyLocationView: CustomBaseView {
     }()
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [nameDrop])
     lazy var nameDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
-
-        i.arrowSize = 20
-        i.placeholder = "Name".localized
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Name")
         i.didSelect {[unowned self] (txt, indexx, _) in
             self.pharamacyLocationViewModel.pharmacy_id = self.pharamacyNameIDSArray[indexx]
             //            self.lAPSearchViewModel.lab_id = index == 0 ? self.labNameIDSArray[index] : self.radiologyIDSArray[index]
@@ -84,13 +78,7 @@ class CustomPharmacyLocationView: CustomBaseView {
     lazy var orLabel = UILabel(text: "OR".localized, font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .center)
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
-
-        i.arrowSize = 20
-        i.placeholder = "City".localized
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "City")
         i.didSelect { (txt, indexx, _) in
             self.getAreaAccordingToCityId(index: indexx)
             self.pharamacyLocationViewModel.city = self.cityIDSArray[indexx]//index+1
@@ -100,13 +88,8 @@ class CustomPharmacyLocationView: CustomBaseView {
     }()
     lazy var mainDrop3View = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        i.arrowSize = 20
-        i.textColor = .black
-        i.rowBackgroundColor = .gray
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae: "Area")
 
-        i.placeholder = "Area".localized
         i.didSelect {[unowned self] (txt, index, _) in
             self.pharamacyLocationViewModel.area = self.areaIDSArray[index]//index+1
             
@@ -238,6 +221,9 @@ class CustomPharmacyLocationView: CustomBaseView {
     }
     
     fileprivate func fetchEnglishData(isArabic:Bool) {
+        
+      let ss =  getCityORTypeORAreaORName(isArabic: isArabic)
+        
         if isArabic {
             
             

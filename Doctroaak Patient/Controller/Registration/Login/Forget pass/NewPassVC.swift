@@ -90,11 +90,11 @@ class NewPassVC: CustomBaseViewVC {
                    self.activeViewsIfNoData()
                    guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
 
-            if user.message == "Information Update   " {
+            if user.messageEn == "Information Update   " {
             DispatchQueue.main.async {
                 self.showToast(context: self, msg: MOLHLanguage.isRTLLanguage() ? base?.message ?? "" : base?.messageEn ?? "")
 
-//                self.goToNext()
+                self.goToNext()
             }
             }else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);return}
         

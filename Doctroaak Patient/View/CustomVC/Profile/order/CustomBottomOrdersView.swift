@@ -10,10 +10,10 @@ import UIKit
 
 class CustomBottomOrdersView: CustomBaseView {
     
-    lazy var doctorLabel = createLabels(title: "Doctors\n")
-    lazy var pharamacyLabel = createLabels(title: "Pharamacy\n")
-    lazy var labLabel = createLabels(title: "Lab\n")
-    lazy var radiologyLabel = createLabels(title: "Radiology\n")
+    lazy var doctorLabel = createLabels(title: "Doctors\n".localized)
+    lazy var pharamacyLabel = createLabels(title: "Pharamacy\n".localized)
+    lazy var labLabel = createLabels(title: "Lab\n".localized)
+    lazy var radiologyLabel = createLabels(title: "Radiology\n".localized)
     
     lazy var firstView = createViews(v: firstImage, x: doctorLabel)
     lazy var secondView = createViews(v: secondImage, x: pharamacyLabel)
