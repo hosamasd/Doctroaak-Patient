@@ -222,7 +222,6 @@ class CustomPharmacyLocationView: CustomBaseView {
     
     fileprivate func fetchEnglishData(isArabic:Bool) {
         
-      let ss =  getCityORTypeORAreaORName(isArabic: isArabic)
         
         if isArabic {
             
