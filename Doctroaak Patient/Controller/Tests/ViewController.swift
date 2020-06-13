@@ -20,10 +20,26 @@ class ViewController: CustomBaseViewVC {
         return v
     }()
     
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+           let t = CustomMainAlertVC()
+           //           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+           t.modalTransitionStyle = .crossDissolve
+           t.modalPresentationStyle = .overCurrentContext
+           return t
+       }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+               customAlertMainLoodingView.problemsView.loopMode = .loop
+               present(customMainAlertVC, animated: true)
     }
 
     override func setupNavigation() {

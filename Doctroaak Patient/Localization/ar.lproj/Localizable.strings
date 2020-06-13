@@ -27,6 +27,7 @@
 "Invalid   Phone"="رقم محمول غير صحيح";"Invalid   visa number"="رقم الفيزا غير صحيح";
 "Invalid CVC  visa number"="الرقم غير صحيح";
 "code must have 6 character"="الكود مكون من ٦ ارقام";
+"Make Payment"="اتمام عملية الدفع";
 
 //WelcomeVC
 "Looding..."="تحميل...";"Copyright @"="حقوق محفوظه @";"Doctoraak "="دكتورك ";"Copyright @ Doctoraak "="حقوق محفوظه @ دكتورك ";

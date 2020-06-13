@@ -35,6 +35,14 @@ class NotificationVC: CustomBaseViewVC {
         //        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+           let v = CustomAlertLoginView()
+           v.setupAnimation(name: "4970-unapproved-cross")
+                      v.handleOkTap = {[unowned self] in
+                          self.handleDismiss()
+                      }
+           return v
+       }()
     
     fileprivate let patients:PatienModel!
     fileprivate let isFromMenu:Bool!
@@ -79,7 +87,9 @@ class NotificationVC: CustomBaseViewVC {
         SVProgressHUD.show(withStatus: "Looding...".localized)
         PatientProfileSservicea.shared.getNotifications(api_token: patients.apiToken, user_id: patients.id) { (base, err) in
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -104,7 +114,9 @@ class NotificationVC: CustomBaseViewVC {
         SVProgressHUD.show(withStatus: "Looding...".localized)
         PatientProfileSservicea.shared.removeNotification(notification_id: id) { (base, err) in
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()

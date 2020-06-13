@@ -29,7 +29,34 @@ class LoginVC: CustomBaseViewVC {
         
         return v
     }()
-   
+   lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+          let v = CustomAlertMainLoodingView()
+          v.setupAnimation(name: "heart_loading")
+          return v
+      }()
+      
+      lazy var customMainAlertVC:CustomMainAlertVC = {
+          let t = CustomMainAlertVC()
+                  t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+          t.modalTransitionStyle = .crossDissolve
+          t.modalPresentationStyle = .overCurrentContext
+          return t
+      }()
+//    lazy var customMainAlertVC:CustomMainAlertVC = {
+//           let t = CustomMainAlertVC()
+//           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+//           t.modalTransitionStyle = .crossDissolve
+//           t.modalPresentationStyle = .overCurrentContext
+//           return t
+//       }()
+       lazy var customAlertLoginView:CustomAlertLoginView = {
+           let v = CustomAlertLoginView()
+           v.setupAnimation(name: "4970-unapproved-cross")
+           v.handleOkTap = {[unowned self] in
+               self.handleDismiss()
+           }
+           return v
+       }()
    
     var isFromNewPass:Bool = false
     
@@ -117,6 +144,19 @@ class LoginVC: CustomBaseViewVC {
 //        }
     }
     
+    func showMainAlertLooder()  {
+              customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+              customAlertMainLoodingView.problemsView.loopMode = .loop
+              present(customMainAlertVC, animated: true)
+          }
+       
+       @objc func handleDismiss()  {
+                 removeViewWithAnimation(vvv: customAlertMainLoodingView)
+                 DispatchQueue.main.async {
+                     self.dismiss(animated: true, completion: nil)
+                 }
+             }
+    
     
     @objc  func handleRegister()  {
         isFromNewPass = false
@@ -131,7 +171,9 @@ class LoginVC: CustomBaseViewVC {
         customLoginsView.loginViewModel.performLogging { (base, err) in
             
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()

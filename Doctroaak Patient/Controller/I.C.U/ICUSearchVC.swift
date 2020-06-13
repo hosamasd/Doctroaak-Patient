@@ -38,6 +38,27 @@ class ICUSearchVC: CustomBaseViewVC {
         v.searchButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+                t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+              let v = CustomAlertLoginView()
+              v.setupAnimation(name: "4970-unapproved-cross")
+              v.handleOkTap = {[unowned self] in
+                  self.handleDismiss()
+              }
+              return v
+          }()
     
     fileprivate let index:Int!
     
@@ -49,7 +70,7 @@ class ICUSearchVC: CustomBaseViewVC {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,38 +139,55 @@ class ICUSearchVC: CustomBaseViewVC {
     
     func performICU()  {
         customICUSearchView.icuViewModel.performSearchinging { (base, err) in
-                   if let err = err {
-                       SVProgressHUD.showError(withStatus: err.localizedDescription)
-                       self.activeViewsIfNoData();return
-                   }
-                   SVProgressHUD.dismiss()
-                   self.activeViewsIfNoData()
-                   guard let users = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-                   
-                   DispatchQueue.main.async {
-                       self.goToNext(users)
-                   }
-                   
-                   
-               }
+            if let err = err {
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let users = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext(users)
+            }
+            
+            
+        }
     }
     
     func performIncubation()  {
-           customICUSearchView.icuViewModel.performIncubationSearching { (base, err) in
-                
+        customICUSearchView.icuViewModel.performIncubationSearching { (base, err) in
+            
             if let err = err {
-                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                           self.activeViewsIfNoData();return
-                       }
-                       SVProgressHUD.dismiss()
-                       self.activeViewsIfNoData()
-                       guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-                       
-                       DispatchQueue.main.async {
-                           self.goToNext(nil,user)
-                       }
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext(nil,user)
+            }
             
             
+        }
+    }
+    
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -161,7 +199,7 @@ class ICUSearchVC: CustomBaseViewVC {
         
         index == 0 ? performICU() : performIncubation()
         
-       
+        
         
     }
     

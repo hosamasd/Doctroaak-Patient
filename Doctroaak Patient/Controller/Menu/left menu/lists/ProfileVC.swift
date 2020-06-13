@@ -36,6 +36,21 @@ class ProfileVC: CustomBaseViewVC {
         v.nextButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
         return v
     }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
     
     var patient:PatienModel?{
         didSet{
@@ -132,7 +147,9 @@ class ProfileVC: CustomBaseViewVC {
     @objc func handleSave()  {
         customProfileView.edirProfileViewModel.performUpdateProfile { (base, err) in
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()

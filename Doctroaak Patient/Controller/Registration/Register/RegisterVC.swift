@@ -34,7 +34,27 @@ class RegisterVC: CustomBaseViewVC {
         v.signUpButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
     }()
-    
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
+       
+       lazy var customMainAlertVC:CustomMainAlertVC = {
+           let t = CustomMainAlertVC()
+           //        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+           t.modalTransitionStyle = .crossDissolve
+           t.modalPresentationStyle = .overCurrentContext
+           return t
+       }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+           let v = CustomAlertLoginView()
+           v.setupAnimation(name: "4970-unapproved-cross")
+                      v.handleOkTap = {[unowned self] in
+                          self.handleDismiss()
+                      }
+           return v
+       }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,15 +145,29 @@ class RegisterVC: CustomBaseViewVC {
         present(imagePicker, animated: true)
     }
     
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     
     @objc  func handleNext()  {
         
-        customRegisterView.registerViewModel.performRegister { (base, err) in
+        customRegisterView.registerViewModel.performRegister {[unowned self] (base, err) in
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()

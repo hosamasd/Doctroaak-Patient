@@ -77,6 +77,14 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
         return v
     } ()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+           let v = CustomAlertLoginView()
+           v.setupAnimation(name: "4970-unapproved-cross")
+                      v.handleOkTap = {[unowned self] in
+                          self.handleDismiss()
+                      }
+           return v
+       }()
     lazy var textView = UITextView(frame: CGRect.zero)
     
     
@@ -272,7 +280,9 @@ class ProfileOrdersVC: CustomBaseViewVC {
         SVProgressHUD.show(withStatus: "looding...".localized)
         CanceOrdersServices.shared.cancelOrder(patient_id:patient.id,api_token: patient.apiToken, order_id: order_id, order_type: type, message: message) { (base, err) in
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -355,7 +365,9 @@ class ProfileOrdersVC: CustomBaseViewVC {
         PatientProfileSservicea.shared.rateDoctors(patient_id: patient.id, doctor_id: customStarView.doctor_id, api_token: patient.apiToken, type: customStarView.type, rate: rate) { (base, err) in
             
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();self.handleRemoveStars();return
             }
             SVProgressHUD.dismiss()

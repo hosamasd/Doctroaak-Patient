@@ -25,7 +25,7 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
-        //           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         t.modalTransitionStyle = .crossDissolve
         t.modalPresentationStyle = .overCurrentContext
         return t
@@ -33,14 +33,20 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
     lazy var customAlertLoginView:CustomAlertLoginView = {
         let v = CustomAlertLoginView()
         v.setupAnimation(name: "4970-unapproved-cross")
-        //           v.handleOkTap = {[unowned self] in
-        //               self.handleremoveLoginAlert()
-        //           }
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
     var patient:PatienModel?
     fileprivate let index:Int!
-
+    
     init(index:Int) {
         self.index=index
         super.init(nibName: nil, bundle: nil)
@@ -84,7 +90,9 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         PatientProfileSservicea.shared.favoriteDoctors(patient_id: patient.id, doctor_id: doctor.id, api_token: patient.apiToken) { (base, err) in
             
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -108,17 +116,18 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         guard let patient = patient else { return  }
         
         UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        //        view.isUserInteractionEnabled = false
-        SVProgressHUD.show(withStatus: "Looding...".localized)
+        self.showMainAlertLooder()
         
         PatientProfileSservicea.shared.getPatientFavoriteDocotrs(patient_id: patient.id, api_token: patient.apiToken) { (base, err) in
             
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+            self.handleDismiss()
+            //            SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.messageEn : base?.messageEn); return}
             
@@ -126,6 +135,19 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
                 self.putData(user)
             }
             
+        }
+    }
+    
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -141,6 +163,8 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         
         customPatientFavoriteeseDoctorsView.patientFavoriteDoctorsCollectionVC.collectionView.reloadData()
     }
+    
+    
     
     @objc  func handleBack()  {
         dismiss(animated: true)

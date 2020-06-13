@@ -192,7 +192,9 @@ class DoctorBookVC: CustomBaseViewVC {
             cusomDoctorBookView.doctorBookViewModel.patient_id=patientId
             cusomDoctorBookView.doctorBookViewModel.performBooking(notessss: getNotes()) { (base, err) in
                 if let err = err {
-                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                     self.activeViewsIfNoData();return
                 }
                 SVProgressHUD.dismiss()

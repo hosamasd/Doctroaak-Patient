@@ -10,16 +10,22 @@
 import UIKit
 import SVProgressHUD
 import AcceptSDK
+import MOLH
 
+let paymentAPIKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsSWpvaU1UVTVNVFV6TXpJM01pNDFPVFl6T0RFaUxDSmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRJMk5UVjkuMV9zVEdtZEp3a0l0ZTlWVE1SYnpmUTNETGw1emVTNUdSV0Vxa0E4SWZQdTJsdzlHWjZqcmlUQVdLYzlIYkZFZDRMcjd5ajBTQVNpdnpuT29ZX1pQemc="
 
 class MainPaymentVC: CustomBaseViewVC {
     
-
+    
+    
+    
+    
     
     lazy var customMainPaymentView:CustomMainPaymentView = {
         let v = CustomMainPaymentView()
         v.doneButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.paymentButton.addTarget(self, action: #selector(handlePayment), for: .touchUpInside)
         return v
     }()
     
@@ -36,10 +42,13 @@ class MainPaymentVC: CustomBaseViewVC {
         return v
     }()
     
+    let accept = AcceptSDK()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        //        doThis()
     }
     
     //MARK:-User methods
@@ -78,14 +87,84 @@ class MainPaymentVC: CustomBaseViewVC {
         
     }
     
+    func doThis()  {
+        let isEnglish = MOLHLanguage.isRTLLanguage() ? false : true
+        
+        let bData = [  "apartment": "NA",
+                       "email": "dr_hamdimahmoud@yahoo.com",
+                       "floor": "NA",
+                       "first_name": "hamdi",
+                       "street": "asd",
+                       "building": "asd",
+                       "phone_number": "01001384592",
+                       "shipping_method": "visa",
+                       "postal_code": "123456",
+                       "city": "cairo",
+                       "country": "egypt",
+                       "last_name": "mahmoud",
+                       "state": "cairo"
+        ]
+        
+        do {
+            
+            try accept.presentPayVC(vC: self, billingData: bData, paymentKey: paymentAPIKey, saveCardDefault:
+                true, showSaveCard: true, showAlerts: true,isEnglish: isEnglish)
+            
+            customMainPaymentView.paymentViewModel.isPaymentOperationDone = true
+        } catch AcceptSDKError.MissingArgumentError(let errorMessage) {
+            
+            print(errorMessage)
+            customMainPaymentView.paymentViewModel.isPaymentOperationDone = false
+            
+        }  catch let error {
+            print(error.localizedDescription)
+            customMainPaymentView.paymentViewModel.isPaymentOperationDone = false
+            
+        }
+        
+        
+    }
+    
     @objc func handleDonePayment()  {
+        
+        
         print(999)
     }
     
     @objc func handleBack()  {
         dismiss(animated: true)
-
-//        navigationController?.popViewController(animated: true)
+        
+        //        navigationController?.popViewController(animated: true)
     }
     
+    @objc func handlePayment()  {
+        doThis()
+    }
+    
+}
+
+extension MainPaymentVC: AcceptSDKDelegate  {
+    
+    func userDidCancel() {
+        
+    }
+    
+    func paymentAttemptFailed(_ error: AcceptSDKError, detailedDescription: String) {
+        SVProgressHUD.showError(withStatus: detailedDescription)
+    }
+    
+    func transactionRejected(_ payData: PayResponse) {
+    }
+    
+    func transactionAccepted(_ payData: PayResponse) {
+        customMainPaymentView.paymentViewModel.isPaymentOperationDone = payData.success
+    }
+    
+    func transactionAccepted(_ payData: PayResponse, savedCardData: SaveCardResponse) {
+        
+    }
+    
+    func userDidCancel3dSecurePayment(_ pendingPayData: PayResponse) {
+        
+    }
 }

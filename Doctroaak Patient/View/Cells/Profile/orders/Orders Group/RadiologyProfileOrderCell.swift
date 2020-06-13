@@ -48,7 +48,7 @@ class RadiologyProfileOrderCell: BaseCollectionCell {
     
     lazy var profileOrderDatesLabel = UILabel(text: "22/4/2020  2:30 pm", font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .center)
     lazy var pharamacyImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "syringe"))
+        let i = UIImageView(image: #imageLiteral(resourceName: "rad"))
         i.isUserInteractionEnabled = true
         i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenImage)))
         return i

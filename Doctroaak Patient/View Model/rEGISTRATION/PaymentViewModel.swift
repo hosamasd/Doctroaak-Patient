@@ -25,6 +25,8 @@ class PaymentViewModel {
     var secondChosen:Bool?  = false {didSet {checkFormValidity()}}
     var thirdChosen:Bool?  = false {didSet {checkFormValidity()}}
 
+    var isPaymentOperationDone:Bool?  = false {didSet {checkFormValidity()}}
+
     
     func performLogging(completion:@escaping (Error?)->Void)  {
         guard let vodafoneVode = vodafoneVode,let fawryCode = fawryCode,let visaCard=visaCard,let firstChosen=firstChosen,let secondChosen=secondChosen,let thirdChosen=thirdChosen
@@ -35,11 +37,18 @@ class PaymentViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = vodafoneVode?.isEmpty == false && firstChosen == true && secondChosen == false && thirdChosen == false
-            || secondChosen == true &&  fawryCode?.isEmpty == false && thirdChosen == false
-            || firstChosen == false && secondChosen == false && thirdChosen == true && visaCard?.isEmpty == false && visaCVCCard?.isEmpty == false && visaMonthCard?.isEmpty == false
         
-        bindableIsFormValidate.value = isFormValid
+        let isFormValid = vodafoneVode?.isEmpty == false && firstChosen == true && secondChosen == false && thirdChosen == false
+                   || secondChosen == true &&  fawryCode?.isEmpty == false && thirdChosen == false
+                   || firstChosen == false && secondChosen == false && thirdChosen == true && isPaymentOperationDone == true
+               
+               bindableIsFormValidate.value = isFormValid
+        
+//        let isFormValid = vodafoneVode?.isEmpty == false && firstChosen == true && secondChosen == false && thirdChosen == false
+//            || secondChosen == true &&  fawryCode?.isEmpty == false && thirdChosen == false
+//            || firstChosen == false && secondChosen == false && thirdChosen == true && visaCard?.isEmpty == false && visaCVCCard?.isEmpty == false && visaMonthCard?.isEmpty == false
+//
+//        bindableIsFormValidate.value = isFormValid
         
     }
 }

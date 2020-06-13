@@ -38,6 +38,14 @@ class DoctorSearchVC: CustomBaseViewVC {
         v.searchButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
         return v
     }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
     var patient:PatienModel?{
         didSet{
             guard let patient = patient else { return  }
@@ -113,11 +121,11 @@ class DoctorSearchVC: CustomBaseViewVC {
             // Address dictionary
             let xc = placeMark.locality
             self.customDoctorSearchView.addressLabel.text =  xc ?? ""
-
+            
             // Location name
             if let locationName = placeMark.addressDictionary!["Name"] as? String,let city = placeMark.addressDictionary!["City"] as? String ,let country = placeMark.addressDictionary!["Country"] as? String {
                 self.customDoctorSearchView.addressLabel.text =  " \(locationName) - \(String(describing: city)) - \(String(describing: country))"
-
+                
             }
         })
         
@@ -140,7 +148,9 @@ class DoctorSearchVC: CustomBaseViewVC {
     @objc func handleSearch()  {
         customDoctorSearchView.doctorSearchViewModel.performDoctorSearching { (base, err) in
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -166,10 +176,10 @@ extension DoctorSearchVC: ChooseLocationVCProtocol {
         convertLatLongToAddress(latitude: lat, longitude: long)
         self.customDoctorSearchView.doctorSearchViewModel.lat = lat
         self.customDoctorSearchView.doctorSearchViewModel.specificationId = self.specificationId
-
+        
         self.customDoctorSearchView.doctorSearchViewModel.lng = long
-
-
+        
+        
     }
     
 }

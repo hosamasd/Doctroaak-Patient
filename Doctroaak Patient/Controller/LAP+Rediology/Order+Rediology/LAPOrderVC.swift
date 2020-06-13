@@ -43,7 +43,19 @@ class LAPOrderVC: CustomBaseViewVC {
         }
         return v
     }()
-    
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+              let v = CustomAlertMainLoodingView()
+              v.setupAnimation(name: "heart_loading")
+              return v
+          }()
+          
+          lazy var customMainAlertVC:CustomMainAlertVC = {
+              let t = CustomMainAlertVC()
+              //        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+              t.modalTransitionStyle = .crossDissolve
+              t.modalPresentationStyle = .overCurrentContext
+              return t
+          }()
     //    var meidicneArray:[RadiologyOrderModel]?
     
     var bubleViewHeightConstraint:NSLayoutConstraint!
@@ -159,6 +171,19 @@ class LAPOrderVC: CustomBaseViewVC {
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
         present(imagePicker, animated: true)
+    }
+    
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     //TODO: -handle methods

@@ -66,7 +66,11 @@ class PharmacyOrderVC: CustomBaseViewVC {
         }
         return v
     }()
-    
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     
     var patient:PatienModel?{
         didSet{
@@ -152,8 +156,8 @@ class PharmacyOrderVC: CustomBaseViewVC {
         customPharmacyOrderView.pharamacyOrderViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
             if isValid == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Booking...".localized)
-                
+                //                SVProgressHUD.show(withStatus: "Booking...".localized)
+                self.showMainAlertLooder()
             }else {
                 SVProgressHUD.dismiss()
                 self.activeViewsIfNoData()
@@ -216,6 +220,21 @@ class PharmacyOrderVC: CustomBaseViewVC {
         
     }
     
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        removeViewWithAnimation(vvv: customAlertSuccessView)
+        
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     //TODO: -handle methods
     
     @objc func createAlertForChoposingImage()  {
@@ -255,10 +274,13 @@ class PharmacyOrderVC: CustomBaseViewVC {
             customPharmacyOrderView.pharamacyOrderViewModel.performBooking { (base, err) in
                 
                 if let err = err {
-                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                     self.activeViewsIfNoData();return
                 }
-                SVProgressHUD.dismiss()
+                //                SVProgressHUD.dismiss()
+                self.handleDismiss()
                 self.activeViewsIfNoData()
                 guard let message = base else {return }
                 let ar = message.message ?? message.messageEn ?? ""
@@ -271,9 +293,9 @@ class PharmacyOrderVC: CustomBaseViewVC {
         }
     }
     
-    @objc func handleDismiss()  {
-        dismiss(animated: true, completion: nil)
-    }
+    //    @objc func handleDismiss()  {
+    //        dismiss(animated: true, completion: nil)
+    //    }
     
     //    func removePharamacy(_ ph:PharamcyOrderModel,_ index:Int) {
     //        customPharmacyOrderView.addMedicineCollectionVC.medicineArray.remove(at: index)

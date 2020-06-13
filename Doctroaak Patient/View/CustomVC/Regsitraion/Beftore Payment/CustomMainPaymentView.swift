@@ -77,10 +77,7 @@ class CustomMainPaymentView: CustomBaseView {
             self.paymentViewModel.firstChosen = index == 0 ? true : false
             self.paymentViewModel.secondChosen = index == 1 ? true : false
             self.paymentViewModel.thirdChosen = index == 2 ? true : false
-            
-            
             self.hideOrUnhide(tag: index)
-            
         }
         return view
     }()
@@ -90,10 +87,10 @@ class CustomMainPaymentView: CustomBaseView {
         let s = createMainTextFields(padding:100,place: "Phone".localized, type: .numberPad,secre: false)
         s.textAlignment = .center
         let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
-            button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
-            s.leftView = button
-            s.leftViewMode = .always
-//        }
+        button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
+        s.leftView = button
+        s.leftViewMode = .always
+        //        }
         return s
     }()
     lazy var codeTextField:UITextField = {
@@ -103,25 +100,25 @@ class CustomMainPaymentView: CustomBaseView {
         return t
     }()
     
-    lazy var visaTextField:UITextField = {
-        let t = createMainTextFields(place: "222 1257 6632 ***   ")
-        t.textAlignment = .center
-        t.constrainHeight(constant: 60)
-        //           t.isHide(true)
-        return t
-    }()
-    lazy var cvcVisaTextField:UITextField = {
-        let t = createMainTextFields(place: "222 ")
-        t.textAlignment = .center
-        //              t.isHide(true)
-        return t
-    }()
-    lazy var monthVisaTextField:UITextField = {
-        let t = createMainTextFields(place: " Expiration Date".localized)
-        t.textAlignment = .center
-        t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
-        return t
-    }()
+    //    lazy var visaTextField:UITextField = {
+    //        let t = createMainTextFields(place: "222 1257 6632 ***   ")
+    //        t.textAlignment = .center
+    //        t.constrainHeight(constant: 60)
+    //        //           t.isHide(true)
+    //        return t
+    //    }()
+    //    lazy var cvcVisaTextField:UITextField = {
+    //        let t = createMainTextFields(place: "222 ")
+    //        t.textAlignment = .center
+    //        //              t.isHide(true)
+    //        return t
+    //    }()
+    //    lazy var monthVisaTextField:UITextField = {
+    //        let t = createMainTextFields(place: " Expiration Date".localized)
+    //        t.textAlignment = .center
+    //        t.setInputViewDatePicker(target: self, selector: #selector(tapDone)) //1
+    //        return t
+    //    }()
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Done".localized, for: .normal)
@@ -134,23 +131,46 @@ class CustomMainPaymentView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
-    lazy var visaInfoStack:UIStackView = {
-        let v = getStack(views: visaTextField,cvcVisaTextField,monthVisaTextField, spacing: 8, distribution: .fillEqually, axis: .vertical)
-        v.isHide(true)
-        return v
+    
+    lazy var paymentButton:UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Make Payment".localized, for: .normal)
+        button.backgroundColor = ColorConstants.disabledButtonsGray
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 16
+        button.constrainHeight(constant: 50)
+        button.isHide(true)
+        button.clipsToBounds = true
+        //           button.isEnabled = false
+        return button
     }()
+    
+    //    lazy var visaInfoStack:UIStackView = {
+    //        let v = getStack(views: visaTextField,cvcVisaTextField,monthVisaTextField, spacing: 8, distribution: .fillEqually, axis: .vertical)
+    //        v.isHide(true)
+    //        return v
+    //    }()
     
     let paymentViewModel = PaymentViewModel()
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if paymentButton.backgroundColor != nil {
+            addGradientInSenderAndRemoveOther(sender: paymentButton)
+        }
+    }
     
     
     override func setupViews() {
-        [numberTextField,codeTextField,visaTextField].forEach({$0.constrainHeight(constant: 60)})
-        [numberTextField,codeTextField,visaTextField,cvcVisaTextField,monthVisaTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        [numberTextField,codeTextField].forEach({$0.constrainHeight(constant: 60)})
+        [numberTextField,codeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        
+        //        [numberTextField,codeTextField,visaTextField].forEach({$0.constrainHeight(constant: 60)})
+        //        [numberTextField,codeTextField,visaTextField,cvcVisaTextField,monthVisaTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
         
         
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,vodafoneImage,fawryImage,visaCardImage,doneButton,leftImage,rightImage,bookSegmentedView,chooseTitleLabel,choosePayLabel,codeTextField,numberTextField,visaInfoStack,doneButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,vodafoneImage,fawryImage,visaCardImage,doneButton,leftImage,rightImage,bookSegmentedView,chooseTitleLabel,choosePayLabel,codeTextField,numberTextField,paymentButton,doneButton)
         
         NSLayoutConstraint.activate([
             //            bookSegmentedView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -184,7 +204,7 @@ class CustomMainPaymentView: CustomBaseView {
         choosePayLabel.anchor(top: chooseTitleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         codeTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
-        visaInfoStack.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        paymentButton.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
@@ -211,7 +231,8 @@ class CustomMainPaymentView: CustomBaseView {
             self.visaCardImage.isHide(tag == 2 ? false : true)
             self.numberTextField.isHide(tag == 0 ? false : true)
             self.codeTextField.isHide(tag == 1 ? false : true)
-            self.visaInfoStack.isHide(tag == 2 ? false : true)
+            //            self.visaInfoStack.isHide(tag == 2 ? false : true)
+            self.paymentButton.isHide(tag == 2 ? false : true)
             
             
         })
@@ -220,16 +241,16 @@ class CustomMainPaymentView: CustomBaseView {
     
     //TODO: -handle methods
     
-    @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
-        if let datePicker = self.monthVisaTextField.inputView as? UIDatePicker { // 2.1
-            let dateformatter = DateFormatter() // 2.2
-            dateformatter.dateFormat = "MM/YY"
-            self.monthVisaTextField.text = dateformatter.string(from: datePicker.date) //2.4
-            paymentViewModel.visaMonthCard = dateformatter.string(from: datePicker.date) //2.4
-        }
-        self.monthVisaTextField.resignFirstResponder() // 2.5
-        
-    }
+    //    @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
+    //        if let datePicker = self.monthVisaTextField.inputView as? UIDatePicker { // 2.1
+    //            let dateformatter = DateFormatter() // 2.2
+    //            dateformatter.dateFormat = "MM/YY"
+    //            self.monthVisaTextField.text = dateformatter.string(from: datePicker.date) //2.4
+    //            paymentViewModel.visaMonthCard = dateformatter.string(from: datePicker.date) //2.4
+    //        }
+    //        self.monthVisaTextField.resignFirstResponder() // 2.5
+    //
+    //    }
     
     @objc func textFieldDidChange(text: UITextField)  {
         guard let texts = text.text else { return  }
@@ -244,25 +265,25 @@ class CustomMainPaymentView: CustomBaseView {
                     paymentViewModel.vodafoneVode = texts
                 }
                 
-            }else if text == visaTextField {
-                if  texts.count < 8    {
-                    floatingLabelTextField.errorMessage = "Invalid   visa number".localized
-                    paymentViewModel.visaCard = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    paymentViewModel.visaCard = texts
-                }
-                
-            }else if text == cvcVisaTextField {
-                if texts.count < 3 {
-                    floatingLabelTextField.errorMessage = "Invalid CVC  visa number".localized
-                    paymentViewModel.visaCVCCard = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    paymentViewModel.visaCVCCard = texts
-                }
+                //            }else if text == visaTextField {
+                //                if  texts.count < 8    {
+                //                    floatingLabelTextField.errorMessage = "Invalid   visa number".localized
+                //                    paymentViewModel.visaCard = nil
+                //                }
+                //                else {
+                //                    floatingLabelTextField.errorMessage = ""
+                //                    paymentViewModel.visaCard = texts
+                //                }
+                //                
+                //            }else if text == cvcVisaTextField {
+                //                if texts.count < 3 {
+                //                    floatingLabelTextField.errorMessage = "Invalid CVC  visa number".localized
+                //                    paymentViewModel.visaCVCCard = nil
+                //                }
+                //                else {
+                //                    floatingLabelTextField.errorMessage = ""
+                //                    paymentViewModel.visaCVCCard = texts
+                //                }
                 
                 
                 

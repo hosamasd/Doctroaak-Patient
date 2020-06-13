@@ -33,7 +33,11 @@ class ForgetPasswordVC:   CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
-    
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,19 +95,35 @@ class ForgetPasswordVC:   CustomBaseViewVC {
                navigationController?.pushViewController(verifiy, animated: true)
     }
     
+    func showMainAlertLooder()  {
+                 customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+                 customAlertMainLoodingView.problemsView.loopMode = .loop
+                 present(customMainAlertVC, animated: true)
+             }
+          
+          @objc func handleDismiss()  {
+                    removeViewWithAnimation(vvv: customAlertMainLoodingView)
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
    
     //TODO: -handle methods
     
-  @objc func handleDismiss()  {
-               dismiss(animated: true, completion: nil)
-           }
+   
+    
+//  @objc func handleDismiss()  {
+//               dismiss(animated: true, completion: nil)
+//           }
     
     @objc func handleDonePayment()  {
         
         customForgetPassView.forgetPassViewModel.performResetPassword { (base, err) in
             
         if let err = err {
-                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+            self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                        self.activeViewsIfNoData();return
                    }
                    SVProgressHUD.dismiss()

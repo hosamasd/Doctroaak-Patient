@@ -24,6 +24,27 @@ class VerificationVC: CustomBaseViewVC {
         
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+                t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+              let v = CustomAlertLoginView()
+              v.setupAnimation(name: "4970-unapproved-cross")
+                         v.handleOkTap = {[unowned self] in
+                             self.handleDismiss()
+                         }
+              return v
+          }()
     
     fileprivate var timer = Timer()
     fileprivate var seconds = 30
@@ -133,17 +154,30 @@ class VerificationVC: CustomBaseViewVC {
         userDefaults.set(user.id, forKey: UserDefaultsConstants.patientUserID)
         userDefaults.set(user.name, forKey: UserDefaultsConstants.patientName)
         userDefaults.set(user.url, forKey: UserDefaultsConstants.patientPhotoUrl)
-
+        
         userDefaults.synchronize()
         cacheObjectCodabe.save(user)
-
+        
     }
     
     func goToNext(user:PatienModel)  {
         self.updateStates(user:user)
-//        navigationController?.popToRootViewController(animated: true)
+        //        navigationController?.popToRootViewController(animated: true)
         dismiss(animated: true, completion: nil)
         
+    }
+    
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     //TODO: -handle Methods
@@ -163,7 +197,9 @@ class VerificationVC: CustomBaseViewVC {
         resetViewModel()
         customVerificationView.sMSCodeViewModel.performResendSMSCode { (base, err) in
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -175,7 +211,9 @@ class VerificationVC: CustomBaseViewVC {
         
         customVerificationView.sMSCodeViewModel.performLogging { (base, err) in
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()

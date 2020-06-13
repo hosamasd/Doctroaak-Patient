@@ -36,9 +36,29 @@ class PharmacyLocationVC: CustomBaseViewVC {
         v.searchButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+                t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+              let v = CustomAlertLoginView()
+              v.setupAnimation(name: "4970-unapproved-cross")
+                         v.handleOkTap = {[unowned self] in
+                             self.handleDismiss()
+                         }
+              return v
+          }()
     var apiToken:String?
-          var patientId:Int?
+    var patientId:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,11 +68,11 @@ class PharmacyLocationVC: CustomBaseViewVC {
     //MARK:-User methods
     
     func checkDtatExists()  {
-//         if userDefaults.bool(forKey: UserDefaultsConstants.isPharamacyCached) {
-//            customPharmacyLocationView.fetchData()
-//               }else {
-//                   fetchDATASS()
-//               }
+        //         if userDefaults.bool(forKey: UserDefaultsConstants.isPharamacyCached) {
+        //            customPharmacyLocationView.fetchData()
+        //               }else {
+        //                   fetchDATASS()
+        //               }
     }
     
     func setupViewModelObserver()  {
@@ -65,12 +85,13 @@ class PharmacyLocationVC: CustomBaseViewVC {
         
         customPharmacyLocationView.pharamacyLocationViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                                SVProgressHUD.show(withStatus: "Searching...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Searching...".localized)
+                self.showMainAlertLooder()
                 
             }else {
-                                SVProgressHUD.dismiss()
-                                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -109,16 +130,28 @@ class PharmacyLocationVC: CustomBaseViewVC {
         
     }
     
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
     func goToNext(_ patient:[PharamacySearchModel])  {
-           let details = PharamacySearchResultsVC()
-           details.apiToken=apiToken
-           details.patientId=patientId
+        let details = PharamacySearchResultsVC()
+        details.apiToken=apiToken
+        details.patientId=patientId
         details.pharamacyArrayResults=patient
-           navigationController?.pushViewController(details, animated: true)
-       }
+        navigationController?.pushViewController(details, animated: true)
+    }
     
     //TODO: -handle methods
     
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
@@ -126,26 +159,29 @@ class PharmacyLocationVC: CustomBaseViewVC {
     
     @objc  func handleNext()  {
         
-        customPharmacyLocationView.pharamacyLocationViewModel.performSearching { (base, err) in
+        customPharmacyLocationView.pharamacyLocationViewModel.performSearching {[unowned self] (base, err) in
             
-        if let err = err {
-                       SVProgressHUD.showError(withStatus: err.localizedDescription)
-                       self.activeViewsIfNoData();return
-                   }
-                   SVProgressHUD.dismiss()
-                   self.activeViewsIfNoData()
-                   guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-                   
-                   DispatchQueue.main.async {
-                       self.goToNext(user)
-                   }
+            if let err = err {
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            //            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext(user)
+            }
         }
-//        customPharmacyLocationView.pharamacyLocationViewModel.performLogging {[unowned self] (la, lng, delivery, insurance) in
-//            let order = PharmacyOrderVC(latt: la, lon: lng, insurance: insurance, delivery: delivery)
-//            order.api_token=self.apiToken
-//            order.patient_id=self.patientId
-//            self.navigationController?.pushViewController(order, animated: true)
-//        }
+        //        customPharmacyLocationView.pharamacyLocationViewModel.performLogging {[unowned self] (la, lng, delivery, insurance) in
+        //            let order = PharmacyOrderVC(latt: la, lon: lng, insurance: insurance, delivery: delivery)
+        //            order.api_token=self.apiToken
+        //            order.patient_id=self.patientId
+        //            self.navigationController?.pushViewController(order, animated: true)
+        //        }
         
     }
     

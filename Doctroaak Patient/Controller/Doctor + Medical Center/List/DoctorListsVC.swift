@@ -37,6 +37,27 @@ class DoctorListsVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+              let v = CustomAlertLoginView()
+              v.setupAnimation(name: "4970-unapproved-cross")
+              v.handleOkTap = {[unowned self] in
+                  self.handleDismiss()
+              }
+              return v
+          }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+                   t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     
     fileprivate let index:Int!
     init(index:Int) {
@@ -76,14 +97,17 @@ class DoctorListsVC: CustomBaseViewVC {
     
     func getData()  {
         UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        SVProgressHUD.show(withStatus: "Looding...".localized)
+        showMainAlertLooder()
+//        SVProgressHUD.show(withStatus: "Looding...".localized)
         MainServices.shared.getSpecificationss { (base, err) in
             if let err=err{
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+            self.handleDismiss()
+//            SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let specificationsArray = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             self.customDoctorListsView.doctorListCollectionVC.specificationArray = specificationsArray
@@ -109,6 +133,22 @@ class DoctorListsVC: CustomBaseViewVC {
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
         mainView.addSubViews(views: customDoctorListsView)
         customDoctorListsView.fillSuperview()
+    }
+    
+   
+    
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc  func handleBack()  {

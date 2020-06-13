@@ -13,6 +13,14 @@ import MOLH
 
 extension UIViewController {
     
+    func showMainAlertErrorMessages(vv:UIViewController,secondV:CustomAlertLoginView,text:String)  {
+    
+           vv.addCustomViewInCenter(views: secondV, height: 200)
+        secondV.discriptionInfoLabel.text = text
+           secondV.problemsView.loopMode = .loop
+           present(vv, animated: true)
+       }
+    
     func  checkDayIsExistIn(year:Int,month:Int,day:Int) -> Bool {
         
         let dateComponents = DateComponents(year: year, month: month)

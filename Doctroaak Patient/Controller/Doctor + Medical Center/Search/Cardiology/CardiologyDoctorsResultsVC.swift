@@ -97,7 +97,9 @@ class CardiologyDoctorsResultsVC: CustomBaseViewVC {
         PatientProfileSservicea.shared.favoriteDoctors(patient_id: patient.id, doctor_id: doctor.id, api_token: patient.apiToken) { (base, err) in
             
         if let err = err {
-                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+            self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                    }
             guard let mess = base else {return}
             let message = MOLHLanguage.isRTLLanguage() ? mess.message : mess.messageEn

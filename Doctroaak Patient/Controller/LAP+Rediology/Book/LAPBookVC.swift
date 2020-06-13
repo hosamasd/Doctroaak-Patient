@@ -61,6 +61,11 @@ class LAPBookVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     
     var orders:[RadiologyOrderModel]?
     var img:UIImage?
@@ -94,9 +99,9 @@ class LAPBookVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-                             patient=cacheObjectCodabe.storedValue
-
-              }else {}
+            patient=cacheObjectCodabe.storedValue
+            
+        }else {}
     }
     
     
@@ -115,8 +120,8 @@ class LAPBookVC: CustomBaseViewVC {
         customLAPBookView.lapBookViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
             if isValid == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Booking...".localized)
-                
+                //                SVProgressHUD.show(withStatus: "Booking...".localized)
+                self.showMainAlertLooder()
             }else {
                 SVProgressHUD.dismiss()
                 self.activeViewsIfNoData()
@@ -174,10 +179,13 @@ class LAPBookVC: CustomBaseViewVC {
         customLAPBookView.lapBookViewModel.performLabBooking(notess: getNotes()) { (base, err) in
             
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+            self.handleDismiss()
+            //            SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let message = base else {return }
             
@@ -207,10 +215,13 @@ class LAPBookVC: CustomBaseViewVC {
         customLAPBookView.lapBookViewModel.performRadiologyBooking(notess: getNotes()) { (base, err) in
             
             if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+            self.handleDismiss()
+            //            SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let message = base else {return }
             
@@ -231,6 +242,19 @@ class LAPBookVC: CustomBaseViewVC {
         customAlertLoginView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
         
+    }
+    
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     //TODO: -handle methods
@@ -258,9 +282,9 @@ class LAPBookVC: CustomBaseViewVC {
         }
     }
     
-    @objc func handleDismiss()  {
-        dismiss(animated: true, completion: nil)
-    }
+    //    @objc func handleDismiss()  {
+    //        dismiss(animated: true, completion: nil)
+    //    }
     
     @objc func handleOkSuccess()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
