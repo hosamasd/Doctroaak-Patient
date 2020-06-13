@@ -51,6 +51,11 @@ class ProfileVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
     
     var patient:PatienModel?{
         didSet{
@@ -83,10 +88,12 @@ class ProfileVC: CustomBaseViewVC {
         customProfileView.edirProfileViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Updating...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Updating...".localized)
+                self.showMainAlertLooder()
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })
@@ -122,6 +129,12 @@ class ProfileVC: CustomBaseViewVC {
         //       try? personManager.set(person: patient)
     }
     
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
     //TODO: -handle methods
     
     @objc func createAlertForChoposingImage()  {
@@ -152,7 +165,9 @@ class ProfileVC: CustomBaseViewVC {
                 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             self.cachedATA(user)
@@ -161,6 +176,13 @@ class ProfileVC: CustomBaseViewVC {
             }
         }
     }
+    
+    @objc func handleDismiss()  {
+                 removeViewWithAnimation(vvv: customAlertMainLoodingView)
+                 DispatchQueue.main.async {
+                     self.dismiss(animated: true, completion: nil)
+                 }
+             }
     
     @objc func handleBack()  {
         dismiss(animated: true)

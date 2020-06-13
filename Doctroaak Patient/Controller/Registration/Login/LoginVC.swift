@@ -96,10 +96,12 @@ class LoginVC: CustomBaseViewVC {
         customLoginsView.loginViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Login...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Login...".localized)
+                self.showMainAlertLooder()
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })
@@ -176,7 +178,9 @@ class LoginVC: CustomBaseViewVC {
 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             

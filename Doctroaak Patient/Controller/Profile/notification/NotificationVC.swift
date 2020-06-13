@@ -36,17 +36,29 @@ class NotificationVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertLoginView:CustomAlertLoginView = {
-           let v = CustomAlertLoginView()
-           v.setupAnimation(name: "4970-unapproved-cross")
-                      v.handleOkTap = {[unowned self] in
-                          self.handleDismiss()
-                      }
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+           let t = CustomMainAlertVC()
+           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+           t.modalTransitionStyle = .crossDissolve
+           t.modalPresentationStyle = .overCurrentContext
+           return t
+       }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
            return v
        }()
     
     fileprivate let patients:PatienModel!
     fileprivate let isFromMenu:Bool!
-
+    
     //    fileprivate let api_token:String!
     //    fileprivate let user_id:Int!
     //
@@ -84,15 +96,17 @@ class NotificationVC: CustomBaseViewVC {
         let d = 44
         
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-        SVProgressHUD.show(withStatus: "Looding...".localized)
+//        SVProgressHUD.show(withStatus: "Looding...".localized)
+        self.showMainAlertLooder()
         PatientProfileSservicea.shared.getNotifications(api_token: patients.apiToken, user_id: patients.id) { (base, err) in
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -100,6 +114,12 @@ class NotificationVC: CustomBaseViewVC {
                 self.reloadData(user: user)
             }
         }
+    }
+    
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
     }
     
     func reloadData(user:[PatientNotificationModel])  {
@@ -114,12 +134,14 @@ class NotificationVC: CustomBaseViewVC {
         SVProgressHUD.show(withStatus: "Looding...".localized)
         PatientProfileSservicea.shared.removeNotification(notification_id: id) { (base, err) in
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
+//            SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             DispatchQueue.main.async {
@@ -153,10 +175,17 @@ class NotificationVC: CustomBaseViewVC {
             dismiss(animated: true)
         }else {
             dismiss(animated: true)
-
-//        navigationController?.popViewController(animated: true)
+            
+            //        navigationController?.popViewController(animated: true)
         }
         
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

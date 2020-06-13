@@ -103,6 +103,15 @@ class PharmacyOrderVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupViewModelObserver()
         //        check()
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
+//               customAlertSuccessView.discriptionInfoLabel.text = "txt"
+//               customAlertSuccessView.problemsView.loopMode = .loop
+//               present(customMainAlertVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,7 +168,9 @@ class PharmacyOrderVC: CustomBaseViewVC {
                 //                SVProgressHUD.show(withStatus: "Booking...".localized)
                 self.showMainAlertLooder()
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+//                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })
@@ -205,6 +216,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
     }
     
     func handleremoveLoginAlert()  {
+//        self.handleDismiss()
         removeViewWithAnimation(vvv: customAlertLoginView)
         customMainAlertVC.dismiss(animated: true)
         presentLogin()
@@ -214,8 +226,9 @@ class PharmacyOrderVC: CustomBaseViewVC {
     func presentSuccessAlert(txt:String)  {
         
         customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
+        customAlertSuccessView.problemsView.loopMode = .loop
+
         customAlertSuccessView.discriptionInfoLabel.text = txt
-        customAlertLoginView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
         
     }
@@ -228,8 +241,9 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
-        removeViewWithAnimation(vvv: customAlertSuccessView)
-        
+//        removeViewWithAnimation(vvv: customAlertSuccessView)
+        removeViewWithAnimation(vvv: customAlertLoginView)
+
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
@@ -264,12 +278,16 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     
     @objc func handleBook()  {
-        if api_token == nil && patient_id == nil  {
-            presentAlert()
+        if patient == nil  {
+        presentAlert()
+//        if api_token == nil && patient_id == nil  {
+//            presentAlert()
         }else {
-            guard let api = api_token,let patientId = patient_id else { return  }
-            customPharmacyOrderView.pharamacyOrderViewModel.api_token=api
-            customPharmacyOrderView.pharamacyOrderViewModel.patient_id=patientId
+//            guard let api = api_token,let patientId = patient_id else { return  }
+            guard let patient = patient else { return  }
+
+            customPharmacyOrderView.pharamacyOrderViewModel.api_token=patient.apiToken
+            customPharmacyOrderView.pharamacyOrderViewModel.patient_id=patient.id
             
             customPharmacyOrderView.pharamacyOrderViewModel.performBooking { (base, err) in
                 
@@ -293,27 +311,14 @@ class PharmacyOrderVC: CustomBaseViewVC {
         }
     }
     
-    //    @objc func handleDismiss()  {
-    //        dismiss(animated: true, completion: nil)
-    //    }
-    
-    //    func removePharamacy(_ ph:PharamcyOrderModel,_ index:Int) {
-    //        customPharmacyOrderView.addMedicineCollectionVC.medicineArray.remove(at: index)
-    //        customPharmacyOrderView.pharamacyOrderViewModel.orderDetails?.remove(at: index)
-    //        let indexxx = IndexPath(item: index, section: 0)
-    //
-    //        customPharmacyOrderView.addMedicineCollectionVC.collectionView.deleteItems(at: [indexxx])
-    //        DispatchQueue.main.async {
-    //            self.customPharmacyOrderView.addMedicineCollectionVC.collectionView.reloadData()
-    //        }
-    //    }
-    
-    
     
     @objc func handleOkSuccess()  {
-        removeViewWithAnimation(vvv: customAlertLoginView)
+//        removeViewWithAnimation(vvv: customAlertLoginView)
+        removeViewWithAnimation(vvv: customAlertSuccessView)
+//
         customMainAlertVC.dismiss(animated: true)
-        let orders = ProfileOrdersVC()
+//        handleDismiss()
+        let orders = ProfileOrdersVC(isFromOrder: true)
         navigationController?.pushViewController(orders, animated: true)
         
     }

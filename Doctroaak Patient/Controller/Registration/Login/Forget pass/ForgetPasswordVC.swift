@@ -64,10 +64,12 @@ class ForgetPasswordVC:   CustomBaseViewVC {
         customForgetPassView.forgetPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                                SVProgressHUD.show(withStatus: "Resending password...".localized)
-                
+//                                SVProgressHUD.show(withStatus: "Resending password...".localized)
+                self.showMainAlertLooder()
             }else {
-                                SVProgressHUD.dismiss()
+//                                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                                 self.activeViewsIfNoData()
             }
         })
@@ -126,7 +128,9 @@ class ForgetPasswordVC:   CustomBaseViewVC {
 
                        self.activeViewsIfNoData();return
                    }
-                   SVProgressHUD.dismiss()
+//                   SVProgressHUD.dismiss()
+            self.handleDismiss()
+
                    self.activeViewsIfNoData()
                    guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             DispatchQueue.main.async {

@@ -33,13 +33,22 @@ class ViewController: CustomBaseViewVC {
            t.modalPresentationStyle = .overCurrentContext
            return t
        }()
+    lazy var customAlertSuccessView:CustomAlertSuccessView = {
+           let v = CustomAlertSuccessView()
+           v.setupAnimation(name: "4970-unapproved-cross")
+           v.handleOkTap = {[unowned self] in
+//               self.handleOkSuccess()
+           }
+           return v
+       }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .red
         // Do any additional setup after loading the view.
-        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
-               customAlertMainLoodingView.problemsView.loopMode = .loop
-               present(customMainAlertVC, animated: true)
+        
+        
+        
     }
 
     override func setupNavigation() {

@@ -238,8 +238,9 @@ class LAPBookVC: CustomBaseViewVC {
     func presentSuccessAlert(txt:String)  {
         
         customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
+        customAlertSuccessView.problemsView.loopMode = .loop
+
         customAlertSuccessView.discriptionInfoLabel.text = txt
-        customAlertLoginView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
         
     }
@@ -289,7 +290,7 @@ class LAPBookVC: CustomBaseViewVC {
     @objc func handleOkSuccess()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
         customMainAlertVC.dismiss(animated: true)
-        let orders = ProfileOrdersVC()
+        let orders = ProfileOrdersVC(isFromOrder: true)
         navigationController?.pushViewController(orders, animated: true)
         
     }

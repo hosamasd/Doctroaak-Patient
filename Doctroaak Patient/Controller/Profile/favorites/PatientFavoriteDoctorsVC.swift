@@ -85,8 +85,9 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
         //                UIApplication.shared.beginReceivingRemoteControlEvents()
         
         //        view.isUserInteractionEnabled = false
-        SVProgressHUD.show(withStatus: "Removing...".localized)
-        
+//        SVProgressHUD.show(withStatus: "Removing...".localized)
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        self.showMainAlertLooder()
         PatientProfileSservicea.shared.favoriteDoctors(patient_id: patient.id, doctor_id: doctor.id, api_token: patient.apiToken) { (base, err) in
             
             if let err = err {
@@ -95,7 +96,8 @@ class PatientFavoriteDoctorsVC: CustomBaseViewVC {
                 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base else { return}
             

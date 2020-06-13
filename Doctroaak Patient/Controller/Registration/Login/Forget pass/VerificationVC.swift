@@ -99,10 +99,12 @@ class VerificationVC: CustomBaseViewVC {
         customVerificationView.sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Login...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Login...".localized)
+                self.showMainAlertLooder()
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })
@@ -202,7 +204,9 @@ class VerificationVC: CustomBaseViewVC {
 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
             SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....".localized)
             self.activeViewsIfNoData()
         }    }
@@ -216,7 +220,9 @@ class VerificationVC: CustomBaseViewVC {
 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);self.setupTimer(); return}
             

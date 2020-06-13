@@ -50,6 +50,11 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
     var infoDetails:[[String]]? {
         didSet{
             
@@ -83,8 +88,8 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     func getStaticData()  {
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         
-        SVProgressHUD.show(withStatus: "Looding...")
-        
+//        SVProgressHUD.show(withStatus: "Looding...")
+        self.showMainAlertLooder()
         MainServices.shared.getPaymentDetails { (base, err) in
             
             if let err = err {
@@ -93,7 +98,9 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
+//            SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             let flattened = user.reduce([]) { $0 + $1 }
@@ -138,5 +145,11 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
         
+    }
+    
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
     }
 }

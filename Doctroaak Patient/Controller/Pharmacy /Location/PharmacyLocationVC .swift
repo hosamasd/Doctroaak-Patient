@@ -90,7 +90,9 @@ class PharmacyLocationVC: CustomBaseViewVC {
                 self.showMainAlertLooder()
                 
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })

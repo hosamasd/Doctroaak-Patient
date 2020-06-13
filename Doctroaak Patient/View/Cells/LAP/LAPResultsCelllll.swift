@@ -22,7 +22,7 @@ class  LAPResultsCelllll: BaseCollectionCell {
             let area = getAreaFromIndex(lab.area)
             
             putAttributedText(la: profileInfoLabel, ft: name+"\n", st: "\(area), \(city) \n")
-            let delivery = lab.delivery.toInt() == 0 ? "Delivery".localized : "Not Delivery".localized
+            let delivery = lab.delivery.toInt() == 1 ? "Delivery".localized : "Not Delivery".localized
 
 //            let attributeText = NSMutableAttributedString(string: name+"\n", attributes:  [.font : UIFont.boldSystemFont(ofSize: 18)])
 //            attributeText.append(NSAttributedString(string: "\(area), \(city) \n\n", attributes: [.font : UIFont.systemFont(ofSize: 16),.foregroundColor: UIColor.gray]))

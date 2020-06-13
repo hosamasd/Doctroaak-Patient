@@ -77,10 +77,12 @@ class RegisterVC: CustomBaseViewVC {
         customRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Reigster...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Reigster...".localized)
+                self.showMainAlertLooder()
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })
@@ -170,7 +172,9 @@ class RegisterVC: CustomBaseViewVC {
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             

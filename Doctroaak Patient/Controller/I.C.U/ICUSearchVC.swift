@@ -90,8 +90,8 @@ class ICUSearchVC: CustomBaseViewVC {
         customICUSearchView.icuViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Searching...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Searching...".localized)
+                self.showMainAlertLooder()
             }else {
                 SVProgressHUD.dismiss()
                 self.activeViewsIfNoData()
@@ -145,7 +145,9 @@ class ICUSearchVC: CustomBaseViewVC {
 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
             self.activeViewsIfNoData()
             guard let users = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -166,7 +168,9 @@ class ICUSearchVC: CustomBaseViewVC {
 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
+
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             

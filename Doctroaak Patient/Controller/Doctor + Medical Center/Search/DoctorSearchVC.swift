@@ -46,6 +46,19 @@ class DoctorSearchVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+           let t = CustomMainAlertVC()
+           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+           t.modalTransitionStyle = .crossDissolve
+           t.modalPresentationStyle = .overCurrentContext
+           return t
+       }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
+    
     var patient:PatienModel?{
         didSet{
             guard let patient = patient else { return  }
@@ -85,10 +98,12 @@ class DoctorSearchVC: CustomBaseViewVC {
         customDoctorSearchView.doctorSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Searching...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Searching...".localized)
+                self.showMainAlertLooder()
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })
@@ -141,6 +156,12 @@ class DoctorSearchVC: CustomBaseViewVC {
         navigationController?.pushViewController(card, animated: true)
     }
     
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
@@ -153,7 +174,8 @@ class DoctorSearchVC: CustomBaseViewVC {
                 
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -166,6 +188,13 @@ class DoctorSearchVC: CustomBaseViewVC {
             
         }
     }
+    
+    @objc func handleDismiss()  {
+                 removeViewWithAnimation(vvv: customAlertMainLoodingView)
+                 DispatchQueue.main.async {
+                     self.dismiss(animated: true, completion: nil)
+                 }
+             }
 }
 
 //MARK:-Extensions

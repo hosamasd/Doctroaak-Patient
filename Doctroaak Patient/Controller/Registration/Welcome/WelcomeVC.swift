@@ -405,7 +405,8 @@ class WelcomeVC: CustomBaseViewVC {
         
         DispatchQueue.main.sync {
             
-            
+//            self.handleDismiss()
+
             SVProgressHUD.dismiss()
             
             dd?.forEach({ (r) in

@@ -71,10 +71,12 @@ class NewPassVC: CustomBaseViewVC {
         customNewPassView.newPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Saving password...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Saving password...".localized)
+                self.showMainAlertLooder()
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })
@@ -122,7 +124,9 @@ class NewPassVC: CustomBaseViewVC {
 
                        self.activeViewsIfNoData();return
                    }
-                   SVProgressHUD.dismiss()
+//                   SVProgressHUD.dismiss()
+            self.handleDismiss()
+
                    self.activeViewsIfNoData()
                    guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
 
@@ -133,7 +137,6 @@ class NewPassVC: CustomBaseViewVC {
                 self.goToNext()
             }
             }else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);return}
-        
         }
         
         

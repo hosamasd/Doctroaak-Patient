@@ -203,7 +203,7 @@ class HomeMenuVC: CustomBaseViewVC {
                         openAlertForLogin()
 
         }else {
-            let order = ProfileOrdersVC()
+            let order = ProfileOrdersVC(isFromOrder: false)
             order.patient=patient
             let nav = UINavigationController(rootViewController: order)
             nav.modalPresentationStyle = .fullScreen

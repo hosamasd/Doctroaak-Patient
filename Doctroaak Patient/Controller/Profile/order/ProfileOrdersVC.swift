@@ -78,13 +78,18 @@ class ProfileOrdersVC: CustomBaseViewVC {
         return v
     } ()
     lazy var customAlertLoginView:CustomAlertLoginView = {
-           let v = CustomAlertLoginView()
-           v.setupAnimation(name: "4970-unapproved-cross")
-                      v.handleOkTap = {[unowned self] in
-                          self.handleDismiss()
-                      }
-           return v
-       }()
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     lazy var textView = UITextView(frame: CGRect.zero)
     
     
@@ -94,6 +99,16 @@ class ProfileOrdersVC: CustomBaseViewVC {
             guard let patient = patient else { return  }
             //               customMainHomeView.patient=patient
         }
+    }
+    
+    fileprivate let isFromOrder:Bool!
+    init(isFromOrder:Bool) {
+        self.isFromOrder=isFromOrder
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -135,7 +150,9 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
         
         
-        SVProgressHUD.show(withStatus: "Looding...".localized)
+        //        SVProgressHUD.show(withStatus: "Looding...".localized)
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        self.showMainAlertLooder()
         let semaphore = DispatchSemaphore(value: 0)
         
         let dispatchQueue = DispatchQueue.global(qos: .background)
@@ -177,8 +194,16 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
     }
     
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
     func reloadMainData(_ lab:[LABOrderPatientModel]?,_ rad:[RadiologyOrderPatientModel]?,_ phara:[PharamacyOrderPatientModel]?,_ doctor:[DoctorsOrderPatientModel]? )  {
-        SVProgressHUD.dismiss()
+        //        SVProgressHUD.dismiss()
+        self.handleDismiss()
+        self.activeViewsIfNoData()
         
         if let lab = lab {
             self.customProfileOrdersView.mainOrdersCollectionVC.labArray=lab
@@ -234,8 +259,12 @@ class ProfileOrdersVC: CustomBaseViewVC {
     }
     
     @objc  func handleBack()  {
-        dismiss(animated: true)
-        //        navigationController?.popViewController(animated: true)
+        if isFromOrder {
+            navigationController?.popViewController(animated: true)
+            
+        }else {
+            dismiss(animated: true)
+        }
     }
     
     @objc func handleDoctors()  {
@@ -277,15 +306,17 @@ class ProfileOrdersVC: CustomBaseViewVC {
         guard let patient = patient else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        SVProgressHUD.show(withStatus: "looding...".localized)
+        //        SVProgressHUD.show(withStatus: "looding...".localized)
+        self.showMainAlertLooder()
         CanceOrdersServices.shared.cancelOrder(patient_id:patient.id,api_token: patient.apiToken, order_id: order_id, order_type: type, message: message) { (base, err) in
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base else {return}
             let mess = MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn
@@ -346,8 +377,11 @@ class ProfileOrdersVC: CustomBaseViewVC {
         view.endEditing(true)
     }
     
-    @objc  func handleDismiss()  {
-        dismiss(animated: true)
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func handleRemoveStars()  {
@@ -361,16 +395,18 @@ class ProfileOrdersVC: CustomBaseViewVC {
         guard let patient = patient else {handleRemoveStars(); return  }
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        SVProgressHUD.show(withStatus: "Rating...".localized)
+//        SVProgressHUD.show(withStatus: "Rating...".localized)
+        self.showMainAlertLooder()
         PatientProfileSservicea.shared.rateDoctors(patient_id: patient.id, doctor_id: customStarView.doctor_id, api_token: patient.apiToken, type: customStarView.type, rate: rate) { (base, err) in
             
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();self.handleRemoveStars();return
             }
-            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let use = base else {self.handleRemoveStars();return}
             let me = MOLHLanguage.isRTLLanguage() ? use.message : use.messageEn

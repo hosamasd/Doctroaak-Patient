@@ -57,7 +57,11 @@ class DoctorBookVC: CustomBaseViewVC {
         }
         return v
     }()
-    
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
     var patient:PatienModel?{
         didSet{
             guard let patient = cacheObjectCodabe.storedValue else { return  }
@@ -109,10 +113,12 @@ class DoctorBookVC: CustomBaseViewVC {
         cusomDoctorBookView.doctorBookViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
             if isValid == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Booking...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Booking...".localized)
+                self.showMainAlertLooder()
             }else {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
+
                 self.activeViewsIfNoData()
             }
         })
@@ -176,11 +182,22 @@ class DoctorBookVC: CustomBaseViewVC {
         
     }
     
+    func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
     //TODO:-Handle methods
     
     @objc func handleDismiss()  {
-        dismiss(animated: true, completion: nil)
-    }
+              removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        removeViewWithAnimation(vvv: customAlertLoginView)
+
+              DispatchQueue.main.async {
+                  self.dismiss(animated: true, completion: nil)
+              }
+          }
     
     @objc func handleBook()  {
         if patient == nil {
@@ -197,7 +214,8 @@ class DoctorBookVC: CustomBaseViewVC {
 
                     self.activeViewsIfNoData();return
                 }
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
+                self.handleDismiss()
                 self.activeViewsIfNoData()
                 guard let message = base else {return }
                 let ar = message.message ?? message.messageEn ?? ""
@@ -211,9 +229,10 @@ class DoctorBookVC: CustomBaseViewVC {
     }
     
     @objc func handleOkSuccess()  {
-        removeViewWithAnimation(vvv: customAlertLoginView)
-        customMainAlertVC.dismiss(animated: true)
-        let orders = ProfileOrdersVC()
+        self.handleDismiss()
+//        removeViewWithAnimation(vvv: customAlertLoginView)
+//        customMainAlertVC.dismiss(animated: true)
+        let orders = ProfileOrdersVC(isFromOrder: true)
         navigationController?.pushViewController(orders, animated: true)
         
     }

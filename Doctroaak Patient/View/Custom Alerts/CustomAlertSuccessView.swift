@@ -42,7 +42,7 @@ class CustomAlertSuccessView: CustomBaseView {
         im.addSubview(problemsView)
         return im
     }()
-    lazy var discriptionInfoLabel = UILabel(text: "text", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 0)
+    lazy var discriptionInfoLabel = UILabel(text: "text", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 0)
     
     
     
