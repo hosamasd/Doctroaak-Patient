@@ -46,10 +46,10 @@ class CustomICUSelectedSearchView: CustomBaseView {
     lazy var icuSelectedResultsCell = ICUSelectedResultsCell()
     lazy var mapView:MKMapView  = {
         let i = MKMapView()
-        i.showsUserLocation = true
-        //        i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
         return i
     }()
+    
+
     
     override func setupViews() {
         [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})

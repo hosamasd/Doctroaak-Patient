@@ -153,6 +153,7 @@ extension MainPaymentVC: AcceptSDKDelegate  {
     }
     
     func paymentAttemptFailed(_ error: AcceptSDKError, detailedDescription: String) {
+        print(error)
         SVProgressHUD.showError(withStatus: detailedDescription)
     }
     

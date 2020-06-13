@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ICUSlelcetedResultVC: CustomBaseViewVC {
     
@@ -47,8 +48,22 @@ class ICUSlelcetedResultVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        showToast(message: "hksjfbnkjsdnf sdl,fnsldkfn", font: .systemFont(ofSize: 20))
-        //        popUp(context: self, msg: "sdgsdvdsgv dsgvdsgvds")
+        
+        
+        
+        var initialLocation:String = ""
+        var ssss:CLLocationCoordinate2D = CLLocationCoordinate2D()
+        if icu != nil {
+            initialLocation = icu!.name
+            ssss = CLLocationCoordinate2D(latitude: icu!.lat, longitude: icu!.lng)
+        }else if incubation != nil {
+            initialLocation = incubation!.name
+            ssss = CLLocationCoordinate2D(latitude: incubation!.lat, longitude: incubation!.lng)
+        }
+        let london = MKPointAnnotation()
+        london.title = initialLocation
+        london.coordinate = ssss
+        customICUSelectedSearchView.mapView.addAnnotation(london)
     }
     
     override func viewWillAppear(_ animated: Bool) {

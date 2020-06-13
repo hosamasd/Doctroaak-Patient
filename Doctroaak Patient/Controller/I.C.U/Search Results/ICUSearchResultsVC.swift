@@ -26,12 +26,12 @@ class ICUSearchResultsVC: CustomBaseViewVC {
         let v = CustomICUResultsView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.handleSelectedItem = {[unowned self] icu in
-            let result = ICUSlelcetedResultVC( index:0 )
+            let result = ICUSlelcetedResultVC( index:self.index )
             result.icu=icu
             self.navigationController?.pushViewController(result, animated: true)
         }
         v.handleSecondSelectedItem = {[unowned self] icu in
-            let result = ICUSlelcetedResultVC( index:0 )
+            let result = ICUSlelcetedResultVC( index:self.index )
             result.incubation=icu
             self.navigationController?.pushViewController(result, animated: true)
         }

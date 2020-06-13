@@ -131,13 +131,13 @@ class ServicesVC: CustomBaseViewVC {
     @objc  func handleOpen5VC()  {
         //        let doc = IncubationSearchVC()
         //        navigationController?.pushViewController(doc, animated: true)
-        let doc = ICUSearchVC(index: 1)
+        let doc = ICUSearchVC(index: 0)
         navigationController?.pushViewController(doc, animated: true)
     }
     
     
     @objc  func handleOpen6VC()  {
-        let doc = ICUSearchVC(index: 0)
+        let doc = ICUSearchVC(index: 1)
         navigationController?.pushViewController(doc, animated: true)
         
     }

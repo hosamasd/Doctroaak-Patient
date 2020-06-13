@@ -33,7 +33,7 @@ class CustomICUSearchView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "I.C.U".localized, font: .systemFont(ofSize: 35), textColor: .white)
+    lazy var titleLabel = UILabel(text: "", font: .systemFont(ofSize: 35), textColor: .white)
     lazy var userSpecificationLabel = UILabel(text: "Select Your Location".localized, font: .systemFont(ofSize: 16), textColor: .white)
     
     
