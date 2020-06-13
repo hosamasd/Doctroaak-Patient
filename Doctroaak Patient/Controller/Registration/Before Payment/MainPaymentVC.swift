@@ -9,7 +9,7 @@
 
 import UIKit
 import SVProgressHUD
-//import AcceptSDK
+import AcceptSDK
 
 
 class MainPaymentVC: CustomBaseViewVC {

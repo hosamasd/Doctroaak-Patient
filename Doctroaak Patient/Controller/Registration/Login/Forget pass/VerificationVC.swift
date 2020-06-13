@@ -141,8 +141,8 @@ class VerificationVC: CustomBaseViewVC {
     
     func goToNext(user:PatienModel)  {
         self.updateStates(user:user)
-        navigationController?.popToRootViewController(animated: true)
-//        dismiss(animated: true, completion: nil)
+//        navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: true, completion: nil)
         
     }
     

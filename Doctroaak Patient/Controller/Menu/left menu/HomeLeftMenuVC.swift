@@ -165,6 +165,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     //TODO: -handle methods
     
     @objc func handleLogout()  {
+        
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
         baseSlid.closeMenu()
         createAlerts()
