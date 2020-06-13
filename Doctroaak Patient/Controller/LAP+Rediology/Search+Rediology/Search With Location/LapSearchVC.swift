@@ -83,38 +83,9 @@ class LapSearchVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        //                check()
     }
     
     //MARK:-User methods
-    
-    func check()  {
-        SearchServices.shared.labGetSearchResults(firstOption: false, lab_id: 1,city: 1,are: 1, insurance: 0, delivery: 0,latt: 0.2,lang: 10.00) { (base, err) in
-            print(err)
-        }
-    }
-    
-    func setupViewModelObserver()  {
-        customLapSearchView.lAPSearchViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-            guard let isValid = isValidForm else {return}
-            //            self.customLoginView.loginButton.isEnabled = isValid
-            
-            self.changeButtonState(enable: isValid, vv: self.customLapSearchView.searchButton)
-        }
-        
-        customLapSearchView.lAPSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
-            if isReg == true {
-                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Searching...".localized)
-                self.showMainAlertLooder()
-            }else {
-//                SVProgressHUD.dismiss()
-                self.handleDismiss()
-
-                self.activeViewsIfNoData()
-            }
-        })
-    }
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
@@ -130,6 +101,30 @@ class LapSearchVC: CustomBaseViewVC {
         mainView.addSubViews(views: customLapSearchView)
         customLapSearchView.fillSuperview()
     }
+    
+    fileprivate func setupViewModelObserver()  {
+        customLapSearchView.lAPSearchViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+            guard let isValid = isValidForm else {return}
+            //            self.customLoginView.loginButton.isEnabled = isValid
+            
+            self.changeButtonState(enable: isValid, vv: self.customLapSearchView.searchButton)
+        }
+        
+        customLapSearchView.lAPSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+            if isReg == true {
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Searching...".localized)
+                self.showMainAlertLooder()
+            }else {
+                //                SVProgressHUD.dismiss()
+                self.handleDismiss()
+                
+                self.activeViewsIfNoData()
+            }
+        })
+    }
+    
+    
     
     fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
         
@@ -151,7 +146,7 @@ class LapSearchVC: CustomBaseViewVC {
         
     }
     
-    func goToNext(_ patient:[LapSearchModel]? = nil , _ radiology:[RadiologySearchModel]? = nil)  {
+    fileprivate func goToNext(_ patient:[LapSearchModel]? = nil , _ radiology:[RadiologySearchModel]? = nil)  {
         let details = LapSearchResultsVC(index:index)
         details.patient=self.patient
         //        details.apiToken=apiToken
@@ -161,21 +156,10 @@ class LapSearchVC: CustomBaseViewVC {
         navigationController?.pushViewController(details, animated: true)
     }
     
-    func showMainAlertLooder()  {
+    fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
-    }
-    
-    @objc func handleDismiss()  {
-        removeViewWithAnimation(vvv: customAlertMainLoodingView)
-        DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    @objc  func handleBack()  {
-        navigationController?.popViewController(animated: true)
     }
     
     fileprivate func makeLabSearch() {
@@ -187,9 +171,9 @@ class LapSearchVC: CustomBaseViewVC {
                 
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -209,9 +193,9 @@ class LapSearchVC: CustomBaseViewVC {
                 
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -221,6 +205,22 @@ class LapSearchVC: CustomBaseViewVC {
             
         }
     }
+    
+    //TODO: -handle methods
+    
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc  func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
     
     
     @objc func handleSearch()  {

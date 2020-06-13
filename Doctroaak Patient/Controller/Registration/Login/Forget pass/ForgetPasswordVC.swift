@@ -13,20 +13,20 @@ import MOLH
 class ForgetPasswordVC:   CustomBaseViewVC {
     
     lazy var customMainAlertVC:CustomMainAlertVC = {
-           let t = CustomMainAlertVC()
-           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-           t.modalTransitionStyle = .crossDissolve
-           t.modalPresentationStyle = .overCurrentContext
-           return t
-       }()
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     lazy var customAlertLoginView:CustomAlertLoginView = {
-           let v = CustomAlertLoginView()
+        let v = CustomAlertLoginView()
         v.setupAnimation(name: "4970-unapproved-cross")
         v.handleOkTap = {[unowned self] in
             self.handleremoveLoginAlert()
         }
-           return v
-       }()
+        return v
+    }()
     lazy var customForgetPassView:CustomForgetPassView = {
         let v = CustomForgetPassView()
         v.nextButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
@@ -34,10 +34,10 @@ class ForgetPasswordVC:   CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-           let v = CustomAlertMainLoodingView()
-           v.setupAnimation(name: "heart_loading")
-           return v
-       }()
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +47,14 @@ class ForgetPasswordVC:   CustomBaseViewVC {
     
     //MARK:-User methods
     
-    func che()  {
-        RegistrationServices.shared.MainForgetPassword(phone: "99999999992") { (base, err) in
-            
-        }
+    override  func setupNavigation()  {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
+    override func setupViews()  {
+        view.addSubview(customForgetPassView)
+        customForgetPassView.fillSuperview()
+        
     }
     
     func setupViewModelObserver()  {
@@ -63,82 +67,69 @@ class ForgetPasswordVC:   CustomBaseViewVC {
         
         customForgetPassView.forgetPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                                SVProgressHUD.show(withStatus: "Resending password...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                                SVProgressHUD.show(withStatus: "Resending password...".localized)
                 self.showMainAlertLooder()
             }else {
-//                                SVProgressHUD.dismiss()
+                //                                SVProgressHUD.dismiss()
                 self.handleDismiss()
-
-                                self.activeViewsIfNoData()
+                
+                self.activeViewsIfNoData()
             }
         })
     }
     
-    override  func setupNavigation()  {
-        navigationController?.navigationBar.isHide(true)
-    }
     
-    override func setupViews()  {
-        view.addSubview(customForgetPassView)
-        customForgetPassView.fillSuperview()
+    
+    fileprivate func handleremoveLoginAlert()  {
         
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
     }
     
-     func handleremoveLoginAlert()  {
-          
-          removeViewWithAnimation(vvv: customAlertLoginView)
-          customMainAlertVC.dismiss(animated: true)
-      }
-    
-    func goToNext()  {
+    fileprivate func goToNext()  {
         guard let phone = customForgetPassView.forgetPassViewModel.phone else { return  }
         let verifiy = NewPassVC(phone: phone)
-               navigationController?.pushViewController(verifiy, animated: true)
+        navigationController?.pushViewController(verifiy, animated: true)
     }
     
-    func showMainAlertLooder()  {
-                 customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
-                 customAlertMainLoodingView.problemsView.loopMode = .loop
-                 present(customMainAlertVC, animated: true)
-             }
-          
-          @objc func handleDismiss()  {
-                    removeViewWithAnimation(vvv: customAlertMainLoodingView)
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                }
-   
+    fileprivate func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
     //TODO: -handle methods
     
-   
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
-//  @objc func handleDismiss()  {
-//               dismiss(animated: true, completion: nil)
-//           }
     
     @objc func handleDonePayment()  {
         
         customForgetPassView.forgetPassViewModel.performResetPassword { (base, err) in
             
-        if let err = err {
-//                       SVProgressHUD.showError(withStatus: err.localizedDescription)
-            self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
-                       self.activeViewsIfNoData();return
-                   }
-//                   SVProgressHUD.dismiss()
+            if let err = err {
+                //                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                
+                self.activeViewsIfNoData();return
+            }
+            //                   SVProgressHUD.dismiss()
             self.handleDismiss()
-
-                   self.activeViewsIfNoData()
-                   guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            self.activeViewsIfNoData()
+            guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             DispatchQueue.main.async {
                 self.goToNext()
             }
-        
+            
         }
-       
+        
         
     }
     

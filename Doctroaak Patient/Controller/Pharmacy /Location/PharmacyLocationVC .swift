@@ -44,19 +44,19 @@ class PharmacyLocationVC: CustomBaseViewVC {
     
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
-                t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         t.modalTransitionStyle = .crossDissolve
         t.modalPresentationStyle = .overCurrentContext
         return t
     }()
     lazy var customAlertLoginView:CustomAlertLoginView = {
-              let v = CustomAlertLoginView()
-              v.setupAnimation(name: "4970-unapproved-cross")
-                         v.handleOkTap = {[unowned self] in
-                             self.handleDismiss()
-                         }
-              return v
-          }()
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
     var apiToken:String?
     var patientId:Int?
     
@@ -67,15 +67,7 @@ class PharmacyLocationVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-    func checkDtatExists()  {
-        //         if userDefaults.bool(forKey: UserDefaultsConstants.isPharamacyCached) {
-        //            customPharmacyLocationView.fetchData()
-        //               }else {
-        //                   fetchDATASS()
-        //               }
-    }
-    
-    func setupViewModelObserver()  {
+    fileprivate  func setupViewModelObserver()  {
         customPharmacyLocationView.pharamacyLocationViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
@@ -90,9 +82,9 @@ class PharmacyLocationVC: CustomBaseViewVC {
                 self.showMainAlertLooder()
                 
             }else {
-//                SVProgressHUD.dismiss()
+                //                SVProgressHUD.dismiss()
                 self.handleDismiss()
-
+                
                 self.activeViewsIfNoData()
             }
         })
@@ -132,13 +124,13 @@ class PharmacyLocationVC: CustomBaseViewVC {
         
     }
     
-    func showMainAlertLooder()  {
+    fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
     }
     
-    func goToNext(_ patient:[PharamacySearchModel])  {
+    fileprivate func goToNext(_ patient:[PharamacySearchModel])  {
         let details = PharamacySearchResultsVC()
         details.apiToken=apiToken
         details.patientId=patientId
@@ -164,9 +156,9 @@ class PharmacyLocationVC: CustomBaseViewVC {
         customPharmacyLocationView.pharamacyLocationViewModel.performSearching {[unowned self] (base, err) in
             
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -178,12 +170,6 @@ class PharmacyLocationVC: CustomBaseViewVC {
                 self.goToNext(user)
             }
         }
-        //        customPharmacyLocationView.pharamacyLocationViewModel.performLogging {[unowned self] (la, lng, delivery, insurance) in
-        //            let order = PharmacyOrderVC(latt: la, lon: lng, insurance: insurance, delivery: delivery)
-        //            order.api_token=self.apiToken
-        //            order.patient_id=self.patientId
-        //            self.navigationController?.pushViewController(order, animated: true)
-        //        }
         
     }
     

@@ -75,10 +75,7 @@ class LAPBookVC: CustomBaseViewVC {
             customLAPBookView.patient=patient
         }
     }
-    //    var  api_token:String?
-    //    var  patient_id:Int?
     fileprivate let labId:Int!
-    //    fileprivate let radId:Int!
     
     fileprivate let index:Int!
     init(index:Int,labId:Int) {
@@ -143,7 +140,7 @@ class LAPBookVC: CustomBaseViewVC {
         customLAPBookView.fillSuperview()
     }
     
-    func presentLogin()  {
+    fileprivate func presentLogin()  {
         let login = LoginVC()
         login.delgate=self
         let nav = UINavigationController(rootViewController: login)
@@ -151,14 +148,14 @@ class LAPBookVC: CustomBaseViewVC {
         present(nav, animated: true)
     }
     
-    func handleremoveLoginAlert()  {
+    fileprivate func handleremoveLoginAlert()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
         customMainAlertVC.dismiss(animated: true)
         presentLogin()
         
     }
     
-    func presentAlert()  {
+    fileprivate func presentAlert()  {
         
         customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
         customAlertLoginView.problemsView.loopMode = .loop
@@ -166,7 +163,7 @@ class LAPBookVC: CustomBaseViewVC {
         
     }
     
-    func getNotes() ->String {
+    fileprivate func getNotes() ->String {
         guard let name = customLAPBookView.lapBookViewModel.fullName,let  mobile = customLAPBookView.lapBookViewModel.mobile,let age = customLAPBookView.lapBookViewModel.age  else { return "" }
         let ss = ","
         let agee="\(age)"
@@ -179,9 +176,9 @@ class LAPBookVC: CustomBaseViewVC {
         customLAPBookView.lapBookViewModel.performLabBooking(notess: getNotes()) { (base, err) in
             
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -199,7 +196,7 @@ class LAPBookVC: CustomBaseViewVC {
         }
     }
     
-    func showMessage(_ mess:String)  {
+    fileprivate func showMessage(_ mess:String)  {
         let height = "".getFrameForText(text: mess)
         
         customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: height.height+80)
@@ -215,9 +212,9 @@ class LAPBookVC: CustomBaseViewVC {
         customLAPBookView.lapBookViewModel.performRadiologyBooking(notess: getNotes()) { (base, err) in
             
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -235,21 +232,24 @@ class LAPBookVC: CustomBaseViewVC {
         }
     }
     
-    func presentSuccessAlert(txt:String)  {
+    fileprivate func presentSuccessAlert(txt:String)  {
         
         customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
         customAlertSuccessView.problemsView.loopMode = .loop
-
+        
         customAlertSuccessView.discriptionInfoLabel.text = txt
         present(customMainAlertVC, animated: true)
         
     }
     
-    func showMainAlertLooder()  {
+    fileprivate  func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
     }
+    
+    //TODO: -handle methods
+    
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -258,7 +258,6 @@ class LAPBookVC: CustomBaseViewVC {
         }
     }
     
-    //TODO: -handle methods
     
     
     @objc  func handleBack()  {
@@ -270,7 +269,6 @@ class LAPBookVC: CustomBaseViewVC {
     
     
     @objc func handleBook()  {
-        //        if api_token == nil && patient_id == nil  {
         if patient == nil {
             presentAlert()
         }else {
@@ -282,10 +280,6 @@ class LAPBookVC: CustomBaseViewVC {
             index == 0 ? makeLabSearch() : makeRadiologySearch()
         }
     }
-    
-    //    @objc func handleDismiss()  {
-    //        dismiss(animated: true, completion: nil)
-    //    }
     
     @objc func handleOkSuccess()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
@@ -301,16 +295,12 @@ class LAPBookVC: CustomBaseViewVC {
     
 }
 
+//MARK:-extension
+
 extension LAPBookVC:LoginVCPrototcol {
     
     func useApiAndPatienId(patient: PatienModel) {
-        self.patient = cacheObjectCodabe.storedValue
+        self.patient = patient
         
     }
-    
-    //    func useApiAndPatienId(api: String, patient: Int) {
-    //        api_token = api
-    //        patient_id=patient
-    //        handleBack()
-    //    }
 }

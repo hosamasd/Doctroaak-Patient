@@ -15,8 +15,6 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.bookButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
         v.index = index
-//        v.lab = labArrayResults
-//        v.rad=radiologyArrayResults
         v.handleGetLocation = {[unowned self] (la,lng) in
             let v = OpenLocationUsingLatAndLongView(lat: la, lng: lng)
             self.customMainAlertVC.addCustomViewInCenter(views: v, height: 200)
@@ -33,10 +31,10 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
     }()
     var labArrayResults: LapSearchModel?{
         didSet{
-        guard let labArrayResults = labArrayResults else { return  }
-        customLAPSelectedSearchView.lab=labArrayResults
+            guard let labArrayResults = labArrayResults else { return  }
+            customLAPSelectedSearchView.lab=labArrayResults
             
-    }
+        }
     }
     var radiologyArrayResults :RadiologySearchModel?{
         didSet{
@@ -44,9 +42,6 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
             customLAPSelectedSearchView.rad=radiologyArrayResults
         }
     }
-//    var apiToken:String?
-//       var patientId:Int?
-    
     var patient:PatienModel? {
         didSet{
             guard let patient = patient else { return  }
@@ -89,9 +84,6 @@ class LAPSelectedSearchResultsVC: CustomBaseViewVC {
         
         
         let book = LAPOrderVC(index:index,lab: labId )
-//        book.patientId=patientId
-//        book.apiToken=apiToken
-        book.patient=self.patient
         navigationController?.pushViewController(book, animated: true)
     }
     

@@ -68,12 +68,12 @@ class WelcomeVC: CustomBaseViewVC {
         UIView.animate(withDuration: 0.7, delay: 0.6 * 1.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
             [ self.customWelcomeView.docotrLabel, self.customWelcomeView.copyWriteLabel].forEach({$0.transform = .identity})
             if userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists){
-            self.goToNextVC()
+                self.goToNextVC()
             }else {}
         })
     }
     
-    func goToNextVC()  {
+    fileprivate func goToNextVC()  {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+12) {
             self.handleNext()
         }
@@ -82,7 +82,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     
     
-    func addTransform()  {
+    fileprivate func addTransform()  {
         var rotationAnimation = CABasicAnimation()
         rotationAnimation = CABasicAnimation.init(keyPath: "transform.rotation.z")
         rotationAnimation.toValue = NSNumber(value: (Double.pi))
@@ -97,136 +97,7 @@ class WelcomeVC: CustomBaseViewVC {
         !userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ? cachedDropLists() : ()
     }
     
-    func anyAfterCached()  {
-        //        var groupL :[MedicineModel]?
-        //        var groupPY :[PharamacyNameModel]?
-        var groupray :[LABAanalysisModel]?
-        var grouprads :[RadiologyAanalysisModel]?
-        
-//        SVProgressHUD.show(withStatus: "Looding...".localized)
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        let dispatchQueue = DispatchQueue.global(qos: .background)
-        
-        
-        dispatchQueue.async {
-            //            MainServices.shared.getMedicineTypes { (base, err) in
-            //                groupR = base?.data
-            //                semaphore.signal()
-            //            }
-            //            semaphore.wait()
-            //
-            //            MainServices.shared.getMedicines { (base, err) in
-            //                groupL = base?.data
-            //                semaphore.signal()
-            //            }
-            //            semaphore.wait()
-            
-            MainServices.shared.getAnaylsisLabs { (base, err) in
-                groupray = base?.data
-                semaphore.signal()
-            }
-            semaphore.wait()
-            
-            MainServices.shared.getAnaylsisRadiologys { (base, err) in
-                grouprads = base?.data
-                semaphore.signal()
-            }
-            semaphore.wait()
-            
-            
-            //            MainServices.shared.getPharamacysName { (base, err) in
-            //                           groupPY = base?.data
-            //                           semaphore.signal()
-            //                       }
-            //                       semaphore.wait()
-            
-            semaphore.signal()
-            self.reloadMainDatas(groupray,grouprads)
-            semaphore.wait()
-        }
-    }
     
-    func reloadMainDatas(_ ss:[LABAanalysisModel]? ,_ dd:[RadiologyAanalysisModel]?)  {
-        //        var mmNNameArray = [String]()
-        //        var mNNameFR = [String]()
-        //        var mNNameARData = [String]()
-        //        var mNIdData = [Int]()
-        
-        var labAnaylsisNameArray = [String]()
-        var labAnaylsisNameARData = [String]()
-        var labAnaylsisNameFR = [String]()
-        var labAnaylsisIdData = [Int]()
-        
-        var radAnaylsisNameArray = [String]()
-        var radAnaylsisNameARData = [String]()
-        var radAnaylsisNameFR = [String]()
-        var radAnaylsisIdData = [Int]()
-        
-        //        var mTYNameArray = [String]()
-        //        var mTYNameFR = [String]()
-        //        var mTYNameARData = [String]()
-        //        var mTYIdData = [Int]()
-        
-        //        gl?.forEach({ (city) in
-        //            mmNNameArray.append(city.name)
-        //            mNNameARData.append(city.nameAr ?? "")
-        //            mNNameFR.append(city.nameFr ?? "" )
-        //            mNIdData.append(city.id)
-        //        })
-        
-        dd?.forEach({ (r) in
-            radAnaylsisNameArray.append(r.name)
-            radAnaylsisNameFR.append(r.nameAr)
-            radAnaylsisNameARData.append(r.nameFr)
-            radAnaylsisIdData.append(r.id)
-        })
-        
-        ss?.forEach({ (r) in
-            labAnaylsisNameArray.append(r.name)
-            labAnaylsisNameFR.append(r.nameAr)
-            labAnaylsisNameARData.append(r.nameFr)
-            labAnaylsisIdData.append(r.id)
-        })
-        
-        //anaylsis
-        //        userDefaults.set(labAnaylsisNameArray, forKey: UserDefaultsConstants.labAnalysisNameArray)
-        //                 userDefaults.set(labAnaylsisNameFR, forKey: UserDefaultsConstants.labAnalysisNameFRArray)
-        //                 userDefaults.set(labAnaylsisNameARData, forKey: UserDefaultsConstants.labNameARArray)
-        //                 userDefaults.set(labAnaylsisIdData, forKey: UserDefaultsConstants.labAnalysisIdArray)
-        //
-        //        userDefaults.set(radAnaylsisNameArray, forKey: UserDefaultsConstants.radAnalysisNameArray)
-        //                 userDefaults.set(radAnaylsisNameARData, forKey: UserDefaultsConstants.radAnalysisNameARArray)
-        //                 userDefaults.set(radAnaylsisNameFR, forKey: UserDefaultsConstants.radAnalysisNameFRArray)
-        userDefaults.set(radAnaylsisIdData, forKey: UserDefaultsConstants.radAnalysisIdArray)
-        
-        
-        
-        //        userDefaults.set(radNameArray, forKey: UserDefaultsConstants.radiologyNameArray)
-        //        userDefaults.set(radNameFR, forKey: UserDefaultsConstants.radiologyNameFRArray)
-        //        userDefaults.set(radNameARData, forKey: UserDefaultsConstants.radiologyNameARArray)
-        //        userDefaults.set(radIdData, forKey: UserDefaultsConstants.radiologyIdArray)
-        //
-        //        userDefaults.set(labNameArray, forKey: UserDefaultsConstants.labNameArray)
-        //        userDefaults.set(labNameFR, forKey: UserDefaultsConstants.labNameFRArray)
-        //        userDefaults.set(labNameARData, forKey: UserDefaultsConstants.labNameARArray)
-        //        userDefaults.set(labIdData, forKey: UserDefaultsConstants.labIdArray)
-        //        userDefaults.set(mmNNameArray, forKey: UserDefaultsConstants.pharamacyNameArray)
-        //        userDefaults.set(mNNameFR, forKey: UserDefaultsConstants.pharamacyNameFRArray)
-        //        userDefaults.set(mNNameARData, forKey: UserDefaultsConstants.pharamacyNameARArray)
-        //        userDefaults.set(mNIdData, forKey: UserDefaultsConstants.pharamacyIdrray)
-        
-        //        userDefaults.set(mTYNameArray, forKey: UserDefaultsConstants.medicineTypeArray)
-        //
-        //        userDefaults.set(mTYNameFR, forKey: UserDefaultsConstants.medicineTypeFRArray)
-        //        userDefaults.set(mTYNameARData, forKey: UserDefaultsConstants.medicineTypeARArray)
-        //        userDefaults.set(mTYIdData, forKey: UserDefaultsConstants.medicineTypeIDSArray)
-        
-        userDefaults.set(true, forKey: UserDefaultsConstants.isLabAnanysisDetailsInfo)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isRadAnanlysisCached)
-        
-        userDefaults.synchronize()
-    }
     
     fileprivate func cachedDropLists() {
         
@@ -249,7 +120,7 @@ class WelcomeVC: CustomBaseViewVC {
         var groupPayment :[[String]]?
         
         
-//        SVProgressHUD.show(withStatus: "Looding...".localized)
+        //        SVProgressHUD.show(withStatus: "Looding...".localized)
         let semaphore = DispatchSemaphore(value: 0)
         
         let dispatchQueue = DispatchQueue.global(qos: .background)
@@ -336,9 +207,9 @@ class WelcomeVC: CustomBaseViewVC {
             self.reloadMainData(group1, group11, group0,group01,groupL,groupR,groupMN,groupMTY,groupPayment,groupPY,groupray,grouprads)
             semaphore.wait()
             
-//            semaphore.signal()
-//            self.handleNext()
-//                       semaphore.wait()
+            //            semaphore.signal()
+            //            self.handleNext()
+            //                       semaphore.wait()
             
         }
     }
@@ -405,8 +276,8 @@ class WelcomeVC: CustomBaseViewVC {
         
         DispatchQueue.main.sync {
             
-//            self.handleDismiss()
-
+            //            self.handleDismiss()
+            
             SVProgressHUD.dismiss()
             
             dd?.forEach({ (r) in
@@ -575,11 +446,6 @@ class WelcomeVC: CustomBaseViewVC {
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.synchronize()
         dismiss(animated: true)
-        //        let welcome = SecondWelcomeVC()
-        //        let nav = UINavigationController(rootViewController:welcome)
-        //        nav.modalPresentationStyle = .fullScreen
-        //        present(nav, animated: true)
-        //        navigationController?.pushViewController(welcome, animated: true)
         
     }
 }

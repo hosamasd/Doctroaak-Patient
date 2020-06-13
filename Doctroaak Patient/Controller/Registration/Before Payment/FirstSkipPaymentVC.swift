@@ -51,10 +51,10 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-           let v = CustomAlertMainLoodingView()
-           v.setupAnimation(name: "heart_loading")
-           return v
-       }()
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     var infoDetails:[[String]]? {
         didSet{
             
@@ -69,52 +69,6 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     
     
     //MARK: -user methods
-    
-    func checkLoginState()  {
-        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
-            present(customMainAlertVC, animated: true)
-        }else {
-            let payment = MainPaymentVC()
-            self.navigationController?.pushViewController(payment, animated: true)
-        }
-    }
-    
-    func fetchData()  {
-        getStaticData()
-        //        !userDefaults.bool(forKey: UserDefaultsConstants.isPaymentDetailsInfo) ? () : getStaticData()
-    }
-    
-    func getStaticData()  {
-        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-        
-//        SVProgressHUD.show(withStatus: "Looding...")
-        self.showMainAlertLooder()
-        MainServices.shared.getPaymentDetails { (base, err) in
-            
-            if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
-                self.activeViewsIfNoData();return
-            }
-            self.handleDismiss()
-
-//            SVProgressHUD.dismiss()
-            self.activeViewsIfNoData()
-            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            let flattened = user.reduce([]) { $0 + $1 }
-            let arabicPages = Array(flattened[0...3])
-            let englishPages = Array(flattened[4...7])
-            
-            
-            DispatchQueue.main.async {
-                self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pages = MOLHLanguage.isRTLLanguage() ? arabicPages : englishPages
-                self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.numberOfPages = arabicPages.count
-                self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.collectionView.reloadData()
-            }
-        }
-    }
     
     override func setupViews() {
         view.addSubview(scrollView)
@@ -131,13 +85,57 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
         navigationController?.navigationBar.isHide(true)
     }
     
-    @objc func handleDismiss()  {
-        removeViewWithAnimation(vvv: customAlertLoginView)
-        
-        dismiss(animated: true)
+    fileprivate func checkLoginState()  {
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
+            present(customMainAlertVC, animated: true)
+        }else {
+            let payment = MainPaymentVC()
+            self.navigationController?.pushViewController(payment, animated: true)
+        }
     }
     
-    func handleremoveLoginAlert()  {
+    fileprivate  func fetchData()  {
+        getStaticData()
+        //        !userDefaults.bool(forKey: UserDefaultsConstants.isPaymentDetailsInfo) ? () : getStaticData()
+    }
+    
+    fileprivate func getStaticData()  {
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        
+        //        SVProgressHUD.show(withStatus: "Looding...")
+        self.showMainAlertLooder()
+        MainServices.shared.getPaymentDetails { (base, err) in
+            
+            if let err = err {
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            
+            //            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            let flattened = user.reduce([]) { $0 + $1 }
+            let arabicPages = Array(flattened[0...3])
+            let englishPages = Array(flattened[4...7])
+            
+            
+            DispatchQueue.main.async {
+                self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pages = MOLHLanguage.isRTLLanguage() ? arabicPages : englishPages
+                self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.pageControl.numberOfPages = arabicPages.count
+                self.customFirstSkipPaymentView.mainBeforePaymentCollectionVC.collectionView.reloadData()
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    fileprivate func handleremoveLoginAlert()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
         customMainAlertVC.dismiss(animated: true)
         let login = LoginVC()
@@ -147,9 +145,17 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
         
     }
     
-    func showMainAlertLooder()  {
+    fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
+    }
+    
+    //TODO: -handle methods
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        
+        dismiss(animated: true)
     }
 }

@@ -31,17 +31,12 @@ class LapSearchResultsVC: CustomBaseViewVC {
         v.handleLabCheckedIndex = {[unowned self] indexx in
             let selected = LAPSelectedSearchResultsVC(index: self.index)
             selected.patient=self.patient
-//            selected.apiToken=self.apiToken
-//            selected.patientId=self.patientId
             selected.labArrayResults=indexx
             self.navigationController?.pushViewController(selected, animated: true)
         }
         v.handleRdiologyCheckedIndex = {[unowned self] indexx in
             let selected = LAPSelectedSearchResultsVC(index: self.index)
             selected.patient=self.patient
-
-//            selected.apiToken=self.apiToken
-//            selected.patientId=self.patientId
             selected.radiologyArrayResults=indexx
             self.navigationController?.pushViewController(selected, animated: true)
         }
@@ -49,12 +44,9 @@ class LapSearchResultsVC: CustomBaseViewVC {
         return v
     }()
     
-    //    fileprivate let
     
     var labArrayResults = [LapSearchModel]()
     var radiologyArrayResults = [RadiologySearchModel]()
-//    var apiToken:String?
-//    var patientId:Int?
     var patient:PatienModel? {
         didSet{
             guard let patient = patient else { return  }

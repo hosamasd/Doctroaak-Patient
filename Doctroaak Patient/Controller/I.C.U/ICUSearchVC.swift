@@ -46,19 +46,19 @@ class ICUSearchVC: CustomBaseViewVC {
     
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
-                t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         t.modalTransitionStyle = .crossDissolve
         t.modalPresentationStyle = .overCurrentContext
         return t
     }()
     lazy var customAlertLoginView:CustomAlertLoginView = {
-              let v = CustomAlertLoginView()
-              v.setupAnimation(name: "4970-unapproved-cross")
-              v.handleOkTap = {[unowned self] in
-                  self.handleDismiss()
-              }
-              return v
-          }()
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
     
     fileprivate let index:Int!
     
@@ -79,26 +79,6 @@ class ICUSearchVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-    func setupViewModelObserver()  {
-        customICUSearchView.icuViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-            guard let isValid = isValidForm else {return}
-            //            self.customLoginView.loginButton.isEnabled = isValid
-            
-            self.changeButtonState(enable: isValid, vv: self.customICUSearchView.searchButton)
-        }
-        
-        customICUSearchView.icuViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
-            if isReg == true {
-                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Searching...".localized)
-                self.showMainAlertLooder()
-            }else {
-                SVProgressHUD.dismiss()
-                self.activeViewsIfNoData()
-            }
-        })
-    }
-    
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
     }
@@ -111,6 +91,28 @@ class ICUSearchVC: CustomBaseViewVC {
         mainView.addSubViews(views: customICUSearchView)
         customICUSearchView.fillSuperview()
     }
+    
+    fileprivate func setupViewModelObserver()  {
+        customICUSearchView.icuViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+            guard let isValid = isValidForm else {return}
+            //            self.customLoginView.loginButton.isEnabled = isValid
+            
+            self.changeButtonState(enable: isValid, vv: self.customICUSearchView.searchButton)
+        }
+        
+        customICUSearchView.icuViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+            if isReg == true {
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Searching...".localized)
+                self.showMainAlertLooder()
+            }else {
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
+            }
+        })
+    }
+    
+    
     
     fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
         
@@ -130,24 +132,24 @@ class ICUSearchVC: CustomBaseViewVC {
         
     }
     
-    func goToNext(_ users:[ICUFilterModel]? = nil,_ ss:[IncubtionSearchModel]? = nil)  {
+    fileprivate func goToNext(_ users:[ICUFilterModel]? = nil,_ ss:[IncubtionSearchModel]? = nil)  {
         let details = ICUSearchResultsVC(index: index)
         details.icuArray=users
         details.icubationArray = ss
         navigationController?.pushViewController(details, animated: true)
     }
     
-    func performICU()  {
+    fileprivate func performICU()  {
         customICUSearchView.icuViewModel.performSearchinging { (base, err) in
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let users = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -159,18 +161,18 @@ class ICUSearchVC: CustomBaseViewVC {
         }
     }
     
-    func performIncubation()  {
+    fileprivate  func performIncubation()  {
         customICUSearchView.icuViewModel.performIncubationSearching { (base, err) in
             
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -182,11 +184,14 @@ class ICUSearchVC: CustomBaseViewVC {
         }
     }
     
-    func showMainAlertLooder()  {
+    fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
     }
+    
+    //TODO: -handle methods
+
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)

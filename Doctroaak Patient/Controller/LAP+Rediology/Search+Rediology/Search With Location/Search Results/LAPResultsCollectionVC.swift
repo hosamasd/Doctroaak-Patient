@@ -16,10 +16,10 @@ class LAPResultsCollectionVC: BaseCollectionVC {
     var index:Int = 0 //0 for lab 1 for residology
     var handleLabCheckedIndex:((LapSearchModel)->Void)?
     var handleRdiologyCheckedIndex:((RadiologySearchModel)->Void)?
-
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
+        
         return index == 0 ? labArrayResults.count : radiologyArrayResults.count
     }
     

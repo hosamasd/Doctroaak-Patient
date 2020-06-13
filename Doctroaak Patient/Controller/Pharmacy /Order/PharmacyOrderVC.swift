@@ -27,8 +27,6 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     lazy var customPharmacyOrderView:CustomSecondPharmacyOrderView = {
         let v = CustomSecondPharmacyOrderView()
-        //        v.api_token=self.api_token
-        //        v.patient_id=self.patient_id
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.uploadView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         v.nextButton.addTarget(self, action: #selector(handleBook), for: .touchUpInside)
@@ -88,10 +86,6 @@ class PharmacyOrderVC: CustomBaseViewVC {
     var insurance:Int!
     var delivery:Int!
     
-    //    fileprivate let latt:Double!
-    //    fileprivate let long:Double!
-    //
-    //    fileprivate let insurance:Int!
     var pharmacy_id:Int?{
         didSet{
             guard let pharmacy_id = pharmacy_id else { return  }
@@ -99,19 +93,11 @@ class PharmacyOrderVC: CustomBaseViewVC {
             customPharmacyOrderView.pharmacy_id=pharmacy_id
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        //        check()
-       
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
-//               customAlertSuccessView.discriptionInfoLabel.text = "txt"
-//               customAlertSuccessView.problemsView.loopMode = .loop
-//               present(customMainAlertVC, animated: true)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,12 +106,6 @@ class PharmacyOrderVC: CustomBaseViewVC {
             patient=cacheObjectCodabe.storedValue
             
         }else {}
-        //        let id=userDefaults.integer(forKey: UserDefaultsConstants.patientID)
-        //        guard let api = userDefaults.string(forKey: UserDefaultsConstants.patientAPITOKEN) else { return  }
-        //        patient_id=id
-        //        api_token=api
-        //        customPharmacyOrderView.orderSegmentedView.selectItemAt(index: 0)
-        //        self.view.layoutSubviews()
     }
     
     
@@ -168,9 +148,9 @@ class PharmacyOrderVC: CustomBaseViewVC {
                 //                SVProgressHUD.show(withStatus: "Booking...".localized)
                 self.showMainAlertLooder()
             }else {
-//                SVProgressHUD.dismiss()
-//                self.handleDismiss()
-
+                //                SVProgressHUD.dismiss()
+                //                self.handleDismiss()
+                
                 self.activeViewsIfNoData()
             }
         })
@@ -192,7 +172,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         customPharmacyOrderView.fillSuperview()
     }
     
-    func presentAlert()  {
+    fileprivate func presentAlert()  {
         
         customMainAlertVC.addCustomViewInCenter(views: customAlertLoginView, height: 200)
         customAlertLoginView.problemsView.loopMode = .loop
@@ -200,7 +180,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
         
     }
     
-    func presentLogin()  {
+    fileprivate func presentLogin()  {
         let login = LoginVC()
         login.delgate=self
         let nav = UINavigationController(rootViewController: login)
@@ -208,32 +188,32 @@ class PharmacyOrderVC: CustomBaseViewVC {
         present(nav, animated: true)
     }
     
-    func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
         present(imagePicker, animated: true)
     }
     
-    func handleremoveLoginAlert()  {
-//        self.handleDismiss()
+    fileprivate func handleremoveLoginAlert()  {
+        //        self.handleDismiss()
         removeViewWithAnimation(vvv: customAlertLoginView)
         customMainAlertVC.dismiss(animated: true)
         presentLogin()
         
     }
     
-    func presentSuccessAlert(txt:String)  {
+    fileprivate func presentSuccessAlert(txt:String)  {
         
         customMainAlertVC.addCustomViewInCenter(views: customAlertSuccessView, height: 200)
         customAlertSuccessView.problemsView.loopMode = .loop
-
+        
         customAlertSuccessView.discriptionInfoLabel.text = txt
         present(customMainAlertVC, animated: true)
         
     }
     
-    func showMainAlertLooder()  {
+    fileprivate  func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
@@ -241,9 +221,9 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
-//        removeViewWithAnimation(vvv: customAlertSuccessView)
+        //        removeViewWithAnimation(vvv: customAlertSuccessView)
         removeViewWithAnimation(vvv: customAlertLoginView)
-
+        
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
@@ -252,12 +232,12 @@ class PharmacyOrderVC: CustomBaseViewVC {
     //TODO: -handle methods
     
     @objc func createAlertForChoposingImage()  {
-        let alert = UIAlertController(title: "Choose Image", message: "Choose image fROM ", preferredStyle: .alert)
-        let camera = UIAlertAction(title: "Camera", style: .default) {[unowned self] (_) in
+        let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .camera)
             
         }
-        let gallery = UIAlertAction(title: "Open From Gallery", style: .default) {[unowned self] (_) in
+        let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
@@ -279,22 +259,22 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     @objc func handleBook()  {
         if patient == nil  {
-        presentAlert()
-//        if api_token == nil && patient_id == nil  {
-//            presentAlert()
+            presentAlert()
+            //        if api_token == nil && patient_id == nil  {
+            //            presentAlert()
         }else {
-//            guard let api = api_token,let patientId = patient_id else { return  }
+            //            guard let api = api_token,let patientId = patient_id else { return  }
             guard let patient = patient else { return  }
-
+            
             customPharmacyOrderView.pharamacyOrderViewModel.api_token=patient.apiToken
             customPharmacyOrderView.pharamacyOrderViewModel.patient_id=patient.id
             
             customPharmacyOrderView.pharamacyOrderViewModel.performBooking { (base, err) in
                 
                 if let err = err {
-//                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    //                    SVProgressHUD.showError(withStatus: err.localizedDescription)
                     self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                    
                     self.activeViewsIfNoData();return
                 }
                 //                SVProgressHUD.dismiss()
@@ -313,11 +293,11 @@ class PharmacyOrderVC: CustomBaseViewVC {
     
     
     @objc func handleOkSuccess()  {
-//        removeViewWithAnimation(vvv: customAlertLoginView)
+        //        removeViewWithAnimation(vvv: customAlertLoginView)
         removeViewWithAnimation(vvv: customAlertSuccessView)
-//
+        //
         customMainAlertVC.dismiss(animated: true)
-//        handleDismiss()
+        //        handleDismiss()
         let orders = ProfileOrdersVC(isFromOrder: true)
         navigationController?.pushViewController(orders, animated: true)
         
@@ -360,8 +340,6 @@ extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControll
             let fileName = url.lastPathComponent
             customPharmacyOrderView.uploadLabel.text = fileName
         }
-        
-        //        hideOtherData()
         dismiss(animated: true)
     }
     
@@ -376,11 +354,6 @@ extension PharmacyOrderVC: UIImagePickerControllerDelegate, UINavigationControll
 extension PharmacyOrderVC:LoginVCPrototcol {
     
     func useApiAndPatienId(patient: PatienModel) {
-        
+        self.patient=patient
     }
-    //    func useApiAndPatienId(api: String, patient: Int) {
-    //        api_token = api
-    //        patient_id=patient
-    //        handleBook()
-    //    }
 }

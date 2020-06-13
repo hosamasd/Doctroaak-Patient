@@ -46,20 +46,20 @@ class ICUSearchResultsVC: CustomBaseViewVC {
             DispatchQueue.main.async {
                 self.customICUResultsView.icuResultsCollectionVC.collectionView.reloadData()
             }
-         }
+        }
     }
     
     var icubationArray: [IncubtionSearchModel]?{
-         didSet{
-             guard let icu = icubationArray else { return  }
-             customICUResultsView.icuResultsCollectionVC.icubationArray=icu
+        didSet{
+            guard let icu = icubationArray else { return  }
+            customICUResultsView.icuResultsCollectionVC.icubationArray=icu
             customICUResultsView.icuResultsCollectionVC.index=index
-
-             DispatchQueue.main.async {
-                 self.customICUResultsView.icuResultsCollectionVC.collectionView.reloadData()
-             }
-          }
-     }
+            
+            DispatchQueue.main.async {
+                self.customICUResultsView.icuResultsCollectionVC.collectionView.reloadData()
+            }
+        }
+    }
     
     fileprivate let index:Int!
     init(index:Int) {
@@ -90,6 +90,8 @@ class ICUSearchResultsVC: CustomBaseViewVC {
         mainView.addSubViews(views: customICUResultsView)
         customICUResultsView.fillSuperview()
     }
+    
+    //TODO: -handle methods
     
     
     @objc  func handleBack()  {

@@ -11,9 +11,9 @@ import MOLH
 import UIKit
 
 protocol LoginVCPrototcol {
-//    func useApiAndPatienId(api:String,patient:Int)
+    //    func useApiAndPatienId(api:String,patient:Int)
     func useApiAndPatienId(patient:PatienModel)
-
+    
 }
 
 
@@ -29,45 +29,38 @@ class LoginVC: CustomBaseViewVC {
         
         return v
     }()
-   lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-          let v = CustomAlertMainLoodingView()
-          v.setupAnimation(name: "heart_loading")
-          return v
-      }()
-      
-      lazy var customMainAlertVC:CustomMainAlertVC = {
-          let t = CustomMainAlertVC()
-                  t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-          t.modalTransitionStyle = .crossDissolve
-          t.modalPresentationStyle = .overCurrentContext
-          return t
-      }()
-//    lazy var customMainAlertVC:CustomMainAlertVC = {
-//           let t = CustomMainAlertVC()
-//           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-//           t.modalTransitionStyle = .crossDissolve
-//           t.modalPresentationStyle = .overCurrentContext
-//           return t
-//       }()
-       lazy var customAlertLoginView:CustomAlertLoginView = {
-           let v = CustomAlertLoginView()
-           v.setupAnimation(name: "4970-unapproved-cross")
-           v.handleOkTap = {[unowned self] in
-               self.handleDismiss()
-           }
-           return v
-       }()
-   
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
+    
     var isFromNewPass:Bool = false
     
     var delgate:LoginVCPrototcol?
-   
-    //    let loginViewModel = LoginViewModel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLoginViewModelObserver()
-       
+        
         
     }
     
@@ -85,27 +78,6 @@ class LoginVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-    fileprivate func setupLoginViewModelObserver(){
-        
-        customLoginsView.loginViewModel.bindableIsFormValidate.bind {[unowned self] (isValidForm) in
-            guard let isValid = isValidForm else {return}
-            //            self.customLoginView.loginButton.isEnabled = isValid
-            
-            self.changeButtonState(enable: isValid, vv: self.customLoginsView.loginButton)
-        }
-        customLoginsView.loginViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
-            if isReg == true {
-                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Login...".localized)
-                self.showMainAlertLooder()
-            }else {
-//                SVProgressHUD.dismiss()
-                self.handleDismiss()
-
-                self.activeViewsIfNoData()
-            }
-        })
-    }
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -117,7 +89,30 @@ class LoginVC: CustomBaseViewVC {
         customLoginsView.fillSuperview()
     }
     
-    func saveToken(use:PatienModel)  {
+    fileprivate func setupLoginViewModelObserver(){
+        
+        customLoginsView.loginViewModel.bindableIsFormValidate.bind {[unowned self] (isValidForm) in
+            guard let isValid = isValidForm else {return}
+            //            self.customLoginView.loginButton.isEnabled = isValid
+            
+            self.changeButtonState(enable: isValid, vv: self.customLoginsView.loginButton)
+        }
+        customLoginsView.loginViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+            if isReg == true {
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                self.showMainAlertLooder()
+            }else {
+                //                SVProgressHUD.dismiss()
+                self.handleDismiss()
+                
+                self.activeViewsIfNoData()
+            }
+        })
+    }
+    
+    
+    fileprivate func saveToken(use:PatienModel)  {
         
         userDefaults.set(true, forKey: UserDefaultsConstants.isPatientLogin)
         userDefaults.set(use.id, forKey: UserDefaultsConstants.patientID)
@@ -130,34 +125,31 @@ class LoginVC: CustomBaseViewVC {
         
         cachePatient(use)
         dismiss(animated: true) {[unowned self] in
-//            self.delgate?.useApiAndPatienId(api: use.apiToken, patient: use.id)
+            //            self.delgate?.useApiAndPatienId(api: use.apiToken, patient: use.id)
             self.delgate?.useApiAndPatienId(patient: use)
         }
     }
     
-    func cachePatient(_ patient:PatienModel)  {
+    fileprivate  func cachePatient(_ patient:PatienModel)  {
         cacheObjectCodabe.save(patient)
         print(cacheObjectCodabe.storedValue)
-//        let personManager = PersonManager(cacheKey: "myPatient")
-//        try? personManager.set(person: patient)
-//
-//        if let person = personManager.getPerson(){
-//            print(person.name)
-//        }
     }
     
-    func showMainAlertLooder()  {
-              customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
-              customAlertMainLoodingView.problemsView.loopMode = .loop
-              present(customMainAlertVC, animated: true)
-          }
-       
-       @objc func handleDismiss()  {
-                 removeViewWithAnimation(vvv: customAlertMainLoodingView)
-                 DispatchQueue.main.async {
-                     self.dismiss(animated: true, completion: nil)
-                 }
-             }
+    fileprivate func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    //TODO: -handle methods
+
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     
     @objc  func handleRegister()  {
@@ -169,18 +161,18 @@ class LoginVC: CustomBaseViewVC {
     
     @objc  func handleLogin()  {
         isFromNewPass = false
-
+        
         customLoginsView.loginViewModel.performLogging { (base, err) in
             
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -193,7 +185,7 @@ class LoginVC: CustomBaseViewVC {
     
     @objc func handleForget()  {
         isFromNewPass = false
-
+        
         let forget = ForgetPasswordVC()
         navigationController?.pushViewController(forget, animated: true)
     }

@@ -35,26 +35,26 @@ class RegisterVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-           let v = CustomAlertMainLoodingView()
-           v.setupAnimation(name: "heart_loading")
-           return v
-       }()
-       
-       lazy var customMainAlertVC:CustomMainAlertVC = {
-           let t = CustomMainAlertVC()
-           //        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-           t.modalTransitionStyle = .crossDissolve
-           t.modalPresentationStyle = .overCurrentContext
-           return t
-       }()
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        //        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     lazy var customAlertLoginView:CustomAlertLoginView = {
-           let v = CustomAlertLoginView()
-           v.setupAnimation(name: "4970-unapproved-cross")
-                      v.handleOkTap = {[unowned self] in
-                          self.handleDismiss()
-                      }
-           return v
-       }()
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,28 +65,7 @@ class RegisterVC: CustomBaseViewVC {
     //MARK:-User methods
     
     
-    func setupViewModelObserver()  {
-        
-        customRegisterView.registerViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-            guard let isValid = isValidForm else {return}
-            //            self.customLoginView.loginButton.isEnabled = isValid
-            
-            self.changeButtonState(enable: isValid, vv: self.customRegisterView.signUpButton)
-        }
-        
-        customRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
-            if isReg == true {
-                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Reigster...".localized)
-                self.showMainAlertLooder()
-            }else {
-//                SVProgressHUD.dismiss()
-                self.handleDismiss()
-
-                self.activeViewsIfNoData()
-            }
-        })
-    }
+    
     
     override func setupViews() {
         
@@ -103,7 +82,30 @@ class RegisterVC: CustomBaseViewVC {
         navigationController?.navigationBar.isHide(true)
     }
     
-    func saveToken(user_id:Int,_ mobile:String)  {
+    fileprivate func setupViewModelObserver()  {
+        
+        customRegisterView.registerViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+            guard let isValid = isValidForm else {return}
+            //            self.customLoginView.loginButton.isEnabled = isValid
+            
+            self.changeButtonState(enable: isValid, vv: self.customRegisterView.signUpButton)
+        }
+        
+        customRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
+            if isReg == true {
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Reigster...".localized)
+                self.showMainAlertLooder()
+            }else {
+                //                SVProgressHUD.dismiss()
+                self.handleDismiss()
+                
+                self.activeViewsIfNoData()
+            }
+        })
+    }
+    
+    fileprivate func saveToken(user_id:Int,_ mobile:String)  {
         
         userDefaults.set(user_id, forKey: UserDefaultsConstants.patientID)
         
@@ -114,10 +116,27 @@ class RegisterVC: CustomBaseViewVC {
         goToNext(user_id)
     }
     
-    func goToNext(_ user_id:Int)  {
+    fileprivate func goToNext(_ user_id:Int)  {
         let verify = VerificationVC(user_id: user_id, isFromForget: false)
         navigationController?.pushViewController(verify, animated: true)
     }
+    
+    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true)
+    }
+    
+    fileprivate func showMainAlertLooder()  {
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
+        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+    }
+    
+    
+    
+    //TODO:-Handle methods
     
     @objc func createAlertForChoposingImage()  {
         let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
@@ -138,20 +157,6 @@ class RegisterVC: CustomBaseViewVC {
         present(alert, animated: true)
     }
     
-    //TODO:-Handle methods
-    
-    func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = sourceType
-        present(imagePicker, animated: true)
-    }
-    
-    func showMainAlertLooder()  {
-        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
-        customAlertMainLoodingView.problemsView.loopMode = .loop
-        present(customMainAlertVC, animated: true)
-    }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -168,13 +173,13 @@ class RegisterVC: CustomBaseViewVC {
         
         customRegisterView.registerViewModel.performRegister {[unowned self] (base, err) in
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             

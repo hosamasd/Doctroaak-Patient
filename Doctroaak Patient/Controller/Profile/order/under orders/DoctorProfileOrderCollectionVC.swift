@@ -40,12 +40,6 @@ class DoctorProfileOrderCollectionVC: BaseCollectionVC {
         return cell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let doctor = pharamacyArray[indexPath.item]
-        
-//        handleCheckedIndex?(doctor)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return .init(width: view.frame.width, height: 300)

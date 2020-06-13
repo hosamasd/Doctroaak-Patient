@@ -26,14 +26,9 @@ class AddMedicineCollectionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AddMedicineCell
-//        let med = medicineTextArray[indexPath.item]
         let meds = medicineArray[indexPath.item]
 
         cell.med = meds
-//        cell.meds = med
-//        cell.handleRemovePharamcay={[unowned self] (m) in
-//            self.handleRemovePharamcay?(m,indexPath.item)
-//        }
         [cell.typeLabel,cell.closeImage].forEach({$0.isHide(showOrderOnly ? true : false)})
         cell.handleRemovePharamcay = {[unowned self] item in
             self.handleRemovePharamcay?(item,indexPath)

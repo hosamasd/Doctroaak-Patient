@@ -44,29 +44,21 @@ class LAPOrderVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-              let v = CustomAlertMainLoodingView()
-              v.setupAnimation(name: "heart_loading")
-              return v
-          }()
-          
-          lazy var customMainAlertVC:CustomMainAlertVC = {
-              let t = CustomMainAlertVC()
-              //        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-              t.modalTransitionStyle = .crossDissolve
-              t.modalPresentationStyle = .overCurrentContext
-              return t
-          }()
-    //    var meidicneArray:[RadiologyOrderModel]?
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+                t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     
     var bubleViewHeightConstraint:NSLayoutConstraint!
-    //    var apiToken:String?
-    //    var patientId:Int?
     
-    var patient:PatienModel? {
-        didSet{
-            guard let patient = patient else { return  }
-        }
-    }
     
     fileprivate let labId:Int!
     //    fileprivate let radId:Int!
@@ -75,7 +67,6 @@ class LAPOrderVC: CustomBaseViewVC {
     fileprivate let index:Int!
     init(index:Int,lab:Int) {
         self.labId=lab
-        //        self.radId=rad
         self.index = index
         super.init(nibName: nil, bundle: nil)
     }
@@ -86,13 +77,6 @@ class LAPOrderVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupViewModelObserver()
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-            patient = cacheObjectCodabe.storedValue
-        }else {}
     }
     
     //MARK:-User methods
@@ -116,7 +100,7 @@ class LAPOrderVC: CustomBaseViewVC {
         customAndLAPOrderView.fillSuperview()
     }
     
-    func deleteThis(_ ss:RadiologyOrderModel,_ index:IndexPath)  {
+    fileprivate  func deleteThis(_ ss:RadiologyOrderModel,_ index:IndexPath)  {
         customAndLAPOrderView.addLapCollectionVC.medicineArray.remove(at: index.item)
         customAndLAPOrderView.laPOrderViewModel.orderDetails = customAndLAPOrderView.addLapCollectionVC.medicineArray
         
@@ -125,7 +109,7 @@ class LAPOrderVC: CustomBaseViewVC {
         }
     }
     
-    func hideOrUndie(index:Int)  {
+    fileprivate func hideOrUndie(index:Int)  {
         self.customAndLAPOrderView.laPOrderViewModel.isFirstOpetion = index == 0 ? true : false
         self.customAndLAPOrderView.laPOrderViewModel.isSecondOpetion = index == 1 ? true : false
         self.customAndLAPOrderView.laPOrderViewModel.isThirdOpetion = index == 2 ? true : false
@@ -146,16 +130,9 @@ class LAPOrderVC: CustomBaseViewVC {
             
             self.changeButtonState(enable: isValid, vv: self.customAndLAPOrderView.nextButton)
         }
-        
-        customAndLAPOrderView.laPOrderViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
-            if isValid == true {
-                
-            }else {
-            }
-        })
     }
     
-    func putData(_ img:UIImage? = nil,_ orders:[RadiologyOrderModel]? = nil)  {
+    fileprivate func putData(_ img:UIImage? = nil,_ orders:[RadiologyOrderModel]? = nil)  {
         let book = LAPBookVC(index: index,labId: labId )
         if img != nil {
             book.img = img
@@ -166,18 +143,20 @@ class LAPOrderVC: CustomBaseViewVC {
         navigationController?.pushViewController(book, animated: true)
     }
     
-    func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+    fileprivate  func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
         present(imagePicker, animated: true)
     }
     
-    func showMainAlertLooder()  {
+    fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
     }
+    
+    //TODO: -handle methods
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -186,18 +165,18 @@ class LAPOrderVC: CustomBaseViewVC {
         }
     }
     
-    //TODO: -handle methods
+    
     
     @objc func createAlertForChoposingImage()  {
-        let alert = UIAlertController(title: "Choose Image", message: "Choose image fROM ", preferredStyle: .alert)
-        let camera = UIAlertAction(title: "Camera", style: .default) {[unowned self] (_) in
+        let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .camera)
             
         }
-        let gallery = UIAlertAction(title: "Open From Gallery", style: .default) {[unowned self] (_) in
+        let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
         }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
             alert.dismiss(animated: true)
         }
         

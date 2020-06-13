@@ -99,18 +99,12 @@ class ServicesVC: CustomBaseViewVC {
     
     @objc  func handleOpenVC()  {
         let doc = DoctorListsVC(index: 0)
-        doc.patient=self.patient
-        //        doc.patientApiToken=patientApiToken
-        //        doc.patient_id=patient_id
         navigationController?.pushViewController(doc, animated: true)
         
     }
     
     @objc  func handleOpenMedicalVC()  {
         let doc = DoctorListsVC(index: 1)
-        doc.patient=self.patient
-        //        doc.patientApiToken=patientApiToken
-        //        doc.patient_id=patient_id
         navigationController?.pushViewController(doc, animated: true)
         
     }

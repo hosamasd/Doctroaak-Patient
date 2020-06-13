@@ -32,19 +32,19 @@ class VerificationVC: CustomBaseViewVC {
     
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
-                t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         t.modalTransitionStyle = .crossDissolve
         t.modalPresentationStyle = .overCurrentContext
         return t
     }()
     lazy var customAlertLoginView:CustomAlertLoginView = {
-              let v = CustomAlertLoginView()
-              v.setupAnimation(name: "4970-unapproved-cross")
-                         v.handleOkTap = {[unowned self] in
-                             self.handleDismiss()
-                         }
-              return v
-          }()
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
     
     fileprivate var timer = Timer()
     fileprivate var seconds = 30
@@ -99,12 +99,12 @@ class VerificationVC: CustomBaseViewVC {
         customVerificationView.sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Login...".localized)
+                //                SVProgressHUD.show(withStatus: "Login...".localized)
                 self.showMainAlertLooder()
             }else {
-//                SVProgressHUD.dismiss()
+                //                SVProgressHUD.dismiss()
                 self.handleDismiss()
-
+                
                 self.activeViewsIfNoData()
             }
         })
@@ -131,7 +131,7 @@ class VerificationVC: CustomBaseViewVC {
         return String(format:"%02i:%02i",  minutes, seconds)
     }
     
-    func resetViews()  {
+    fileprivate func resetViews()  {
         timer.invalidate()
         seconds = 30
         self.customVerificationView.timerLabel.text = "00:00"
@@ -140,7 +140,7 @@ class VerificationVC: CustomBaseViewVC {
         self.customVerificationView.resendButton.isEnabled = true
     }
     
-    func resetViewModel()  {
+    fileprivate func resetViewModel()  {
         customVerificationView.sMSCodeViewModel.smsCode = nil
         customVerificationView.sMSCodeViewModel.sms2Code = nil
         customVerificationView.sMSCodeViewModel.sms3Code = nil
@@ -148,7 +148,7 @@ class VerificationVC: CustomBaseViewVC {
         [customVerificationView.firstNumberTextField,customVerificationView.secondNumberTextField,customVerificationView.thirdNumberTextField,customVerificationView.forthNumberTextField,customVerificationView.fifthNumberTextField].forEach({$0.text = ""})
     }
     
-    func updateStates(user:PatienModel)  {
+    fileprivate func updateStates(user:PatienModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.isRegisterDoneAfterBooking)
         userDefaults.set(true, forKey: UserDefaultsConstants.isPatientLogin)
         
@@ -162,18 +162,22 @@ class VerificationVC: CustomBaseViewVC {
         
     }
     
-    func goToNext(user:PatienModel)  {
+    fileprivate func goToNext(user:PatienModel)  {
         self.updateStates(user:user)
         //        navigationController?.popToRootViewController(animated: true)
         dismiss(animated: true, completion: nil)
         
     }
     
-    func showMainAlertLooder()  {
+    fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
     }
+    
+    
+    
+    //TODO: -handle Methods
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -181,8 +185,6 @@ class VerificationVC: CustomBaseViewVC {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
-    //TODO: -handle Methods
     
     @objc fileprivate func updateTimer() {
         if seconds == 0 {
@@ -199,14 +201,14 @@ class VerificationVC: CustomBaseViewVC {
         resetViewModel()
         customVerificationView.sMSCodeViewModel.performResendSMSCode { (base, err) in
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....".localized)
             self.activeViewsIfNoData()
         }    }
@@ -215,14 +217,14 @@ class VerificationVC: CustomBaseViewVC {
         
         customVerificationView.sMSCodeViewModel.performLogging { (base, err) in
             if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);self.setupTimer(); return}
             
@@ -238,6 +240,8 @@ class VerificationVC: CustomBaseViewVC {
     
     
 }
+
+//MARK:-extension
 
 extension VerificationVC: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

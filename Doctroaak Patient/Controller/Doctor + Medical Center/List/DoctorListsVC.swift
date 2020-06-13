@@ -30,9 +30,6 @@ class DoctorListsVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.handleCheckedIndex = {[unowned self] spy in
             let vc = DoctorSearchVC(spy: spy, index: self.index)
-            vc.patient=self.patient
-            //            vc.patientApiToken=self.patientApiToken
-            //            vc.patient_id=self.patient_id
             self.navigationController?.pushViewController(vc, animated: true)
         }
         return v
@@ -68,13 +65,6 @@ class DoctorListsVC: CustomBaseViewVC {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    var patient:PatienModel?{
-        didSet{
-            guard let patient = patient else { return  }
-        }
-    }
-    //    var patient_id:Int?
-    //    var patientApiToken:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()

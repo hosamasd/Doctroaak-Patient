@@ -86,7 +86,10 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         
     }
     
-    func setupViews()  {
+    //MARK: -user methods
+    
+    
+    fileprivate func setupViews()  {
         
         secondStack.isHide(true)
         view.addSubViews(views: pageControl,bottomStack,secondStack)
@@ -96,7 +99,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         secondStack.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 32, bottom: 16, right: 32))
     }
     
-    func setupCollectionView()  {
+    fileprivate func setupCollectionView()  {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
@@ -106,7 +109,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
     }
     
     
-    func createButtons(img:UIImage,tags:Int,selector:Selector) -> UIImageView {
+    fileprivate func createButtons(img:UIImage,tags:Int,selector:Selector) -> UIImageView {
         let bt = UIImageView(image: img)
         bt.constrainWidth(constant: 60)
         bt.constrainHeight(constant: 60)
@@ -116,13 +119,16 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         return bt
     }
     
-    func hideOrUnhide(b:Bool,b2:Bool) {
+    fileprivate func hideOrUnhide(b:Bool,b2:Bool) {
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.secondStack.isHide(b2)
             self.bottomStack.isHide(b)
         })
         
     }
+    
+    //TODO: -handle methods
+
     
     @objc  func handleNext() {
         if pageControl.currentPage+1 < pages.count-1 {
@@ -139,7 +145,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
             if nextIndex == pages.count - 1 {
                 
                 hideOrUnhide(b: false, b2: true)
-             }
+            }
         }else {
             let indexPath = IndexPath(item: 3, section: 0)
             
