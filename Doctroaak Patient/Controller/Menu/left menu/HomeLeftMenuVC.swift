@@ -44,6 +44,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     //MARK: -user methods
     
+    
     override func setupNavigation()  {
         //        navigationController?.navigationBar.isHide(true)
     }
@@ -106,7 +107,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     
     
-    func chooseLanguage()  {
+    fileprivate func chooseLanguage()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
         
         //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
@@ -115,7 +116,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
-    func showAlertForContacting()  {
+    fileprivate func showAlertForContacting()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
         
         //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
@@ -125,7 +126,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
     
-    func showAlertForLogin()  {
+    fileprivate func showAlertForLogin()  {
         
         //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
@@ -136,7 +137,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
     
-    func performLogout()  {
+    fileprivate  func performLogout()  {
         guard let patient = patient else { return  }
         cacheObjectCodabe.deleteFile(patient)
         userDefaults.set(false, forKey: UserDefaultsConstants.isPatientLogin)
@@ -149,12 +150,12 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         }
     }
     
-    func createAlerts() {
-        let alert = UIAlertController(title: "Warring...", message: "Do You Want To Log Out?", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Log Out", style: .destructive) {[unowned self] (_) in
+    fileprivate func createAlerts() {
+        let alert = UIAlertController(title: "Warring...".localized, message: "Do You Want To Log Out?".localized, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Log Out".localized, style: .destructive) {[unowned self] (_) in
             self.performLogout()
         }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
             alert.dismiss(animated: true)
         }
         alert.addAction(ok)

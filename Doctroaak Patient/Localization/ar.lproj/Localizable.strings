@@ -108,7 +108,7 @@
 "please install whatsapp"="من فضلك قم تثبيت البرنامج الواتس اولا";
 
 //HomeLeftMenuVC
-"Log Out"="تسجيل الخروج";
+"Log Out"="تسجيل الخروج";"Warring..."="تحذير...";"Do You Want To Log Out?"="هل تريد تسجيل الخروج?";
 
 //HomeLeftMenuCollcetionVC
 "Profile"="الملف الشخصي";"Anayltics"="احصائيات";"Notifications"="التنبيهات";"Contact Us"="تواصل معنا";"Language"="اللفه";

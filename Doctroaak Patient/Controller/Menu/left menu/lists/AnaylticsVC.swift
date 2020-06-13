@@ -12,27 +12,30 @@ class AnaylticsVC: CustomBaseViewVC {
     
     
     lazy var customAnaylticsView:CustomAnaylticsView = {
-           let v = CustomAnaylticsView()
-           v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-           return v
-       }()
+        let v = CustomAnaylticsView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        return v
+    }()
     
     override func viewDidLoad() {
-           super.viewDidLoad()
-       }
+        super.viewDidLoad()
+    }
     
     override func setupNavigation()  {
-           navigationController?.navigationBar.isHide(true)
-       }
-       
-       override func setupViews()  {
-           view.addSubview(customAnaylticsView)
-           customAnaylticsView.fillSuperview()
-          
-       }
+        navigationController?.navigationBar.isHide(true)
+    }
+    
+    override func setupViews()  {
+        view.addSubview(customAnaylticsView)
+        customAnaylticsView.fillSuperview()
+        
+    }
+    
+    //TODO: -handle methods
+    
     
     @objc func handleBack()  {
         dismiss(animated: true)
-           navigationController?.popViewController(animated: true)
-       }
+        navigationController?.popViewController(animated: true)
+    }
 }

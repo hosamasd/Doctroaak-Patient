@@ -61,7 +61,7 @@ class BaseSlidingVC: UIViewController {
         return v
     }()
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
-    var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
+    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: HomeMenuVC())
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate let menuWidth:CGFloat =   300
     fileprivate var isMenuOpen:Bool = false
@@ -95,6 +95,8 @@ class BaseSlidingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
     }
+    
+    //MARK: -user methods
     
     func takeSpecificAction(_ index:Int)  {
         if index == 2 {
@@ -132,7 +134,7 @@ class BaseSlidingVC: UIViewController {
         }
     }
     
-    //MARK: -user methods
+    
     
     fileprivate func setupViews()  {
         //        view.backgroundColor = .red
@@ -217,7 +219,7 @@ class BaseSlidingVC: UIViewController {
         
     }
     
-    func performRightViewCleanUp()  {
+    fileprivate  func performRightViewCleanUp()  {
         rightViewController.view.removeFromSuperview()
         rightViewController.removeFromParent()
     }
@@ -244,6 +246,26 @@ class BaseSlidingVC: UIViewController {
         setNeedsStatusBarAppearanceUpdate() // for indicate system to any changes in status bar
     }
     
+    fileprivate  func handleremoveLoginAlert()  {
+        removeViewWithAnimation(vvv: customAlertLoginView)
+        customMainAlertVC.dismiss(animated: true)
+        let login = LoginVC()
+        let nav = UINavigationController(rootViewController: login)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+        
+    }
+    
+    fileprivate func resetAppLanguage(_ isArabic:Bool) {
+        //reset language
+        //        self.navigationController?.popViewController(animated: true)
+        if isArabic {
+            MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "en" ? "ar" : "ar")
+        }else {
+            MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "ar" ? "en" : "en")
+        }
+        MOLH.reset()
+    }
     
     
     //TODO: -handle methods
@@ -282,26 +304,7 @@ class BaseSlidingVC: UIViewController {
         }
     }
     
-    func handleremoveLoginAlert()  {
-        removeViewWithAnimation(vvv: customAlertLoginView)
-        customMainAlertVC.dismiss(animated: true)
-        let login = LoginVC()
-        let nav = UINavigationController(rootViewController: login)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
-        
-    }
     
-    fileprivate func resetAppLanguage(_ isArabic:Bool) {
-        //reset language
-        //        self.navigationController?.popViewController(animated: true)
-        if isArabic {
-            MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "en" ? "ar" : "ar")
-        }else {
-            MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "ar" ? "en" : "en")
-        }
-        MOLH.reset()
-    }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertLoginView)

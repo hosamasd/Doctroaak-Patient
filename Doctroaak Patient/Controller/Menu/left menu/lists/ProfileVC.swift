@@ -52,10 +52,10 @@ class ProfileVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-           let v = CustomAlertMainLoodingView()
-           v.setupAnimation(name: "heart_loading")
-           return v
-       }()
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     
     var patient:PatienModel?{
         didSet{
@@ -75,25 +75,23 @@ class ProfileVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let pat =    cacheObjectCodabe.storedValue else { return  }
-        self.patient=pat
-        //        if let person = personManager.getPerson(){
-        //            patient = person
-        //        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
+            patient =    cacheObjectCodabe.storedValue
+        }else { }
     }
     
     //MARK:-User methods
     
-    func setupViewModelObserver()  {
+    fileprivate func setupViewModelObserver()  {
         customProfileView.edirProfileViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Updating...".localized)
+                //                SVProgressHUD.show(withStatus: "Updating...".localized)
                 self.showMainAlertLooder()
             }else {
-//                SVProgressHUD.dismiss()
+                //                SVProgressHUD.dismiss()
                 self.handleDismiss()
-
+                
                 self.activeViewsIfNoData()
             }
         })
@@ -116,20 +114,20 @@ class ProfileVC: CustomBaseViewVC {
         
     }
     
-    func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
         present(imagePicker, animated: true)
     }
     
-    func cachedATA(_ patient:PatienModel)  {
+    fileprivate func cachedATA(_ patient:PatienModel)  {
         cacheObjectCodabe.save(patient)
         
         //       try? personManager.set(person: patient)
     }
     
-    func showMainAlertLooder()  {
+    fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
@@ -165,9 +163,9 @@ class ProfileVC: CustomBaseViewVC {
                 
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             self.cachedATA(user)
@@ -178,11 +176,11 @@ class ProfileVC: CustomBaseViewVC {
     }
     
     @objc func handleDismiss()  {
-                 removeViewWithAnimation(vvv: customAlertMainLoodingView)
-                 DispatchQueue.main.async {
-                     self.dismiss(animated: true, completion: nil)
-                 }
-             }
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     @objc func handleBack()  {
         dismiss(animated: true)

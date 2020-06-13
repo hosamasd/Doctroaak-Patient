@@ -40,19 +40,19 @@ class ServicesVC: CustomBaseViewVC {
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
-//    var patient_id:Int?
-//    var patientApiToken:String?
+    //    var patient_id:Int?
+    //    var patientApiToken:String?
     var patient:PatienModel?{
-                  didSet{
-                      guard let patient = patient else { return  }
-                  }
-              }
+        didSet{
+            guard let patient = patient else { return  }
+        }
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupAnimation()
-
+        
         if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
             patient=cacheObjectCodabe.storedValue
         }else{}
@@ -90,7 +90,7 @@ class ServicesVC: CustomBaseViewVC {
         
     }
     
-    func goToNextVC(vc:CustomBaseViewVC,indexx:Int)  {
+   fileprivate func goToNextVC(vc:CustomBaseViewVC,indexx:Int)  {
         //        vc.index = indexx
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -100,20 +100,20 @@ class ServicesVC: CustomBaseViewVC {
     @objc  func handleOpenVC()  {
         let doc = DoctorListsVC(index: 0)
         doc.patient=self.patient
-//        doc.patientApiToken=patientApiToken
-//        doc.patient_id=patient_id
+        //        doc.patientApiToken=patientApiToken
+        //        doc.patient_id=patient_id
         navigationController?.pushViewController(doc, animated: true)
         
     }
     
     @objc  func handleOpenMedicalVC()  {
-            let doc = DoctorListsVC(index: 1)
-            doc.patient=self.patient
-    //        doc.patientApiToken=patientApiToken
-    //        doc.patient_id=patient_id
-            navigationController?.pushViewController(doc, animated: true)
-            
-        }
+        let doc = DoctorListsVC(index: 1)
+        doc.patient=self.patient
+        //        doc.patientApiToken=patientApiToken
+        //        doc.patient_id=patient_id
+        navigationController?.pushViewController(doc, animated: true)
+        
+    }
     
     
     @objc  func handleOpen2VC()  {
@@ -135,10 +135,10 @@ class ServicesVC: CustomBaseViewVC {
     }
     
     @objc  func handleOpen5VC()  {
-//        let doc = IncubationSearchVC()
-//        navigationController?.pushViewController(doc, animated: true)
+        //        let doc = IncubationSearchVC()
+        //        navigationController?.pushViewController(doc, animated: true)
         let doc = ICUSearchVC(index: 1)
-               navigationController?.pushViewController(doc, animated: true)
+        navigationController?.pushViewController(doc, animated: true)
     }
     
     

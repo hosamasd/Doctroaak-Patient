@@ -117,14 +117,14 @@ class HomeMenuVC: CustomBaseViewVC {
         
     }
     
-    func chooseVC(isDetail:Bool)  {
+   fileprivate func chooseVC(isDetail:Bool)  {
         let vc = isDetail ?  FirstSkipPaymentVC() : MainPaymentVC()
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
     }
     
-    func checkIfUserLogin()  {
+   fileprivate func checkIfUserLogin()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
             chooseVC(isDetail: false)
         }else {
@@ -153,6 +153,9 @@ class HomeMenuVC: CustomBaseViewVC {
         customAlertLoginView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
     }
+    
+    //TODO: -handle methods
+    
     
     @objc func handleGoServices()  {
         let services = ServicesVC()
@@ -200,8 +203,8 @@ class HomeMenuVC: CustomBaseViewVC {
     
     @objc func handleGoMyOrders()  {
         if patient==nil && !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-                        openAlertForLogin()
-
+            openAlertForLogin()
+            
         }else {
             let order = ProfileOrdersVC(isFromOrder: false)
             order.patient=patient
@@ -213,12 +216,14 @@ class HomeMenuVC: CustomBaseViewVC {
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
-
+        
         dismiss(animated: true, completion: nil)
-
+        
         
     }
 }
+
+//MARK:-extension
 
 extension HomeMenuVC:LoginVCPrototcol {
     func useApiAndPatienId(patient: PatienModel) {
