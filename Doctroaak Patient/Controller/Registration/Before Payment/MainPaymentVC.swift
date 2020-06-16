@@ -12,7 +12,7 @@ import SVProgressHUD
 import AcceptSDK
 import MOLH
 
-let paymentAPIKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsSWpvaU1UVTVNVFV6TXpJM01pNDFPVFl6T0RFaUxDSmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRJMk5UVjkuMV9zVEdtZEp3a0l0ZTlWVE1SYnpmUTNETGw1emVTNUdSV0Vxa0E4SWZQdTJsdzlHWjZqcmlUQVdLYzlIYkZFZDRMcjd5ajBTQVNpdnpuT29ZX1pQemc="
+
 
 class MainPaymentVC: CustomBaseViewVC {
     
@@ -63,8 +63,8 @@ class MainPaymentVC: CustomBaseViewVC {
         
         customMainPaymentView.paymentViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+//                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
                 //                SVProgressHUD.dismiss()
@@ -88,41 +88,76 @@ class MainPaymentVC: CustomBaseViewVC {
     }
     
     func doThis()  {
+        let random = Int.random(in: 1...200)
+        
+        let paymentAPIKey = "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQnJJam94TWpZMU5Td2libUZ0WlNJNklqRTFPVEl5TVRNM09UVXVORGd5TWpjMklpd2lZMnhoYzNNaU9pSk5aWEpqYUdGdWRDSjkuYzJZVmFhbE1hUmtudzB3RjVKcTNzUWdFQU9QQ2xtd1d3N2RCdXotekxiWnduZkl0ZEh6Y1NsT3gtOURnM1Eyc2sybXl5WFktZ29HcXhqdVVRVGdrdHc="
+        
         let isEnglish = MOLHLanguage.isRTLLanguage() ? false : true
+        let bData = [  "first_name": "Clifford",
+                    "last_name": "Nicolas",
+                    "street": "Ethan Land",
+                    "building": "8028",
+                    "floor": "42",
+                    "apartment": "803",
+                    "city": "Jaskolskiburgh",
+                    "state": "Utah",
+                    "country": "CR",
+                    "email": "claudette09@exa.com",
+                    "phone_number": "+86(8)9135210487",
+                    "postal_code": "01898",
+                    "extra_description": " ",
+                    "shipping_method": "UNK",
+                    
+                   ]
         
-        let bData = [  "apartment": "NA",
-                       "email": "dr_hamdimahmoud@yahoo.com",
-                       "floor": "NA",
-                       "first_name": "hamdi",
-                       "street": "asd",
-                       "building": "asd",
-                       "phone_number": "01001384592",
-                       "shipping_method": "visa",
-                       "postal_code": "123456",
-                       "city": "cairo",
-                       "country": "egypt",
-                       "last_name": "mahmoud",
-                       "state": "cairo"
-        ]
+        AcceptPaymentServices.shared.firsttRequest(first:paymentAPIKey) { (base, err) in
+            if let err=err{
+                print(err.localizedDescription)
+            }
+            guard let pp = base,let id = base?.profile?.id else {return}
         
-        do {
-            
-            try accept.presentPayVC(vC: self, billingData: bData, paymentKey: paymentAPIKey, saveCardDefault:
-                true, showSaveCard: true, showAlerts: true,isEnglish: isEnglish)
-            
-            customMainPaymentView.paymentViewModel.isPaymentOperationDone = true
-        } catch AcceptSDKError.MissingArgumentError(let errorMessage) {
-            
-            print(errorMessage)
-            customMainPaymentView.paymentViewModel.isPaymentOperationDone = false
-            
-        }  catch let error {
-            print(error.localizedDescription)
-            customMainPaymentView.paymentViewModel.isPaymentOperationDone = false
+            AcceptPaymentServices.shared.secondRequest(auth_token: pp.token ?? "", id: "\(id)", random: random) { (se, err) in
+                if let err=err{
+                    print(err.localizedDescription)
+                }
+                guard let ss = se else {return}
+                AcceptPaymentServices.shared.thirdLastTokenRequest(auth_token: pp.token ?? "") { (last, err) in
+                     if let err=err{
+                                       print(err.localizedDescription)
+                                   }
+                                   guard let last = last else {return}
+                    let sds = last.token
+                    
+                    DispatchQueue.main.async {
+                                                self.presentPayment(billingData:bData,isEnglish: isEnglish,key: sds)
+
+                    }
+                }
+            }
             
         }
+       
         
         
+    }
+    
+    func presentPayment(billingData:[String:String],isEnglish:Bool,key:String)  {
+        do {
+                   
+                   try accept.presentPayVC(vC: self, billingData: billingData, paymentKey: key, saveCardDefault:
+                       true, showSaveCard: true, showAlerts: true,isEnglish: isEnglish)
+                   
+                   customMainPaymentView.paymentViewModel.isPaymentOperationDone = true
+               } catch AcceptSDKError.MissingArgumentError(let errorMessage) {
+                   
+                   print(errorMessage)
+                   customMainPaymentView.paymentViewModel.isPaymentOperationDone = false
+                   
+               }  catch let error {
+                   print(error.localizedDescription)
+                   customMainPaymentView.paymentViewModel.isPaymentOperationDone = false
+                   
+               }
     }
     
     //TODO: -handle methods
@@ -149,7 +184,7 @@ class MainPaymentVC: CustomBaseViewVC {
 extension MainPaymentVC: AcceptSDKDelegate  {
     
     func userDidCancel() {
-        
+         print(999)
     }
     
     func paymentAttemptFailed(_ error: AcceptSDKError, detailedDescription: String) {
@@ -158,17 +193,19 @@ extension MainPaymentVC: AcceptSDKDelegate  {
     }
     
     func transactionRejected(_ payData: PayResponse) {
+         print(999)
     }
     
     func transactionAccepted(_ payData: PayResponse) {
+         print(999)
         customMainPaymentView.paymentViewModel.isPaymentOperationDone = payData.success
     }
     
     func transactionAccepted(_ payData: PayResponse, savedCardData: SaveCardResponse) {
-        
+         print(999)
     }
     
     func userDidCancel3dSecurePayment(_ pendingPayData: PayResponse) {
-        
+         print(999)
     }
 }

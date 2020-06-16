@@ -186,6 +186,11 @@
 		4EDB5B162487C7B300817257 /* secondalertvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB5B152487C7B300817257 /* secondalertvc.swift */; };
 		4EDBED882487BBB3007FFE03 /* ZoomUserImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBED872487BBB3007FFE03 /* ZoomUserImageVC.swift */; };
 		4EDC81D32498A54E005102EE /* AcceptPaymentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC81D22498A54E005102EE /* AcceptPaymentServices.swift */; };
+		4EDC81D62498A6AD005102EE /* FirstPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC81D52498A6AD005102EE /* FirstPaymentModel.swift */; };
+		4EDC81D82498A936005102EE /* SecondPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC81D72498A936005102EE /* SecondPaymentModel.swift */; };
+		4EDC81DA2498AADD005102EE /* LastTokenPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC81D92498AADD005102EE /* LastTokenPaymentModel.swift */; };
+		4EDC81DC2498ACDC005102EE /* SecondSendPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC81DB2498ACDC005102EE /* SecondSendPaymentModel.swift */; };
+		4EDC81DE2498AFD3005102EE /* SecondLastPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC81DD2498AFD3005102EE /* SecondLastPaymentModel.swift */; };
 		4EDDC5F02462DF4B005A9253 /* CustomAlertChooseLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */; };
 		4EDE5CEF2490EF85007D7F66 /* CustomDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE5CEE2490EF85007D7F66 /* CustomDropDownMenu.swift */; };
 		4EDE77532484FF79005DFCF6 /* PharamacyResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE77522484FF79005DFCF6 /* PharamacyResultsCell.swift */; };
@@ -211,6 +216,7 @@
 		4EDFE76E246D6C00003AF02A /* SearchServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFE76D246D6C00003AF02A /* SearchServices.swift */; };
 		4EDFE770246D6DD0003AF02A /* MainLapSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFE76F246D6DD0003AF02A /* MainLapSearchModel.swift */; };
 		4EDFE773246D6F0C003AF02A /* MainRadiologySearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFE772246D6F0C003AF02A /* MainRadiologySearchModel.swift */; };
+		4EE108A72498B8B50034A5BF /* FirstLastTokenPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE108A62498B8B50034A5BF /* FirstLastTokenPaymentModel.swift */; };
 		4EEE747B243324AC00FD94BA /* CustomAddMinusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */; };
 		4EEE747D243331E600FD94BA /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE747C243331E600FD94BA /* UserDefaultsConstants.swift */; };
 		4EF0FA0E248948FC00E4DBD0 /* MainIncubtionSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF0FA0D248948FC00E4DBD0 /* MainIncubtionSearchModel.swift */; };
@@ -420,6 +426,11 @@
 		4EDB5B152487C7B300817257 /* secondalertvc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondalertvc.swift; sourceTree = "<group>"; };
 		4EDBED872487BBB3007FFE03 /* ZoomUserImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomUserImageVC.swift; sourceTree = "<group>"; };
 		4EDC81D22498A54E005102EE /* AcceptPaymentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPaymentServices.swift; sourceTree = "<group>"; };
+		4EDC81D52498A6AD005102EE /* FirstPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPaymentModel.swift; sourceTree = "<group>"; };
+		4EDC81D72498A936005102EE /* SecondPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPaymentModel.swift; sourceTree = "<group>"; };
+		4EDC81D92498AADD005102EE /* LastTokenPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTokenPaymentModel.swift; sourceTree = "<group>"; };
+		4EDC81DB2498ACDC005102EE /* SecondSendPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSendPaymentModel.swift; sourceTree = "<group>"; };
+		4EDC81DD2498AFD3005102EE /* SecondLastPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondLastPaymentModel.swift; sourceTree = "<group>"; };
 		4EDDC5EF2462DF4B005A9253 /* CustomAlertChooseLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertChooseLanguageView.swift; sourceTree = "<group>"; };
 		4EDE5CEE2490EF85007D7F66 /* CustomDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownMenu.swift; sourceTree = "<group>"; };
 		4EDE77522484FF79005DFCF6 /* PharamacyResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyResultsCell.swift; sourceTree = "<group>"; };
@@ -445,6 +456,7 @@
 		4EDFE76D246D6C00003AF02A /* SearchServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServices.swift; sourceTree = "<group>"; };
 		4EDFE76F246D6DD0003AF02A /* MainLapSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLapSearchModel.swift; sourceTree = "<group>"; };
 		4EDFE772246D6F0C003AF02A /* MainRadiologySearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRadiologySearchModel.swift; sourceTree = "<group>"; };
+		4EE108A62498B8B50034A5BF /* FirstLastTokenPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLastTokenPaymentModel.swift; sourceTree = "<group>"; };
 		4EEE747A243324AC00FD94BA /* CustomAddMinusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddMinusView.swift; sourceTree = "<group>"; };
 		4EEE747C243331E600FD94BA /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		4EF0FA0D248948FC00E4DBD0 /* MainIncubtionSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainIncubtionSearchModel.swift; sourceTree = "<group>"; };
@@ -975,6 +987,7 @@
 		4E6D5BC8243071B1000FC72D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4EDC81D42498A69A005102EE /* Payment */,
 				4EF0FA0C248948E300E4DBD0 /* Incubtion */,
 				4EAF7351248677F700A19ADB /* Orders */,
 				4E2C20A02484EFB600BDD09E /* Search */,
@@ -1429,6 +1442,19 @@
 			path = Payment;
 			sourceTree = "<group>";
 		};
+		4EDC81D42498A69A005102EE /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				4EDC81D52498A6AD005102EE /* FirstPaymentModel.swift */,
+				4EDC81D72498A936005102EE /* SecondPaymentModel.swift */,
+				4EDC81D92498AADD005102EE /* LastTokenPaymentModel.swift */,
+				4EDC81DB2498ACDC005102EE /* SecondSendPaymentModel.swift */,
+				4EDC81DD2498AFD3005102EE /* SecondLastPaymentModel.swift */,
+				4EE108A62498B8B50034A5BF /* FirstLastTokenPaymentModel.swift */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
 		4EDE92382460018F00205C64 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -1809,6 +1835,7 @@
 				4E6D5BB324307183000FC72D /* AppDelegate.swift in Sources */,
 				4EFDA72A2431D5050010AA7D /* CustomDoctorListsView.swift in Sources */,
 				4E006793243307C0004B1C3F /* PharmacyOrderVC.swift in Sources */,
+				4EDC81D62498A6AD005102EE /* FirstPaymentModel.swift in Sources */,
 				4ED712612432148200074363 /* ICUSearchResultsVC.swift in Sources */,
 				4EAF73572486792C00A19ADB /* MainPharamacyOrderPatientModel.swift in Sources */,
 				4E4F84AC2430CBEF005EFC4C /* CustomMainServicesView.swift in Sources */,
@@ -1827,6 +1854,7 @@
 				4E000D022461807A00083BD5 /* NotificationVC.swift in Sources */,
 				4EC3CD542433894F00732D96 /* AddLapCollectionVC.swift in Sources */,
 				4E025A7D246FC22800E0071D /* OrdserBookSerivce.swift in Sources */,
+				4EDC81DE2498AFD3005102EE /* SecondLastPaymentModel.swift in Sources */,
 				4E13DDD724308CC700421737 /* CustomMainForgetPassView.swift in Sources */,
 				4ED8CF13248BDCF70082D836 /* CustomStarView.swift in Sources */,
 				4EDE92462460020700205C64 /* MainMedicineModel.swift in Sources */,
@@ -1854,6 +1882,7 @@
 				4EA8B11F2430E543008473D3 /* CustomProfileView.swift in Sources */,
 				4E04215D2462968600584BF0 /* MainVerificationSMScODEModel.swift in Sources */,
 				4EC00816248B8F9500432E7D /* MainRadiologyAanalysisModel.swift in Sources */,
+				4EDC81D82498A936005102EE /* SecondPaymentModel.swift in Sources */,
 				4EA8B1192430E373008473D3 /* BaseSlidingVC.swift in Sources */,
 				4E203B00243091BA002144FF /* CustomRegisterView.swift in Sources */,
 				4EDFE773246D6F0C003AF02A /* MainRadiologySearchModel.swift in Sources */,
@@ -1895,6 +1924,7 @@
 				4ECC5E5624702D0E001478EA /* CustomAndLAPOrderView.swift in Sources */,
 				4EDE924C2460029100205C64 /* MedicineAddModel.swift in Sources */,
 				4E10E8242487805100388025 /* MainDoctorOrderCell.swift in Sources */,
+				4EDC81DC2498ACDC005102EE /* SecondSendPaymentModel.swift in Sources */,
 				4E31D52224336A30001E02B6 /* LAPResultsCell.swift in Sources */,
 				4EA8B1132430E111008473D3 /* CustomMainHomeLeftView.swift in Sources */,
 				4E2FE34324619A43003ACF4E /* ICUSelectedResultsCell.swift in Sources */,
@@ -1903,6 +1933,7 @@
 				4ED7127324321BA900074363 /* IncubationSearchResultsVC.swift in Sources */,
 				4EDE923E246001C300205C64 /* MainCityModel.swift in Sources */,
 				4E13DDB82430886100421737 /* CustomBaseViewVC.swift in Sources */,
+				4EE108A72498B8B50034A5BF /* FirstLastTokenPaymentModel.swift in Sources */,
 				4E000D082461817600083BD5 /* NotificationsCollectionVC.swift in Sources */,
 				4ED135BD2439A77F008BE002 /* ChooseLocationVC.swift in Sources */,
 				4E0421612462993C00584BF0 /* MainForgetPasswordModel.swift in Sources */,
@@ -1955,6 +1986,7 @@
 				4ED135C02439A7B7008BE002 /* CustomChooseUserLocationView.swift in Sources */,
 				4E1ED39624345667004F134D /* CustomTestView.swift in Sources */,
 				4E31D53124337657001E02B6 /* CustomLAPBookView.swift in Sources */,
+				4EDC81DA2498AADD005102EE /* LastTokenPaymentModel.swift in Sources */,
 				4E13DDE424308FA700421737 /* CustomVerificationView.swift in Sources */,
 				4EBBCD892432016F005C8DF7 /* DoctorWorkingDateCollectionVC.swift in Sources */,
 				4ED7127724321C0B00074363 /* IncubationResultsCollectionVC.swift in Sources */,
