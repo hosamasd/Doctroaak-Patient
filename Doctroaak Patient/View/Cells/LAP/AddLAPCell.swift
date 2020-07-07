@@ -85,12 +85,7 @@ class AddLAPCell: BaseCollectionCell {
             citName = cityArray
             cityId = cityIds
         }
-        
-        
-        
-        
-        
-    }
+      }
     
     @objc func handleRemove()  {
         guard let med = med else { return  }

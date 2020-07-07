@@ -11,6 +11,8 @@ import UIKit
 
 class AddLapCollectionVC: BaseCollectionVC {
     
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+
     fileprivate let cellID = "cellID"
     var medicineArray = [RadiologyOrderModel]()//["one","two","three","four","fifie"]
     var index:Int = 0
@@ -22,6 +24,12 @@ class AddLapCollectionVC: BaseCollectionVC {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+          let animation = currentTableAnimation.getAnimation()
+          let animator = CollectionViewAnimator(animation: animation)
+          animator.animate(cell: cell, at: indexPath, in: collectionView)
+      }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(medicineArray.count, text: "No Data Added Yet".localized)

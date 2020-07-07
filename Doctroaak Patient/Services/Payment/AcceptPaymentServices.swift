@@ -32,12 +32,12 @@ class AcceptPaymentServices {
         let params:[String:Any] = [
             "auth_token":auth_token,
             "delivery_needed": "false",
-              "merchant_id": id,
-              "amount_cents": "20000",
-              "currency": "EGP",
-              "merchant_order_id": random,
-              "items": [],
-              "shipping_data": [
+            "merchant_id": id,
+            "amount_cents": "20000",
+            "currency": "EGP",
+            "merchant_order_id": random,
+            "items": [],
+            "shipping_data": [
                 "apartment": "803",
                 "email": "claudette09@exa.com",
                 "floor": "42",
@@ -50,51 +50,41 @@ class AcceptPaymentServices {
                 "country": "CR",
                 "last_name": "Nicolas",
                 "state": "Utah"
-              ]
+            ]
         ]
         makeMainPostFORPaymentsGenericUsingAlmofire(url: url, parameters: params, completion: completion)
-
+        
         
     }
     
-//    func secondRequest(second:SecondSendPaymentModel,completion: @escaping (SecondPaymentModel?, Error?) ->Void)  {
-//        let urlString = " https://accept.paymobsolutions.com/api/ecommerce/orders"
-//        var postStrings = ""
-//        makeMainPostFORPaymentsGenericUsingAlmofire(urlString: urlString, postStrings: postStrings,secondModel: second, completion: completion)
-//    }
-    
     func thirdLastTokenRequest(auth_token:String,completion: @escaping (LastTokenPaymentModel?, Error?) ->Void)  {
         let urlString = "https://accept.paymobsolutions.com/api/acceptance/payment_keys"
-               guard let url = URL(string: urlString) else { return  }
+        guard let url = URL(string: urlString) else { return  }
         
-               let params:[String:Any] = [
-                  "auth_token": auth_token,
-                   "amount_cents": "20000",
-                   "expiration": 3600,
-                   "order_id": "5234732",
-                   "billing_data": [
-                     "apartment": "803",
-                     "email": "claudette09@exa.com",
-                     "floor": "42",
-                     "first_name": "Clifford",
-                     "street": "Ethan Land",
-                     "building": "8028",
-                     "phone_number": "+86(8)9135210487",
-                     "shipping_method": "PKG",
-                     "postal_code": "01898",
-                     "city": "Jaskolskiburgh",
-                     "country": "CR",
-                     "last_name": "Nicolas",
-                     "state": "Utah"
-                   ],
-                   "currency": "EGP",
-                   "integration_id": 21479
-               ]
+        let params:[String:Any] = [
+            "auth_token": auth_token,
+            "amount_cents": "20000",
+            "expiration": 3600,
+            "order_id": "5234732",
+            "billing_data": [
+                "apartment": "803",
+                "email": "claudette09@exa.com",
+                "floor": "42",
+                "first_name": "Clifford",
+                "street": "Ethan Land",
+                "building": "8028",
+                "phone_number": "+86(8)9135210487",
+                "shipping_method": "PKG",
+                "postal_code": "01898",
+                "city": "Jaskolskiburgh",
+                "country": "CR",
+                "last_name": "Nicolas",
+                "state": "Utah"
+            ],
+            "currency": "EGP",
+            "integration_id": 21479
+        ]
         makeMainPostFORPaymentsGenericUsingAlmofire(url: url, parameters: params, completion: completion)
-
-        
-//        var postStrings = ""
-//        makeMainPostFORPaymentsGenericUsingAlmofire(urlString: urlString, postStrings: postStrings,thirdModel:third, completion: completion)
     }
     
     

@@ -42,13 +42,20 @@ class ViewController: CustomBaseViewVC {
            return v
        }()
     
+    lazy var btns = UIButton(title: "sdgd fgdfsgdfsfdg fdg", titleColor: .black, font: .systemFont(ofSize: 20), backgroundColor: .white, target: self, action: #selector(handleSSS))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .yellow
         // Do any additional setup after loading the view.
+        view.addSubview(btns)
+        btns.centerInSuperview(size: .init(width: view.frame.width-64, height: 120))
+//        AnimationsFactory.addAnimation(btns, animation: .shake)
         
-        
-        
+    }
+    
+    @objc func handleSSS()  {
+        AnimationsFactory.addAnimation(btns, animation: .pop(from: 2))
     }
 
     override func setupNavigation() {

@@ -11,6 +11,8 @@ import UIKit
 
 class NotificationsCollectionVC: BaseCollectionVC {
     
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+
     fileprivate  let cellID = "cellID"
     var notificationArray = [PatientNotificationModel]()
     var handledisplayNotification:((PatientNotificationModel,IndexPath)->Void)?

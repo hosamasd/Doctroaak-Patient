@@ -11,6 +11,8 @@ import UIKit
 
 class DoctorWorkingDateCollectionVC: BaseCollectionVC {
     
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+    
     fileprivate let cellId = "cellId"
     var index = 10 // for DeatilsSelectedDoctorsVC
     
@@ -20,57 +22,63 @@ class DoctorWorkingDateCollectionVC: BaseCollectionVC {
     var radWorkingDaysArray = [RadiologyWorkingHourModel]()
     
     
-//    fileprivate func getTotalDays(_ ss: inout Int) {
-//        workingDaysArray.forEach { (w) in
-//            let d = w.active == 0 ? 0 : 1
-//            ss += d
-//        }
-//    }
+    //    fileprivate func getTotalDays(_ ss: inout Int) {
+    //        workingDaysArray.forEach { (w) in
+    //            let d = w.active == 0 ? 0 : 1
+    //            ss += d
+    //        }
+    //    }
     
     fileprivate func getTotalDays() ->Int {
-           var ss:Int = 0
-           
-              workingDaysArray.forEach { (w) in
-                  let d = w.active == 0 ? 0 : 1
-                  ss += d
-              }
-           return ss
-          }
+        var ss:Int = 0
+        
+        workingDaysArray.forEach { (w) in
+            let d = w.active == 0 ? 0 : 1
+            ss += d
+        }
+        return ss
+    }
     
     fileprivate func getLabTotalDays() ->Int {
         var ss:Int = 0
         
-           labWorkingDaysArray.forEach { (w) in
-               let d = w.active == 0 ? 0 : 1
-               ss += d
-           }
+        labWorkingDaysArray.forEach { (w) in
+            let d = w.active == 0 ? 0 : 1
+            ss += d
+        }
         return ss
-       }
-       
-       fileprivate func getRadTotalDays()->Int {
-        var ss:Int = 0
-
-           radWorkingDaysArray.forEach { (w) in
-               let d = w.active == 0 ? 0 : 1
-               ss += d
-           }
-        return ss
-
-       }
+    }
     
-//    fileprivate func getLabTotalDays(_ ss: inout Int) {
-//        workingDaysArray.forEach { (w) in
-//            let d = w.active == 0 ? 0 : 1
-//            ss += d
-//        }
-//    }
-//
-//    fileprivate func getRadTotalDays(_ ss: inout Int) {
-//        radWorkingDaysArray.forEach { (w) in
-//            let d = w.active == 0 ? 0 : 1
-//            ss += d
-//        }
-//    }
+    fileprivate func getRadTotalDays()->Int {
+        var ss:Int = 0
+        
+        radWorkingDaysArray.forEach { (w) in
+            let d = w.active == 0 ? 0 : 1
+            ss += d
+        }
+        return ss
+        
+    }
+    
+    //    fileprivate func getLabTotalDays(_ ss: inout Int) {
+    //        workingDaysArray.forEach { (w) in
+    //            let d = w.active == 0 ? 0 : 1
+    //            ss += d
+    //        }
+    //    }
+    //
+    //    fileprivate func getRadTotalDays(_ ss: inout Int) {
+    //        radWorkingDaysArray.forEach { (w) in
+    //            let d = w.active == 0 ? 0 : 1
+    //            ss += d
+    //        }
+    //    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let animation = currentTableAnimation.getAnimation()
+        let animator = CollectionViewAnimator(animation: animation)
+        animator.animate(cell: cell, at: indexPath, in: collectionView)
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(index == 0 ? labWorkingDaysArray.count : index == 1 ? radWorkingDaysArray.count : workingDaysArray.count, text: "No Working Hourse Yet".localized)

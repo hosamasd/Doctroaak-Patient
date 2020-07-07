@@ -10,6 +10,8 @@ import UIKit
 
 class PharamacyProfileOrderCollectionVC: BaseCollectionVC {
     
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+
     fileprivate let cellId = "cellId"
     var pharamacyArray = [PharamacyOrderPatientModel]()
     

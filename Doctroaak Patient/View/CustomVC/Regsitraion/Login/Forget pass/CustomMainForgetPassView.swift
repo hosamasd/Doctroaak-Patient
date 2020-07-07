@@ -32,52 +32,42 @@ class CustomForgetPassView: CustomBaseView {
     lazy var choosePayLabel = UILabel(text: "Enter your phone number :".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var numberTextField:UITextField = {
-        let s = SkyFloatingLabelTextField()//createMainTextFields(place: "Password".localized, type: .default,secre: true)
-        let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
-        s.layer.borderWidth = 1
-        s.layer.borderColor = UIColor.lightGray.cgColor
-        s.placeholder = "(324) 242-2457"
-        s.keyboardType = .numberPad
-//        s.text = "phone".localized
-//        button.frame = CGRect(x: CGFloat(t.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
-
-//               let button = UIButton(type: .custom)
-//               button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-//               button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-               button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-//               button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
-             
-               s.rightView = button
-               s.rightViewMode = .always
-        s.textAlignment = .center
-        s.constrainHeight(constant: 60)
-        s.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        
+        let s = createMainTextFields(place: "phone number".localized, type: .default,secre: false)
+              let button = UIButton(type: .custom)
+              button.setImage(#imageLiteral(resourceName: "Group 4142-3"), for: .normal)
+              button.imageView?.contentMode = .scaleAspectFill
+              button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+              button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+              s.keyboardType = .numberPad
+              button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+              s.rightView = button
+              s.rightViewMode = .always
+              s.constrainHeight(constant: 60)
+              s.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        
+//        let s = SkyFloatingLabelTextField()//createMainTextFields(place: "Password".localized, type: .default,secre: true)
+//        let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
+//        s.layer.borderWidth = 1
+//        s.layer.borderColor = UIColor.lightGray.cgColor
+//        s.placeholder = "(324) 242-2457"
+//        s.keyboardType = .numberPad
+////        s.text = "phone".localized
+////        button.frame = CGRect(x: CGFloat(t.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
+//
+////               let button = UIButton(type: .custom)
+////               button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
+////               button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+//               button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+////               button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
+//
+//               s.rightView = button
+//               s.rightViewMode = .always
+//        s.textAlignment = .center
+//        s.constrainHeight(constant: 60)
+//        s.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
 
         return s
-//        let t = UITextField()//CustomSkyTextFieldRightPadding(padding:   16, height: 60)//createMainTextFields(padding:100,place: "(324) 242-2457", type: .phonePad)
-//
-//        t.layer.cornerRadius = 8
-//               t.clipsToBounds = true
-//               t.placeholder = "(324) 242-2457"
-//        t.textColor = .black
-//        t.keyboardType = .numberPad
-//               t.layer.borderWidth = 1
-//               t.layer.borderColor = UIColor.lightGray.cgColor
-//
-//        let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
-//        button.frame = CGRect(x: CGFloat(t.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
-//        if MOLHLanguage.isRTLLanguage() {
-//            t.rightView = button
-//                 t.rightViewMode = .always
-//        }else {
-//        t.leftView = button
-//        t.leftViewMode = .always
-//        }
-//        t.textAlignment = .center
-//
-//        t.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-//        t.constrainHeight(constant: 60)
-//        return t
     }()
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)

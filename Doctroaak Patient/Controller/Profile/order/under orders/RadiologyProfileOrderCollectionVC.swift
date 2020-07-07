@@ -10,6 +10,8 @@ import UIKit
 
 class RadiologyProfileOrderCollectionVC: BaseCollectionVC {
     
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+
     fileprivate let cellId = "cellId"
     var pharamacyArray = [RadiologyOrderPatientModel]()
     

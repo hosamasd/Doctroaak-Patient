@@ -18,6 +18,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     lazy var customWelcomeView:CustomWelcomeView = {
         let v = CustomWelcomeView()
+        v.setupAnimation(name: "lf30_editor_itsaat")
         return v
     }()
     

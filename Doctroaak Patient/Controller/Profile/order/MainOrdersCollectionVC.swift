@@ -11,6 +11,8 @@ import MOLH
 
 class MainOrdersCollectionVC: BaseCollectionVC {
     
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+
     fileprivate let cellId = "cellId"
     fileprivate let cell2Id = "cell2Id"
     fileprivate let cell3Id = "cell3Id"

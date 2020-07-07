@@ -37,7 +37,7 @@ class CustomSkyTextFieldRightPadding: SkyFloatingLabelTextField {
         let rect = CGRect(
             x: padding,
             y: titleHeight(),
-            width: bounds.size.width - padding,
+            width: bounds.size.width ,//- padding,
             height: bounds.size.height - titleHeight() - selectedLineHeight
         )
         

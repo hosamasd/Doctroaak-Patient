@@ -8,6 +8,7 @@
 
 
 import UIKit
+import Lottie
 
 class CustomWelcomeView: CustomBaseView {
     
@@ -24,7 +25,13 @@ class CustomWelcomeView: CustomBaseView {
     }()
     lazy var copyWriteLabel = UILabel(text: "Copyright @ Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
     lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
-    
+    lazy var problemsView:AnimationView = {
+           let i = AnimationView()
+           i.constrainWidth(constant: 120)
+           i.constrainHeight(constant: 120)
+           return i
+       }()
+       
     
     override func setupViews() {
         addSubViews(views: mainImage,drImage,docotrLabel,copyWriteLabel)
@@ -36,4 +43,10 @@ class CustomWelcomeView: CustomBaseView {
         copyWriteLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 16, right: 0))
         
     }
+    
+    func setupAnimation(name:String)  {
+           problemsView.animation = Animation.named(name)
+           problemsView.play()
+           problemsView.loopMode = .loop
+       }
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class ICUResultsCollectionVC: BaseCollectionVC {
     
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+
     fileprivate let cellId = "cellId"
     var icuArray =  [ICUFilterModel]()
     var icubationArray =  [IncubtionSearchModel]()
@@ -23,6 +25,12 @@ class ICUResultsCollectionVC: BaseCollectionVC {
         
         return index == 0 ?  icuArray.count : icubationArray.count
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+          let animation = currentTableAnimation.getAnimation()
+          let animator = CollectionViewAnimator(animation: animation)
+          animator.animate(cell: cell, at: indexPath, in: collectionView)
+      }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ICUResultsCell
