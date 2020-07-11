@@ -41,7 +41,7 @@ class BaseAdsCell:  BaseCollectionCell{
     override func setupViews() {
        layer.cornerRadius = 8
         clipsToBounds = true
-        let sss = MOLHLanguage.isRTLLanguage() ? hstack(UIView(),paymentButton,detailButton,spacing: 16) : hstack(UIView(),detailButton,paymentButton,spacing: 16)
+        let sss = hstack(UIView(),detailButton,paymentButton,spacing: 16)//MOLHLanguage.isRTLLanguage() ? hstack(UIView(),paymentButton,detailButton,spacing: 16) : hstack(UIView(),detailButton,paymentButton,spacing: 16)
         
         stack(adsTitleLabel,sss).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))
         

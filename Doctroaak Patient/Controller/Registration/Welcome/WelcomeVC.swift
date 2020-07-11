@@ -51,6 +51,10 @@ class WelcomeVC: CustomBaseViewVC {
         customWelcomeView.fillSuperview()
     }
     
+    override func setupNavigation() {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
     fileprivate func setupAnimation()  {
         views.forEach({$0.alpha = 1})
         
@@ -446,8 +450,15 @@ class WelcomeVC: CustomBaseViewVC {
     @objc func handleNext()  {
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.synchronize()
-        dismiss(animated: true)
-        
+        if userDefaults.bool( forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE){
+            let userId = userDefaults.integer(forKey: UserDefaultsConstants.patientID)
+            
+            let verify = VerificationVC(user_id: userId, isFromForget: false)
+            navigationController?.pushViewController(verify, animated: true)
+            
+        }else {
+            dismiss(animated: true)
+        }
     }
 }
 

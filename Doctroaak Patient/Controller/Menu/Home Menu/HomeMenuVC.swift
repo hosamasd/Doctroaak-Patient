@@ -168,7 +168,6 @@ class HomeMenuVC: CustomBaseViewVC {
     
     @objc func handleOpenMenu()  {
         (UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? BaseSlidingVC)?.openMenu()
-        
     }
     
     

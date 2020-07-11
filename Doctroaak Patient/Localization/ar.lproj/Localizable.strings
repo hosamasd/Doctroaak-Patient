@@ -111,7 +111,7 @@
 "Log Out"="تسجيل الخروج";"Warring..."="تحذير...";"Do You Want To Log Out?"="هل تريد تسجيل الخروج?";
 
 //HomeLeftMenuCollcetionVC
-"Profile"="الملف الشخصي";"Anayltics"="احصائيات";"Notifications"="التنبيهات";"Contact Us"="تواصل معنا";"Language"="اللفه";
+"Profile"="الملف الشخصي";"Anayltics"="احصائيات";"Notifications"="التنبيهات";"Contact Us"="تواصل معنا";"Language"="اللغة ";
 
 //ProfileVC
 "your information updated..."="معلوماتك الشخصية تم تعديلها...";

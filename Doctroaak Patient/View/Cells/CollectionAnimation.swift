@@ -98,16 +98,16 @@ enum CollectionAnimation{
     case moveUpBounce(rowHeight: CGFloat, duration: TimeInterval, delay: TimeInterval)
     
     // provides an animation with duration and delay associated with the case
-    func getAnimation() -> TableCellAnimation {
+    func getAnimation() -> collectionCellAnimation {
         switch self {
         case .fadeIn(let duration, let delay):
-            return TableAnimationFactory.makeFadeAnimation(duration: duration, delayFactor: delay)
+            return CollectionAnimationFactory.makeFadeAnimation(duration: duration, delayFactor: delay)
         case .moveUp(let rowHeight, let duration, let delay):
-            return TableAnimationFactory.makeMoveUpAnimation(rowHeight: rowHeight, duration: duration, delayFactor: delay)
+            return CollectionAnimationFactory.makeMoveUpAnimation(rowHeight: rowHeight, duration: duration, delayFactor: delay)
         case .moveUpWithFade(let rowHeight, let duration, let delay):
-            return TableAnimationFactory.makeMoveUpWithFadeAnimation(rowHeight: rowHeight, duration: duration, delayFactor: delay)
+            return CollectionAnimationFactory.makeMoveUpWithFadeAnimation(rowHeight: rowHeight, duration: duration, delayFactor: delay)
         case .moveUpBounce(let rowHeight, let duration, let delay):
-            return TableAnimationFactory.makeMoveUpBounceAnimation(rowHeight: rowHeight, duration: duration, delayFactor: delay)
+            return CollectionAnimationFactory.makeMoveUpBounceAnimation(rowHeight: rowHeight, duration: duration, delayFactor: delay)
         }
     }
     

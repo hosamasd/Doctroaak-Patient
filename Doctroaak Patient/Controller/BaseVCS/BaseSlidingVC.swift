@@ -85,10 +85,11 @@ class BaseSlidingVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
             let welcome = WelcomeVC()
-            welcome.modalPresentationStyle = .fullScreen
-            present(welcome, animated: true)
+            let nav = UINavigationController(rootViewController:welcome)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
         }else {}
     }
     

@@ -35,6 +35,11 @@ class MainOrdersCollectionVC: BaseCollectionVC {
     var handleCheckedIOpenImage:((UIImage)->Void)?
     var handleRateIndex:((DoctorsOrderPatientModel)->Void)?
     
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+             let animation = currentTableAnimation.getAnimation()
+             let animator = CollectionViewAnimator(animation: animation)
+             animator.animate(cell: cell, at: indexPath, in: collectionView)
+         }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4

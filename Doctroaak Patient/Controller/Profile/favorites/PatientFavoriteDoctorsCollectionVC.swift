@@ -21,6 +21,11 @@ class PatientFavoriteDoctorsCollectionVC: BaseCollectionVC  {
 
     var isFavorite:Bool = false
     
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+             let animation = currentTableAnimation.getAnimation()
+             let animator = CollectionViewAnimator(animation: animation)
+             animator.animate(cell: cell, at: indexPath, in: collectionView)
+         }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.noDataFound(doctorsArray.count, text: "No Favorite Doctor Added Yet".localized)

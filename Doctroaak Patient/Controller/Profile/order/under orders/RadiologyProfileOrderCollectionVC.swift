@@ -25,6 +25,12 @@ class RadiologyProfileOrderCollectionVC: BaseCollectionVC {
         return pharamacyArray.count
     }
     
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+             let animation = currentTableAnimation.getAnimation()
+             let animator = CollectionViewAnimator(animation: animation)
+             animator.animate(cell: cell, at: indexPath, in: collectionView)
+         }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! RadiologyProfileOrderCell
         let pharamacy = pharamacyArray[indexPath.item]
