@@ -9,8 +9,18 @@
 
 import UIKit
 import MOLH
+import SDWebImage
 
 class CustomMainHomeView: CustomBaseView {
+    
+    var patient:PatienModel?{
+        didSet{
+            guard let patient = patient,let urlString = patient.insurance?.photo else { return  }
+            drInsuranceImage.isHide(false)
+            guard let url = URL(string:urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -35,14 +45,31 @@ class CustomMainHomeView: CustomBaseView {
         i.isUserInteractionEnabled=true
         return i
     }()
-    
+    lazy var drImage:UIImageView = {
+           let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+           i.contentMode = .scaleToFill
+           i.clipsToBounds = true
+           i.constrainWidth(constant: 80)
+           //           i.constrainHeight(constant: 400)
+           return i
+       }()
+       lazy var drInsuranceImage:UIImageView = {
+           let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+           i.contentMode = .scaleToFill
+           i.clipsToBounds = true
+           i.constrainWidth(constant: 80)
+        i.isHide(true)
+
+           return i
+       }()
+       lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white)
     lazy var titleLabel = UILabel(text: "Home".localized, font: .systemFont(ofSize: 30), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     lazy var mainView:UIView = makeMainSubViewWithAppendView(vv: [Image1,label1])
     lazy var main2View:UIView =  {
         let v = makeMainSubViewWithAppendView(vv: [Image2,label2])
-//        v.constrainHeight(constant: 70)
+        //        v.constrainHeight(constant: 70)
         //        v.constrainHeight(constant: 100)
         return v
     }()
@@ -100,12 +127,13 @@ class CustomMainHomeView: CustomBaseView {
     var notifyImageconstainedDateAnchor:AnchoredConstraints!
     
     override func setupViews() {
-        //        main3View.hstack(Image3,label3)
-        //        main2View.hstack(Image2,label2)
-        //        mainView.hstack(Image1,label1)
+        [titleLabel,docotrLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
+        let sss = getStack(views: drImage,docotrLabel,drInsuranceImage, spacing: 8, distribution: .fill, axis: .horizontal)
+        
         let ss = getStack(views: mainView,main2View,main3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
-        addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,soonLabel,ss,baseAdsCell)
+        addSubViews(views: LogoImage,listImage,notifyImage,ss,titleLabel,soonLabel,ss,baseAdsCell)
         
         NSLayoutConstraint.activate([
             ss.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -127,6 +155,8 @@ class CustomMainHomeView: CustomBaseView {
         
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
+        sss.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
+
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         ss.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
