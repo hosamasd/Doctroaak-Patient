@@ -48,6 +48,7 @@ class MainPaymentVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        scrollView.delegate=self
         //        doThis()
     }
     
@@ -207,5 +208,14 @@ extension MainPaymentVC: AcceptSDKDelegate  {
     
     func userDidCancel3dSecurePayment(_ pendingPayData: PayResponse) {
          print(999)
+    }
+}
+
+
+extension MainPaymentVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
     }
 }

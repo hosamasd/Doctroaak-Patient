@@ -70,6 +70,7 @@ class ProfileVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        scrollView.delegate=self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -226,4 +227,13 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
     }
     
     
+}
+
+
+extension ProfileVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
 }

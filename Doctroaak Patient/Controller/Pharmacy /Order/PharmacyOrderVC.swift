@@ -97,7 +97,7 @@ class PharmacyOrderVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        
+        scrollView.delegate=self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -355,5 +355,14 @@ extension PharmacyOrderVC:LoginVCPrototcol {
     
     func useApiAndPatienId(patient: PatienModel) {
         self.patient=patient
+    }
+}
+
+
+extension PharmacyOrderVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
     }
 }

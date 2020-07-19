@@ -75,6 +75,7 @@ class ICUSearchVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        scrollView.delegate=self
     }
     
     //MARK:-User methods
@@ -225,5 +226,14 @@ extension ICUSearchVC : ChooseLocationVCProtocol{
         convertLatLongToAddress(latitude: lat, longitude: long)
         self.customICUSearchView.icuViewModel.lat = lat
         self.customICUSearchView.icuViewModel.lng = long
+    }
+}
+
+
+extension ICUSearchVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
     }
 }

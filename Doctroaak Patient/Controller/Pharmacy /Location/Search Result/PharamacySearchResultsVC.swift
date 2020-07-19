@@ -53,6 +53,7 @@ class PharamacySearchResultsVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupViews()
         setupNavigation()
+        scrollView.delegate=self
     }
     
     //MARK:-User methods
@@ -79,3 +80,12 @@ class PharamacySearchResultsVC: CustomBaseViewVC {
     
 }
 
+
+
+extension PharamacySearchResultsVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
+}

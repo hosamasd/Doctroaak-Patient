@@ -80,7 +80,7 @@ class NotificationVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        scrollView.delegate=self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -189,3 +189,12 @@ class NotificationVC: CustomBaseViewVC {
     }
 }
 
+
+
+extension NotificationVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
+}

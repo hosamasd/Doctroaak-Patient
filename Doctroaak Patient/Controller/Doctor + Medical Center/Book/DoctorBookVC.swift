@@ -86,7 +86,7 @@ class DoctorBookVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        
+        scrollView.delegate=self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -250,5 +250,14 @@ extension DoctorBookVC: LoginVCPrototcol {
     func useApiAndPatienId(patient: PatienModel) {
         self.patient=patient
         handleBook()
+    }
+}
+
+
+extension DoctorBookVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
     }
 }

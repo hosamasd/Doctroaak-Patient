@@ -75,6 +75,7 @@ class ICUSearchResultsVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupViews()
         setupNavigation()
+        scrollView.delegate=self
     }
     
     
@@ -98,4 +99,13 @@ class ICUSearchResultsVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
     
+}
+
+
+extension ICUSearchResultsVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
 }

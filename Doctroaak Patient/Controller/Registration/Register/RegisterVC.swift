@@ -60,6 +60,7 @@ class RegisterVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupViewModelObserver()
         customRegisterView.getInsuraces()
+        scrollView.delegate=self
     }
     
     //MARK:-User methods
@@ -225,4 +226,13 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     }
     
     
+}
+
+
+extension RegisterVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
 }

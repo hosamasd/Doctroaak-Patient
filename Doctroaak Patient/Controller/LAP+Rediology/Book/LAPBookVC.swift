@@ -90,7 +90,7 @@ class LAPBookVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        
+        scrollView.delegate=self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -301,6 +301,15 @@ extension LAPBookVC:LoginVCPrototcol {
     
     func useApiAndPatienId(patient: PatienModel) {
         self.patient = patient
+        
+    }
+}
+
+
+extension LAPBookVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
         
     }
 }

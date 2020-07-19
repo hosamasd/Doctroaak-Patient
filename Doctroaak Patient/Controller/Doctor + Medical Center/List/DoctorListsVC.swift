@@ -69,6 +69,7 @@ class DoctorListsVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         getSpecification()
+        scrollView.delegate=self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -143,5 +144,14 @@ class DoctorListsVC: CustomBaseViewVC {
     
     @objc  func handleBack()  {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+
+extension DoctorListsVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
     }
 }

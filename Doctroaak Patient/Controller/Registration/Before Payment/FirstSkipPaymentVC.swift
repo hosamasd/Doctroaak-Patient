@@ -65,6 +65,7 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
+        scrollView.delegate=self
     }
     
     
@@ -157,5 +158,14 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
         removeViewWithAnimation(vvv: customAlertLoginView)
         
         dismiss(animated: true)
+    }
+}
+
+
+extension FirstSkipPaymentVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
     }
 }

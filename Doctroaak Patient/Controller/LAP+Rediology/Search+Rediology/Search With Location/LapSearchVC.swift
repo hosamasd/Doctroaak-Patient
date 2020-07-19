@@ -83,6 +83,7 @@ class LapSearchVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        scrollView.delegate=self
     }
     
     //MARK:-User methods
@@ -242,4 +243,13 @@ extension LapSearchVC : ChooseLocationVCProtocol{
         
     }
     
+}
+
+
+extension LapSearchVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
 }

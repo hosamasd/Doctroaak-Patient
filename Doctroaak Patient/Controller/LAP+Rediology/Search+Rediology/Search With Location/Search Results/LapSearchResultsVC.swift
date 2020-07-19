@@ -64,6 +64,7 @@ class LapSearchResultsVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupViews()
         setupNavigation()
+        scrollView.delegate=self
     }
     
     //MARK:-User methods
@@ -92,4 +93,13 @@ class LapSearchResultsVC: CustomBaseViewVC {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+
+extension LapSearchResultsVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
 }

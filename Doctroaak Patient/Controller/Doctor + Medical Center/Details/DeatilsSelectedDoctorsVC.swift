@@ -86,6 +86,7 @@ class DeatilsSelectedDoctorsVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupNavigation()
+        scrollView.delegate=self
     }
     
     
@@ -121,6 +122,15 @@ class DeatilsSelectedDoctorsVC: UIViewController {
         //        book.api_token=apiTpken
         //        book.patient_id=patientId
         navigationController?.pushViewController(book, animated: true)
+        
+    }
+}
+
+
+extension DeatilsSelectedDoctorsVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
         
     }
 }

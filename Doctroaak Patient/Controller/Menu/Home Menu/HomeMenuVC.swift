@@ -72,6 +72,7 @@ class HomeMenuVC: CustomBaseViewVC {
         super.viewDidLoad()
         //        putUserId()
         setupAnimation()
+        scrollView.delegate=self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -230,4 +231,13 @@ extension HomeMenuVC:LoginVCPrototcol {
     }
     
     
+}
+
+
+extension HomeMenuVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
 }
