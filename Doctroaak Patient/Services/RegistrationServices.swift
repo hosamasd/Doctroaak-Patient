@@ -13,14 +13,14 @@ class RegistrationServices {
     
     static let shared = RegistrationServices()
     
-    func mainAllRegister(photo:UIImage,name:String,email:String,phone:String,password:String,gender:String,birthdate:String,address:String,insuranceCode:Int ,completion: @escaping (MainRegisterlModel?, Error?) -> Void)  {
+    func mainAllRegister(photo:UIImage?,name:String,email:String,phone:String,password:String,gender:String,birthdate:String,address:String,insuranceCode:Int ,completion: @escaping (MainRegisterlModel?, Error?) -> Void)  {
         
         let urlString = baseUrl+"patient_register"
         let postString =   urlString.toSecrueHttps()+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&address=\(address)&gender=\(gender)&birthdate=\(birthdate)"
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
-            if let data = photo.pngData() {
+            if let data = photo?.pngData() {
                 multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
             }
             

@@ -32,7 +32,7 @@ class RegisterViewModel {
 
     
     func performRegister(completion:@escaping (MainRegisterlModel?, Error?)->Void)  {
-        guard let email = email,let password = password,let name = name,let phone = phone,let address = address,let birthday = birthday,let image=image
+        guard let email = email,let password = password,let name = name,let phone = phone,let address = address,let birthday = birthday
            ,let insuranceCode = insuranceCode,let gender = gender else { return  }
         bindableIsResgiter.value = true
         
@@ -43,7 +43,7 @@ class RegisterViewModel {
     func checkFormValidity() {
         
         let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && image != nil  && isAccept != false && isInsurance == false ||
-            insuranceCode  != -1 && email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false && image != nil  && isAccept != false && isAccept == true
+            insuranceCode  != -1 && email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && birthday?.isEmpty == false   && isAccept != false && isAccept == true
 
         bindableIsFormValidate.value = isFormValid
         
