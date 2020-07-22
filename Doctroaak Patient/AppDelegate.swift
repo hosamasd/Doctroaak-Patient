@@ -9,6 +9,11 @@
 import UIKit
 import IQKeyboardManagerSwift
 import MOLH
+import GoogleMaps
+
+
+let googleAPIKEY = "AIzaSyD4ow5PXyqH-gJwe2rzihxG71prgt4NRFQ"
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
@@ -18,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GMSServices.provideAPIKey(googleAPIKEY)
+
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
                userDefaults.synchronize()
         MOLH.shared.activate(true)
@@ -25,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = BaseSlidingVC()//UINavigationController(rootViewController: BaseSlidingVC())// BaseSlidingVC()//UINavigationController(rootViewController:PharmacyLocationVC())//DoctorBookVC(clinic_id: 1)) //BaseSlidingVC()//UINavigationController(rootViewController:ProfileOrdersVC())//LapSearchVC(index: 0))//LAPOrderVC(index: 0, lab: 1))//ProfileOrdersVC())//BaseSlidingVC()//UINavigationController(rootViewController: LoginVC())//UINavigationController(rootViewController: LapSearchVC(index: 1))//BaseSlidingVC()//UINavigationController(rootViewController:
+        window?.rootViewController = UINavigationController(rootViewController: DoctorListsVC(index: 1))// BaseSlidingVC()//UINavigationController(rootViewController:PharmacyLocationVC())//DoctorBookVC(clinic_id: 1)) //BaseSlidingVC()//UINavigationController(rootViewController:ProfileOrdersVC())//LapSearchVC(index: 0))//LAPOrderVC(index: 0, lab: 1))//ProfileOrdersVC())//BaseSlidingVC()//UINavigationController(rootViewController: LoginVC())//UINavigationController(rootViewController: LapSearchVC(index: 1))//BaseSlidingVC()//UINavigationController(rootViewController:
         return true
     }
 
@@ -59,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
                userDefaults.synchronize()
     }

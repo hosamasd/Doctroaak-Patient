@@ -56,7 +56,7 @@ enum CollectionAnimationFactory {
             })
         }
     }
-
+    
     /// moves the cell downwards, then animates the cell's by returning them to their original position based on indexPaths
     static func makeMoveUpAnimation(rowHeight: CGFloat, duration: TimeInterval, delayFactor: TimeInterval) -> collectionCellAnimation {
         return { cell, indexPath, _ in
@@ -92,7 +92,7 @@ enum CollectionAnimationFactory {
 
 enum CollectionAnimation{
     
-  case fadeIn(duration: TimeInterval, delay: TimeInterval)
+    case fadeIn(duration: TimeInterval, delay: TimeInterval)
     case moveUp(rowHeight: CGFloat, duration: TimeInterval, delay: TimeInterval)
     case moveUpWithFade(rowHeight: CGFloat, duration: TimeInterval, delay: TimeInterval)
     case moveUpBounce(rowHeight: CGFloat, duration: TimeInterval, delay: TimeInterval)

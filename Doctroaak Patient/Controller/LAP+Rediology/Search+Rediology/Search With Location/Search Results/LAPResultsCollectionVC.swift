@@ -11,8 +11,8 @@ import UIKit
 class LAPResultsCollectionVC: BaseCollectionVC {
     
     fileprivate let cellId = "cellId"
-    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
-    
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
+
     var labArrayResults = [LapSearchModel]()
     var radiologyArrayResults = [RadiologySearchModel]()
     var index:Int = 0 //0 for lab 1 for residology

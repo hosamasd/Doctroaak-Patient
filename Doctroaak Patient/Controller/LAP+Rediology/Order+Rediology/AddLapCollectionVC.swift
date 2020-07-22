@@ -11,7 +11,7 @@ import UIKit
 
 class AddLapCollectionVC: BaseCollectionVC {
     
-    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
 
     fileprivate let cellID = "cellID"
     var medicineArray = [RadiologyOrderModel]()//["one","two","three","four","fifie"]

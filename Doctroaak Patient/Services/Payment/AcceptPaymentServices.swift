@@ -82,7 +82,7 @@ class AcceptPaymentServices {
                 "state": "Utah"
             ],
             "currency": "EGP",
-            "integration_id": 21479
+            "integration_id": 27701
         ]
         makeMainPostFORPaymentsGenericUsingAlmofire(url: url, parameters: params, completion: completion)
     }

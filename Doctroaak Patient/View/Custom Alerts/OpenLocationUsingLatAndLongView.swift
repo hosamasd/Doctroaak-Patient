@@ -7,22 +7,19 @@
 //
 
 import UIKit
-import MapKit
+import GoogleMaps
 
 class OpenLocationUsingLatAndLongView: CustomBaseView {
     
     lazy var icuSelectedResultsCell = ICUSelectedResultsCell()
-    lazy var mapView:MKMapView  = {
-        let i = MKMapView()
-        //        i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
+    lazy var mapView:GMSMapView  = {
+        let i = GMSMapView()
+        i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
         return i
     }()
     
     fileprivate let lat:Double!
     fileprivate let long:Double!
-    //    var lat:Double?
-    //    var long:Double?
-    
     init(lat:Double,lng:Double) {
         self.lat=lat
         self.long=lng
@@ -49,8 +46,12 @@ class OpenLocationUsingLatAndLongView: CustomBaseView {
         guard let lat = lat,let lng=long else { return  }
         let coordinate:CLLocationCoordinate2D = .init(latitude: lat, longitude: lng)
         
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        mapView.addAnnotation(annotation)
+        let marker = GMSMarker()
+        marker.title = "Your Location"
+        marker.position = coordinate
+        marker.map = mapView
+        //        let annotation = MKPointAnnotation()
+        //        annotation.coordinate = coordinate
+        //        mapView.addAnnotation(annotation)
     }
 }

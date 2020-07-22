@@ -12,8 +12,8 @@ class PharamacyResultsCollectionVC: BaseCollectionVC {
     fileprivate let cellId = "cellId"
     var pharamacyArrayResults = [PharamacySearchModel]()
     var handlePharamacyCheckedIndex:((PharamacySearchModel)->Void)?
-    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
-    
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
+
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let animation = currentTableAnimation.getAnimation()
         let animator = CollectionViewAnimator(animation: animation)

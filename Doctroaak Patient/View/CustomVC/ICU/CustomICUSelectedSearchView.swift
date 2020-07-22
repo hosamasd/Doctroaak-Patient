@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import MapKit
 import MOLH
+import GoogleMaps
+
 
 class CustomICUSelectedSearchView: CustomBaseView {
     
@@ -44,11 +45,15 @@ class CustomICUSelectedSearchView: CustomBaseView {
     }()
     
     lazy var icuSelectedResultsCell = ICUSelectedResultsCell()
-    lazy var mapView:MKMapView  = {
-        let i = MKMapView()
-        return i
-    }()
-    
+//    lazy var mapView:MKMapView  = {
+//        let i = MKMapView()
+//        return i
+//    }()
+    lazy var mapView:GMSMapView  = {
+              let i = GMSMapView()
+              i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
+              return i
+          }()
 
     
     override func setupViews() {

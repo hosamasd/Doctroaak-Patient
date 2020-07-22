@@ -9,7 +9,21 @@
 
 import UIKit
 import MOLH
+import CoreLocation
+
 extension UIView {
+    
+    func convertLatLongToAddress(latitude: Double, longitude: Double, completion: @escaping (_ answer: String?) -> Void) {
+                
+                let coordinates = CLLocation(latitude: latitude, longitude: longitude)
+                
+                CLGeocoder().reverseGeocodeLocation(coordinates, completionHandler: {(placemarks, error) -> Void in
+                    guard let   placeMark = placemarks?[0] else {return }
+                    guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else { completion(placeMark.locality );return }
+                    let ans =  street+" - "+city+" - "+country
+                    completion(ans)
+                })
+             }
     
     func getCityFromIndex(_ index:Int) -> String {
         var citName = [String]()
@@ -118,17 +132,28 @@ extension UIView {
     }
     
     
-    func makeMainSubViewWithAppendView(vv:[UIView]) ->UIView {
+    func makeMainSubViewWithAppendView(vv:[UIView],height:CGFloat? = 60) ->UIView {
         let l = UIView(backgroundColor: .white)
         l.layer.cornerRadius = 8
         l.layer.borderWidth = 1
         l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.constrainHeight(constant: 60)
+        l.constrainHeight(constant: height ?? 60)
         vv.forEach { (v) in
             l.addSubViews(views: v)
         }
         return l
     }
+    
+    func makeMainSubViewWithAppendViessw(vv:[UIView]) ->UIView {
+           let l = UIView(backgroundColor: .white)
+           l.layer.cornerRadius = 8
+           l.layer.borderWidth = 1
+           l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+           vv.forEach { (v) in
+               l.addSubViews(views: v)
+           }
+           return l
+       }
     
     func createMain2Buttons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
         let button = UIButton(type: .system)

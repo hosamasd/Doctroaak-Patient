@@ -10,7 +10,7 @@ import UIKit
 
 class DoctorListCollectionVC: BaseCollectionVC {
     
-    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
 
     var specificationArray = [SpecificationModel]()
     fileprivate let cellId = "cellId"

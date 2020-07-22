@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MapKit
+import GoogleMaps
 
 class ICUSlelcetedResultVC: CustomBaseViewVC {
     
@@ -60,10 +60,14 @@ class ICUSlelcetedResultVC: CustomBaseViewVC {
             initialLocation = incubation!.name
             ssss = CLLocationCoordinate2D(latitude: incubation!.lat, longitude: incubation!.lng)
         }
-        let london = MKPointAnnotation()
-        london.title = initialLocation
-        london.coordinate = ssss
-        customICUSelectedSearchView.mapView.addAnnotation(london)
+        let marker = GMSMarker()
+        marker.title = initialLocation
+        marker.position = ssss
+        marker.map = customICUSelectedSearchView.mapView
+//        let london = MKPointAnnotation()
+//        london.title = initialLocation
+//        london.coordinate = ssss
+//        customICUSelectedSearchView.mapView.addAnnotation(london)
     }
     
     override func viewWillAppear(_ animated: Bool) {

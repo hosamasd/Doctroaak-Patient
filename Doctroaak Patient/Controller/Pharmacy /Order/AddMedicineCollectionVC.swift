@@ -16,7 +16,7 @@ class AddMedicineCollectionVC: BaseCollectionVC {
     var showOrderOnly:Bool = false
     var medicineTextArray = [PharamcyWithNameOrderModel]()
     var handleRemovePharamcay:((PharamcyOrderModel,IndexPath)->Void)?
-    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
 
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

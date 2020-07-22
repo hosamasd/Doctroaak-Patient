@@ -638,7 +638,6 @@
 		4E13DDAD243087AC00421737 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				9FDC27E224B4F1170030AB22 /* CollectionAnimation.swift */,
 				4E000D09246181A400083BD5 /* Profile */,
 				4EBFE887248523A200512689 /* PatientFavoritessDoctorsCell.swift */,
 				4E6E04EA24615029008DE228 /* Registration */,
@@ -656,6 +655,7 @@
 		4E13DDAE243087B300421737 /* BaseVCS */ = {
 			isa = PBXGroup;
 			children = (
+				9FDC27E224B4F1170030AB22 /* CollectionAnimation.swift */,
 				4E13DDB72430886100421737 /* CustomBaseViewVC.swift */,
 				4EA8B1142430E1CA008473D3 /* BaseCollectionVC.swift */,
 				4EA8B1182430E373008473D3 /* BaseSlidingVC.swift */,
@@ -935,6 +935,7 @@
 			isa = PBXGroup;
 			children = (
 				4E6D5BB224307183000FC72D /* AppDelegate.swift */,
+				4E728B5F24826487005D2046 /* Cache */,
 				4E1836DD2483D8A000FA8B73 /* Localization */,
 				4E13DDCD24308B6800421737 /* Constants */,
 				4E6D5BC9243071B9000FC72D /* Services */,
@@ -954,9 +955,8 @@
 		4E6D5BC42430718F000FC72D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4E728B5F24826487005D2046 /* Cache */,
-				4E000D002461807000083BD5 /* Profile */,
 				4E13DDAE243087B300421737 /* BaseVCS */,
+				4E000D002461807000083BD5 /* Profile */,
 				4E347CDC2430B8D200333C07 /* Menu */,
 				4EFDA7232431D42E0010AA7D /* Doctor + Medical Center */,
 				4E04C87A243230CF00D1AD1C /* Pharmacy  */,
@@ -1687,6 +1687,7 @@
 				4E6D5BAC24307183000FC72D /* Frameworks */,
 				4E6D5BAD24307183000FC72D /* Resources */,
 				0CE01F22287FFF9619DE71E5 /* [CP] Embed Pods Frameworks */,
+				1A18399BE4BD2504E19A972F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1774,6 +1775,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1A18399BE4BD2504E19A972F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doctroaak Patient/Pods-Doctroaak Patient-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DE8C4448BA8CAB68284E7C7D /* [CP] Check Pods Manifest.lock */ = {

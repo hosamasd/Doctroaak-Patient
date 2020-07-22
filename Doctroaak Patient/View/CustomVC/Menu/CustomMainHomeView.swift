@@ -46,56 +46,56 @@ class CustomMainHomeView: CustomBaseView {
         return i
     }()
     lazy var drImage:UIImageView = {
-           let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
-           i.contentMode = .scaleToFill
-           i.clipsToBounds = true
-           i.constrainWidth(constant: 80)
-           //           i.constrainHeight(constant: 400)
-           return i
-       }()
-       lazy var drInsuranceImage:UIImageView = {
-           let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
-           i.contentMode = .scaleToFill
-           i.clipsToBounds = true
-           i.constrainWidth(constant: 80)
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+        i.contentMode = .scaleToFill
+        i.clipsToBounds = true
+        i.constrainWidth(constant: 80)
+        //           i.constrainHeight(constant: 400)
+        return i
+    }()
+    lazy var drInsuranceImage:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+        i.contentMode = .scaleToFill
+        i.clipsToBounds = true
+        i.constrainWidth(constant: 80)
         i.isHide(true)
-
-           return i
-       }()
-       lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white)
+        
+        return i
+    }()
+    lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white)
     lazy var titleLabel = UILabel(text: "Home".localized, font: .systemFont(ofSize: 30), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
-    lazy var mainView:UIView = makeMainSubViewWithAppendView(vv: [Image1,label1])
+    lazy var mainView:UIView = makeMainSubViewWithAppendViessw(vv: [Image1,label1])
     lazy var main2View:UIView =  {
-        let v = makeMainSubViewWithAppendView(vv: [Image2,label2])
+        let v = makeMainSubViewWithAppendViessw(vv: [Image2,label2])
         //        v.constrainHeight(constant: 70)
-        //        v.constrainHeight(constant: 100)
+                v.constrainHeight(constant: 100)
         return v
     }()
-    lazy var main3View:UIView = makeMainSubViewWithAppendView(vv: [Image3,label3])
+    lazy var main3View:UIView = makeMainSubViewWithAppendViessw(vv: [Image3,label3])
     lazy var label1 =  makeAttributedText(fir: " Find".localized.localized, sec: "Service".localized)
     lazy var label2 =  makeAttributedText(fir: " Favorite".localized, sec: "Doctors".localized)
     lazy var label3 =  makeAttributedText(fir: " My".localized, sec: "Orders".localized)
     
     lazy var Image1:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-4"))
-        i.contentMode = .scaleAspectFill
+//        i.contentMode = .scaleAspectFill
         i.constrainWidth(constant: 80)
-        
+//        i.constrainHeight(constant: 80)
         return i
     }()
     
     lazy var Image2:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143-2"))
-        i.contentMode = .scaleAspectFill
+//        i.contentMode = .scaleAspectFill
         i.constrainWidth(constant: 80)
         return i
     }()
     
     lazy var Image3:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4144"))
-        i.contentMode = .scaleAspectFill
+//        i.contentMode = .scaleAspectFill
         i.constrainWidth(constant: 80)
         return i
     }()
@@ -128,12 +128,12 @@ class CustomMainHomeView: CustomBaseView {
     
     override func setupViews() {
         [titleLabel,docotrLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-
+        
         let sss = getStack(views: drImage,docotrLabel,drInsuranceImage, spacing: 8, distribution: .fill, axis: .horizontal)
         
         let ss = getStack(views: mainView,main2View,main3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
-        addSubViews(views: LogoImage,listImage,notifyImage,ss,titleLabel,soonLabel,ss,baseAdsCell)
+        addSubViews(views: LogoImage,listImage,notifyImage,ss,titleLabel,soonLabel,sss,baseAdsCell)
         
         NSLayoutConstraint.activate([
             ss.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -156,7 +156,7 @@ class CustomMainHomeView: CustomBaseView {
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         sss.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
-
+        
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         ss.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
@@ -168,11 +168,11 @@ class CustomMainHomeView: CustomBaseView {
         let l = UILabel()
         let attrString = NSMutableAttributedString()
         if MOLHLanguage.isRTLLanguage() {
-            attrString.appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 16, sec+"\n")
-            attrString.appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 16, fir)
+            attrString.appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 22, sec+"\n")
+            attrString.appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 20, fir)
         }else {
-            attrString.appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 16, fir+"\n")
-            attrString.appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 16, sec)
+            attrString.appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 20, fir+"\n")
+            attrString.appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 22, sec)
         }
         l.attributedText = attrString
         l.numberOfLines = 2

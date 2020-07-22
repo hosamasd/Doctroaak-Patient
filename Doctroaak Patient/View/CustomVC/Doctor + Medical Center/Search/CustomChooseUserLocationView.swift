@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import MapKit
 import CoreLocation
+import GoogleMaps
 
 class CustomChooseUserLocationView: CustomBaseView {
     
@@ -21,12 +21,14 @@ class CustomChooseUserLocationView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var mapView:MKMapView  = {
-        let i = MKMapView()
-        i.showsUserLocation = true
-        //        i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
-        return i
-    }()
+    
+   lazy var mapView:GMSMapView  = {
+              let i = GMSMapView()
+              i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
+    i.isUserInteractionEnabled=true
+     i.settings.compassButton = true 
+              return i
+          }()
     lazy var doneButton:UIButton = {
         let b = UIButton()
         b.setTitle("Done".localized, for: .normal)
