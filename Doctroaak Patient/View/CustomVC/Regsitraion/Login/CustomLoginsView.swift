@@ -32,17 +32,23 @@ class CustomLoginsView: CustomBaseView {
     lazy var phoneNumberTextField = createMainTextFields(place: "Phone Number".localized, type: .numberPad)
     lazy var passwordTextField:UITextField = {
         let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
+//        let button = UIButton(type: .custom)
+//        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
+//        button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        passworddOsldBTN.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
       
-        s.rightView = button
+        s.rightView = passworddOsldBTN
         s.rightViewMode = .always
         s.constrainHeight(constant: 60)
         return s
     }()
+    lazy var passworddOsldBTN:UIButton = {
+           let b = UIButton(type: .custom)
+           b.setImage(#imageLiteral(resourceName: "visibility").withRenderingMode(.alwaysOriginal), for: .normal)
+           b.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+           b.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
+           return b
+       }()
     lazy var forgetPasswordButton:UIButton = {
         let b = UIButton()
         b.setTitle("Forget Password ?".localized, for: .normal)
@@ -145,7 +151,9 @@ class CustomLoginsView: CustomBaseView {
         }
     }
     
-    @objc func handleASD()  {
-        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
-    }
+    @objc func handleASD(sender:UIButton)  {
+           passwordTextField.isSecureTextEntry.toggle()
+           let xx = passwordTextField.isSecureTextEntry == true ? #imageLiteral(resourceName: "visibility") : #imageLiteral(resourceName: "icons8-eye-64")
+                  sender.setImage(xx, for: .normal)
+       }
 }

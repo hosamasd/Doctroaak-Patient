@@ -10,12 +10,20 @@ import UIKit
 
 class DoctorListCollectionVC: BaseCollectionVC {
     
+    lazy var refreshControl:UIRefreshControl = {
+           let refreshControl = UIRefreshControl()
+           refreshControl.backgroundColor = UIColor.white
+           refreshControl.tintColor = UIColor.black
+           return refreshControl
+           
+       }()
     var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
 
     var specificationArray = [SpecificationModel]()
     fileprivate let cellId = "cellId"
     var index = 0
-    
+    var handleRefreshCollection:(()->Void)?
+
     var handleCheckedIndex:((Int)->Void)?
     
     
@@ -68,6 +76,12 @@ class DoctorListCollectionVC: BaseCollectionVC {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
         collectionView.register(DoctorHomeListCell.self, forCellWithReuseIdentifier: cellId)
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        collectionView.alwaysBounceHorizontal=true
+               collectionView.refreshControl = refreshControl
     }
+    @objc func didPullToRefresh()  {
+           handleRefreshCollection?()
+       }
 
 }

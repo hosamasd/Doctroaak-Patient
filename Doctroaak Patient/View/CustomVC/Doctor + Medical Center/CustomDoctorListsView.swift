@@ -41,11 +41,15 @@ class CustomDoctorListsView: CustomBaseView {
         vc.handleCheckedIndex = {[unowned self ] id in
             self.handleCheckedIndex?(id)
         }
+        vc.handleRefreshCollection = {[unowned self ]  in
+                   self.handleRefreshCollection?()
+               }
         //        vc.view.isHide(vc.specificationArray.count < 1 ? true : false)
         return vc
     }()
     
-    
+    var handleRefreshCollection:(()->Void)?
+
     var handleCheckedIndex:((Int)->Void)?
     
     override func setupViews() {

@@ -32,6 +32,9 @@ class DoctorListsVC: CustomBaseViewVC {
             let vc = DoctorSearchVC(spy: spy, index: self.index)
             self.navigationController?.pushViewController(vc, animated: true)
         }
+        v.handleRefreshCollection = {[unowned self ]  in
+                         self.getData()
+                     }
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
@@ -92,9 +95,9 @@ class DoctorListsVC: CustomBaseViewVC {
 //        SVProgressHUD.show(withStatus: "Looding...".localized)
         MainServices.shared.getSpecificationss { (base, err) in
             if let err=err{
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+  self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -104,6 +107,8 @@ class DoctorListsVC: CustomBaseViewVC {
             self.customDoctorListsView.doctorListCollectionVC.specificationArray = specificationsArray
             
             DispatchQueue.main.async {
+                self.customDoctorListsView.doctorListCollectionVC.collectionView.refreshControl?.beginRefreshing()
+                          self.customDoctorListsView.doctorListCollectionVC.collectionView.refreshControl?.endRefreshing()
                 self.customDoctorListsView.doctorListCollectionVC.collectionView.reloadData()
                 
                 self.view.layoutIfNeeded()
