@@ -116,7 +116,7 @@ class LAPBookVC: CustomBaseViewVC {
         
         customLAPBookView.lapBookViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isValid) in
             if isValid == true {
-                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+//                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
                 //                SVProgressHUD.show(withStatus: "Booking...".localized)
                 self.showMainAlertLooder()
             }else {

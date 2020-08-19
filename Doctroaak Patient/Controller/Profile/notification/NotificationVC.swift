@@ -95,14 +95,14 @@ class NotificationVC: CustomBaseViewVC {
         let s = "vyAAbhTZXBRfB2tqo13GZCLHuzm8bsJz4ABFbf0YY3oxlkGiTj5uLrckGL6WvDUfBxmUJKIzoIUqwpXaSjxghnEn3h51"
         let d = 44
         
-        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+//        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
 //        SVProgressHUD.show(withStatus: "Looding...".localized)
         self.showMainAlertLooder()
         PatientProfileSservicea.shared.getNotifications(api_token: patients.apiToken, user_id: patients.id) { (base, err) in
             if let err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
 //            SVProgressHUD.dismiss()
@@ -130,13 +130,13 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     func makeDeleteNotify(id:Int,_ index:IndexPath)  {
-        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+//        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         SVProgressHUD.show(withStatus: "Looding...".localized)
         PatientProfileSservicea.shared.removeNotification(notification_id: id) { (base, err) in
             if let err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()

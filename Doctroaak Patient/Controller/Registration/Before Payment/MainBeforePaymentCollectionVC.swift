@@ -114,6 +114,7 @@ class MainBeforePaymentCollectionVC: BaseCollectionVC {
         collectionView.backgroundColor = .white
         collectionView.register(BeforePaymentCell.self, forCellWithReuseIdentifier: cellID)
         collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator=false
     }
     
     

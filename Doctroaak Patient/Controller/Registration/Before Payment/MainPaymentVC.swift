@@ -68,8 +68,8 @@ class MainPaymentVC: CustomBaseViewVC {
                                 SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                                SVProgressHUD.dismiss()
+                                self.activeViewsIfNoData()
             }
         })
     }

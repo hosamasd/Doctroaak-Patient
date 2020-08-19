@@ -90,7 +90,7 @@ class DoctorListsVC: CustomBaseViewVC {
     }
     
     func getData()  {
-        UIApplication.shared.beginIgnoringInteractionEvents()
+//        UIApplication.shared.beginIgnoringInteractionEvents()
         showMainAlertLooder()
 //        SVProgressHUD.show(withStatus: "Looding...".localized)
         MainServices.shared.getSpecificationss { (base, err) in

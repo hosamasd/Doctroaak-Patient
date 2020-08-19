@@ -102,15 +102,16 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     }
     
     fileprivate func getStaticData()  {
-        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        //        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         
         //        SVProgressHUD.show(withStatus: "Looding...")
         self.showMainAlertLooder()
         MainServices.shared.getPaymentDetails { (base, err) in
             
             if let err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
                 
                 self.activeViewsIfNoData();return
             }
@@ -147,9 +148,12 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     }
     
     fileprivate func showMainAlertLooder()  {
-        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
-        customAlertMainLoodingView.problemsView.loopMode = .loop
-        present(customMainAlertVC, animated: true)
+        self.customMainAlertVC.addCustomViewInCenter(views: self.customAlertMainLoodingView, height: 200)
+        self.customAlertMainLoodingView.problemsView.play()
+        self.customAlertMainLoodingView.problemsView.loopMode = .loop
+        self.present(self.customMainAlertVC, animated: true)
+        
+        
     }
     
     //TODO: -handle methods
@@ -157,7 +161,9 @@ class FirstSkipPaymentVC: CustomBaseViewVC {
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertLoginView)
         
-        dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

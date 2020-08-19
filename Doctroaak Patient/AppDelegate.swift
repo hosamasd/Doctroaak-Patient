@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: DoctorListsVC(index: 1))// BaseSlidingVC()//UINavigationController(rootViewController:PharmacyLocationVC())//DoctorBookVC(clinic_id: 1)) //BaseSlidingVC()//UINavigationController(rootViewController:ProfileOrdersVC())//LapSearchVC(index: 0))//LAPOrderVC(index: 0, lab: 1))//ProfileOrdersVC())//BaseSlidingVC()//UINavigationController(rootViewController: LoginVC())//UINavigationController(rootViewController: LapSearchVC(index: 1))//BaseSlidingVC()//UINavigationController(rootViewController:
+        window?.rootViewController = BaseSlidingVC()//UINavigationController(rootViewController: DoctorListsVC(index: 1))// BaseSlidingVC()//UINavigationController(rootViewController:PharmacyLocationVC())//DoctorBookVC(clinic_id: 1)) //BaseSlidingVC()//UINavigationController(rootViewController:ProfileOrdersVC())//LapSearchVC(index: 0))//LAPOrderVC(index: 0, lab: 1))//ProfileOrdersVC())//BaseSlidingVC()//UINavigationController(rootViewController: LoginVC())//UINavigationController(rootViewController: LapSearchVC(index: 1))//BaseSlidingVC()//UINavigationController(rootViewController:
         return true
     }
 

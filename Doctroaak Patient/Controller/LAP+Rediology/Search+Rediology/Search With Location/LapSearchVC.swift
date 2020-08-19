@@ -114,7 +114,7 @@ class LapSearchVC: CustomBaseViewVC {
         
         customLapSearchView.lAPSearchViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+//                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
                 //                SVProgressHUD.show(withStatus: "Searching...".localized)
                 self.showMainAlertLooder()
             }else {

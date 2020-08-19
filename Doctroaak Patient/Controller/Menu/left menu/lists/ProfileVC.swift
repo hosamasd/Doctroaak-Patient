@@ -86,8 +86,8 @@ class ProfileVC: CustomBaseViewVC {
     fileprivate func setupViewModelObserver()  {
         customProfileView.edirProfileViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Updating...".localized)
+//                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Updating...".localized)
                 self.showMainAlertLooder()
             }else {
                 //                SVProgressHUD.dismiss()

@@ -34,12 +34,13 @@ class CustomWelcomeView: CustomBaseView {
        
     
     override func setupViews() {
-        addSubViews(views: mainImage,drImage,docotrLabel,copyWriteLabel)
+        addSubViews(views: mainImage,drImage,docotrLabel,copyWriteLabel,problemsView)
         
         mainImage.fillSuperview()
         drImage.centerInSuperview()
         docotrLabel.anchor(top: drImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 16, right: 0))
-        
+        problemsView.anchor(top: docotrLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 20, left: 0, bottom: 16, right: 0))
+
         copyWriteLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 16, right: 0))
         
     }

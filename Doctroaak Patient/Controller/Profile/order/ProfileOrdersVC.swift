@@ -114,18 +114,22 @@ class ProfileOrdersVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissKeyboard)))
+        fetchAllOrders()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHide(true)
         if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
             patient = cacheObjectCodabe.storedValue
         }else {}
-        fetchAllOrders()
+//        fetchAllOrders()
     }
     
     
-    
+//    override func setupNavigation()  {
+//           navigationController?.isNavigationBarHidden = true
+//       }
     
     
     override func setupNavigation() {
@@ -151,7 +155,7 @@ class ProfileOrdersVC: CustomBaseViewVC {
         
         
         //        SVProgressHUD.show(withStatus: "Looding...".localized)
-        UIApplication.shared.beginIgnoringInteractionEvents()
+//        UIApplication.shared.beginIgnoringInteractionEvents()
         self.showMainAlertLooder()
         let semaphore = DispatchSemaphore(value: 0)
         
@@ -304,15 +308,15 @@ class ProfileOrdersVC: CustomBaseViewVC {
     
     func makeActionForCancel(indexx:IndexPath,ind:Int,order_id:Int,message:String,type:String)  {
         guard let patient = patient else { return  }
-        UIApplication.shared.beginIgnoringInteractionEvents()
+//        UIApplication.shared.beginIgnoringInteractionEvents()
         
         //        SVProgressHUD.show(withStatus: "looding...".localized)
         self.showMainAlertLooder()
         CanceOrdersServices.shared.cancelOrder(patient_id:patient.id,api_token: patient.apiToken, order_id: order_id, order_type: type, message: message) { (base, err) in
             if let err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             //            SVProgressHUD.dismiss()
@@ -393,16 +397,16 @@ class ProfileOrdersVC: CustomBaseViewVC {
         print(customStarView.rating)
         let rate = Int(customStarView.rating)
         guard let patient = patient else {handleRemoveStars(); return  }
-        UIApplication.shared.beginIgnoringInteractionEvents()
+//        UIApplication.shared.beginIgnoringInteractionEvents()
         
 //        SVProgressHUD.show(withStatus: "Rating...".localized)
         self.showMainAlertLooder()
         PatientProfileSservicea.shared.rateDoctors(patient_id: patient.id, doctor_id: customStarView.doctor_id, api_token: patient.apiToken, type: customStarView.type, rate: rate) { (base, err) in
             
             if let err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();self.handleRemoveStars();return
             }
             //            SVProgressHUD.dismiss()
